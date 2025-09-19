@@ -1,0 +1,29 @@
+-- Table: mpt_linderos
+
+-- DROP TABLE mpt_linderos;
+
+CREATE TABLE mpt_linderos
+(
+  id_ficha character(19) NOT NULL,
+  fren_campo character(50),
+  fren_titulo character(50),
+  fren_colinda_campo character(50),
+  fren_colinda_titulo character(50),
+  dere_campo character(50),
+  dere_titulo character(50),
+  dere_colinda_campo character(50),
+  dere_colinda_titulo character(50),
+  izqu_campo character(50),
+  izqu_titulo character(50),
+  izqu_colinda_campo character(50),
+  izqu_colinda_titulo character(50),
+  fond_campo character(50),
+  fond_titulo character(50),
+  fond_colinda_campo character(50),
+  fond_colinda_titulo character(50),
+  CONSTRAINT mpt_linderos_pk PRIMARY KEY (id_ficha)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE mpt_linderos OWNER TO postgres;

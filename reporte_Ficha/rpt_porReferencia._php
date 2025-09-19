@@ -1,0 +1,154 @@
+<?php 				
+		require_once 'model/database_catastro.php';
+		require_once 'model/constantes.php';
+		require_once 'model/Fichas_p.php';
+?>
+<!DOCTYPE html>
+<html lang="es-es">
+	<head>
+		<meta charset="utf-8">
+		<title>Contacto</title>
+	<head>
+	<body>
+		<?php
+			$filename = 'libros.xls';
+
+			// Crear la tabla HTML
+			$html = '';
+			$html .= '<table border="1">';
+			$html .= '<tr>';
+			$html .= '<td colspan="5">Reporte de Levantamiento Catastral - por Referencia</tr>';
+			$html .= '</tr>';
+
+			$html .= '<tr>';
+			$html .= '<td><b>Departamento</b></td>';
+			$html .= '<td><b>Provincia</b></td>';
+			$html .= '<td><b>Distrito</b></td>';
+			$html .= '<td><b>Sector</b></td>';
+			$html .= '<td><b>Manzana</b></td>';
+			$html .= '<td><b>Lote</b></td>';
+			$html .= '<td><b>Edifica</b></td>';
+			$html .= '<td><b>Entrada</b></td>';
+			$html .= '<td><b>Piso</b></td>';
+			$html .= '<td><b>Unidad</b></td>';
+			$html .= '<td><b>Nro Manzana</b></td>';
+			$html .= '<td><b>Nro Lote</b></td>';
+			$html .= '<td><b>Nro SubLote</b></td>';
+			$html .= '<td><b>Estado</b></td>';
+			$html .= '<td><b>Habilitación Urbana</b></td>';
+			$html .= '<td><b>Tipo Zona/Sector/Etapa</b></td>';
+			$html .= '<td><b>Numero Etapa</b></td>';
+			$html .= '<td><b>Referencia de Uso</b></td>';
+			$html .= '<td><b>Descripción de Uso</b></td>';
+			$html .= '<td><b>Luz</b></td>';
+			$html .= '<td><b>Agua</b></td>';
+			$html .= '<td><b>Telefono</b></td>';
+			$html .= '<td><b>Desagüe</b></td>';
+			$html .= '<td><b>Gas</b></td>';
+			$html .= '<td><b>Cat-Pisos</b></td>';
+			$html .= '<td><b>Cat-Muro</b></td>';
+			$html .= '<td><b>Cat-Techo</b></td>';
+			$html .= '<td><b>Cat-Piso</b></td>';
+			$html .= '<td><b>Cat-Puerta</b></td>';
+			$html .= '<td><b>Cat-Material</b></td>';
+			$html .= '<td><b>Nro Medidores</b></td>';
+			$html .= '<td><b>Observaciones</b></td>';
+			$html .= '<td><b>Subdivisión</b></td>';
+			$html .= '<td><b>Acumulación</b></td>';
+			$html .= '<td><b>Independización</b></td>';
+			$html .= '<td><b>Ruta Imagen</b></td>';
+			$html .= '<td><b>TipoVía</b></td>';
+			$html .= '<td><b>CodigoVía</b></td>';
+			$html .= '<td><b>TipoPuerta</b></td>';
+			$html .= '<td><b>Numero Municipal</b></td>';
+			$html .= '<td><b>Usuario</b></td>';
+			$html .= '<td><b>Fecha Levantamiento</b></td>';
+			$html .= '</tr>';
+
+			$sector = $_POST['sector'];
+			$manzana = $_POST['manzana'];
+
+			# Validar referencia catastral
+			$oFichaNueva = new Fichas_p();
+			$fichas = $oFichaNueva->ReportexReferencia($sector, $manzana);	
+
+				if(!empty($fichas)):
+					foreach ($fichas as $ficha):
+						
+						$Departamento =substr($ficha["c_id_uni_cat"],1,2);
+						$Provincia = substr($ficha["c_id_uni_cat"],3,2);
+						$Distrito = substr($ficha["c_id_uni_cat"],3,2);
+						$Sector = substr($ficha["c_id_uni_cat"],7,2);
+						$Manzana = substr($ficha["c_id_uni_cat"],9,3);
+						$Lote = substr($ficha["c_id_uni_cat"],12,3);
+						$Edifica = substr($ficha["c_id_uni_cat"],15,2);
+						$Entrada =substr($ficha["c_id_uni_cat"],17,2);
+						$Piso  = substr($ficha["c_id_uni_cat"],19,2);
+						$Unidad = substr($ficha["c_id_uni_cat"],21,3);
+
+						$html .= '<tr>';
+						$html .= '<td>'.$Departamento.'</td>';
+						$html .= '<td>'.$Provincia.'</td>';
+						$html .= '<td>'.$Distrito.'</td>';
+						$html .= '<td>'.$Sector.'</td>';
+						$html .= '<td>'.$Manzana.'</td>';
+						$html .= '<td>'.$Lote.'</td>';
+						$html .= '<td>'.$Edifica.'</td>';
+						$html .= '<td>'.$Entrada.'</td>';
+						$html .= '<td>'.$Piso.'</td>';
+						$html .= '<td>'.$Unidad.'</td>';
+						$html .= '<td>'.$ficha["c_manzana"].'</td>';
+						$html .= '<td>'.$ficha["c_lote"].'</td>';
+						$html .= '<td>'.$ficha["c_sublote"].'</td>';
+						$html .= '<td>'.$ficha["c_des_est_unid"].'</td>';
+						$html .= '<td>'.$ficha["hab_urba"].'</td>';
+						$html .= '<td>'.$ficha["c_tipozce"].'</td>';
+						$html .= '<td>'.$ficha["i_num_etapa"].'</td>';
+						$html .= '<td>'.$ficha["c_referencial_uso"].'</td>';
+						$html .= '<td>'.$ficha["c_desc_uso"].'</td>';						
+						$html .= '<td>'.$ficha["c_luz"].'</td>';
+						$html .= '<td>'.$ficha["c_agua"].'</td>';
+						$html .= '<td>'.$ficha["c_telefono"].'</td>';
+						$html .= '<td>'.$ficha["c_desague"].'</td>';
+						$html .= '<td>'.$ficha["c_gas"].'</td>';
+						$html .= '<td>'.$ficha["pisos"].'</td>';
+						$html .= '<td>'.$ficha["muro"].'</td>';
+						$html .= '<td>'.$ficha["techo"].'</td>';
+						$html .= '<td>'.$ficha["piso"].'</td>';
+						$html .= '<td>'.$ficha["puerta"].'</td>';
+						$html .= '<td>'.$ficha["material"].'</td>';
+						$html .= '<td>'.$ficha["i_medidores"].'</td>';
+						$html .= '<td>'.$ficha["c_observaciones"].'</td>';
+						$html .= '<td>'.$ficha["i_subdivision"].'</td>';
+						$html .= '<td>'.$ficha["i_acumulacion"].'</td>';
+						$html .= '<td>'.$ficha["i_independizacion"].'</td>';
+						$html .= '<td>'.$ficha["c_ruta_imagen"].'</td>';
+						$html .= '<td>'.$ficha["c_tip_via"].'</td>';
+						$html .= '<td>'.$ficha["c_cod_via"].'</td>';
+						$html .= '<td>'.$ficha["i_tipo_puerta"].'</td>';
+						$html .= '<td>'.$ficha["c_nume_muni"].'</td>';
+						$html .= '<td>'.$ficha["c_usuario"].'</td>';
+						$data = date('d/m/Y H:i:s',strtotime($ficha["d_fecha"]));
+						$html .= '<td>'.$data.'</td>';
+						$html .= '</tr>';
+						;
+					endforeach;
+				else:
+					echo "No hay datos a exportar";
+				endif;
+
+			
+			header("Content-Type: application/x-msexcel");
+			header ("Content-Disposition: attachment; filename=\"{$filename}\"" );
+			header ("Content-Description: PHP Generado Data" );
+			header ("Cache-Control: no-cache, must-revalidate");
+			header("Pragma: no-cache"); 
+			header("Expires: 0");
+			//	 
+	echo $html;
+	exit;	?>
+	
+	</body>
+</html>
+
+

@@ -1,0 +1,62 @@
+/* Curso CSS estilos aprenderaprogramar.com*/
+html{
+
+	margin:0;
+}
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+    margin: 2mm 2mm 2mm 3mm; 
+     }
+
+table {     
+font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+font-size: 9px;   
+margin: -2px;  
+width: 100%; 
+text-align: right;  
+border-collapse: separate; }
+
+th {
+font-size: 13px;     
+font-weight: normal;  
+padding: 8px;  
+background: #b9c9fe;
+border-top: 4px solid #aabcfe;  
+border-bottom: 1px solid #fff;
+color: #039; }
+
+td { 
+font-size: 9px;  
+padding: 8px;    
+background: #e8edff;   
+border-bottom: 1px solid #fff;
+
+color: #150046;  
+border-top: 1px solid transparent; }
+
+tr:hover td {
+background: #d0dafd; 
+color: #339; }
+
+
+.separacion{
+padding-bottom: -12px;
+}
+
+.center{
+	text-align: center;
+}
+
+.right{
+	text-align: right;
+}
+.left{
+	text-align: left;
+}
+
+
+.cab
+{
+	font-size: 11px;
+}

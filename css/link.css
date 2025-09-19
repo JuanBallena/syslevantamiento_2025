@@ -1,0 +1,27 @@
+
+.link {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	text-transform: capitalize;
+	color: #FF0000;
+	text-decoration: none;
+}
+
+.encabezado {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	text-transform: capitalize;
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+a:hover {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	text-transform: capitalize;
+	color: #316AC5;
+	text-decoration: none;
+}

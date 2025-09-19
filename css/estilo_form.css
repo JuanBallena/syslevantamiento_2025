@@ -1,0 +1,177 @@
+body {
+	margin: 0;
+	padding: 0;
+	font-family: helvetica, tahoma, arial;
+	font-size: 12px;
+	text-align: left;
+	color: #748388;
+	background: #FFFFFF;
+	text-transform:uppercase;
+}
+
+.myform{
+	margin:0 auto;
+	width:980px;
+	padding:14px;
+	background: #D7EBFF;
+}
+
+.contador{
+background-color:#D7EBFF;
+border-style:none;
+display:none;
+
+}
+
+.input {
+	font-family: Verdana;
+	font-size: 13px;
+	height:22px;
+	margin:0px 0px 0px 0px;
+	text-transform:uppercase;
+	text-align:center;
+	
+}
+
+.celda{
+	height:20px;
+	margin:0px 0px 2px 0px ;
+}
+
+.bt_plus{
+float:none;
+font-size:10px;
+padding:0px;
+
+width:40px;
+height:20px;
+margin:0px 0px 0px 0px ;
+background:url(../img/boton.png) no-repeat;
+border:none;
+background-position:center;
+color:#FFFFFF;
+
+}
+
+.bt_plus2{
+float:none;
+font-size:10px;
+padding:0px;
+
+width:30px;
+height:20px;
+margin:0px 0px 0px 0px ;
+background:url(../img/boton.png) no-repeat;
+border:none;
+background-position:center;
+color:#FFFFFF;
+}
+
+.bt_plus3{
+float:none;
+font-size:10px;
+padding:0px;
+
+width:70px;
+height:20px;
+margin:0px 0px 0px 0px ;
+margin-bottom:2;
+background:url(../img/boton.png) no-repeat;
+border:none;
+background-position:center;
+color:#FFFFFF;
+}
+
+.bt_plus4{
+float:none;
+font-size:10px;
+padding:0px;
+
+width:70px;
+height:20px;
+margin:0px 0px 0px 0px ;
+margin-bottom:2;
+background:url(../img/boton.png) no-repeat;
+border:none;
+background-position:center;
+color:#FFFFFF;
+}
+
+.bt_plus5{
+float:none;
+font-size:10px;
+padding:0px;
+
+width:72px;
+height:20px;
+margin:0px 0px 0px 0px ;
+margin-bottom:2;
+background:url(../img/boton.png) no-repeat;
+border:none;
+background-position:center;
+color:#FFFFFF;
+}
+
+.bt_plus6{
+float:none;
+font-size:10px;
+padding:0px;
+
+width:55px;
+height:20px;
+margin:0px 0px 0px 0px ;
+margin-bottom:2;
+background:url(../img/boton.png) no-repeat;
+border:none;
+background-position:center;
+color:#FFFFFF;
+}
+
+.bt_plus7{
+float:none;
+font-size:10px;
+padding:0px;
+
+width:45px;
+height:20px;
+margin:0px 0px 0px 0px ;
+margin-bottom:2;
+background:url(../img/boton.png) no-repeat;
+border:none;
+background-position:center;
+color:#FFFFFF;
+}
+
+.bt_plus8{
+float:none;
+font-size:10px;
+padding:0px;
+
+width:75px;
+height:20px;
+margin:0px 0px 0px 0px ;
+margin-bottom:2;
+background:url(../img/boton.png) no-repeat;
+border:none;
+background-position:center;
+color:#FFFFFF;
+}
+
+.bt_plus9{
+float:none;
+font-size:10px;
+padding:0px;
+
+width:55px;
+height:20px;
+margin:0px 0px 0px 0px ;
+margin-bottom:2;
+background:url(../img/boton.png) no-repeat;
+border:none;
+background-position:center;
+color:#FFFFFF;
+}
+
+.2{ maxlength:2;
+	text-align:center;
+ }
