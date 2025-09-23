@@ -3,15 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "format": "prettier --plugin=./node_modules/@prettier/plugin-php/src/index.mjs --write ."
+    "format": "prettier --write \"**/*.html\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@prettier/plugin-php": "^0.24.0",
     "prettier": "^3.6.2"
   }
 }

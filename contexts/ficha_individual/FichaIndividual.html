@@ -1,0 +1,781 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Levantamiento de Informacion Catastrales</title>
+    <!-- <link rel="stylesheet" href="FichaIndividual.css" /> -->
+    <link rel="stylesheet" href="FichaIndividual.css" />
+    <link href="../../assets/index.css" rel="stylesheet" type="text/css" />
+
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    /> -->
+    <!-- <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    /> -->
+  </head>
+  <body>
+    <div class="o-main max-h-screen px-15" style="overflow: auto">
+      <form
+        name="datos"
+        onSubmit="subirImagen()"
+        action=""
+        method="post"
+        autocomplete="off"
+        enctype="multipart/form-data"
+      >
+        <div class="o-form-container">
+          <div class="text-center text-14 text-600 mb-8">
+            Levantamiento de información Catastral
+          </div>
+
+          <!-- UBIGEO -->
+          <div class="m-form-section">
+            <div class="m-form-section__title">Ubigeo</div>
+
+            <div class="grid grid-cols-7 gap-x-2">
+              <div>
+                <label>Departamento</label>
+                <input
+                  class="a-input-text"
+                  type="text"
+                  value=""
+                  placeholder="Escriba"
+                  name="input-department"
+                  id="input-department"
+                />
+              </div>
+              <div>
+                <label class="">Provincia</label>
+                <input
+                  class="a-input-text"
+                  type="text"
+                  value=""
+                  placeholder="Escriba"
+                  name="input-province"
+                  id="input-province"
+                />
+              </div>
+              <div>
+                <label class="">Distrito</label>
+                <input
+                  class="a-input-text"
+                  type="text"
+                  value=""
+                  placeholder="Escriba"
+                  name="input-distrit"
+                  id="input-distrit"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- CÓDIGO DE REFERENCIA CATASTRAL -->
+          <div class="m-form-section">
+            <div class="m-form-section__title">Código de Referencia Catastral</div>
+
+            <div class="grid grid-cols-7 gap-x-2">
+              <div>
+                <label class="">Sector</label>
+                <input
+                  class="a-input-text"
+                  placeholder="Escriba"
+                  type="text"
+                  value=""
+                  name="input-sector"
+                  id="input-sector"
+                />
+              </div>
+              <div>
+                <label class="">Manzana</label>
+                <input
+                  class="a-input-text"
+                  type="text"
+                  value=""
+                  placeholder="Escriba"
+                  name="input-manzana"
+                  id="input-manzana"
+                />
+              </div>
+              <div>
+                <label class="">Lote</label>
+                <input
+                  class="a-input-text"
+                  type="text"
+                  value=""
+                  placeholder="Escriba"
+                  name="input-lote"
+                  id="input-lote"
+                />
+              </div>
+              <div>
+                <label class="">Edifica</label>
+                <input
+                  class="a-input-text"
+                  type="text"
+                  value=""
+                  placeholder="Escriba"
+                  name="input-edifica"
+                  id="input-edifica"
+                />
+              </div>
+              <div>
+                <label class="">Entrada</label>
+                <input
+                  class="a-input-text"
+                  type="text"
+                  value=""
+                  placeholder="Escriba"
+                  name="input-entrada"
+                  id="input-entrada"
+                />
+              </div>
+              <div>
+                <label class="">Piso</label>
+                <input
+                  class="a-input-text"
+                  type="text"
+                  value=""
+                  placeholder="Escriba"
+                  name="input-piso"
+                  id="input-piso"
+                />
+              </div>
+              <div>
+                <label class="">Unidad</label>
+                <input
+                  class="a-input-text"
+                  type="text"
+                  value=""
+                  placeholder="Escriba"
+                  name="input-unidad"
+                  onchange="validaUnidad()"
+                  id="input-unidad"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- UBICACIÓN DEL PREDIO CATASTRAL -->
+          <div class="m-form-section">
+            <div class="m-form-section__title">Ubicación del Predio Catastral</div>
+
+            <div class="grid grid-cols-6 gap-x-2">
+              <div class="col-start-1 col-end-1">
+                <label class="">Estado Unidad Cat.</label>
+                <select class="a-input-text" name="" id="select-estado-unidades" value=""></select>
+              </div>
+              <div class="col-start-2 col-end-7">
+                <label class="">Nombre Habilitación Urbana</label>
+
+                <div class="a-autocomplete">
+                  <input
+                    type="text"
+                    value=""
+                    class="a-input-text"
+                    placeholder="Escriba"
+                    tabindex="1"
+                    onclick="onClickAutocompletadoHabilitacionesUrbanas()"
+                    onblur="onBlurAutocompletadoHabilitacionesUrbanas()"
+                    onkeyup="onKeyupAutocompletadoHabilitacionesUrbanas(event)"
+                    id="input-text-habilitacion-urbana"
+                  />
+                  <input type="hidden" value="" id="input-hidden-habilitacion-urbana" />
+                  <div
+                    id="autocompletado-contenedor-habilitaciones-urbanas"
+                    class="a-autocomplete__box none"
+                    onmousedown="event.preventDefault()"
+                  >
+                    <ul
+                      class="a-autocomplete__items cursor-pointer"
+                      id="autocompletado-lista-habilitaciones-urbanas"
+                    ></ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-6 gap-x-2 mt-4">
+              <div>
+                <label class="">Grupo HU</label>
+                <select
+                  class="a-input-text"
+                  name="select-grupo-HU"
+                  id="select-grupo-HU"
+                  onchange="onChangeGrupoHU()"
+                >
+                  <option value="0" selected>Seleccione</option>
+                  <option value="01">Zona</option>
+                  <option value="02">Sector</option>
+                  <option value="03">Etapa</option>
+                </select>
+              </div>
+              <div>
+                <label class="">Nro. Etapa</label>
+                <input
+                  class="a-input-text disabled"
+                  type="number"
+                  value="0"
+                  readonly
+                  id="input-number-numero-etapa"
+                />
+              </div>
+              <div>
+                <label class="">Manzana</label>
+                <input
+                  class="a-input-text"
+                  type="text"
+                  placeholder="Escriba"
+                  value=""
+                  id="input-mzna-Dist"
+                />
+              </div>
+              <div>
+                <label class="">Lote</label>
+                <input
+                  class="a-input-text"
+                  type="text"
+                  placeholder="Escriba"
+                  value=""
+                  id="input-lote-Dist"
+                />
+              </div>
+              <div>
+                <label class="">Sublote</label>
+                <input
+                  class="a-input-text"
+                  type="text"
+                  placeholder="Escriba"
+                  value=""
+                  id="input-subLote-Dist"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- IDENTIFICACIÓN DEL TITULAR CATASTRAL -->
+
+          <div class="m-form-section">
+            <div class="m-form-section__title">Identificación del Titular Catastral</div>
+
+            <div class="flex gap-4 mb-4">
+              <button id="btn-add-natural" type="button">➕ Añadir Persona Natural</button>
+            </div>
+
+            <!-- Contenedor de personas naturales -->
+            <div>
+              <h3 class="font-bold text-lg mt-2">👤 Personas Naturales</h3>
+              <div id="contenedor-naturales" class="mt-2 space-y-2"></div>
+            </div>
+
+            <div class="flex gap-4 my-4">
+              <button id="btn-add-juridica" type="button">➕ Añadir Persona Jurídica</button>
+            </div>
+
+            <!-- Contenedor de personas jurídicas -->
+            <div>
+              <h3 class="font-bold text-lg mt-4">🏢 Personas Jurídicas</h3>
+              <div id="contenedor-juridicas" class="mt-2 space-y-2"></div>
+            </div>
+
+            <div class="mt-6">
+              <button
+                type="button"
+                onclick="recolectarTitulares()"
+                class="bg-blue-600 text-white px-3 py-1 rounded"
+              >
+                💾 Guardar
+              </button>
+            </div>
+          </div>
+
+          <!-- PUERTAS DEL PREDIO CATASTRAL -->
+          <div class="m-form-section">
+            <div class="m-form-section__title">Puertas del Predio Catastral</div>
+            <div id="contenedor-vias"></div>
+
+            <button id="btn-agregar-via" type="button" class="a-btn a-btn--secondary">
+              Añadir Vía
+            </button>
+          </div>
+
+          <!-- DESCRIPCIÓN DEL PREDIO -->
+          <div class="m-form-section">
+            <div class="m-form-section__title">Descripción del Predio</div>
+
+            <div class="grid grid-cols-4 gap-x-2">
+              <div>
+                <label class="">Referencial Uso</label>
+                <input
+                  class="a-input-text"
+                  type="text"
+                  value=""
+                  name="input-ref-uso"
+                  id="input-ref-uso"
+                />
+              </div>
+              <div>
+                <div class="o-grid__second-column">
+                  <label>Uso</label>
+                  <div class="a-autocomplete">
+                    <input
+                      type="text"
+                      class="a-input-text"
+                      placeholder="Escriba"
+                      id="input-text-uso"
+                    />
+                    <input type="hidden" id="input-hidden-uso" />
+                    <div
+                      id="autocompletado-contenedor-usos"
+                      class="a-autocomplete__box none"
+                      onmousedown="event.preventDefault()"
+                    >
+                      <ul
+                        class="a-autocomplete__items cursor-pointer"
+                        id="autocompletado-lista-usos"
+                      ></ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label class="">Área de terreno adquirida</label>
+                <input
+                  class="a-input-text"
+                  type="text"
+                  value=""
+                  placeholder="Escriba"
+                  name="input-ref-uso"
+                  id="input-ref-uso"
+                />
+              </div>
+
+              <div>
+                <label class="">Área de terreno verificado</label>
+                <input
+                  class="a-input-text"
+                  type="text"
+                  value=""
+                  placeholder="Escriba"
+                  name="input-ref-uso"
+                  id="input-ref-uso"
+                />
+              </div>
+            </div>
+
+            <table class="table-default mt-8">
+              <thead>
+                <tr>
+                  <th>LINDEROS DE LOTE (ML)</th>
+                  <th>MEDIDA EN CAMPO</th>
+                  <th>COLINDANCIAS EN CAMPO</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>FRENTE</td>
+                  <td>
+                    <input type="text" class="a-input-text" placeholder="Escriba" />
+                  </td>
+                  <td>
+                    <input type="text" class="a-input-text" placeholder="Escriba" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>DERECHA</td>
+                  <td>
+                    <input type="text" class="a-input-text" placeholder="Escriba" />
+                  </td>
+                  <td>
+                    <input type="text" class="a-input-text" placeholder="Escriba" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>IZQUIERDA</td>
+                  <td>
+                    <input type="text" class="a-input-text" placeholder="Escriba" />
+                  </td>
+                  <td>
+                    <input type="text" class="a-input-text" placeholder="Escriba" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>FONDO</td>
+                  <td>
+                    <input type="text" class="a-input-text" placeholder="Escriba" />
+                  </td>
+                  <td>
+                    <input type="text" class="a-input-text" placeholder="Escriba" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="m-form-section">
+            <div class="m-form-section__title">Servicios Básicos</div>
+
+            <div class="grid grid-cols-7 gap-x-2">
+              <div class="wrapper-checkbox">
+                <label class="custom-checkbox">
+                  <input name="sb_luz" type="checkbox" id="sb_luz" />
+                  <span class="checkmark"></span>
+                </label>
+                <span class="pl-2">Luz</span>
+              </div>
+
+              <div class="wrapper-checkbox">
+                <label class="custom-checkbox">
+                  <input name="sb_agua" type="checkbox" id="sb_agua" />
+                  <span class="checkmark"></span>
+                </label>
+                <span class="pl-2">Agua</span>
+              </div>
+
+              <div class="wrapper-checkbox">
+                <label class="custom-checkbox">
+                  <input name="sb_telef" type="checkbox" id="sb_telefono" />
+                  <span class="checkmark"></span>
+                </label>
+                <span class="pl-2">Telefono</span>
+              </div>
+
+              <div class="wrapper-checkbox">
+                <label class="custom-checkbox">
+                  <input name="sb_desague" type="checkbox" id="sb_desague" />
+                  <span class="checkmark"></span>
+                </label>
+                <span class="pl-2">Desague</span>
+              </div>
+
+              <div class="wrapper-checkbox">
+                <label class="custom-checkbox">
+                  <input name="sb_desague" type="checkbox" id="sb_desague" />
+                  <span class="checkmark"></span>
+                </label>
+                <span class="pl-2">Gas Natural</span>
+              </div>
+
+              <div class="wrapper-checkbox">
+                <label class="custom-checkbox">
+                  <input name="sb_gas" type="checkbox" id="sb_internet" />
+                  <span class="checkmark"></span>
+                </label>
+                <span class="pl-2">Internet</span>
+              </div>
+
+              <div class="wrapper-checkbox">
+                <label class="custom-checkbox">
+                  <input name="sb_gas" type="checkbox" id="sb_cable" />
+                  <span class="checkmark"></span>
+                </label>
+                <span class="pl-2">TV por cable o cable satelital</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="m-form-section">
+            <div class="m-form-section__title">Construcciones</div>
+
+            <button
+              class="a-btn a-btn--accent bg-primary text-white mb-6"
+              type="button"
+              onclick="addRow()"
+            >
+              Agregar fila
+            </button>
+
+            <table class="table-default" id="tabla-construcciones-js" border="1">
+              <thead>
+                <tr>
+                  <th class="w-10-per">N° piso</th>
+                  <th class="w-10-per">Fecha construcción</th>
+                  <th class="w-10-per">MEP</th>
+                  <th class="w-10-per">ECS</th>
+                  <th class="w-10-per">ECC</th>
+                  <th class="w-10-per">Muros y columnas</th>
+                  <th class="w-10-per">Techos</th>
+                  <th class="w-10-per">Pisos</th>
+                  <th class="w-10-per">Puertas y ventanas</th>
+                  <th class="w-10-per">Área verificada</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+
+            <template id="filaTemplate">
+              <tr>
+                <td><input class="w-10-12 a-input-text" type="text" /></td>
+                <td><input class="w-10-12 a-input-text" type="date" /></td>
+                <td>
+                  <select class="a-input-text" name="" id="select-materiales" value=""></select>
+                </td>
+                <td>
+                  <select class="w-10-12 a-input-text" name="" id="" value=""></select>
+                </td>
+                <td>
+                  <select class="w-10-12 a-input-text" name="" id="" value=""></select>
+                </td>
+                <td>
+                  <select class="w-10-12 a-input-text" name="" id="" value=""></select>
+                </td>
+
+                <td><input class="w-10-12 a-input-text" type="text" /></td>
+                <td><input class="w-10-12 a-input-text" type="text" /></td>
+                <td><input class="w-10-12 a-input-text" type="text" /></td>
+                <td><input class="w-10-12 a-input-text" type="text" /></td>
+              </tr>
+            </template>
+
+            <div class="grid grid-cols-4 gap-x-2 gap-y-1 mt-10">
+              <div>
+                <label class="">Nro. de Piso</label>
+                <select class="a-input-text" name="select-nroPiso" id="select-nroPiso">
+                  <option value="0" selected>Seleccione</option>
+                  <option value="1">1 piso</option>
+                  <option value="2">2 piso</option>
+                  <option value="3">3 piso</option>
+                  <option value="4">4 piso</option>
+                  <option value="5">5 piso</option>
+                  <option value="6">6 piso</option>
+                  <option value="7">7 piso</option>
+                  <option value="8">8 piso</option>
+                  <option value="9">9 piso</option>
+                  <option value="10">10 piso</option>
+                  <option value="11">11 piso</option>
+                  <option value="12">12 piso</option>
+                </select>
+              </div>
+              <div>
+                <label class="">Muros y Columnas</label>
+                <select
+                  class="a-input-text"
+                  name=""
+                  id="select-walls-and-columns"
+                  value=""
+                ></select>
+              </div>
+              <div>
+                <label class="">Techos</label>
+                <select class="a-input-text" name="" id="select-ceilings" value=""></select>
+              </div>
+              <div>
+                <label class="">Puertas y Ventanas</label>
+                <select
+                  class="a-input-text"
+                  name=""
+                  id="select-doors-and-windows"
+                  value=""
+                ></select>
+              </div>
+              <div>
+                <label class="">Pisos</label>
+                <select class="a-input-text" name="" id="select-floors" value=""></select>
+              </div>
+              <!-- <div>
+                <label class="">Material Estructurado Predominante</label>
+                <select class="a-input-text" name="" id="select-materiales" value=""></select>
+              </div>
+
+              <div>
+                <label class="">ECS</label>
+                <select class="a-input-text" name="" id="select-materiales" value=""></select>
+              </div>
+
+              <div>
+                <label class="">ECC</label>
+                <select class="a-input-text" name="" id="select-materiales" value=""></select>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="m-form-section">
+            <div class="m-form-section__title">Información Complementaria</div>
+
+            <div class="w-5-12 mb-6">
+              <label class="">Cantidad de Medidores</label>
+              <input
+                class="a-input-text"
+                type="number"
+                name="input-cant_med"
+                id="input-cant_med"
+                value="0"
+              />
+            </div>
+
+            <div>
+              <label class="">Posibles unidades</label>
+              <div class="grid grid-cols-6 gap-x-2">
+                <div class="wrapper-checkbox">
+                  <label class="custom-checkbox">
+                    <input name="sb_sub" type="checkbox" id="sb_sub" />
+                    <span class="checkmark"></span>
+                  </label>
+                  <span class="pl-2">Subdivisión</span>
+                </div>
+
+                <div class="wrapper-checkbox">
+                  <label class="custom-checkbox">
+                    <input name="sb_acu" type="checkbox" id="sb_acu" />
+                    <span class="checkmark"></span>
+                  </label>
+                  <span class="pl-2">Acumulación</span>
+                </div>
+
+                <div class="wrapper-checkbox">
+                  <label class="custom-checkbox">
+                    <input name="sb_ind" type="checkbox" id="sb_ind" />
+                    <span class="checkmark"></span>
+                  </label>
+                  <span class="pl-2">Independización</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="m-form-section">
+            <div class="m-form-section__title">Imágenes adjuntas</div>
+            <br />
+            <input type="file" name="img_adj" id="img_adj" />
+          </div>
+
+          <div class="m-form-section">
+            <div class="m-form-section__title">Observaciones</div>
+
+            <textarea
+              class="a-input-text"
+              name="input-observaciones"
+              id="input-observaciones"
+              cols="30"
+              rows="5"
+            ></textarea>
+          </div>
+
+          <div class="m-form-section">
+            <div class="m-form-section__title">Datos del Técnico Catastral</div>
+
+            <div class="grid grid-cols-6 gap-x-2">
+              <div>
+                <label class="">Dni</label>
+                <input
+                  class="a-input-text a-input-text--disabled"
+                  type="text"
+                  value=""
+                  name="input-tc-dni"
+                  id="input-tc-dni"
+                  readonly
+                  disabled
+                />
+              </div>
+              <div>
+                <label class="">Nombres</label>
+                <input
+                  class="a-input-text a-input-text--disabled"
+                  type="text"
+                  value=""
+                  name="input-tc-nombre"
+                  id="input-tc-nombre"
+                  readonly
+                  disabled
+                />
+              </div>
+              <div>
+                <label class="">Apellido Paterno</label>
+                <input
+                  class="a-input-text a-input-text--disabled"
+                  type="text"
+                  value=""
+                  name="input-tc-apellidoP"
+                  id="input-tc-apellidoP"
+                  readonly
+                  disabled
+                />
+              </div>
+              <div>
+                <label class="">Apellido Materno</label>
+                <input
+                  class="a-input-text a-input-text--disabled"
+                  type="text"
+                  value=""
+                  name="input-tc-apellidoM"
+                  id="input-tc-apellidoM"
+                  readonly
+                  disabled
+                />
+              </div>
+              <div>
+                <label class="">Fecha Levantamiento</label>
+                <input
+                  class="a-input-text"
+                  type="date"
+                  value=""
+                  name="input-tc-fechaL"
+                  id="input-tc-fechaL"
+                />
+              </div>
+              <div type="hidden">
+                <label class="">Usuario</label>
+                <input
+                  class="a-input-text a-input-text--disabled"
+                  value=""
+                  name="input-tc-id"
+                  id="input-tc-id"
+                  readonly
+                  disabled
+                />
+              </div>
+            </div>
+          </div>
+
+          <div id="buttons">
+            <div class="w-3-12">
+              <div class="grid grid-cols-2 gap-x-2 mb-8">
+                <button class="a-btn a-btn--accent">Cancelar</button>
+
+                <button type="button" class="a-btn a-btn--success" onclick="saveForm()">
+                  Grabar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"></script>
+
+    <script type="text/javascript" src="./_codigoReferenciaCatastral.js"></script>
+    <script type="text/javascript" src="./_construcciones.js"></script>
+    <script type="text/javascript" src="./_datosTecnicoCatastral.js"></script>
+    <script type="text/javascript" src="./_descripcionPredio.js"></script>
+    <script type="text/javascript" src="./_identificacionTitularCatastral.js"></script>
+    <script type="text/javascript" src="./_imagenesAdjuntas.js"></script>
+    <script type="text/javascript" src="./_informacionComplementaria.js"></script>
+    <script type="text/javascript" src="./_observaciones.js"></script>
+    <script type="text/javascript" src="./_puertasPredioCatastral.js"></script>
+    <script type="text/javascript" src="./_serviciosBasicos.js"></script>
+    <script type="text/javascript" src="./_ubicacionPredioCatastral.js"></script>
+    <script type="text/javascript" src="./_ubigeo.js"></script>
+
+    <!-- <script type="text/javascript" src="./js/ubigeo.js"></script>
+    <script type="text/javascript" src="./js/catastral_reference_code.js"></script>
+    <script type="text/javascript" src="./js/catastral_property_location.js"></script>
+    <script type="text/javascript" src="./js/catastral_property_doors.js"></script>
+    <script type="text/javascript" src="./js/property_description.js"></script>
+    <script type="text/javascript" src="./js/buildings.js"></script>
+    <script type="text/javascript" src="./js/catastral_technical_data.js"></script>
+    <script type="text/javascript" src="./js/basic_services.js"></script>
+    <script type="text/javascript" src="./js/additional_information.js"></script>
+    <script type="text/javascript" src="./js/attached_images.js"></script>
+    <script type="text/javascript" src="./js/datos_minimos.js"></script> -->
+  </body>
+</html>

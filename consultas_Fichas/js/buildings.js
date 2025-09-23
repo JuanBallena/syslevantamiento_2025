@@ -1,138 +1,133 @@
-function createOptionsGeneric(id, construcciones, keyValueConstruccion, keyTextConstruccion, items, keyValue, keyText)
-{
-  
-    const select = document.getElementById(id);
+// function createOptionsGeneric(id, construcciones, keyValueConstruccion, keyTextConstruccion, items, keyValue, keyText)
+// {
 
-    let option = `<option value="">Seleccione</option>`;
-    select.innerHTML += option;
+//     const select = document.getElementById(id);
 
-    if (construcciones != null)
-    {
-        const construccion = construcciones;
+//     let option = `<option value="">Seleccione</option>`;
+//     select.innerHTML += option;
 
-        for (const item of items) 
-        {
-            let option = "";
- 
-            if (item[keyValue] == construccion[keyValueConstruccion])
-            {                
-                option = `<option value="${construccion[keyValueConstruccion]}" selected>${construccion[keyTextConstruccion]}</option>`;
-            }
-            else
-            {
-                option = `<option value="${item[keyValue]}">${item[keyText]}</option>`;
-            }
+//     if (construcciones != null)
+//     {
+//         const construccion = construcciones;
 
-            select.innerHTML += option;
-        } 
-    }
-    else
-    {
-        for (const item of items) 
-        {
-            let option = `<option value="${item[keyValue]}">${item[keyText]}</option>`;
+//         for (const item of items)
+//         {
+//             let option = "";
 
-            select.innerHTML += option;
-        }
-    }
-}
+//             if (item[keyValue] == construccion[keyValueConstruccion])
+//             {
+//                 option = `<option value="${construccion[keyValueConstruccion]}" selected>${construccion[keyTextConstruccion]}</option>`;
+//             }
+//             else
+//             {
+//                 option = `<option value="${item[keyValue]}">${item[keyText]}</option>`;
+//             }
 
+//             select.innerHTML += option;
+//         }
+//     }
+//     else
+//     {
+//         for (const item of items)
+//         {
+//             let option = `<option value="${item[keyValue]}">${item[keyText]}</option>`;
 
-function createOptionsBuildings(categorias)
-{
-    const selectEstados = document.getElementById("select-estados");   
+//             select.innerHTML += option;
+//         }
+//     }
+// }
 
-    let option = `<option value = 0 selected>Seleccione</option>`;
-    selectEstados.innerHTML += option;
-    for (const categoria of  Object.keys(categorias)) 
-    {
-        let option = "";
-       
-            option = `<option value="${estado.i_cod_est_unid}">${estado.c_des_est_unid}</option>`;
-      
-        selectEstados.innerHTML += option;
-    }
-}
+// // function createOptionsBuildings(categorias)
+// // {
+// //     const selectEstados = document.getElementById("select-estados");
 
-function createOptionsFloorNumbers(construcciones,floorNumbers)
-{
-     this.createOptionsGeneric(
-        "select-nroPiso",
-        construcciones,
-        'idpisos',
-        'pisos',
-        floorNumbers,
-        'c_cod_pisos',
-        'c_desc_pisos'
-    );
-}
+// //     let option = `<option value = 0 selected>Seleccione</option>`;
+// //     selectEstados.innerHTML += option;
+// //     for (const categoria of  Object.keys(categorias))
+// //     {
+// //         let option = "";
 
-function createOptionsWallsAndColumns(construcciones,wallsAndColumns)
-{
-    this.createOptionsGeneric(
-        "select-walls-and-columns",
-        construcciones,
-        'idmuro',
-        'muro',
-        wallsAndColumns,
-        'i_cod_tip_categoria',
-        'c_des_tip_categoria'
-    );
-}
+// //             option = `<option value="${estado.i_cod_est_unid}">${estado.c_des_est_unid}</option>`;
 
-function createOptionsCeilings(construcciones,ceilings)
-{
-    this.createOptionsGeneric(
-        "select-ceilings",
-        construcciones,
-        'idtecho',
-        'techo',
-        ceilings,
-        'i_cod_tip_categoria',
-        'c_des_tip_categoria'
-    );
-}
+// //         selectEstados.innerHTML += option;
+// //     }
+// // }
 
-function createOptionsDoorsAndWindows(construcciones, doorsAndWindows)
-{
-    this.createOptionsGeneric(
-        "select-doors-and-windows",
-        construcciones,
-        'idpuerta',
-        'puerta',
-        doorsAndWindows,
-        'i_cod_tip_categoria',
-        'c_des_tip_categoria'
-    );
-}
+// function createOptionsFloorNumbers(construcciones,floorNumbers)
+// {
+//      this.createOptionsGeneric(
+//         "select-nroPiso",
+//         construcciones,
+//         'idpisos',
+//         'pisos',
+//         floorNumbers,
+//         'c_cod_pisos',
+//         'c_desc_pisos'
+//     );
+// }
 
-function createOptionsFloors(construcciones,floors)
-{
-    this.createOptionsGeneric(
-        "select-floors",
-        construcciones,
-        'idpiso',
-        'piso',
-        floors,
-        'i_cod_tip_categoria',
-        'c_des_tip_categoria'
-    );
-}
+// function createOptionsWallsAndColumns(construcciones,wallsAndColumns)
+// {
+//     this.createOptionsGeneric(
+//         "select-walls-and-columns",
+//         construcciones,
+//         'idmuro',
+//         'muro',
+//         wallsAndColumns,
+//         'i_cod_tip_categoria',
+//         'c_des_tip_categoria'
+//     );
+// }
 
-function createOptionsMaterials(construcciones, materials)
-{
-    this.createOptionsGeneric(
-        "select-materials",
-        construcciones,
-        'idmep',
-        'material',
-        materials,
-        'i_cod_tip_material',
-        'c_des_tip_material'
-    );
-    
-}
+// function createOptionsCeilings(construcciones,ceilings)
+// {
+//     this.createOptionsGeneric(
+//         "select-ceilings",
+//         construcciones,
+//         'idtecho',
+//         'techo',
+//         ceilings,
+//         'i_cod_tip_categoria',
+//         'c_des_tip_categoria'
+//     );
+// }
 
+// function createOptionsDoorsAndWindows(construcciones, doorsAndWindows)
+// {
+//     this.createOptionsGeneric(
+//         "select-doors-and-windows",
+//         construcciones,
+//         'idpuerta',
+//         'puerta',
+//         doorsAndWindows,
+//         'i_cod_tip_categoria',
+//         'c_des_tip_categoria'
+//     );
+// }
 
+// function createOptionsFloors(construcciones,floors)
+// {
+//     this.createOptionsGeneric(
+//         "select-floors",
+//         construcciones,
+//         'idpiso',
+//         'piso',
+//         floors,
+//         'i_cod_tip_categoria',
+//         'c_des_tip_categoria'
+//     );
+// }
 
+// function createOptionsMaterials(construcciones, materials)
+// {
+//     this.createOptionsGeneric(
+//         "select-materials",
+//         construcciones,
+//         'idmep',
+//         'material',
+//         materials,
+//         'i_cod_tip_material',
+//         'c_des_tip_material'
+//     );
 
+// }

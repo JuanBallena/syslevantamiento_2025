@@ -11,7 +11,7 @@ if ($lg == '') {
     document.location.href='inicio.php';</script>\n";
 } else {
 
-?>
+  ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -65,8 +65,8 @@ window.status = "Copyright 2011 - Secretaria Tecnica del SNCP";
 		<li class="accessible"><a href="#" class="accessible">Usuario  &raquo;</a>
 			<ul>
 			 <?php if ($tipo_usuario == '1') {
-      mostrar_administrador(1);
-    }
+			   mostrar_administrador(1);
+			 }
   //no muestra regsitro de usuarios
   ?>
 				<li><a href="javascript:cambiar('funciones/recupera_pass')" target="_self">Cambiar clave</a></li>
@@ -76,7 +76,7 @@ window.status = "Copyright 2011 - Secretaria Tecnica del SNCP";
 			<ul  class="jd_menu_vertical">
 				<li><a href="#" >Registrar Fichas Catastrales</a>
                     <ul>
-                        <li><a href="javascript:cambiar('consultas_Fichas/ficha_individual/FichaIndividual')" target="_self">Ficha Individual</a></li>
+                        <li><a href="javascript:cambiar('contexts/ficha_individual/FichaIndividual')" target="_self">Ficha Individual</a></li>
                          <!-- <li>-----------------------------------</li> -->
                         <li><a href="javascript:cambiar('fichaCotitularidad/nro_cotitular')" target="_self">Ficha Cotitularidad</a></li>	
                         <li><a href="javascript:cambiar('fichaActividadEconomica/nro_economica')" target="_self" align="right">Ficha Actividad Economica</a></li>
@@ -90,8 +90,8 @@ window.status = "Copyright 2011 - Secretaria Tecnica del SNCP";
 		<li class="accessible"><a href="#" class="accessible">Reportes  &raquo;</a>
 			<ul>
 			<?php if ($tipo_usuario == '1') {
-     mostrar_administrador(3);
-   }
+			  mostrar_administrador(3);
+			}
   //no muestra regsitro de usuarios
   ?>
 				<li><a href="javascript:cambiar('edit_fichas')" target="_self">Impresión de Fichas</a></li>
@@ -99,8 +99,8 @@ window.status = "Copyright 2011 - Secretaria Tecnica del SNCP";
 			</ul>
 		</li>
 		<?php if ($tipo_usuario == '1') {
-    mostrar_administrador(2);
-  }
+		  mostrar_administrador(2);
+		}
   //no muestra mantenimiento
   ?>
         <li ><a href="cerrar.php" target="_parent">Cerrar Sesion  &raquo;</a></li>

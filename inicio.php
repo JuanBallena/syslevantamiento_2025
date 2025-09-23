@@ -8,7 +8,7 @@
   var userAgent = window.navigator.userAgent
   var browser=navigator.appName; 
   
-  if(browser!='Microsoft Internet Explorer') alert("Te recomendamos utilizar Internet Explorer 8.0 ");
+  // if(browser!='Microsoft Internet Explorer') alert("Te recomendamos utilizar Internet Explorer 8.0 ");
   /*document.write("platform: " + platform + "<br />")
   document.write("appVersion: " + appVersion + "<br />")
   document.write("appCodeName: " + appCodeName + "<br />")
