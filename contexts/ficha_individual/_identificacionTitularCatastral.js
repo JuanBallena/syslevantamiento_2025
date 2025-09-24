@@ -1,4 +1,37 @@
+window.addEventListener('load', () => {
+  cargarTipoVias();
+  cargarHabilitacionesUrbanas();
+  
+});
+var tipoVias = [];
+
 const titulares = { naturales: [], juridicas: [] };
+
+async function cargarTipoVias() {
+  try {
+    const res = await fetch('../../database/obtenerTipoVias.php');
+    const data = await res.json();
+    tipoVias = data.data;
+  } catch (err) {
+    console.error('Error cargando tipo vias:', err);
+  }
+}
+
+var habilitacionesUrbanas = [];
+var habilitacionesUrbanasFiltradas = [];
+
+async function cargarHabilitacionesUrbanas() {
+  try {
+    const res = await fetch('../../database/obtenerHabilitacionesUrbanas.php');
+    const data = await res.json();
+
+    habilitacionesUrbanas = data.data;
+
+    crearListaHabilitacionesUrbanas(habilitacionesUrbanas);
+  } catch (err) {
+    console.error('Error cargando habilitaciones urbanas:', err);
+  }
+}
 
 const contenedorNaturales = document.getElementById('contenedor-naturales');
 const contenedorJuridicas = document.getElementById('contenedor-juridicas');
@@ -59,6 +92,126 @@ function crearFormularioNatural(index) {
             <span class="pl-2">Sin Nro. Doc.</span>
           </div>
         </div>
+      </div>
+      <div class="grid grid-cols-4 gap-x-2 border p-2" data-tipo="domicilio">
+        <div>
+          <label>Ubicación</label>
+          <select class="a-input-text input-ubicacion">
+            <option value="01">Igual a UU.CC</option>
+            <option value="02">Otros</option>
+          </select>
+        </div>
+        <div>
+          <label>Departamento</label>
+          <input type="text" class="a-input-text input-apellido-materno" />
+        </div>
+        <div>
+          <label>Provincia</label>
+          <input type="text" class="a-input-text input-apellido-materno" />
+        </div>
+        <div>
+          <label>Distrito</label>
+          <input type="text" class="a-input-text input-apellido-materno" />
+        </div>
+      </div>
+      <div class="o-grid o-grid__five-columns">
+        <div class="o-grid__first-column">        
+          <label>Tipo de Vía</label>
+            <div class="a-autocomplete">
+              <input type="text" 
+                 class="a-input-text input-tipo-via"                  
+                 placeholder="Escriba" />
+              <input type="hidden" class="input-hidden-tipo-via" />
+              <div class="a-autocomplete__box none contenedor-tipo-vias">
+                <ul class="a-autocomplete__items lista-tipo-vias"></ul>
+              </div>
+            </div>  
+        </div>  
+        <div class="o-grid__second-column">
+          <label>Nombre Vía</label>
+          <input type="text" class="a-input-text input-nombre-via" />
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-x-2 border p-2" data-tipo="domicilio">    
+        <div>
+            <label>Nro. Municipal</label>
+            <input class="a-input-text puerta-numero" type="text" />
+        </div>
+        <div>
+            <label>Nro. Interior</label>
+            <input class="a-input-text puerta-interior" type="text" />
+        </div>      
+        <div>
+          <label>Nombre de Habilitación Urbana</label> 
+            <input type="text" class="a-input-text input-nombre-hu" />
+        </div>
+        <div>
+          <label>Grupo HU</label>
+          <select class="a-input-text input-grupo">
+            <option value="01">Zona</option>
+            <option value="02">Sector</option>
+            <option value="03">Etapa</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid grid-cols-3 gap-x-2 border p-2" data-tipo="domicilio"> 
+        <div>
+          <label>Manzana</label>
+          <input type="text" class="a-input-text input-manzana" />
+        </div>
+        <div>
+          <label>Lote</label>
+          <input type="text" class="a-input-text input-lote" />
+        </div>
+        <div>
+          <label>SubLote</label>
+          <input type="text" class="a-input-text input-sublote" />
+        </div> 
+        <div>
+          <label>Telefono</label>
+          <input type="text" class="a-input-text input-telefono" />
+        </div>
+        <div>
+          <label>Anexo</label>
+          <input type="text" class="a-input-text input-anexo" />
+        </div>
+        <div>
+          <label>Correo Electrónico</label>
+          <input type="text" class="a-input-text input-correo" />
+        </div>
+      </div>
+      <div class="grid grid-cols-3 gap-x-2 border p-2" data-tipo="caracteristicas">
+        <div>
+          <label>Condición Titular</label>
+          <select class="a-input-text input-condicion">
+            <option value="01">Propietario Único</option>
+            <option value="02">Sucesión intestada</option>
+            <option value="03">Poseedor</option>
+            <option value="04">Sociedad Conyugal</option>
+            <option value="05">Cotitularidad</option>
+            <option value="06">Litigio</option>
+            <option value="07">Otros</option>
+          </select>
+        </div>  
+        <div>
+          <label>Forma de Adquisición</label>
+          <select class="a-input-text input-condicion">
+            <option value="01">Compra Venta</option>
+            <option value="02">Antic Legitima</option>
+            <option value="03">Testamento</option>
+            <option value="04">Donación</option>
+            <option value="05">Adjudicación</option>
+            <option value="06">Fusión</option>
+            <option value="07">Expropiación</option>
+            <option value="08">Permuta</option>
+            <option value="09">Prescripción Adqui</option>
+            <option value="10">Ces. Der/Acciones</option>
+            <option value="11">Dacion pago</option>
+            <option value="12">Decl. Herederos</option>
+            <option value="13">Posesion</option>
+            <option value="14">Otros</option>
+          </select>
+        </div>              
       </div>`;
 }
 
@@ -86,6 +239,126 @@ function crearFormularioJuridica(index) {
             <option value="05">Otros</option>
           </select>
         </div>
+      </div>
+      <div class="grid grid-cols-4 gap-x-2 border p-2" data-tipo="domicilio">
+        <div>
+          <label>Ubicación</label>
+          <select class="a-input-text input-ubicacion">
+            <option value="01">Igual a UU.CC</option>
+            <option value="02">Otros</option>
+          </select>
+        </div>
+        <div>
+          <label>Departamento</label>
+          <input type="text" class="a-input-text input-apellido-materno" />
+        </div>
+        <div>
+          <label>Provincia</label>
+          <input type="text" class="a-input-text input-apellido-materno" />
+        </div>
+        <div>
+          <label>Distrito</label>
+          <input type="text" class="a-input-text input-apellido-materno" />
+        </div>
+      </div>
+      <div class="o-grid o-grid__five-columns">
+        <div class="o-grid__first-column">        
+          <label>Tipo de Vía</label>
+            <div class="a-autocomplete">
+              <input type="text" 
+                 class="a-input-text input-tipo-via"                  
+                 placeholder="Escriba" />
+              <input type="hidden" class="input-hidden-tipo-via" />
+              <div class="a-autocomplete__box none contenedor-tipo-vias">
+                <ul class="a-autocomplete__items lista-tipo-vias"></ul>
+              </div>
+            </div>  
+        </div>  
+        <div class="o-grid__second-column">
+          <label>Nombre Vía</label>
+          <input type="text" class="a-input-text input-nombre-via" />
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-x-2 border p-2" data-tipo="domicilio">    
+        <div>
+            <label>Nro. Municipal</label>
+            <input class="a-input-text puerta-numero" type="text" />
+        </div>
+        <div>
+            <label>Nro. Interior</label>
+            <input class="a-input-text puerta-interior" type="text" />
+        </div>      
+        <div>
+          <label>Nombre de Habilitación Urbana</label> 
+            <input type="text" class="a-input-text input-nombre-hu" />
+        </div>
+        <div>
+          <label>Grupo HU</label>
+          <select class="a-input-text input-grupo">
+            <option value="01">Zona</option>
+            <option value="02">Sector</option>
+            <option value="03">Etapa</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid grid-cols-3 gap-x-2 border p-2" data-tipo="domicilio"> 
+        <div>
+          <label>Manzana</label>
+          <input type="text" class="a-input-text input-manzana" />
+        </div>
+        <div>
+          <label>Lote</label>
+          <input type="text" class="a-input-text input-lote" />
+        </div>
+        <div>
+          <label>SubLote</label>
+          <input type="text" class="a-input-text input-sublote" />
+        </div> 
+        <div>
+          <label>Telefono</label>
+          <input type="text" class="a-input-text input-telefono" />
+        </div>
+        <div>
+          <label>Anexo</label>
+          <input type="text" class="a-input-text input-anexo" />
+        </div>
+        <div>
+          <label>Correo Electrónico</label>
+          <input type="text" class="a-input-text input-correo" />
+        </div>
+      </div>
+      <div class="grid grid-cols-3 gap-x-2 border p-2" data-tipo="caracteristicas">
+        <div>
+          <label>Condición Titular</label>
+          <select class="a-input-text input-condicion">
+            <option value="01">Propietario Único</option>
+            <option value="02">Sucesión intestada</option>
+            <option value="03">Poseedor</option>
+            <option value="04">Sociedad Conyugal</option>
+            <option value="05">Cotitularidad</option>
+            <option value="06">Litigio</option>
+            <option value="07">Otros</option>
+          </select>
+        </div>  
+        <div>
+          <label>Forma de Adquisición</label>
+          <select class="a-input-text input-condicion">
+            <option value="01">Compra Venta</option>
+            <option value="02">Antic Legitima</option>
+            <option value="03">Testamento</option>
+            <option value="04">Donación</option>
+            <option value="05">Adjudicación</option>
+            <option value="06">Fusión</option>
+            <option value="07">Expropiación</option>
+            <option value="08">Permuta</option>
+            <option value="09">Prescripción Adqui</option>
+            <option value="10">Ces. Der/Acciones</option>
+            <option value="11">Dacion pago</option>
+            <option value="12">Decl. Herederos</option>
+            <option value="13">Posesion</option>
+            <option value="14">Otros</option>
+          </select>
+        </div>              
       </div>`;
 }
 

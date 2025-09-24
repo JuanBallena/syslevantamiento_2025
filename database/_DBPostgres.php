@@ -4,9 +4,9 @@ class DBPostgres
 {
   private const SERVIDOR = "localhost";
   private const PUERTO = 5432;
-  private const NOMBRE = "db_seguimiento";
+  private const NOMBRE = "dbfichas";
   private const USUARIO = "postgres";
-  private const CLAVE = "root";
+  private const CLAVE = "";
 
   private $connection = null;
 
