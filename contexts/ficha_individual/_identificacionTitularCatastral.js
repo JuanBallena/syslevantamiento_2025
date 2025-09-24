@@ -1,7 +1,6 @@
 window.addEventListener('load', () => {
   cargarTipoVias();
   cargarHabilitacionesUrbanas();
-  
 });
 var tipoVias = [];
 
@@ -40,7 +39,11 @@ const contenedorJuridicas = document.getElementById('contenedor-juridicas');
 function crearFormularioNatural(index) {
   return `
       <div class="grid grid-cols-3 gap-x-2 border p-2" data-tipo="natural">
-        <h4 class="col-span-3 font-bold">Persona Natural ${index + 1}</h4>
+        <h4 class="col-span-3 font-bold">
+          Persona Natural ${index + 1}
+
+          <div class="a-close-button is-danger-color btn-eliminar-puerta">x</div>
+        </h4>
         
         <div>
           <label>Estado Civil</label>

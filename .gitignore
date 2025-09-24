@@ -1,0 +1,4 @@
+node_modules/
+vendor/
+database/_DBPostgres.php
+configuracion/constantes.php
