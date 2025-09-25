@@ -1,7 +1,6 @@
-window.addEventListener('load', () => {
-  cargarTipoVias();
-  cargarVias();
-
+window.addEventListener('load', async () => {
+  await cargarTipoVias();
+  await cargarVias();
   agregarVia();
 });
 
@@ -36,12 +35,8 @@ async function cargarVias() {
 
 let listaVias = [];
 
-function generarId() {
-  return crypto.randomUUID();
-}
-
 function agregarVia() {
-  const viaId = generarId();
+  const viaId = Helper.generarId();
   listaVias.push({ id: viaId, puertas: [] });
 
   const contenedor = document.getElementById('contenedor-vias');
@@ -62,7 +57,8 @@ function agregarVia() {
                  class="a-input-text input-tipo-via" 
                  data-via="${viaId}"
                  placeholder="Escriba" />
-          <input type="hidden" class="input-hidden-tipo-via" />
+          <input type="hidden" class="input-hidden-tipo-via" 
+                 name="via[${viaId}][tipo_via_id]" />
           <div class="a-autocomplete__box none contenedor-tipo-vias">
             <ul class="a-autocomplete__items lista-tipo-vias"></ul>
           </div>
@@ -75,7 +71,8 @@ function agregarVia() {
                  class="a-input-text input-via" 
                  data-via="${viaId}"
                  placeholder="Escriba" />
-          <input type="hidden" class="input-hidden-via" />
+          <input type="hidden" class="input-hidden-via" 
+                 name="via[${viaId}][via_id]" />
           <div class="a-autocomplete__box none contenedor-vias">
             <ul class="a-autocomplete__items lista-vias"></ul>
           </div>
@@ -96,16 +93,11 @@ function agregarVia() {
   agregarPuerta(viaId);
 }
 
-function eliminarVia(viaId) {
-  listaVias = listaVias.filter((v) => v.id !== viaId);
-  document.querySelector(`[data-via="${viaId}"]`)?.remove();
-}
-
 function agregarPuerta(viaId) {
   const via = listaVias.find((v) => v.id === viaId);
   if (!via) return;
 
-  const puertaId = generarId();
+  const puertaId = Helper.generarId();
   via.puertas.push({ id: puertaId });
 
   const viaEl = document.querySelector(`[data-via="${viaId}"]`);
@@ -124,12 +116,21 @@ function agregarPuerta(viaId) {
     <div class="a-close-button is-danger-color btn-eliminar-puerta">x</div>
     <div class="a-text--center">Puerta</div>
     <label>Tipo</label>
-    <select class="a-input-text puerta-tipo">${opcionesPuertas}</select>
+    <select class="a-input-text puerta-tipo" 
+            name="via[${viaId}][puerta][${puertaId}][tipo]">
+      ${opcionesPuertas}
+    </select>
     <label>Nro. Municipal</label>
-    <input class="a-input-text puerta-numero" type="text" />
+    <input class="a-input-text puerta-numero" type="text" 
+           name="via[${viaId}][puerta][${puertaId}][numero]" />
   `;
 
   contenedorPuertas.appendChild(nuevaPuerta);
+}
+
+function eliminarVia(viaId) {
+  listaVias = listaVias.filter((v) => v.id !== viaId);
+  document.querySelector(`[data-via="${viaId}"]`)?.remove();
 }
 
 function eliminarPuerta(viaId, puertaId) {

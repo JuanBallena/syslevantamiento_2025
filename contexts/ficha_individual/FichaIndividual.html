@@ -23,14 +23,14 @@
     /> -->
   </head>
   <body>
-    <div class="o-main max-h-screen px-15" style="overflow: auto">
+    <div class="o-main max-h-screen px-25" style="overflow: auto">
       <form
         name="datos"
-        onSubmit="subirImagen()"
         action=""
         method="post"
         autocomplete="off"
         enctype="multipart/form-data"
+        id="form-ficha-individual"
       >
         <div class="o-form-container">
           <div class="text-center text-14 text-600 mb-8">
@@ -38,10 +38,10 @@
           </div>
 
           <!-- UBIGEO -->
-          <div class="m-form-section">
+          <div class="m-form-section" id="ubigeo">
             <div class="m-form-section__title">Ubigeo</div>
 
-            <div class="grid grid-cols-7 gap-x-2">
+            <div class="grid grid-cols-5 gap-1">
               <div>
                 <label>Departamento</label>
                 <input
@@ -49,8 +49,7 @@
                   type="text"
                   value=""
                   placeholder="Escriba"
-                  name="input-department"
-                  id="input-department"
+                  name="departamento"
                 />
               </div>
               <div>
@@ -60,8 +59,7 @@
                   type="text"
                   value=""
                   placeholder="Escriba"
-                  name="input-province"
-                  id="input-province"
+                  name="provincia"
                 />
               </div>
               <div>
@@ -71,18 +69,17 @@
                   type="text"
                   value=""
                   placeholder="Escriba"
-                  name="input-distrit"
-                  id="input-distrit"
+                  name="distrito"
                 />
               </div>
             </div>
           </div>
 
           <!-- CÓDIGO DE REFERENCIA CATASTRAL -->
-          <div class="m-form-section">
+          <div class="m-form-section" id="codigo-referencia-catastral">
             <div class="m-form-section__title">Código de Referencia Catastral</div>
 
-            <div class="grid grid-cols-7 gap-x-2">
+            <div class="grid grid-cols-5 gap-1">
               <div>
                 <label class="">Sector</label>
                 <input
@@ -90,8 +87,7 @@
                   placeholder="Escriba"
                   type="text"
                   value=""
-                  name="input-sector"
-                  id="input-sector"
+                  name="sector"
                 />
               </div>
               <div>
@@ -101,8 +97,7 @@
                   type="text"
                   value=""
                   placeholder="Escriba"
-                  name="input-manzana"
-                  id="input-manzana"
+                  name="manzana"
                 />
               </div>
               <div>
@@ -112,8 +107,7 @@
                   type="text"
                   value=""
                   placeholder="Escriba"
-                  name="input-lote"
-                  id="input-lote"
+                  name="lote"
                 />
               </div>
               <div>
@@ -123,8 +117,7 @@
                   type="text"
                   value=""
                   placeholder="Escriba"
-                  name="input-edifica"
-                  id="input-edifica"
+                  name="edifica"
                 />
               </div>
               <div>
@@ -134,8 +127,7 @@
                   type="text"
                   value=""
                   placeholder="Escriba"
-                  name="input-entrada"
-                  id="input-entrada"
+                  name="entrada"
                 />
               </div>
               <div>
@@ -145,8 +137,7 @@
                   type="text"
                   value=""
                   placeholder="Escriba"
-                  name="input-piso"
-                  id="input-piso"
+                  name="piso"
                 />
               </div>
               <div>
@@ -156,39 +147,43 @@
                   type="text"
                   value=""
                   placeholder="Escriba"
-                  name="input-unidad"
-                  onchange="validaUnidad()"
-                  id="input-unidad"
+                  name="unidad"
                 />
               </div>
             </div>
           </div>
 
           <!-- UBICACIÓN DEL PREDIO CATASTRAL -->
-          <div class="m-form-section">
+          <div class="m-form-section" id="ubicacion-predio-catastral">
             <div class="m-form-section__title">Ubicación del Predio Catastral</div>
 
-            <div class="grid grid-cols-6 gap-x-2">
+            <div class="grid grid-cols-6 gap-1">
               <div class="col-start-1 col-end-1">
                 <label class="">Estado Unidad Cat.</label>
-                <select class="a-input-text" name="" id="select-estado-unidades" value=""></select>
+                <select
+                  class="a-input-text"
+                  name="estado-unidad"
+                  id="select-estado-unidades"
+                  value=""
+                ></select>
               </div>
-              <div class="col-start-2 col-end-7">
-                <label class="">Nombre Habilitación Urbana</label>
+              <div class="col-start-2 col-end-6">
+                <label>Nombre Habilitación Urbana</label>
 
                 <div class="a-autocomplete">
                   <input
                     type="text"
                     value=""
-                    class="a-input-text"
+                    class="a-input-text input-text-habilitacion-urbana"
                     placeholder="Escriba"
                     tabindex="1"
-                    onclick="onClickAutocompletadoHabilitacionesUrbanas()"
-                    onblur="onBlurAutocompletadoHabilitacionesUrbanas()"
-                    onkeyup="onKeyupAutocompletadoHabilitacionesUrbanas(event)"
-                    id="input-text-habilitacion-urbana"
                   />
-                  <input type="hidden" value="" id="input-hidden-habilitacion-urbana" />
+                  <input
+                    type="hidden"
+                    name="habilitacion-urbana"
+                    value=""
+                    class="input-hidden-habilitacion-urbana"
+                  />
                   <div
                     id="autocompletado-contenedor-habilitaciones-urbanas"
                     class="a-autocomplete__box none"
@@ -205,10 +200,10 @@
 
             <div class="grid grid-cols-6 gap-x-2 mt-4">
               <div>
-                <label class="">Grupo HU</label>
+                <label>Grupo HU</label>
                 <select
                   class="a-input-text"
-                  name="select-grupo-HU"
+                  name="grupo-HU"
                   id="select-grupo-HU"
                   onchange="onChangeGrupoHU()"
                 >
@@ -219,42 +214,46 @@
                 </select>
               </div>
               <div>
-                <label class="">Nro. Etapa</label>
+                <label>Nro. Etapa</label>
                 <input
                   class="a-input-text disabled"
                   type="number"
+                  name="nro-etapa"
                   value="0"
                   readonly
                   id="input-number-numero-etapa"
                 />
               </div>
               <div>
-                <label class="">Manzana</label>
+                <label>Manzana</label>
                 <input
                   class="a-input-text"
                   type="text"
                   placeholder="Escriba"
                   value=""
+                  name="manzana"
                   id="input-mzna-Dist"
                 />
               </div>
               <div>
-                <label class="">Lote</label>
+                <label>Lote</label>
                 <input
                   class="a-input-text"
                   type="text"
                   placeholder="Escriba"
                   value=""
+                  name="lote"
                   id="input-lote-Dist"
                 />
               </div>
               <div>
-                <label class="">Sublote</label>
+                <label>Sublote</label>
                 <input
                   class="a-input-text"
                   type="text"
                   placeholder="Escriba"
                   value=""
+                  name="sub-lote"
                   id="input-subLote-Dist"
                 />
               </div>
@@ -262,43 +261,38 @@
           </div>
 
           <!-- IDENTIFICACIÓN DEL TITULAR CATASTRAL -->
-
-          <div class="m-form-section">
+          <div
+            class="m-form-section"
+            id="identificacion-titular-catastral"
+            id="identificacion-titular-catastral"
+          >
             <div class="m-form-section__title">Identificación del Titular Catastral</div>
 
-            <div class="flex gap-4 mb-4">
-              <button id="btn-add-natural" type="button">➕ Añadir Persona Natural</button>
-            </div>
-
-            <!-- Contenedor de personas naturales -->
             <div>
-              <h3 class="font-bold text-lg mt-2">👤 Personas Naturales</h3>
-              <div id="contenedor-naturales" class="mt-2 space-y-2"></div>
+              <h3 class="font-600 text-uppercase text-4 mt-2">Personas Naturales</h3>
+              <div id="contenedor-personas-naturales" class="mt-4"></div>
             </div>
 
-            <div class="flex gap-4 my-4">
-              <button id="btn-add-juridica" type="button">➕ Añadir Persona Jurídica</button>
+            <div class="flex my-4">
+              <button id="btn-add-natural" class="btn-secondary btn-sm" type="button">
+                Añadir Persona Natural
+              </button>
             </div>
 
-            <!-- Contenedor de personas jurídicas -->
             <div>
-              <h3 class="font-bold text-lg mt-4">🏢 Personas Jurídicas</h3>
-              <div id="contenedor-juridicas" class="mt-2 space-y-2"></div>
+              <h3 class="font-600 text-4 mt-2 text-uppercase">Personas Jurídicas</h3>
+              <div id="contenedor-personas-juridicas" class="mt-4"></div>
             </div>
 
-            <div class="mt-6">
-              <button
-                type="button"
-                onclick="recolectarTitulares()"
-                class="bg-blue-600 text-white px-3 py-1 rounded"
-              >
-                💾 Guardar
+            <div class="flex mt-4">
+              <button id="btn-add-juridica" class="btn-secondary btn-sm" type="button">
+                Añadir Persona Jurídica
               </button>
             </div>
           </div>
 
           <!-- PUERTAS DEL PREDIO CATASTRAL -->
-          <div class="m-form-section">
+          <div class="m-form-section" id="puertas-predio-catastral">
             <div class="m-form-section__title">Puertas del Predio Catastral</div>
             <div id="contenedor-vias"></div>
 
@@ -308,7 +302,7 @@
           </div>
 
           <!-- DESCRIPCIÓN DEL PREDIO -->
-          <div class="m-form-section">
+          <div class="m-form-section" id="descripcion-predio">
             <div class="m-form-section__title">Descripción del Predio</div>
 
             <div class="grid grid-cols-4 gap-x-2">
@@ -421,7 +415,8 @@
             </table>
           </div>
 
-          <div class="m-form-section">
+          <!-- SERVICIOS BÁSICOS -->
+          <div class="m-form-section" id="servicios-basicos">
             <div class="m-form-section__title">Servicios Básicos</div>
 
             <div class="grid grid-cols-7 gap-x-2">
@@ -483,7 +478,8 @@
             </div>
           </div>
 
-          <div class="m-form-section">
+          <!-- CONSTRUCCIONES -->
+          <div class="m-form-section" id="construcciones">
             <div class="m-form-section__title">Construcciones</div>
 
             <button
@@ -598,7 +594,8 @@
             </div>
           </div>
 
-          <div class="m-form-section">
+          <!-- INFORMACIÓN COMPLEMENTARIA -->
+          <div class="m-form-section" id="informacion-complementaria">
             <div class="m-form-section__title">Información Complementaria</div>
 
             <div class="w-5-12 mb-6">
@@ -642,25 +639,28 @@
             </div>
           </div>
 
-          <div class="m-form-section">
+          <!-- IMÁGENES ADJUNTAS -->
+          <div class="m-form-section" id="imagenes-adjuntas">
             <div class="m-form-section__title">Imágenes adjuntas</div>
             <br />
             <input type="file" name="img_adj" id="img_adj" />
           </div>
 
-          <div class="m-form-section">
+          <!-- OBSERVACIONES -->
+          <div class="m-form-section" id="observaciones">
             <div class="m-form-section__title">Observaciones</div>
 
             <textarea
               class="a-input-text"
-              name="input-observaciones"
+              name="text"
               id="input-observaciones"
               cols="30"
               rows="5"
             ></textarea>
           </div>
 
-          <div class="m-form-section">
+          <!-- DATOS DEL TÉCNICO CATASTRAL -->
+          <div class="m-form-section" id="datos-tecnico-catastral">
             <div class="m-form-section__title">Datos del Técnico Catastral</div>
 
             <div class="grid grid-cols-6 gap-x-2">
@@ -741,9 +741,7 @@
               <div class="grid grid-cols-2 gap-x-2 mb-8">
                 <button class="a-btn a-btn--accent">Cancelar</button>
 
-                <button type="button" class="a-btn a-btn--success" onclick="saveForm()">
-                  Grabar
-                </button>
+                <button type="submit" class="a-btn a-btn--success">Grabar</button>
               </div>
             </div>
           </div>
@@ -753,6 +751,8 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"></script>
 
+    <script type="text/javascript" src="./_helper.js"></script>
+    <script type="text/javascript" src="./_dataSelect.js"></script>
     <script type="text/javascript" src="./_codigoReferenciaCatastral.js"></script>
     <script type="text/javascript" src="./_construcciones.js"></script>
     <script type="text/javascript" src="./_datosTecnicoCatastral.js"></script>
@@ -765,6 +765,8 @@
     <script type="text/javascript" src="./_serviciosBasicos.js"></script>
     <script type="text/javascript" src="./_ubicacionPredioCatastral.js"></script>
     <script type="text/javascript" src="./_ubigeo.js"></script>
+
+    <script type="text/javascript" src="./_guardarFichaIndividual.js"></script>
 
     <!-- <script type="text/javascript" src="./js/ubigeo.js"></script>
     <script type="text/javascript" src="./js/catastral_reference_code.js"></script>

@@ -1,0 +1,132 @@
+<div class="m-form-section" data-id="{{id}}" data-tipo="juridica">
+  <div class="a-close-button is-danger-color btn-eliminar">x</div>
+
+  <div class="m-form-section__title">Persona Jurídica N° {{index}}</div>
+
+  <p class="text-800 text-uppercase mb-2 text-4">Datos Principales</p>
+  <div class="grid grid-cols-3 gap-1">
+    <div>
+      <label>N° RUC</label>
+      <input type="text" class="a-input-text input-ruc" name="ruc" />
+    </div>
+    <div class="col-span-2">
+      <label>Razón Social</label>
+      <input type="text" class="a-input-text input-razon-social" name="razon-social" />
+    </div>
+    <div>
+      <label>Persona Jurídica</label>
+      <select class="a-input-text input-tipo-pj" name="persona-juridica">
+        {{personaJuridicaOpciones}}
+      </select>
+    </div>
+  </div>
+
+  <p class="text-800 text-uppercase mt-6 mb-2 text-4">Domicilio</p>
+  <div class="grid grid-cols-3 gap-1">
+    <div>
+      <label>Ubicación</label>
+      <select class="a-input-text input-ubicacion" name="ubicacion">
+        {{ubicacionOpciones}}
+      </select>
+    </div>
+    <div>
+      <label>Departamento</label>
+      <input type="text" class="a-input-text" name="departamento" />
+    </div>
+    <div>
+      <label>Provincia</label>
+      <input type="text" class="a-input-text" name="provincia" />
+    </div>
+    <div>
+      <label>Distrito</label>
+      <input type="text" class="a-input-text" name="distrito" />
+    </div>
+    <div>
+      <label>Tipo de Vía</label>
+      <div class="a-autocomplete">
+        <input type="text" class="a-input-text input-tipo-via" placeholder="Escriba" />
+        <input type="hidden" class="input-hidden-tipo-via" name="tipo-via" />
+        <div class="a-autocomplete__box none contenedor-tipo-vias">
+          <ul class="a-autocomplete__items lista-tipo-vias"></ul>
+        </div>
+      </div>
+    </div>
+    <div>
+      <label>Nombre Vía</label>
+      <input type="text" class="a-input-text input-via" placeholder="Escriba" />
+      <input type="hidden" class="input-hidden-via" name="via" />
+      <div class="a-autocomplete__box none contenedor-vias">
+        <ul class="a-autocomplete__items lista-vias"></ul>
+      </div>
+    </div>
+    <div>
+      <label>Nro. Municipal</label>
+      <input class="a-input-text puerta-numero" type="text" name="numero-municipal" />
+    </div>
+    <div>
+      <label>Nro. Interior</label>
+      <input class="a-input-text puerta-interior" type="text" name="numero-interior" />
+    </div>
+    <div>
+      <label>Nombre de Habilitación Urbana</label>
+      <input type="text" class="a-input-text input-text-habilitacion-urbana" />
+      <input type="hidden" class="input-hidden-habilitacion-urbana" name="habilitacion-urbana" />
+      <div
+        id="autocompletado-contenedor-habilitaciones-urbanas"
+        class="a-autocomplete__box none"
+        onmousedown="event.preventDefault()"
+      >
+        <ul
+          class="a-autocomplete__items cursor-pointer"
+          id="autocompletado-lista-habilitaciones-urbanas"
+        ></ul>
+      </div>
+    </div>
+    <div>
+      <label>Grupo HU</label>
+      <select class="a-input-text input-grupo" name="grupo-hu">
+        {{grupoHUOpciones}}
+      </select>
+    </div>
+    <div>
+      <label>Manzana</label>
+      <input type="text" class="a-input-text input-manzana" name="manzana" />
+    </div>
+    <div>
+      <label>Lote</label>
+      <input type="text" class="a-input-text input-lote" name="lote" />
+    </div>
+    <div>
+      <label>SubLote</label>
+      <input type="text" class="a-input-text input-sublote" name="sub-lote" />
+    </div>
+    <div>
+      <label>Telefono</label>
+      <input type="text" class="a-input-text input-telefono" name="telefono" />
+    </div>
+    <div>
+      <label>Anexo</label>
+      <input type="text" class="a-input-text input-anexo" name="anexo" />
+    </div>
+    <div>
+      <label>Correo Electrónico</label>
+      <input type="text" class="a-input-text input-correo" name="correo" />
+    </div>
+  </div>
+
+  <p class="text-800 text-uppercase mt-6 mb-2 text-4">Características</p>
+  <div class="grid grid-cols-3 gap-1">
+    <div>
+      <label>Condición Titular</label>
+      <select class="a-input-text input-condicion" name="condicion-titular">
+        {{condicionTitularOpciones}}
+      </select>
+    </div>
+    <div>
+      <label>Forma de Adquisición</label>
+      <select class="a-input-text input-forma-adquisicion" name="forma-adquisicion">
+        {{formaAdquisicionOpciones}}
+      </select>
+    </div>
+  </div>
+</div>
