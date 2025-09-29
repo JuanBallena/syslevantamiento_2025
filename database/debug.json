@@ -1,0 +1,96 @@
+{
+    "ubigeo": {
+        "departamento": "",
+        "provincia": "",
+        "distrito": ""
+    },
+    "codigoReferenciaCatastral": {
+        "sector": "",
+        "manzana": "",
+        "lote": "",
+        "edifica": "",
+        "entrada": "",
+        "piso": "",
+        "unidad": ""
+    },
+    "ubicacionPredioCatastral": {
+        "estadoUnidad": "0",
+        "habilitacionUrbana": "",
+        "grupoHU": "0",
+        "nroEtapa": "0",
+        "manzana": "",
+        "lote": "",
+        "subLote": ""
+    },
+    "identificacionTitularCatastral": {
+        "personasNaturales": [],
+        "personasJuridicas": []
+    },
+    "puertasPredioCatastral": [
+        {
+            "id": "32a121e7-c620-4ced-a428-78107c58a3d1",
+            "tipoViaId": null,
+            "viaId": null,
+            "puertas": [
+                {
+                    "id": "621dfe69-fbfb-46dc-ae9b-faf97f78c6b6",
+                    "tipo": "0",
+                    "numero": null
+                }
+            ]
+        }
+    ],
+    "descripcionPredio": {
+        "referenciaUso": "",
+        "uso": "",
+        "areaTerrenoAdquirida": "",
+        "areaTerrenoVerificada": "",
+        "linderos": [
+            {
+                "medida": "",
+                "colindancia": ""
+            },
+            {
+                "medida": "",
+                "colindancia": ""
+            },
+            {
+                "medida": "",
+                "colindancia": ""
+            },
+            {
+                "medida": "",
+                "colindancia": ""
+            }
+        ]
+    },
+    "serviciosBasicos": {
+        "luz": false,
+        "agua": false,
+        "telefono": false,
+        "desague": false,
+        "gas": false,
+        "internet": false,
+        "cable": false
+    },
+    "construcciones": [],
+    "informacionComplementaria": {
+        "cantidadMedidores": 0,
+        "posiblesUnidades": {
+            "posiblesUnidades": false,
+            "subDivision": false,
+            "independizaci\u00f3n": false
+        }
+    },
+    "observaciones": {
+        "text": ""
+    },
+    "datosTecnicoCatastral": {
+        "dni": "",
+        "nombres": "",
+        "apellidoPaterno": "",
+        "apellidoMaterno": "",
+        "fechaLevantamiento": "",
+        "usuario": ""
+    }
+}

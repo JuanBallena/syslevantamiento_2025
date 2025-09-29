@@ -6,21 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Levantamiento de Informacion Catastrales</title>
-    <!-- <link rel="stylesheet" href="FichaIndividual.css" /> -->
+
     <link rel="stylesheet" href="FichaIndividual.css" />
     <link href="../../assets/index.css" rel="stylesheet" type="text/css" />
-
-    <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-      rel="stylesheet"
-    /> -->
-    <!-- <link
-      rel="stylesheet"
-      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-      crossorigin="anonymous"
-    /> -->
   </head>
   <body>
     <div class="o-main max-h-screen px-25" style="overflow: auto">
@@ -312,31 +300,24 @@
                   class="a-input-text"
                   type="text"
                   value=""
-                  name="input-ref-uso"
-                  id="input-ref-uso"
+                  name="referencia-uso"
+                  placeholder="Escriba"
                 />
               </div>
               <div>
-                <div class="o-grid__second-column">
-                  <label>Uso</label>
-                  <div class="a-autocomplete">
-                    <input
-                      type="text"
-                      class="a-input-text"
-                      placeholder="Escriba"
-                      id="input-text-uso"
-                    />
-                    <input type="hidden" id="input-hidden-uso" />
-                    <div
-                      id="autocompletado-contenedor-usos"
-                      class="a-autocomplete__box none"
-                      onmousedown="event.preventDefault()"
-                    >
-                      <ul
-                        class="a-autocomplete__items cursor-pointer"
-                        id="autocompletado-lista-usos"
-                      ></ul>
-                    </div>
+                <label>Uso</label>
+                <div class="a-autocomplete">
+                  <input type="text" class="a-input-text input-text-uso" placeholder="Escriba" />
+                  <input type="hidden" class="input-hidden-uso" name="uso" />
+                  <div
+                    id="autocompletado-contenedor-usos"
+                    class="a-autocomplete__box none"
+                    onmousedown="event.preventDefault()"
+                  >
+                    <ul
+                      class="a-autocomplete__items cursor-pointer"
+                      id="autocompletado-lista-usos"
+                    ></ul>
                   </div>
                 </div>
               </div>
@@ -348,8 +329,7 @@
                   type="text"
                   value=""
                   placeholder="Escriba"
-                  name="input-ref-uso"
-                  id="input-ref-uso"
+                  name="area-terreno-adquirida"
                 />
               </div>
 
@@ -360,8 +340,7 @@
                   type="text"
                   value=""
                   placeholder="Escriba"
-                  name="input-ref-uso"
-                  id="input-ref-uso"
+                  name="area-terreno-verificada"
                 />
               </div>
             </div>
@@ -378,37 +357,77 @@
                 <tr>
                   <td>FRENTE</td>
                   <td>
-                    <input type="text" class="a-input-text" placeholder="Escriba" />
+                    <input
+                      type="text"
+                      class="a-input-text"
+                      name="medidas-campo[]"
+                      placeholder="Escriba"
+                    />
                   </td>
                   <td>
-                    <input type="text" class="a-input-text" placeholder="Escriba" />
+                    <input
+                      type="text"
+                      class="a-input-text"
+                      name="colindancias-campo[]"
+                      placeholder="Escriba"
+                    />
                   </td>
                 </tr>
                 <tr>
                   <td>DERECHA</td>
                   <td>
-                    <input type="text" class="a-input-text" placeholder="Escriba" />
+                    <input
+                      type="text"
+                      class="a-input-text"
+                      name="medidas-campo[]"
+                      placeholder="Escriba"
+                    />
                   </td>
                   <td>
-                    <input type="text" class="a-input-text" placeholder="Escriba" />
+                    <input
+                      type="text"
+                      class="a-input-text"
+                      name="colindancias-campo[]"
+                      placeholder="Escriba"
+                    />
                   </td>
                 </tr>
                 <tr>
                   <td>IZQUIERDA</td>
                   <td>
-                    <input type="text" class="a-input-text" placeholder="Escriba" />
+                    <input
+                      type="text"
+                      class="a-input-text"
+                      name="medidas-campo[]"
+                      placeholder="Escriba"
+                    />
                   </td>
                   <td>
-                    <input type="text" class="a-input-text" placeholder="Escriba" />
+                    <input
+                      type="text"
+                      class="a-input-text"
+                      name="colindancias-campo[]"
+                      placeholder="Escriba"
+                    />
                   </td>
                 </tr>
                 <tr>
                   <td>FONDO</td>
                   <td>
-                    <input type="text" class="a-input-text" placeholder="Escriba" />
+                    <input
+                      type="text"
+                      class="a-input-text"
+                      name="medidas-campo[]"
+                      placeholder="Escriba"
+                    />
                   </td>
                   <td>
-                    <input type="text" class="a-input-text" placeholder="Escriba" />
+                    <input
+                      type="text"
+                      class="a-input-text"
+                      name="colindancias-campo[]"
+                      placeholder="Escriba"
+                    />
                   </td>
                 </tr>
               </tbody>
@@ -422,7 +441,7 @@
             <div class="grid grid-cols-7 gap-x-2">
               <div class="wrapper-checkbox">
                 <label class="custom-checkbox">
-                  <input name="sb_luz" type="checkbox" id="sb_luz" />
+                  <input name="luz" type="checkbox" />
                   <span class="checkmark"></span>
                 </label>
                 <span class="pl-2">Luz</span>
@@ -430,7 +449,7 @@
 
               <div class="wrapper-checkbox">
                 <label class="custom-checkbox">
-                  <input name="sb_agua" type="checkbox" id="sb_agua" />
+                  <input name="agua" type="checkbox" />
                   <span class="checkmark"></span>
                 </label>
                 <span class="pl-2">Agua</span>
@@ -438,7 +457,7 @@
 
               <div class="wrapper-checkbox">
                 <label class="custom-checkbox">
-                  <input name="sb_telef" type="checkbox" id="sb_telefono" />
+                  <input name="telefono" type="checkbox" />
                   <span class="checkmark"></span>
                 </label>
                 <span class="pl-2">Telefono</span>
@@ -446,7 +465,7 @@
 
               <div class="wrapper-checkbox">
                 <label class="custom-checkbox">
-                  <input name="sb_desague" type="checkbox" id="sb_desague" />
+                  <input name="desague" type="checkbox" />
                   <span class="checkmark"></span>
                 </label>
                 <span class="pl-2">Desague</span>
@@ -454,7 +473,7 @@
 
               <div class="wrapper-checkbox">
                 <label class="custom-checkbox">
-                  <input name="sb_desague" type="checkbox" id="sb_desague" />
+                  <input name="gas" type="checkbox" />
                   <span class="checkmark"></span>
                 </label>
                 <span class="pl-2">Gas Natural</span>
@@ -462,7 +481,7 @@
 
               <div class="wrapper-checkbox">
                 <label class="custom-checkbox">
-                  <input name="sb_gas" type="checkbox" id="sb_internet" />
+                  <input name="internet" type="checkbox" />
                   <span class="checkmark"></span>
                 </label>
                 <span class="pl-2">Internet</span>
@@ -470,7 +489,7 @@
 
               <div class="wrapper-checkbox">
                 <label class="custom-checkbox">
-                  <input name="sb_gas" type="checkbox" id="sb_cable" />
+                  <input name="cable" type="checkbox" />
                   <span class="checkmark"></span>
                 </label>
                 <span class="pl-2">TV por cable o cable satelital</span>
@@ -482,15 +501,11 @@
           <div class="m-form-section" id="construcciones">
             <div class="m-form-section__title">Construcciones</div>
 
-            <button
-              class="a-btn a-btn--accent bg-primary text-white mb-6"
-              type="button"
-              onclick="addRow()"
-            >
-              Agregar fila
+            <button class="a-btn btn-primary mb-6" type="button" onclick="addRow()">
+              Añadir fila
             </button>
 
-            <table class="table-default" id="tabla-construcciones-js" border="1">
+            <table class="table-default" id="tabla-construcciones" border="1">
               <thead>
                 <tr>
                   <th class="w-10-per">N° piso</th>
@@ -510,88 +525,69 @@
 
             <template id="filaTemplate">
               <tr>
-                <td><input class="w-10-12 a-input-text" type="text" /></td>
-                <td><input class="w-10-12 a-input-text" type="date" /></td>
                 <td>
-                  <select class="a-input-text" name="" id="select-materiales" value=""></select>
+                  <select class="a-input-text w-10-12" name="piso">
+                    <option value="0" selected>Seleccione</option>
+                    <option value="1">1 piso</option>
+                    <option value="2">2 piso</option>
+                    <option value="3">3 piso</option>
+                    <option value="4">4 piso</option>
+                    <option value="5">5 piso</option>
+                    <option value="6">6 piso</option>
+                    <option value="7">7 piso</option>
+                    <option value="8">8 piso</option>
+                    <option value="9">9 piso</option>
+                    <option value="10">10 piso</option>
+                    <option value="11">11 piso</option>
+                    <option value="12">12 piso</option>
+                  </select>
                 </td>
                 <td>
-                  <select class="w-10-12 a-input-text" name="" id="" value=""></select>
+                  <input class="w-10-12 a-input-text" name="fechaConstruccion" type="date" />
                 </td>
                 <td>
-                  <select class="w-10-12 a-input-text" name="" id="" value=""></select>
+                  <select class="a-input-text select-mep" name="mep" value=""></select>
                 </td>
                 <td>
-                  <select class="w-10-12 a-input-text" name="" id="" value=""></select>
+                  <select
+                    class="w-10-12 a-input-text select-ecs"
+                    name="ecs"
+                    id=""
+                    value=""
+                  ></select>
+                </td>
+                <td>
+                  <select
+                    class="w-10-12 a-input-text select-ecc"
+                    name="ecc"
+                    id=""
+                    value=""
+                  ></select>
+                </td>
+                <td>
+                  <select
+                    class="a-input-text select-muros-columnas"
+                    name="murosColumnas"
+                    value=""
+                  ></select>
                 </td>
 
-                <td><input class="w-10-12 a-input-text" type="text" /></td>
-                <td><input class="w-10-12 a-input-text" type="text" /></td>
-                <td><input class="w-10-12 a-input-text" type="text" /></td>
-                <td><input class="w-10-12 a-input-text" type="text" /></td>
+                <td>
+                  <select class="a-input-text select-techos" name="techos" value=""></select>
+                </td>
+                <td>
+                  <select class="a-input-text select-pisos" name="pisos" value=""></select>
+                </td>
+                <td>
+                  <select
+                    class="a-input-text select-puertas-ventanas"
+                    name="puertasVentanas"
+                    value=""
+                  ></select>
+                </td>
+                <td><input class="w-10-12 a-input-text" name="areaVerificada" type="text" /></td>
               </tr>
             </template>
-
-            <div class="grid grid-cols-4 gap-x-2 gap-y-1 mt-10">
-              <div>
-                <label class="">Nro. de Piso</label>
-                <select class="a-input-text" name="select-nroPiso" id="select-nroPiso">
-                  <option value="0" selected>Seleccione</option>
-                  <option value="1">1 piso</option>
-                  <option value="2">2 piso</option>
-                  <option value="3">3 piso</option>
-                  <option value="4">4 piso</option>
-                  <option value="5">5 piso</option>
-                  <option value="6">6 piso</option>
-                  <option value="7">7 piso</option>
-                  <option value="8">8 piso</option>
-                  <option value="9">9 piso</option>
-                  <option value="10">10 piso</option>
-                  <option value="11">11 piso</option>
-                  <option value="12">12 piso</option>
-                </select>
-              </div>
-              <div>
-                <label class="">Muros y Columnas</label>
-                <select
-                  class="a-input-text"
-                  name=""
-                  id="select-walls-and-columns"
-                  value=""
-                ></select>
-              </div>
-              <div>
-                <label class="">Techos</label>
-                <select class="a-input-text" name="" id="select-ceilings" value=""></select>
-              </div>
-              <div>
-                <label class="">Puertas y Ventanas</label>
-                <select
-                  class="a-input-text"
-                  name=""
-                  id="select-doors-and-windows"
-                  value=""
-                ></select>
-              </div>
-              <div>
-                <label class="">Pisos</label>
-                <select class="a-input-text" name="" id="select-floors" value=""></select>
-              </div>
-              <!-- <div>
-                <label class="">Material Estructurado Predominante</label>
-                <select class="a-input-text" name="" id="select-materiales" value=""></select>
-              </div>
-
-              <div>
-                <label class="">ECS</label>
-                <select class="a-input-text" name="" id="select-materiales" value=""></select>
-              </div>
-
-              <div>
-                <label class="">ECC</label>
-                <select class="a-input-text" name="" id="select-materiales" value=""></select>
-              </div> -->
-            </div>
           </div>
 
           <!-- INFORMACIÓN COMPLEMENTARIA -->
@@ -600,13 +596,7 @@
 
             <div class="w-5-12 mb-6">
               <label class="">Cantidad de Medidores</label>
-              <input
-                class="a-input-text"
-                type="number"
-                name="input-cant_med"
-                id="input-cant_med"
-                value="0"
-              />
+              <input class="a-input-text" type="number" name="cantidad-medidores" value="0" />
             </div>
 
             <div>
@@ -614,7 +604,7 @@
               <div class="grid grid-cols-6 gap-x-2">
                 <div class="wrapper-checkbox">
                   <label class="custom-checkbox">
-                    <input name="sb_sub" type="checkbox" id="sb_sub" />
+                    <input name="posiblesUnidades" type="checkbox" />
                     <span class="checkmark"></span>
                   </label>
                   <span class="pl-2">Subdivisión</span>
@@ -622,7 +612,7 @@
 
                 <div class="wrapper-checkbox">
                   <label class="custom-checkbox">
-                    <input name="sb_acu" type="checkbox" id="sb_acu" />
+                    <input name="subDivision" type="checkbox" />
                     <span class="checkmark"></span>
                   </label>
                   <span class="pl-2">Acumulación</span>
@@ -630,7 +620,7 @@
 
                 <div class="wrapper-checkbox">
                   <label class="custom-checkbox">
-                    <input name="sb_ind" type="checkbox" id="sb_ind" />
+                    <input name="independización" type="checkbox" />
                     <span class="checkmark"></span>
                   </label>
                   <span class="pl-2">Independización</span>
@@ -643,20 +633,14 @@
           <div class="m-form-section" id="imagenes-adjuntas">
             <div class="m-form-section__title">Imágenes adjuntas</div>
             <br />
-            <input type="file" name="img_adj" id="img_adj" />
+            <input type="file" name="imagenes-adjuntas[]" />
           </div>
 
           <!-- OBSERVACIONES -->
           <div class="m-form-section" id="observaciones">
             <div class="m-form-section__title">Observaciones</div>
 
-            <textarea
-              class="a-input-text"
-              name="text"
-              id="input-observaciones"
-              cols="30"
-              rows="5"
-            ></textarea>
+            <textarea class="a-input-text" name="text" cols="30" rows="5"></textarea>
           </div>
 
           <!-- DATOS DEL TÉCNICO CATASTRAL -->
@@ -670,8 +654,7 @@
                   class="a-input-text a-input-text--disabled"
                   type="text"
                   value=""
-                  name="input-tc-dni"
-                  id="input-tc-dni"
+                  name="dni"
                   readonly
                   disabled
                 />
@@ -682,8 +665,7 @@
                   class="a-input-text a-input-text--disabled"
                   type="text"
                   value=""
-                  name="input-tc-nombre"
-                  id="input-tc-nombre"
+                  name="nombres"
                   readonly
                   disabled
                 />
@@ -694,8 +676,7 @@
                   class="a-input-text a-input-text--disabled"
                   type="text"
                   value=""
-                  name="input-tc-apellidoP"
-                  id="input-tc-apellidoP"
+                  name="apellido-paterno"
                   readonly
                   disabled
                 />
@@ -706,50 +687,38 @@
                   class="a-input-text a-input-text--disabled"
                   type="text"
                   value=""
-                  name="input-tc-apellidoM"
-                  id="input-tc-apellidoM"
+                  name="apellido-materno"
                   readonly
                   disabled
                 />
               </div>
               <div>
                 <label class="">Fecha Levantamiento</label>
-                <input
-                  class="a-input-text"
-                  type="date"
-                  value=""
-                  name="input-tc-fechaL"
-                  id="input-tc-fechaL"
-                />
+                <input class="a-input-text" type="date" value="" name="fecha-levantamiento" />
               </div>
-              <div type="hidden">
+              <div>
                 <label class="">Usuario</label>
                 <input
                   class="a-input-text a-input-text--disabled"
+                  type="text"
                   value=""
-                  name="input-tc-id"
-                  id="input-tc-id"
-                  readonly
-                  disabled
+                  name="usuario"
                 />
               </div>
             </div>
           </div>
 
-          <div id="buttons">
-            <div class="w-3-12">
-              <div class="grid grid-cols-2 gap-x-2 mb-8">
-                <button class="a-btn a-btn--accent">Cancelar</button>
-
-                <button type="submit" class="a-btn a-btn--success">Grabar</button>
-              </div>
+          <div class="w-3-12">
+            <div class="grid grid-cols-2 gap-x-1 mb-8">
+              <button class="a-btn btn-accent">Cancelar</button>
+              <button type="submit" class="a-btn btn-success">Grabar</button>
             </div>
           </div>
         </div>
       </form>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"></script> -->
 
     <script type="text/javascript" src="./_helper.js"></script>
     <script type="text/javascript" src="./_dataSelect.js"></script>
@@ -767,17 +736,5 @@
     <script type="text/javascript" src="./_ubigeo.js"></script>
 
     <script type="text/javascript" src="./_guardarFichaIndividual.js"></script>
-
-    <!-- <script type="text/javascript" src="./js/ubigeo.js"></script>
-    <script type="text/javascript" src="./js/catastral_reference_code.js"></script>
-    <script type="text/javascript" src="./js/catastral_property_location.js"></script>
-    <script type="text/javascript" src="./js/catastral_property_doors.js"></script>
-    <script type="text/javascript" src="./js/property_description.js"></script>
-    <script type="text/javascript" src="./js/buildings.js"></script>
-    <script type="text/javascript" src="./js/catastral_technical_data.js"></script>
-    <script type="text/javascript" src="./js/basic_services.js"></script>
-    <script type="text/javascript" src="./js/additional_information.js"></script>
-    <script type="text/javascript" src="./js/attached_images.js"></script>
-    <script type="text/javascript" src="./js/datos_minimos.js"></script> -->
   </body>
 </html>

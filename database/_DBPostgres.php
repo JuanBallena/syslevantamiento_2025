@@ -46,6 +46,19 @@ class DBPostgres
     return $result;
   }
 
+  public function queryParams(string $sql, array $params)
+  {
+    $conn = $this->conectar();
+    $result = pg_query_params($conn, $sql, $params);
+
+    if (!$result) {
+      throw new Exception("❌ Error en la consulta con parámetros: " . pg_last_error($conn));
+    }
+
+    return $result;
+  }
+
+
   /**
    * Devuelve todos los registros
    */

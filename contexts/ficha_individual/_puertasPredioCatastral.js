@@ -6,12 +6,6 @@ window.addEventListener('load', async () => {
 
 var tipoVias = [];
 var vias = [];
-const tiposPuerta = [
-  { id: '01', nombre: 'PRINCIPAL' },
-  { id: '02', nombre: 'SECUNDARIA' },
-  { id: '03', nombre: 'GARAGE' },
-  { id: '04', nombre: 'ESTACIONAMIENTO' },
-];
 
 async function cargarTipoVias() {
   try {
@@ -55,10 +49,9 @@ function agregarVia() {
         <div class="a-autocomplete">
           <input type="text" 
                  class="a-input-text input-tipo-via" 
-                 data-via="${viaId}"
                  placeholder="Escriba" />
           <input type="hidden" class="input-hidden-tipo-via" 
-                 name="via[${viaId}][tipo_via_id]" />
+                 name="via[${viaId}][tipoViaId]" />
           <div class="a-autocomplete__box none contenedor-tipo-vias">
             <ul class="a-autocomplete__items lista-tipo-vias"></ul>
           </div>
@@ -69,10 +62,9 @@ function agregarVia() {
         <div class="a-autocomplete">
           <input type="text" 
                  class="a-input-text input-via" 
-                 data-via="${viaId}"
                  placeholder="Escriba" />
           <input type="hidden" class="input-hidden-via" 
-                 name="via[${viaId}][via_id]" />
+                 name="via[${viaId}][viaId]" />
           <div class="a-autocomplete__box none contenedor-vias">
             <ul class="a-autocomplete__items lista-vias"></ul>
           </div>
@@ -108,7 +100,7 @@ function agregarPuerta(viaId) {
   nuevaPuerta.dataset.puerta = puertaId;
 
   let opcionesPuertas = `<option value="0" selected>Seleccione</option>`;
-  tiposPuerta.forEach((p) => {
+  DataSelect.tipoPuertaOpciones.forEach((p) => {
     opcionesPuertas += `<option value="${p.id}">${p.nombre}</option>`;
   });
 
@@ -121,7 +113,7 @@ function agregarPuerta(viaId) {
       ${opcionesPuertas}
     </select>
     <label>Nro. Municipal</label>
-    <input class="a-input-text puerta-numero" type="text" 
+    <input placeholder="Escriba" class="a-input-text puerta-numero" type="text" 
            name="via[${viaId}][puerta][${puertaId}][numero]" />
   `;
 
@@ -140,51 +132,6 @@ function eliminarPuerta(viaId, puertaId) {
   document.querySelector(`[data-via="${viaId}"] [data-puerta="${puertaId}"]`)?.remove();
 }
 
-// Autocompletado
-
-function filtrarLista(texto, lista, campo) {
-  if (!texto) return lista;
-  return lista.filter((item) => {
-    const valor = item[campo] ?? '';
-    return valor.toLowerCase().includes(texto.toLowerCase());
-  });
-}
-
-function mostrarSugerencias(input, lista, campoTexto, inputHidden, campoValue = 'id') {
-  const contenedor = input.parentElement.querySelector('.a-autocomplete__box');
-  const ul = contenedor.querySelector('ul');
-  ul.innerHTML = '';
-
-  if (lista.length > 0) {
-    lista.forEach((item) => {
-      const li = document.createElement('li');
-      li.className = 'py-1 px-4 hover:bg-success';
-      li.dataset.value = item[campoValue];
-      li.dataset.text = item[campoTexto];
-      li.textContent = item[campoTexto];
-      ul.appendChild(li);
-    });
-  } else {
-    const li = document.createElement('li');
-    li.className = 'py-1 px-4';
-    li.dataset.disabled = 'true';
-    li.textContent = 'Sin resultados';
-    ul.appendChild(li);
-  }
-
-  contenedor.classList.remove('none');
-
-  ul.onclick = (e) => {
-    if (e.target.tagName === 'LI' && e.target.dataset.disabled !== 'true') {
-      input.value = e.target.dataset.text;
-      inputHidden.value = e.target.dataset.value;
-      contenedor.classList.add('none');
-    }
-  };
-}
-
-// Eventos
-
 document.getElementById('btn-agregar-via').addEventListener('click', () => {
   agregarVia();
 });
@@ -194,14 +141,14 @@ document.addEventListener('click', (e) => {
     const input = e.target;
     const hiddenInput = input.parentElement.querySelector('.input-hidden-tipo-via');
 
-    mostrarSugerencias(input, tipoVias, 'c_desc_tipo_via', hiddenInput, 'c_cod_tipo_via');
+    Helper.mostrarSugerencias(input, tipoVias, 'c_desc_tipo_via', hiddenInput, 'c_cod_tipo_via');
   }
 
   if (e.target.classList.contains('input-via')) {
     const input = e.target;
     const hiddenInput = input.parentElement.querySelector('.input-hidden-via');
 
-    mostrarSugerencias(input, vias, 'nomb_via', hiddenInput, 'id_via');
+    Helper.mostrarSugerencias(input, vias, 'nomb_via', hiddenInput, 'id_via');
   }
 
   if (e.target.classList.contains('btn-eliminar-via')) {
@@ -230,16 +177,16 @@ document.addEventListener('keyup', (e) => {
     const input = e.target;
     const hiddenInput = input.parentElement.querySelector('.input-hidden-tipo-via');
     const texto = input.value;
-    const resultados = filtrarLista(texto, tipoVias, 'c_desc_tipo_via');
-    mostrarSugerencias(input, resultados, 'c_desc_tipo_via', hiddenInput, 'c_cod_tipo_via');
+    const resultados = Helper.filtrarLista(texto, tipoVias, 'c_desc_tipo_via');
+    Helper.mostrarSugerencias(input, resultados, 'c_desc_tipo_via', hiddenInput, 'c_cod_tipo_via');
   }
 
   if (e.target.classList.contains('input-via')) {
     const input = e.target;
     const hiddenInput = input.parentElement.querySelector('.input-hidden-via');
     const texto = input.value;
-    const resultados = filtrarLista(texto, vias, 'nomb_via');
-    mostrarSugerencias(input, resultados, 'nomb_via', hiddenInput, 'id_via');
+    const resultados = Helper.filtrarLista(texto, vias, 'nomb_via');
+    Helper.mostrarSugerencias(input, resultados, 'nomb_via', hiddenInput, 'id_via');
   }
 });
 

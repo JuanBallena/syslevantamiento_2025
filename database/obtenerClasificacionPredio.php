@@ -9,7 +9,7 @@ try {
   $BD = new DBPostgres();
   $BD->conectar();
 
-  $sql = "SELECT * FROM ext_tipo_materiales";
+  $sql = "SELECT * FROM ext_tipo_clasificaciones_predios";
   $result = $BD->query($sql);
 
   $estados = pg_fetch_all($result) ?: [];
