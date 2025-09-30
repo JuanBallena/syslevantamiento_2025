@@ -88,6 +88,23 @@ class DBPostgres
     }
   }
 
+  /*
+  * Insertar
+  */
+  public function insert(string $sql, array $params): ?array
+  {
+    $conn = $this->conectar();
+    $result = pg_query_params($conn, $sql, $params);
+
+    if (!$result) {
+      throw new Exception("❌ Error al insertar: " . pg_last_error($conn));
+    }
+
+    $row = pg_fetch_assoc($result);
+    return $row ?: null;
+  }
+
+
   /**
    * Destructor automático
    */

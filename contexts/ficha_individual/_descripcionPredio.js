@@ -1,3 +1,27 @@
+window.addEventListener('load', () => {
+  cargarClasificacionesPredios();
+});
+
+async function cargarClasificacionesPredios() {
+  try {
+    const res = await fetch('../../database/obtenerClasificacionesPredios.php');
+    const data = await res.json();
+
+    const select = document.getElementById('select-clasificaciones-predios');
+    select.innerHTML = '';
+
+    let options = Helper.generarOpciones(
+      data.data,
+      'c_cod_tipo_clasificacion',
+      'c_desc_tipo_clasificacion'
+    );
+
+    select.innerHTML = options;
+  } catch (err) {
+    console.error('Error cargando clasificaciones declarantes:', err);
+  }
+}
+
 let usos = [];
 
 async function cargarUsos(texto = '') {

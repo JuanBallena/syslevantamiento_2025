@@ -11,7 +11,7 @@
     <link href="../../assets/index.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <div class="o-main max-h-screen px-25" style="overflow: auto">
+    <div class="o-main max-h-screen px-15 bg-white" style="overflow: auto">
       <form
         name="datos"
         action=""
@@ -23,6 +23,13 @@
         <div class="o-form-container">
           <div class="text-center text-14 text-600 mb-8">
             Levantamiento de información Catastral
+          </div>
+
+          <div class="w-3-12">
+            <div class="grid grid-cols-2 gap-x-1 mb-8">
+              <button class="a-btn btn-accent">Cancelar</button>
+              <button type="submit" class="a-btn btn-success">Grabar</button>
+            </div>
           </div>
 
           <!-- UBIGEO -->
@@ -145,7 +152,7 @@
           <div class="m-form-section" id="ubicacion-predio-catastral">
             <div class="m-form-section__title">Ubicación del Predio Catastral</div>
 
-            <div class="grid grid-cols-6 gap-1">
+            <div class="grid grid-cols-5 gap-1">
               <div class="col-start-1 col-end-1">
                 <label class="">Estado Unidad Cat.</label>
                 <select
@@ -186,7 +193,7 @@
               </div>
             </div>
 
-            <div class="grid grid-cols-6 gap-x-2 mt-4">
+            <div class="grid grid-cols-5 gap-1 mt-4">
               <div>
                 <label>Grupo HU</label>
                 <select
@@ -293,7 +300,7 @@
           <div class="m-form-section" id="descripcion-predio">
             <div class="m-form-section__title">Descripción del Predio</div>
 
-            <div class="grid grid-cols-4 gap-x-2">
+            <div class="grid grid-cols-4 gap-1">
               <div>
                 <label class="">Referencial Uso</label>
                 <input
@@ -342,6 +349,16 @@
                   placeholder="Escriba"
                   name="area-terreno-verificada"
                 />
+              </div>
+
+              <div>
+                <label class="">Clasificación del predio</label>
+                <select
+                  class="a-input-text"
+                  name="clasificacion-predio"
+                  id="select-clasificaciones-predios"
+                  value=""
+                ></select>
               </div>
             </div>
 
@@ -434,11 +451,35 @@
             </table>
           </div>
 
+          <!-- EVALUACIÓN DEL PREDIO -->
+          <div class="m-form-section" id="evaluacion-predio">
+            <div class="m-form-section__title">Evaluación del Predio</div>
+
+            <div class="grid grid-cols-5 gap-1">
+              <div>
+                <label>En lote colindante</label>
+                <input class="a-input-text" type="number" value="" name="en-lote-colindante" />
+              </div>
+              <div>
+                <label>En área pública</label>
+                <input class="a-input-text" type="number" value="" name="en-area-publica" />
+              </div>
+              <div>
+                <label>En jardín de aislamiento</label>
+                <input class="a-input-text" type="number" value="" name="en-jardin-aislamiento" />
+              </div>
+              <div>
+                <label>En área intangible</label>
+                <input class="a-input-text" type="number" value="" name="en-area-intangible" />
+              </div>
+            </div>
+          </div>
+
           <!-- SERVICIOS BÁSICOS -->
           <div class="m-form-section" id="servicios-basicos">
             <div class="m-form-section__title">Servicios Básicos</div>
 
-            <div class="grid grid-cols-7 gap-x-2">
+            <div class="grid grid-cols-7 gap-1">
               <div class="wrapper-checkbox">
                 <label class="custom-checkbox">
                   <input name="luz" type="checkbox" />
@@ -594,14 +635,63 @@
           <div class="m-form-section" id="informacion-complementaria">
             <div class="m-form-section__title">Información Complementaria</div>
 
-            <div class="w-5-12 mb-6">
-              <label class="">Cantidad de Medidores</label>
-              <input class="a-input-text" type="number" name="cantidad-medidores" value="0" />
+            <div class="grid grid-cols-3 gap-1">
+              <div>
+                <label class="">Condición del declarante</label>
+                <select
+                  class="a-input-text"
+                  name="condicion-declarante"
+                  id="select-condiciones-declarantes"
+                  value=""
+                ></select>
+              </div>
+              <div>
+                <label class="">Estado llenado de la Ficha</label>
+                <select
+                  class="a-input-text"
+                  name="estado-ficha"
+                  id="select-estados-fichas"
+                  value=""
+                ></select>
+              </div>
+              <div>
+                <label class="">Cantidad de Medidores</label>
+                <input class="a-input-text" type="number" name="cantidad-medidores" value="0" />
+              </div>
+              <div>
+                <label class="">Mantenimiento</label>
+                <select
+                  class="a-input-text"
+                  name="mantenimiento"
+                  id="select-mantenimientos"
+                  value=""
+                ></select>
+              </div>
+              <div>
+                <label class="">Nro Habitantes</label>
+                <input
+                  class="a-input-text"
+                  type="text"
+                  value=""
+                  placeholder="Escriba"
+                  name="nro-habitantes"
+                />
+              </div>
+              <div>
+                <label class="">Nro Familias</label>
+                <input
+                  class="a-input-text"
+                  type="text"
+                  value=""
+                  placeholder="Escriba"
+                  name="nro-familias"
+                />
+              </div>
             </div>
 
-            <div>
+            <div class="mt-6">
               <label class="">Posibles unidades</label>
-              <div class="grid grid-cols-6 gap-x-2">
+              <div class="grid grid-cols-5 gap-1">
                 <div class="wrapper-checkbox">
                   <label class="custom-checkbox">
                     <input name="posiblesUnidades" type="checkbox" />
@@ -643,18 +733,19 @@
             <textarea class="a-input-text" name="text" cols="30" rows="5"></textarea>
           </div>
 
-          <!-- DATOS DEL TÉCNICO CATASTRAL -->
-          <div class="m-form-section" id="datos-tecnico-catastral">
-            <div class="m-form-section__title">Datos del Técnico Catastral</div>
+          <!-- DATOS DEL DECLARANTE -->
+          <div class="m-form-section" id="datos-declarante">
+            <div class="m-form-section__title">Datos del Declarante</div>
 
-            <div class="grid grid-cols-6 gap-x-2">
+            <div class="grid grid-cols-5 gap-1">
               <div>
                 <label class="">Dni</label>
                 <input
                   class="a-input-text a-input-text--disabled"
                   type="text"
                   value=""
-                  name="dni"
+                  name="input-dec-dni"
+                  id="input-dec-dni"
                   readonly
                   disabled
                 />
@@ -665,7 +756,8 @@
                   class="a-input-text a-input-text--disabled"
                   type="text"
                   value=""
-                  name="nombres"
+                  name="input-dec-nombre"
+                  id="input-dec-nombre"
                   readonly
                   disabled
                 />
@@ -676,7 +768,8 @@
                   class="a-input-text a-input-text--disabled"
                   type="text"
                   value=""
-                  name="apellido-paterno"
+                  name="input-dec-apellidoP"
+                  id="input-dec-apellidoP"
                   readonly
                   disabled
                 />
@@ -687,31 +780,243 @@
                   class="a-input-text a-input-text--disabled"
                   type="text"
                   value=""
-                  name="apellido-materno"
+                  name="input-dec-apellidoM"
+                  id="input-dec-apellidoM"
                   readonly
                   disabled
                 />
               </div>
               <div>
                 <label class="">Fecha Levantamiento</label>
-                <input class="a-input-text" type="date" value="" name="fecha-levantamiento" />
-              </div>
-              <div>
-                <label class="">Usuario</label>
                 <input
-                  class="a-input-text a-input-text--disabled"
-                  type="text"
+                  class="a-input-text"
+                  type="date"
                   value=""
-                  name="usuario"
+                  name="input-dec-fechaL"
+                  id="input-dec-fechaL"
                 />
               </div>
             </div>
           </div>
 
-          <div class="w-3-12">
-            <div class="grid grid-cols-2 gap-x-1 mb-8">
-              <button class="a-btn btn-accent">Cancelar</button>
-              <button type="submit" class="a-btn btn-success">Grabar</button>
+          <!-- DATOS DEL SUPERVISOR -->
+          <div class="m-form-section" id="datos-supervisor">
+            <div class="m-form-section__title">Datos del Supervisor</div>
+
+            <div class="grid grid-cols-5 gap-1">
+              <div>
+                <label class="">Dni</label>
+                <input
+                  class="a-input-text a-input-text--disabled"
+                  type="text"
+                  value=""
+                  name="input-sup-dni"
+                  id="input-sup-dni"
+                  readonly
+                  disabled
+                />
+              </div>
+              <div>
+                <label class="">Nombres</label>
+                <input
+                  class="a-input-text a-input-text--disabled"
+                  type="text"
+                  value=""
+                  name="input-sup-nombre"
+                  id="input-sup-nombre"
+                  readonly
+                  disabled
+                />
+              </div>
+              <div>
+                <label class="">Apellido Paterno</label>
+                <input
+                  class="a-input-text a-input-text--disabled"
+                  type="text"
+                  value=""
+                  name="input-sup-apellidoP"
+                  id="input-sup-apellidoP"
+                  readonly
+                  disabled
+                />
+              </div>
+              <div>
+                <label class="">Apellido Materno</label>
+                <input
+                  class="a-input-text a-input-text--disabled"
+                  type="text"
+                  value=""
+                  name="input-sup-apellidoM"
+                  id="input-sup-apellidoM"
+                  readonly
+                  disabled
+                />
+              </div>
+              <div>
+                <label class="">Fecha Levantamiento</label>
+                <input
+                  class="a-input-text"
+                  type="date"
+                  value=""
+                  name="input-sup-fechaL"
+                  id="input-sup-fechaL"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- DATOS DEL TÉCNICO CATASTRAL -->
+          <div class="m-form-section" id="datos-tecnico-catastral">
+            <div class="m-form-section__title">Datos del Técnico Catastral</div>
+
+            <div class="grid grid-cols-5 gap-1">
+              <div>
+                <label class="">Dni</label>
+                <input
+                  class="a-input-text a-input-text--disabled"
+                  type="text"
+                  value=""
+                  name="input-tc-dni"
+                  id="input-tc-dni"
+                  readonly
+                  disabled
+                />
+              </div>
+              <div>
+                <label class="">Nombres</label>
+                <input
+                  class="a-input-text a-input-text--disabled"
+                  type="text"
+                  value=""
+                  name="input-tc-nombre"
+                  id="input-tc-nombre"
+                  readonly
+                  disabled
+                />
+              </div>
+              <div>
+                <label class="">Apellido Paterno</label>
+                <input
+                  class="a-input-text a-input-text--disabled"
+                  type="text"
+                  value=""
+                  name="input-tc-apellidoP"
+                  id="input-tc-apellidoP"
+                  readonly
+                  disabled
+                />
+              </div>
+              <div>
+                <label class="">Apellido Materno</label>
+                <input
+                  class="a-input-text a-input-text--disabled"
+                  type="text"
+                  value=""
+                  name="input-tc-apellidoM"
+                  id="input-tc-apellidoM"
+                  readonly
+                  disabled
+                />
+              </div>
+              <div>
+                <label class="">Fecha Levantamiento</label>
+                <input
+                  class="a-input-text"
+                  type="date"
+                  value=""
+                  name="input-tc-fechaL"
+                  id="input-tc-fechaL"
+                />
+              </div>
+              <div type="hidden">
+                <label class="">Usuario</label>
+                <input
+                  class="a-input-text a-input-text--disabled"
+                  value=""
+                  name="input-tc-id"
+                  id="input-tc-id"
+                  readonly
+                  disabled
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- DATOS DEL VERIFICADOR CATASTRAL -->
+          <div class="m-form-section" id="datos-verificador">
+            <div class="m-form-section__title">Datos del Verificador Catastral</div>
+
+            <div class="grid grid-cols-5 gap-1">
+              <div>
+                <label class="">Dni</label>
+                <input
+                  class="a-input-text a-input-text--disabled"
+                  type="text"
+                  value=""
+                  name="input-ver-dni"
+                  id="input-ver-dni"
+                  readonly
+                  disabled
+                />
+              </div>
+              <div>
+                <label class="">Nro Registro</label>
+                <input
+                  class="a-input-text a-input-text--disabled"
+                  type="text"
+                  value=""
+                  name="input-ver-nro"
+                  id="input-ver-nro"
+                  readonly
+                  disabled
+                />
+              </div>
+              <div>
+                <label class="">Nombres</label>
+                <input
+                  class="a-input-text a-input-text--disabled"
+                  type="text"
+                  value=""
+                  name="input-tc-nombre"
+                  id="input-tc-nombre"
+                  readonly
+                  disabled
+                />
+              </div>
+              <div>
+                <label class="">Apellido Paterno</label>
+                <input
+                  class="a-input-text a-input-text--disabled"
+                  type="text"
+                  value=""
+                  name="input-ver-apellidoP"
+                  id="input-ver-apellidoP"
+                  readonly
+                  disabled
+                />
+              </div>
+              <div>
+                <label class="">Apellido Materno</label>
+                <input
+                  class="a-input-text a-input-text--disabled"
+                  type="text"
+                  value=""
+                  name="input-ver-apellidoM"
+                  id="input-ver-apellidoM"
+                  readonly
+                  disabled
+                />
+              </div>
+              <div>
+                <label class="">Fecha Levantamiento</label>
+                <input
+                  class="a-input-text"
+                  type="date"
+                  value=""
+                  name="input-ver-fechaL"
+                  id="input-ver-fechaL"
+                />
+              </div>
             </div>
           </div>
         </div>

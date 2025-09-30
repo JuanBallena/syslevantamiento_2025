@@ -1,11 +1,11 @@
 window.addEventListener('load', () => {
-  cargarEstadoUnidades();
+  cargarEstadosUnidades();
   cargarHabilitacionesUrbanas();
 });
 
-async function cargarEstadoUnidades() {
+async function cargarEstadosUnidades() {
   try {
-    const res = await fetch('../../database/obtenerEstadoUnidades.php');
+    const res = await fetch('../../database/obtenerEstadosUnidades.php');
     const data = await res.json();
 
     const select = document.getElementById('select-estado-unidades');

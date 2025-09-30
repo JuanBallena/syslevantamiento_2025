@@ -1,72 +1,58 @@
 window.addEventListener('load', () => {
-  cargarCondicionDeclarantes();
-  cargarEstadoFichas();
-  cargarMantenimiento();
+  cargarCondicionesDeclarantes();
+  cargarEstadosFichas();
+  cargarMantenimientos();
 });
 
-async function cargarCondicionDeclarantes() {
+async function cargarCondicionesDeclarantes() {
   try {
     const res = await fetch('../../database/obtenerCondicionesDeclarantes.php');
     const data = await res.json();
 
-    const select = document.getElementById('select-condicion-declarante');
+    const select = document.getElementById('select-condiciones-declarantes');
     select.innerHTML = '';
 
-    let options = `<option value="0" selected>Seleccione</option>`;
-
-    if (data.success && data.data.length > 0) {
-      for (const item of data.data) {
-        options += `<option value="${item.c_cod_tipo_condicion}">${item.c_desc_tipo_condicion}</option>`;
-      }
-    }
+    let options = Helper.generarOpciones(
+      data.data,
+      'c_cod_tipo_condicion',
+      'c_desc_tipo_condicion'
+    );
 
     select.innerHTML = options;
   } catch (err) {
-    console.error('Error cargando condición declarante:', err);
+    console.error('Error cargando condiciones declarantes:', err);
   }
 }
 
-async function cargarEstadoFichas() {
+async function cargarEstadosFichas() {
   try {
     const res = await fetch('../../database/obtenerEstadosFichas.php');
     const data = await res.json();
 
-    const select = document.getElementById('select-estado-ficha');
+    const select = document.getElementById('select-estados-fichas');
     select.innerHTML = '';
 
-    let options = `<option value="0" selected>Seleccione</option>`;
-
-    if (data.success && data.data.length > 0) {
-      for (const item of data.data) {
-        options += `<option value="${item.c_cod_estado_ficha}">${item.c_desc_estado_ficha}</option>`;
-      }
-    }
+    let options = Helper.generarOpciones(data.data, 'c_cod_estado_ficha', 'c_desc_estado_ficha');
 
     select.innerHTML = options;
   } catch (err) {
-    console.error('Error cargando estado de fichas:', err);
+    console.error('Error cargando estados de fichas:', err);
   }
 }
 
-async function cargarMantenimiento() {
+async function cargarMantenimientos() {
   try {
     const res = await fetch('../../database/obtenerMantenimientos.php');
     const data = await res.json();
 
-    const select = document.getElementById('select-mantenimiento');
+    const select = document.getElementById('select-mantenimientos');
     select.innerHTML = '';
 
-    let options = `<option value="0" selected>Seleccione</option>`;
-
-    if (data.success && data.data.length > 0) {
-      for (const item of data.data) {
-        options += `<option value="${item.c_cod_mantenimiento}">${item.c_desc_mantenimiento}</option>`;
-      }
-    }
+    let options = Helper.generarOpciones(data.data, 'c_cod_mantenimiento', 'c_desc_mantenimiento');
 
     select.innerHTML = options;
   } catch (err) {
-    console.error('Error cargando mantenimiento:', err);
+    console.error('Error cargando mantenimientos:', err);
   }
 }
 
@@ -89,7 +75,7 @@ function setValueCheckboxIndependizacion(value) {
 }
 
 function validar_ceros(value) {
-  if ((value = '')) {
+  if (value == '') {
     return 0;
   }
 }

@@ -3,10 +3,18 @@ class Helper {
     return crypto.randomUUID();
   }
 
-  static generarOpciones(arr, includeSelect = true) {
+  // static generarOpciones(arr, includeSelect = true) {
+  //   let options = includeSelect ? `<option value="">Seleccione</option>` : '';
+  //   arr.forEach((item) => {
+  //     options += `<option value="${item.value}">${item.text}</option>`;
+  //   });
+  //   return options;
+  // }
+
+  static generarOpciones(arr, valueKey = 'value', textKey = 'text', includeSelect = true) {
     let options = includeSelect ? `<option value="">Seleccione</option>` : '';
     arr.forEach((item) => {
-      options += `<option value="${item.value}">${item.text}</option>`;
+      options += `<option value="${item[valueKey]}">${item[textKey]}</option>`;
     });
     return options;
   }
