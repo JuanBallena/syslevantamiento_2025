@@ -1,10 +1,18 @@
 <?php
 	//VERIFICAMOS	
-	$Busqueda=$BaseDato->Consultas($Seleccion);   
-	$registros=pg_num_rows($Busqueda);
+	$Busqueda=$BaseDato->Consultas($Seleccion);  
+  
+  $registros=pg_num_rows($Busqueda);
+  
 	
-	if($registros>0 || $registros!='null')
-	{	echo "<script>alert('Codigo ya existe!');</script>\n"; 
+	if($registros>0)
+	{	
+    // $filas = pg_fetch_all($Busqueda);
+  // echo "<pre>";
+  // print_r($filas);  
+  // print_r($registros);
+  // echo "</pre>";
+    echo "<script>alert('Código ya existe!');</script>\n"; 
 		echo "<html><head></head><body onload=\"history.back()\"></body></html>";
 		exit;
 	}
