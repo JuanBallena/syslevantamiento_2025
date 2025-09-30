@@ -1,4 +1,10 @@
+# Node
 node_modules/
-vendor/
-database/_DBPostgres.php
-configuracion/constantes.php
+# npm-debug.log
+# yarn-error.log
+
+# PHP
+/vendor/
+/database/_DBPostgres.php
+/configuracion/constantes.php
+.env
