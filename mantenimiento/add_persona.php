@@ -14,7 +14,7 @@ include '../funciones/captura_pagina.php';
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 
-<title> ST-SNCP SECRETARIA TÉCNICA </title>
+<title> ST-SNCP SECRETARIA Tï¿½CNICA </title>
 <link href="../css/estilo_form.css" rel="stylesheet" type="text/css">
 <link href="../CSS/tabla.css" rel="stylesheet" type="text/css">
 <link href="../CSS/botones.css" rel="stylesheet" type="text/css">

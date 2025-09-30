@@ -95,4 +95,21 @@ class DBPostgres
   {
     $this->desconectar();
   }
+
+  public function Consultas($Consulta)
+    {
+        global $Resultado;
+
+        $Valor = $this->Conectar();
+        if (!$Valor) {
+            return 0;
+        } //Si no se pudo conectar
+        else {
+            //Valor es resultado de base de dato y Consulta es la Consulta a realizar
+            $Resultado = pg_query($Valor, $Consulta);
+            return $Resultado;// retorna si fue afectada una fila
+        }
+    }
+
+
 }

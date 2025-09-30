@@ -1,6 +1,6 @@
 <?PHP session_start();
 include 'verificar_ubigeo.php';
-//recibimos nombre de página para el caso de VERIFICACION E INSERCION
+//recibimos nombre de pï¿½gina para el caso de VERIFICACION E INSERCION
 $pagina=$_GET['pag'];
 
 $Dep=$_SESSION['dep'];
@@ -18,7 +18,7 @@ $tipo_fun=$_POST['funcion'];
 $IDPersona=$_POST['numdoc'].$tipo_fun.$tipo_persona.$_POST['tipodoc'];
 
 if($numdoc=='')	
-{ echo "<script>alert('Ingrese Número de Documento!');
+{ echo "<script>alert('Ingrese Nï¿½mero de Documento!');
     document.location.href='../add_persona.php';</script>\n";
 	}
 elseif($nombre=='')
@@ -45,7 +45,7 @@ else
 	$Busqueda=$BaseDato->Consultas($Seleccion);   
 	$registros=pg_num_rows($Busqueda);
 	
-	if($registros>0 || $registros!='null')
+	if($registros>0)
 	{	echo "<script>alert('Persona ya se encuentra registrado!');</script>\n"; 
 		echo "<html><head></head><body onload=\"history.back()\"></body></html>";
 		exit;
