@@ -36,6 +36,8 @@ async function cargarUsos(texto = '') {
   }
 }
 
+// Eventos
+
 document.addEventListener('click', async (e) => {
   if (e.target.classList.contains('input-text-uso')) {
     const input = e.target;

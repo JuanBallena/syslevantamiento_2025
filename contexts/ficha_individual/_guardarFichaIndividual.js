@@ -29,7 +29,7 @@ document.getElementById('form-ficha-individual').addEventListener('submit', asyn
 
     const result = await response.json();
     if (result.success) {
-      alert('Ficha guardada correctamente');
+      console.log(result);
     } else {
       alert('Error: ' + result.message);
     }

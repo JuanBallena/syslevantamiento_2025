@@ -3,14 +3,6 @@ class Helper {
     return crypto.randomUUID();
   }
 
-  // static generarOpciones(arr, includeSelect = true) {
-  //   let options = includeSelect ? `<option value="">Seleccione</option>` : '';
-  //   arr.forEach((item) => {
-  //     options += `<option value="${item.value}">${item.text}</option>`;
-  //   });
-  //   return options;
-  // }
-
   static generarOpciones(arr, valueKey = 'value', textKey = 'text', includeSelect = true) {
     let options = includeSelect ? `<option value="">Seleccione</option>` : '';
     arr.forEach((item) => {
@@ -60,39 +52,39 @@ class Helper {
     };
   }
 
-  static llenarSelect(
-    select,
-    lista,
-    itemValue = 'id',
-    itemText = 'nombre',
-    incluirSeleccione = true
-  ) {
-    // limpiar opciones previas
-    select.innerHTML = '';
+  //   static llenarSelect(
+  //     select,
+  //     lista,
+  //     itemValue = 'id',
+  //     itemText = 'nombre',
+  //     incluirSeleccione = true
+  //   ) {
+  //     // limpiar opciones previas
+  //     select.innerHTML = '';
 
-    // opción inicial
-    if (incluirSeleccione) {
-      const opt = document.createElement('option');
-      opt.value = '';
-      opt.textContent = 'Seleccione';
-      select.appendChild(opt);
-    }
+  //     // opción inicial
+  //     if (incluirSeleccione) {
+  //       const opt = document.createElement('option');
+  //       opt.value = '';
+  //       opt.textContent = 'Seleccione';
+  //       select.appendChild(opt);
+  //     }
 
-    // recorrer lista y generar options
-    if (Array.isArray(lista) && lista.length > 0) {
-      lista.forEach((item) => {
-        const option = document.createElement('option');
-        option.value = item[itemValue];
-        option.textContent = item[itemText];
-        select.appendChild(option);
-      });
-    } else {
-      // si no hay datos
-      const opt = document.createElement('option');
-      opt.value = '';
-      opt.textContent = 'Sin resultados';
-      opt.disabled = true;
-      select.appendChild(opt);
-    }
-  }
+  //     // recorrer lista y generar options
+  //     if (Array.isArray(lista) && lista.length > 0) {
+  //       lista.forEach((item) => {
+  //         const option = document.createElement('option');
+  //         option.value = item[itemValue];
+  //         option.textContent = item[itemText];
+  //         select.appendChild(option);
+  //       });
+  //     } else {
+  //       // si no hay datos
+  //       const opt = document.createElement('option');
+  //       opt.value = '';
+  //       opt.textContent = 'Sin resultados';
+  //       opt.disabled = true;
+  //       select.appendChild(opt);
+  //     }
+  //   }
 }

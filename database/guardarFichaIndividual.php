@@ -2,10 +2,7 @@
 
 require_once "./_DBPostgres.php";
 require_once "./_CreateResponse.php";
-// require_once './inserts/InsertSectorTable.php';
-
-// ini_set('display_errors', 0);
-// error_reporting(E_ERROR | E_PARSE);
+require_once "./_CallApi.php";
 
 header("Content-Type: application/json; charset=UTF-8");
 
@@ -21,46 +18,81 @@ try {
 
   // file_put_contents("debug.json", json_encode($dataPost, JSON_PRETTY_PRINT));
 
-  // Simulación: datos iniciales
-  $datos = [
-    "id_mzna" => "13010101023",
-    "id_sector" => "13010101",
-    "codi_mzna" => "023",
+  // datos previos
+  $anioActual = date("Y");
+  $ubigeo = $dataPost['ubigeo']['departamento']
+    . $dataPost['ubigeo']['provincia']
+    . $dataPost['ubigeo']['distrito'];
+  $tipoFicha = "01";
+  $numeroFicha = $dataPost['numeroFicha'];
+
+  // registrar sector
+  $datosSector = [
+    "id_sector" => "",
+    "id_ubi_geo" => $ubigeo,
+    "codi_sector" => "",
+    "nomb_sector" => "",
+  ];
+
+  $resultadoGuardarSector = callApiPost('guardarSector.php', $datosSector);
+
+  // registrar manzana
+  $datosManzana = [
+    "id_mzna" => "13010101026",
+    "id_sector" => $resultadoGuardarSector["data"]["id_sector"],// "13010101",
+    "codi_mzna" => "026",
     "nume_mzna" => "0",
   ];
 
-  // Llamar a guardar2.php y obtener JSON
-  $ch = curl_init("http://localhost:8080/syslevantamiento/database/guardarManzana.php");
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-  curl_setopt($ch, CURLOPT_POST, true);
-  curl_setopt($ch, CURLOPT_HTTPHEADER, ["Content-Type: application/json"]);
-  curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($datos));
+  $resultadoGuardarManzana = callApiPost('guardarManzana.php', $datosManzana);
 
-  $response = curl_exec($ch);
-  curl_close($ch);
+  // resgitrar lote
+  $datosLote = [
+    "id_lote" => "",
+    "id_mzna" => $resultadoGuardarManzana['data']['id_mzna'],
+    "codi_lote" => "",
+    "id_hab_urba" => "",
+    "mzna_dist" => "",
+    "lote_dist" => "",
+    "sub_lote_dist" => "",
+    "estructuracion" => "",
+    "zonificacion" => "",
+    "cuc" => "",
+    "zona_dist" => ""
+  ];
 
-  file_put_contents("debug_guardar_manzana.html", $response);
+  $resultadoGuardarLote = callApiPost('guardarLote.php', $datosLote);
 
-  if ($response === false) {
-    throw new Exception("cURL error: " . curl_error($ch));
-  }
+  // datos ficha
+  $datosFicha = [
+    "id_ficha" => $anioActual . $ubigeo . $tipoFicha + $numeroFicha,
+    "tipo_ficha" => $tipoFicha,
+    "nume_ficha" => $numeroFicha,
+    "id_lote" => $resultadoGuardarLote["data"]["id_lote"],
+    "dc" => "", // no registrar
+    "nume_ficha_lote" => "", // no registrar
+    "declarante" => "", // dni de tecnico catastral
+    "fecha_declarante" => "", // input form
+    "supervisor" => "dni", // dni de supervisor
+    "fecha_supervision" => "", // input form
+    "tecnico" => "", // dni de tecnico
+    "fecha_levantamiento" => "", // input form
+    "verificador" => "dni", // dni de verificador
+    "fecha_verificacion" => "", // input form
+    "nume_registro" => "", // input form
+    "id_uni_cat" => "", // tabla uni_cat
+    "activo" => "1"
+  ];
 
+  $resultadoGuardarFicha = callApiPost('guardarFicha.php', $datosFicha);
 
-  $result = json_decode($response, true);
-
-  if (!$result) {
-    throw new Exception("La respuesta no es JSON válido: " . $response);
-  }
-
-  if ($result["success"]) {
-    $insertado = $result["data"];
+  if ($resultadoGuardarFicha["success"]) {
+    $insertado = $resultadoGuardarFicha["data"];
 
     // Usar esos datos para guardar en otra tabla
     // require_once './conexion.php';
     // $stmt = $pdo->prepare("INSERT INTO otra_tabla (tabla_id, dato_extra) VALUES (?, ?)");
     // $stmt->execute([$insertado["id"], "otro valor"]);
-
-
 
     createResponse(true, $result["data"]);
   }
