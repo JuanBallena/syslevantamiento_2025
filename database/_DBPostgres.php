@@ -2,13 +2,13 @@
 
 class DBPostgres
 {
-  private const SERVIDOR = "localhost";
-  private const PUERTO = 5432;
-  private const NOMBRE = "db_seguimiento";
-  private const USUARIO = "postgres";
-  private const CLAVE = "root";
-
   private $connection = null;
+  private $config;
+
+  public function __construct()
+  {
+    $this->config = require __DIR__ . '/_Config.php';
+  }
 
   /**
    * Conectar a la base de datos (solo una vez)
@@ -17,11 +17,11 @@ class DBPostgres
   {
     if ($this->connection === null) {
       $this->connection = pg_connect(
-        "host=" . self::SERVIDOR .
-          " port=" . self::PUERTO .
-          " dbname=" . self::NOMBRE .
-          " user=" . self::USUARIO .
-          " password=" . self::CLAVE
+        "host={$this->config['host']} " .
+        "port={$this->config['puerto']} " .
+        "dbname={$this->config['nombre']} " .
+        "user={$this->config['usuario']} " .
+        "password={$this->config['clave']}"
       );
 
       if (!$this->connection) {
@@ -114,19 +114,17 @@ class DBPostgres
   }
 
   public function Consultas($Consulta)
-    {
-        global $Resultado;
+  {
+    global $Resultado;
 
-        $Valor = $this->Conectar();
-        if (!$Valor) {
-            return 0;
-        } //Si no se pudo conectar
-        else {
-            //Valor es resultado de base de dato y Consulta es la Consulta a realizar
-            $Resultado = pg_query($Valor, $Consulta);
-            return $Resultado;// retorna si fue afectada una fila
-        }
+    $Valor = $this->Conectar();
+    if (!$Valor) {
+      return 0;
+    } //Si no se pudo conectar
+    else {
+      //Valor es resultado de base de dato y Consulta es la Consulta a realizar
+      $Resultado = pg_query($Valor, $Consulta);
+      return $Resultado;// retorna si fue afectada una fila
     }
-
-
+  }
 }
