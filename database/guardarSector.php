@@ -19,12 +19,7 @@ try {
           VALUES ($1, $2, $3, $4)
           RETURNING *";
 
-  $registro = $BD->insert($sql, [
-    "13010101",
-    "130101",
-    "01",
-    "Sector 1"
-  ]);
+  $registro = $BD->insert($sql, $input);
 
   createResponse(true, $registro);
 

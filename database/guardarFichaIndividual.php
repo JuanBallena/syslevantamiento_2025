@@ -7,72 +7,114 @@ require_once "./_CallApi.php";
 header("Content-Type: application/json; charset=UTF-8");
 
 try {
-  // if (!isset($_POST['dataPost'])) {
-  //   throw new Exception("No se recibieron datos");
-  // }
+  if (!isset($_POST['dataPost'])) {
+    throw new Exception("No se recibieron datos");
+  }
 
-  // $dataPost = json_decode($_POST['dataPost'], true);
-  // if (!$dataPost) {
-  //   throw new Exception("Error decodificando JSON");
-  // }
+  $dataPost = json_decode($_POST['dataPost'], true);
+
+  if (!$dataPost) {
+    throw new Exception("Error decodificando JSON");
+  }
 
   // file_put_contents("debug.json", json_encode($dataPost, JSON_PRETTY_PRINT));
 
-  // datos previos
-  $anioActual = date("Y");
-  $ubigeo = $dataPost['ubigeo']['departamento']
-    . $dataPost['ubigeo']['provincia']
-    . $dataPost['ubigeo']['distrito'];
-  $tipoFicha = "01";
-  $numeroFicha = $dataPost['numeroFicha'];
-
-  // registrar sector
-  $datosSector = [
-    "id_sector" => "",
-    "id_ubi_geo" => $ubigeo,
-    "codi_sector" => "",
-    "nomb_sector" => "",
-  ];
-
-  $resultadoGuardarSector = callApiPost('guardarSector.php', $datosSector);
+  $sector = $dataPost["codigoReferenciaCatastral"]["sector"];
+  $manzana = $dataPost["codigoReferenciaCatastral"]["manzana"];
+  $numeroManzana = $dataPost["codigoReferenciaCatastral"]["numeroManzana"];
 
   // registrar manzana
   $datosManzana = [
-    "id_mzna" => "13010101026",
-    "id_sector" => $resultadoGuardarSector["data"]["id_sector"],// "13010101",
-    "codi_mzna" => "026",
-    "nume_mzna" => "0",
+    "id_mzna" => $sector . $manzana,
+    "id_sector" => $ector,
+    "codi_mzna" => $manzana,
+    "nume_mzna" => $numeroManzana,
   ];
 
-  $resultadoGuardarManzana = callApiPost('guardarManzana.php', $datosManzana);
+  $resultadoManzanaInsertada = callApiPost('guardarManzana.php', $datosManzana);
+
+  if (!$resultadoManzanaInsertada["success"]) {
+    return createResponse(false, null, 'Error registrando manzana');
+  }
 
   // resgitrar lote
+  $departamento = $dataPost['ubigeo']['departamento'];
+  $provincia = $dataPost['ubigeo']['provincia'];
+  $distrito = $dataPost['ubigeo']['distrito'];
+  $lote = $dataPost['codigoReferenciaCatastral']['lote'];
+  $subLote = $dataPost['codigoReferenciaCatastral']['subLote'];
+  $habilitacionUrbana = $dataPost['ubicacionPredioCatastral']['habilitacionUrbana'];
+  $grupoHU = $dataPost['ubicacionPredioCatastral']['grupo-HU'];
+
+  $idMzna = $resultadoManzanaInsertada["data"]['id_mzna'];
+  $ubigeo = $departamento . $provincia . $distrito;
+
   $datosLote = [
-    "id_lote" => "",
-    "id_mzna" => $resultadoGuardarManzana['data']['id_mzna'],
-    "codi_lote" => "",
-    "id_hab_urba" => "",
-    "mzna_dist" => "",
-    "lote_dist" => "",
-    "sub_lote_dist" => "",
+    "id_lote" => $idMzna . $lote,
+    "id_mzna" => $idMzna,
+    "codi_lote" => $lote,
+    "id_hab_urba" => $ubigeo .$habilitacionUrbana,
+    "mzna_dist" => $numeroManzana,
+    "lote_dist" => $lote,
+    "sub_lote_dist" => $sublote,
     "estructuracion" => "",
     "zonificacion" => "",
     "cuc" => "",
-    "zona_dist" => ""
+    "zona_dist" => $grupoHU,
   ];
 
-  $resultadoGuardarLote = callApiPost('guardarLote.php', $datosLote);
+  $resultadoLoteInsertado = callApiPost('guardarLote.php', $datosLote);
 
-  // datos ficha
+  if (!$resultadoLoteInsertado["success"]) {
+    return createResponse(false, null, 'Error registrando lote');
+  }
+
+  // registrar uni cat
+  $edifica = $dataPost['codigoReferenciaCatastral']['edifica'];
+  $entrada = $dataPost['codigoReferenciaCatastral']['entrada'];
+  $piso = $dataPost['codigoReferenciaCatastral']['piso'];
+  $unidad = $dataPost['codigoReferenciaCatastral']['unidad'];
+
+  $idLote = $resultadoManzanaInsertada["data"]['id_lote'];
+
+  $datosUniCat = [
+    "id_uni_cat" => $edifica . $entrada . $piso . $unidad,
+    "id_lote" => $idLote,
+    "id_edificacion" => $idLote . $edifica,
+    "codi_entrada" => $entrada,
+    "codi_piso" => $piso,
+    "codi_unidad" => $unidad,
+    "tipo_interior" => "", // Código de Tipo de Interior: 01=Block, 02=Casa/Chalet, 03=Oficina (CHAR2)
+
+    // CAMPOS VACIOS
+    "cuc" => "",
+    "cuc_antecedente" => "",
+    "codi_hoja_catastral" => "",
+    "codi_pred_rentas" => "",
+    "nume_interior" => "",
+    "unid_acum_rentas" => "",
+    "codi_cont_rentas" => "",
+  ];
+
+
+  // registrar ficha
+  $anioActual = date("Y");
+  $tipoFicha = "01";
+  $numeroFicha = $dataPost['numeroFicha'];
+
   $datosFicha = [
     "id_ficha" => $anioActual . $ubigeo . $tipoFicha + $numeroFicha,
     "tipo_ficha" => $tipoFicha,
     "nume_ficha" => $numeroFicha,
-    "id_lote" => $resultadoGuardarLote["data"]["id_lote"],
-    "dc" => "", // no registrar
-    "nume_ficha_lote" => "", // no registrar
+    "id_lote" => $idLote,
+    "dc" => "",
+    "nume_ficha_lote" => "",
+
+    /* llenar en el formulario fich */
     "declarante" => "", // dni de tecnico catastral
     "fecha_declarante" => "", // input form
+
+    /* llenar desde mantenimiento */
     "supervisor" => "dni", // dni de supervisor
     "fecha_supervision" => "", // input form
     "tecnico" => "", // dni de tecnico
@@ -80,22 +122,23 @@ try {
     "verificador" => "dni", // dni de verificador
     "fecha_verificacion" => "", // input form
     "nume_registro" => "", // input form
+
     "id_uni_cat" => "", // tabla uni_cat
-    "activo" => "1"
+    "activo" => "1" // Esta activo
   ];
 
-  $resultadoGuardarFicha = callApiPost('guardarFicha.php', $datosFicha);
+  // $resultadoGuardarFicha = callApiPost('guardarFicha.php', $datosFicha);
 
-  if ($resultadoGuardarFicha["success"]) {
-    $insertado = $resultadoGuardarFicha["data"];
+  // if ($resultadoGuardarFicha["success"]) {
+  //   $insertado = $resultadoGuardarFicha["data"];
 
-    // Usar esos datos para guardar en otra tabla
-    // require_once './conexion.php';
-    // $stmt = $pdo->prepare("INSERT INTO otra_tabla (tabla_id, dato_extra) VALUES (?, ?)");
-    // $stmt->execute([$insertado["id"], "otro valor"]);
+  //   // Usar esos datos para guardar en otra tabla
+  //   // require_once './conexion.php';
+  //   // $stmt = $pdo->prepare("INSERT INTO otra_tabla (tabla_id, dato_extra) VALUES (?, ?)");
+  //   // $stmt->execute([$insertado["id"], "otro valor"]);
 
-    createResponse(true, $result["data"]);
-  }
+  //   createResponse(true, $result["data"]);
+  // }
 
 } catch (Exception $e) {
   createResponse(false, [], $e->getMessage());
@@ -248,3 +291,19 @@ try {
 // }
 
 // echo json_encode(["success" => true]);
+
+
+
+// Mover inserción a mantenimeinto
+// $datosSector = [
+//   "id_sector" => $ubigeo . $dataPost['codigoReferenciaCatastral']['sector'],
+//   "id_ubi_geo" => $ubigeo,
+//   "codi_sector" => $dataPost['codigoReferenciaCatastral']['sector'],
+//   "nomb_sector" => "",
+// ];
+
+// $resultadoSectorInsertado = callApiPost('guardarSector.php', $datosSector);
+
+// if (!$resultadoSectorInsertado["success"]) {
+//   return createResponse(false, null, 'Error registrando sector');
+// }

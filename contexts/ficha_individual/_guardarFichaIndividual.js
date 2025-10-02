@@ -21,6 +21,8 @@ document.getElementById('form-ficha-individual').addEventListener('submit', asyn
   formData.append('file', imagenesAdjuntas);
   formData.append('dataPost', JSON.stringify(dataPost));
 
+  console.log(dataPost);
+
   try {
     const response = await fetch('../../database/guardarFichaIndividual.php', {
       method: 'POST',
@@ -31,10 +33,12 @@ document.getElementById('form-ficha-individual').addEventListener('submit', asyn
     if (result.success) {
       console.log(result);
     } else {
-      alert('Error: ' + result.message);
+      console.log('Error en la petición 1:');
+      console.log(result.message);
     }
   } catch (err) {
-    console.error('Error en la petición:', err);
+    console.log('Error en la petición 2:');
+    console.log(err);
   }
 });
 
@@ -68,7 +72,7 @@ function obtenerUbicacionPredioCatastral() {
       .value,
     grupoHU: ubicacionPredioCatastral.querySelector('[name="grupo-HU"]').value,
     nroEtapa: ubicacionPredioCatastral.querySelector('[name="nro-etapa"]').value,
-    manzana: ubicacionPredioCatastral.querySelector('[name="manzana"]').value,
+    numeroManzana: ubicacionPredioCatastral.querySelector('[name="numero-manzana"]').value,
     lote: ubicacionPredioCatastral.querySelector('[name="lote"]').value,
     subLote: ubicacionPredioCatastral.querySelector('[name="sub-lote"]').value,
   };
