@@ -1,7 +1,34 @@
 window.addEventListener('load', () => {
+  cargarTipoEdificaciones();
+  cargarTipoInteriores();
   cargarEstadosUnidades();
   cargarHabilitacionesUrbanas();
 });
+
+async function cargarTipoEdificaciones() {
+  try {
+    const res = await fetch('../../database/obtenerTipoEdificaciones.php');
+    const data = await res.json();
+
+    const select = document.getElementById('select-tipo-edificaciones');
+    select.innerHTML = '';
+    Helper.llenarSelect(select, data.data, 'i_cod_tip_edificacion', 'c_des_tip_edificacion');
+  } catch (err) {
+    console.error('Error cargando tipo edificaciones:', err);
+  }
+}
+
+async function cargarTipoInteriores() {
+  try {
+    const res = await fetch('../../database/obtenerTipoInteriores.php');
+    const data = await res.json();
+
+    const select = document.getElementById('select-tipo-interiores');
+    Helper.llenarSelect(select, data.data, 'i_cod_tip_interior', 'c_des_tip_interior');
+  } catch (err) {
+    console.error('Error cargando tipo interiores:', err);
+  }
+}
 
 async function cargarEstadosUnidades() {
   try {
@@ -9,17 +36,18 @@ async function cargarEstadosUnidades() {
     const data = await res.json();
 
     const select = document.getElementById('select-estado-unidades');
-    select.innerHTML = '';
+    Helper.llenarSelect(select, data.data, 'i_cod_est_unid', 'c_des_est_unid');
+    // select.innerHTML = '';
 
-    let options = `<option value="0" selected>Seleccione</option>`;
+    // let options = `<option value="0" selected>Seleccione</option>`;
 
-    if (data.success && data.data.length > 0) {
-      for (const item of data.data) {
-        options += `<option value="${item.i_cod_est_unid}">${item.c_des_est_unid}</option>`;
-      }
-    }
+    // if (data.success && data.data.length > 0) {
+    //   for (const item of data.data) {
+    //     options += `<option value="${item.i_cod_est_unid}">${item.c_des_est_unid}</option>`;
+    //   }
+    // }
 
-    select.innerHTML = options;
+    // select.innerHTML = options;
   } catch (err) {
     console.error('Error cargando estado unidades:', err);
   }

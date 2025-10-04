@@ -1,7 +1,7 @@
-window.onload = () => {
+window.addEventListener('load', () => {
   cargarTipoMateriales();
   cargarTipoCategorias();
-};
+});
 
 var tipoMateriales = [];
 var tipoCategorias = [];

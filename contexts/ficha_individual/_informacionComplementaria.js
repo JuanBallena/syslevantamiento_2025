@@ -10,15 +10,16 @@ async function cargarCondicionesDeclarantes() {
     const data = await res.json();
 
     const select = document.getElementById('select-condiciones-declarantes');
-    select.innerHTML = '';
+    Helper.llenarSelect(select, data.data, 'c_cod_tipo_condicion', 'c_desc_tipo_condicion');
+    // select.innerHTML = '';
 
-    let options = Helper.generarOpciones(
-      data.data,
-      'c_cod_tipo_condicion',
-      'c_desc_tipo_condicion'
-    );
+    // let options = Helper.generarOpciones(
+    //   data.data,
+    //   'c_cod_tipo_condicion',
+    //   'c_desc_tipo_condicion'
+    // );
 
-    select.innerHTML = options;
+    // select.innerHTML = options;
   } catch (err) {
     console.error('Error cargando condiciones declarantes:', err);
   }
@@ -30,11 +31,13 @@ async function cargarEstadosFichas() {
     const data = await res.json();
 
     const select = document.getElementById('select-estados-fichas');
-    select.innerHTML = '';
+    Helper.llenarSelect(select, data.data, 'c_cod_estado_ficha', 'c_desc_estado_ficha');
 
-    let options = Helper.generarOpciones(data.data, 'c_cod_estado_ficha', 'c_desc_estado_ficha');
+    // select.innerHTML = '';
 
-    select.innerHTML = options;
+    // let options = Helper.generarOpciones(data.data, 'c_cod_estado_ficha', 'c_desc_estado_ficha');
+
+    // select.innerHTML = options;
   } catch (err) {
     console.error('Error cargando estados de fichas:', err);
   }
@@ -46,11 +49,12 @@ async function cargarMantenimientos() {
     const data = await res.json();
 
     const select = document.getElementById('select-mantenimientos');
-    select.innerHTML = '';
+    Helper.llenarSelect(select, data.data, 'c_cod_mantenimiento', 'c_desc_mantenimiento');
+    // select.innerHTML = '';
 
-    let options = Helper.generarOpciones(data.data, 'c_cod_mantenimiento', 'c_desc_mantenimiento');
+    // let options = Helper.generarOpciones(data.data, 'c_cod_mantenimiento', 'c_desc_mantenimiento');
 
-    select.innerHTML = options;
+    // select.innerHTML = options;
   } catch (err) {
     console.error('Error cargando mantenimientos:', err);
   }

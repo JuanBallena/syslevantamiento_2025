@@ -30,6 +30,7 @@ class Helper {
         li.className = 'py-1 px-4 hover:bg-success';
         li.dataset.value = item[campoValue];
         li.dataset.text = item[campoTexto];
+        li.dataset.item = JSON.stringify(item);
         li.textContent = item[campoTexto];
         ul.appendChild(li);
       });
@@ -52,39 +53,39 @@ class Helper {
     };
   }
 
-  //   static llenarSelect(
-  //     select,
-  //     lista,
-  //     itemValue = 'id',
-  //     itemText = 'nombre',
-  //     incluirSeleccione = true
-  //   ) {
-  //     // limpiar opciones previas
-  //     select.innerHTML = '';
+  static llenarSelect(
+    select,
+    lista,
+    itemValue = 'id',
+    itemText = 'nombre',
+    incluirSeleccione = true
+  ) {
+    // limpiar opciones previas
+    select.innerHTML = '';
 
-  //     // opción inicial
-  //     if (incluirSeleccione) {
-  //       const opt = document.createElement('option');
-  //       opt.value = '';
-  //       opt.textContent = 'Seleccione';
-  //       select.appendChild(opt);
-  //     }
+    // opción inicial
+    if (incluirSeleccione) {
+      const opt = document.createElement('option');
+      opt.value = '';
+      opt.textContent = 'Seleccione';
+      select.appendChild(opt);
+    }
 
-  //     // recorrer lista y generar options
-  //     if (Array.isArray(lista) && lista.length > 0) {
-  //       lista.forEach((item) => {
-  //         const option = document.createElement('option');
-  //         option.value = item[itemValue];
-  //         option.textContent = item[itemText];
-  //         select.appendChild(option);
-  //       });
-  //     } else {
-  //       // si no hay datos
-  //       const opt = document.createElement('option');
-  //       opt.value = '';
-  //       opt.textContent = 'Sin resultados';
-  //       opt.disabled = true;
-  //       select.appendChild(opt);
-  //     }
-  //   }
+    // recorrer lista y generar options
+    if (Array.isArray(lista) && lista.length > 0) {
+      lista.forEach((item) => {
+        const option = document.createElement('option');
+        option.value = item[itemValue];
+        option.textContent = item[itemText];
+        select.appendChild(option);
+      });
+    } else {
+      // si no hay datos
+      const opt = document.createElement('option');
+      opt.value = '';
+      opt.textContent = 'Sin resultados';
+      opt.disabled = true;
+      select.appendChild(opt);
+    }
+  }
 }

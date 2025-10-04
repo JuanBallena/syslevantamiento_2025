@@ -8,15 +8,16 @@ async function cargarClasificacionesPredios() {
     const data = await res.json();
 
     const select = document.getElementById('select-clasificaciones-predios');
-    select.innerHTML = '';
+    Helper.llenarSelect(select, data.data, 'c_cod_tipo_clasificacion', 'c_desc_tipo_clasificacion');
+    // select.innerHTML = '';
 
-    let options = Helper.generarOpciones(
-      data.data,
-      'c_cod_tipo_clasificacion',
-      'c_desc_tipo_clasificacion'
-    );
+    // let options = Helper.generarOpciones(
+    //   data.data,
+    //   'c_cod_tipo_clasificacion',
+    //   'c_desc_tipo_clasificacion'
+    // );
 
-    select.innerHTML = options;
+    // select.innerHTML = options;
   } catch (err) {
     console.error('Error cargando clasificaciones declarantes:', err);
   }
