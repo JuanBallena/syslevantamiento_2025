@@ -28,23 +28,23 @@ document.getElementById('form-ficha-individual').addEventListener('submit', asyn
 
   console.log(dataPost);
 
-  // try {
-  //   const response = await fetch('../../database/guardarFichaIndividualProceso.php', {
-  //     method: 'POST',
-  //     body: formData,
-  //   });
+  try {
+    const response = await fetch('../../database/guardarFichaIndividualProceso.php', {
+      method: 'POST',
+      body: formData,
+    });
 
-  //   const result = await response.json();
-  //   if (result.success) {
-  //     console.log(result);
-  //   } else {
-  //     console.log('Error:');
-  //     console.log(result.message);
-  //   }
-  // } catch (err) {
-  //   console.log('Error catch');
-  //   console.log(err);
-  // }
+    const result = await response.json();
+    if (result.success) {
+      console.log(result);
+    } else {
+      console.log('Error:');
+      console.log(result.message);
+    }
+  } catch (err) {
+    console.log('Error catch');
+    console.log(err);
+  }
 });
 
 function obtenerNumeroFicha() {
@@ -81,7 +81,8 @@ function obtenerUbicacionPredioCatastral() {
     estadoUnidad: ubicacionPredioCatastral.querySelector('[name="estado_unidad"]').value,
     nombreHU: ubicacionPredioCatastral.querySelector('[name="nombre_HU"]').value,
     codigoHU: ubicacionPredioCatastral.querySelector('[name="codigo_HU"]').value,
-    grupoHU: ubicacionPredioCatastral.querySelector('[name="grupo_hu"]').value,
+    grupoHU: ubicacionPredioCatastral.querySelector('[name="grupo_HU"]').value,
+    idHU: ubicacionPredioCatastral.querySelector('[name="id_HU"]').value,
     numeroEtapa: ubicacionPredioCatastral.querySelector('[name="numero_etapa"]').value,
     numeroManzana: ubicacionPredioCatastral.querySelector('[name="numero_manzana"]').value,
     lote: ubicacionPredioCatastral.querySelector('[name="lote"]').value,
@@ -183,7 +184,7 @@ function obtenerPuertasPredioCatastral() {
   const vias = [];
 
   contenedor.querySelectorAll('[data-via]').forEach((viaEl) => {
-    const viaId = viaEl.dataset.via;
+    // const viaId = viaEl.dataset.via;
     const via = {
       // id: viaId,
       nombre: viaEl.querySelector('[name="nombre"]')?.value || null,
@@ -192,15 +193,13 @@ function obtenerPuertasPredioCatastral() {
       puertas: [],
     };
 
-    viaEl.querySelectorAll('[data-puerta]').forEach((puertaEl) => {
+    viaEl.querySelectorAll('[data-puerta]').forEach((puertaEl, index) => {
       via.puertas.push({
-        // id: puertaEl.dataset.puerta,
         tipo: puertaEl.querySelector('[name="tipo"]')?.value || null,
-        codigo: '',
+        codigo: String(index + 1),
         numeroMunicipal: puertaEl.querySelector('[name="numero_municipal"]')?.value || null,
       });
     });
-
     vias.push(via);
   });
 
@@ -257,7 +256,7 @@ function obtenerServiciosBasicos() {
   const result = {};
 
   servicios.forEach((input) => {
-    result[input.name] = input.checked;
+    result[input.name] = Number(input.checked);
   });
 
   return result;
@@ -267,11 +266,15 @@ function obtenerConstrucciones() {
   const filas = document.querySelectorAll('#tabla-construcciones tbody tr');
   const construcciones = [];
 
-  filas.forEach((fila) => {
+  filas.forEach((fila, index) => {
     const datosFila = {};
+
     fila.querySelectorAll('input[name], select[name]').forEach((el) => {
       datosFila[el.name] = el.value;
     });
+
+    datosFila.codigo = index + 1;
+
     construcciones.push(datosFila);
   });
 

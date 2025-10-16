@@ -17,7 +17,7 @@ try {
     throw new Exception("Error decodificando JSON");
   }
 
-  // return createResponse(true, $dataPost);
+  // return createResponse(true, $dataPost['puertasPredioCatastral']);
 
   $anioActual = date("Y");
   $tipoFicha = "01";
@@ -45,6 +45,7 @@ try {
   $nombreHU = $dataPost['ubicacionPredioCatastral']['nombreHU'];
   $codigoHU = $dataPost['ubicacionPredioCatastral']['codigoHU'];
   $grupoHU = $dataPost['ubicacionPredioCatastral']['grupoHU'];
+  $idHU = $dataPost['ubicacionPredioCatastral']['idHU'];
 
   // Guardar manzana
   $datosManzana = [
@@ -63,29 +64,29 @@ try {
   $idMznaGuardado = $resultadoGuardarManzana["data"]['id_mzna'];
 
   //Guardar HU
-  $datosHU = [
-    "id_hab_urba" => trim($ubigeo . $codigoHU),
-    "grup_urba" => $grupoHU,
-    "tipo_hab_urba" => '',
-    "nomb_hab_urba" => $nombreHU,
-    "codi_hab_urba" => $codigoHU,
-    "id_ubi_geo" => $ubigeo,
-  ];
+  // $datosHU = [
+  //   "id_hab_urba" => trim($ubigeo . $codigoHU),
+  //   "grup_urba" => $grupoHU,
+  //   "tipo_hab_urba" => '',
+  //   "nomb_hab_urba" => $nombreHU,
+  //   "codi_hab_urba" => $codigoHU,
+  //   "id_ubi_geo" => $ubigeo,
+  // ];
 
-  $resultadoGuardarHU = callApiPost('guardarHU.php', $datosHU);
+  // $resultadoGuardarHU = callApiPost('guardarHU.php', $datosHU);
 
-  if (!$resultadoGuardarHU["success"]) {
-    return createResponse(false, null, 'Error registrando HU');
-  }
+  // if (!$resultadoGuardarHU["success"]) {
+  //   return createResponse(false, null, 'Error registrando HU');
+  // }
 
-  $idHUGuardado = $resultadoGuardarHU["data"]['id_hab_urba'];
+  // $idHUGuardado = $resultadoGuardarHU["data"]['id_hab_urba'];
 
   // Guardar lote
   $datosLote = [
     "id_lote" => trim($idMznaGuardado . $lote),
     "id_mzna" => $idMznaGuardado,
     "codi_lote" => $lote,
-    "id_hab_urba" => trim($idHUGuardado),
+    "id_hab_urba" => trim($idHU),
     "mzna_dist" => $numeroManzana,
     "lote_dist" => $lote,
     "sub_lote_dist" => $subLote,
@@ -211,25 +212,8 @@ try {
   $vias = $dataPost['puertasPredioCatastral'];
 
   foreach ($vias as $via) {
-
-    // $datosVia = [
-    //   'id_via' => trim($ubigeo . $via['codigo']),
-    //   'nomb_via' => $via['nombre'],
-    //   'tipo_via' => $via['tipo'],
-    //   'codi_via' => $via['codigo'],
-    //   'id_ubi_geo' => trim($ubigeo),
-    //   'fecha_via' => '2025-10-16',
-    // ];
-
-    // $resultadoGuardarVia = callApiPost('guardarVia.php', $datosVia);
-
-    // if (!$resultadoGuardarVia["success"]) {
-    //   return createResponse(false, null, 'Error registrando via');
-    // }
-
-    // $idViaGuardado = $resultadoGuardarVia['data']['id_via'];
-
     $datosPuertas = [];
+    $idVia = $via['idVia'];
 
     foreach ($via['puertas'] as $puerta) {
       $datosPuerta = [
@@ -239,7 +223,7 @@ try {
         'tipo_puerta' => $puerta['tipo'],
         'nume_muni' => $puerta['numeroMunicipal'],
         'cond_nume' => '',
-        'id_via' => trim($via['idVia']),
+        'id_via' => trim($idVia),
         'nume_certificacion' => ''
       ];
 
@@ -248,7 +232,7 @@ try {
 
     $puertasGuardadas = callApiPost('guardarPuertas.php', $datosPuertas);
 
-    if (!$resultadoGuardarVia["success"]) {
+    if (!$puertasGuardadas["success"]) {
       return createResponse(false, null, 'Error registrando puertas');
     }
   }
@@ -274,7 +258,7 @@ try {
     $datosConstruccion = [
       'id_construccion' => $idFichaGuardado,
       'id_ficha' => $idFichaGuardado,
-      'codi_construccion' => '1',
+      'codi_construccion' => $construccion['codigo'],
       'nume_piso' => $construccion['numero_piso'],
       'fecha' => $construccion['fecha'],
       'mep' => $construccion['mep'],
@@ -287,7 +271,7 @@ try {
       'acab_revest' => '',
       'acab_bano' => '',
       'inst_elect_sanita' => '',
-      'area_declarada' => $construccion['area_verificada'], //cambiar
+      'area_declarada' => '0.00',
       'area_verificada' => $construccion['area_verificada'],
       'uca' => ''
     ];

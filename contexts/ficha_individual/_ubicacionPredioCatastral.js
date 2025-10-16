@@ -80,7 +80,7 @@ document.addEventListener('click', (e) => {
       habilitacionesUrbanas,
       'nomb_hab_urba',
       hiddenInput,
-      'codi_hab_urba',
+      'id_hab_urba',
       inputReadonly,
       'codi_hab_urba'
     );

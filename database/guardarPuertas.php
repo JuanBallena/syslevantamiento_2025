@@ -20,7 +20,7 @@ try {
   $count = 1;
 
   foreach ($input as $fila) {
-    $placeholders[] = "($" . ($count++) . ", $" . ($count++) . ", $" . ($count++) . ", $" . ($count++) . ", $" . ($count++) . ", $" . ($count++) . ")";
+    $placeholders[] = "($" . ($count++) . ", $" . ($count++) . ", $" . ($count++) . ", $" . ($count++) . ", $" . ($count++) . ", $" . ($count++) . ", $" . ($count++) . ", $" . ($count++) . ")";
     array_push(
       $params,
       $fila['id_puerta'],
@@ -28,11 +28,13 @@ try {
       $fila['codi_puerta'],
       $fila['tipo_puerta'],
       $fila['nume_muni'],
-      $fila['cond_nume']
+      $fila['cond_nume'],
+      $fila['id_via'],
+      $fila['nume_certificacion'],
     );
   }
 
-  $sql = "INSERT INTO tf_puertas (id_puerta, id_lote, codi_puerta, tipo_puerta, nume_muni, cond_nume)
+  $sql = "INSERT INTO tf_puertas (id_puerta, id_lote, codi_puerta, tipo_puerta, nume_muni, cond_nume, id_via, nume_certificacion)
           VALUES " . implode(", ", $placeholders) . " RETURNING *";
 
   $insertados = $BD->insert($sql, $params);
