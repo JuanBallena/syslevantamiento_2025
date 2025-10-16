@@ -66,20 +66,27 @@ async function cargarHabilitacionesUrbanas() {
   }
 }
 
+// document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('click', (e) => {
   if (e.target.classList.contains('input-text-habilitacion-urbana')) {
     const input = e.target;
     const hiddenInput = input.parentElement.querySelector('.input-hidden-habilitacion-urbana');
+
+    const section = input.closest('.m-form-section');
+    const inputReadonly = section.querySelector('.codigo-habilitacion-urbana-readonly');
 
     Helper.mostrarSugerencias(
       input,
       habilitacionesUrbanas,
       'nomb_hab_urba',
       hiddenInput,
+      'codi_hab_urba',
+      inputReadonly,
       'codi_hab_urba'
     );
   }
 });
+// });
 
 document.addEventListener('keyup', (e) => {
   if (e.target.classList.contains('input-text-habilitacion-urbana')) {
@@ -87,6 +94,7 @@ document.addEventListener('keyup', (e) => {
     const hiddenInput = input.parentElement.querySelector('.input-hidden-habilitacion-urbana');
     const texto = input.value;
     const resultados = Helper.filtrarLista(texto, habilitacionesUrbanas, 'nomb_hab_urba');
+
     Helper.mostrarSugerencias(input, resultados, 'nomb_hab_urba', hiddenInput, 'codi_hab_urba');
   }
 });

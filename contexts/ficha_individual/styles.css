@@ -279,14 +279,14 @@
   border: 1px solid grey;
   padding: 2rem 1.5rem 1.5rem 1.5rem;
   position: relative;
-  margin-bottom: 3.5rem;
+  margin-bottom: 1.6rem;
 }
 .m-form-section__title {
   /* color: var(--light, #262626) var(--dark, white); */
   color: #262626;
   font-weight: bold;
   position: absolute;
-  top: -14px;
+  top: -15px;
   /* background: var(--light, white) var(--dark, #262626); */
   background: white;
   padding: 0.4em;
@@ -465,6 +465,13 @@
 
 .u-relative {
   position: relative;
+}
+
+.form-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(200px, max-content));
+  justify-content: start;
 }
 
 /*# sourceMappingURL=index.css.map */

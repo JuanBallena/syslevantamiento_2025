@@ -1,8 +1,6 @@
 document.getElementById('form-ficha-individual').addEventListener('submit', async (event) => {
   event.preventDefault();
 
-  const ficha = document.getElementById('ficha');
-
   let dataPost = {
     numeroFicha: obtenerNumeroFicha(),
     ubigeo: obtenerUbigeo(),
@@ -11,6 +9,7 @@ document.getElementById('form-ficha-individual').addEventListener('submit', asyn
     identificacionTitularCatastral: obtenerIdentificacionTitularCatastral(),
     puertasPredioCatastral: obtenerPuertasPredioCatastral(),
     descripcionPredio: obtenerDescripcionPredio(),
+    evaluacionPredio: obtenerEvaluacionPredio(),
     serviciosBasicos: obtenerServiciosBasicos(),
     construcciones: obtenerConstrucciones(),
     informacionComplementaria: obtenerInformacionComplementaria(),
@@ -29,23 +28,23 @@ document.getElementById('form-ficha-individual').addEventListener('submit', asyn
 
   console.log(dataPost);
 
-  try {
-    const response = await fetch('../../database/guardarFichaIndividualProceso.php', {
-      method: 'POST',
-      body: formData,
-    });
+  // try {
+  //   const response = await fetch('../../database/guardarFichaIndividualProceso.php', {
+  //     method: 'POST',
+  //     body: formData,
+  //   });
 
-    const result = await response.json();
-    if (result.success) {
-      console.log(result);
-    } else {
-      console.log('Error en la petición 1:');
-      console.log(result.message);
-    }
-  } catch (err) {
-    console.log('Error en la petición 2:');
-    console.log(err);
-  }
+  //   const result = await response.json();
+  //   if (result.success) {
+  //     console.log(result);
+  //   } else {
+  //     console.log('Error:');
+  //     console.log(result.message);
+  //   }
+  // } catch (err) {
+  //   console.log('Error catch');
+  //   console.log(err);
+  // }
 });
 
 function obtenerNumeroFicha() {
@@ -80,8 +79,8 @@ function obtenerUbicacionPredioCatastral() {
     tipoEdificacion: ubicacionPredioCatastral.querySelector('[name="tipo_edificacion"]').value,
     tipoInterior: ubicacionPredioCatastral.querySelector('[name="tipo_interior"]').value,
     estadoUnidad: ubicacionPredioCatastral.querySelector('[name="estado_unidad"]').value,
-    habilitacionUrbana: ubicacionPredioCatastral.querySelector('[name="habilitacion_urbana"]')
-      .value,
+    nombreHU: ubicacionPredioCatastral.querySelector('[name="nombre_HU"]').value,
+    codigoHU: ubicacionPredioCatastral.querySelector('[name="codigo_HU"]').value,
     grupoHU: ubicacionPredioCatastral.querySelector('[name="grupo_hu"]').value,
     numeroEtapa: ubicacionPredioCatastral.querySelector('[name="numero_etapa"]').value,
     numeroManzana: ubicacionPredioCatastral.querySelector('[name="numero_manzana"]').value,
@@ -186,17 +185,19 @@ function obtenerPuertasPredioCatastral() {
   contenedor.querySelectorAll('[data-via]').forEach((viaEl) => {
     const viaId = viaEl.dataset.via;
     const via = {
-      id: viaId,
-      tipoViaId: viaEl.querySelector('[name="tipo_via"]')?.value || null,
-      viaId: viaEl.querySelector('[name="via"]')?.value || null,
+      // id: viaId,
+      nombre: viaEl.querySelector('[name="nombre"]')?.value || null,
+      tipo: viaEl.querySelector('[name="tipo"]')?.value || null,
+      idVia: viaEl.querySelector('[name="id_via"]')?.value.trim() || null,
       puertas: [],
     };
 
     viaEl.querySelectorAll('[data-puerta]').forEach((puertaEl) => {
       via.puertas.push({
-        id: puertaEl.dataset.puerta,
-        tipo: puertaEl.querySelector('.puerta-tipo')?.value || null,
-        numero: puertaEl.querySelector('.puerta-numero')?.value || null,
+        // id: puertaEl.dataset.puerta,
+        tipo: puertaEl.querySelector('[name="tipo"]')?.value || null,
+        codigo: '',
+        numeroMunicipal: puertaEl.querySelector('[name="numero_municipal"]')?.value || null,
       });
     });
 
@@ -215,6 +216,8 @@ function obtenerDescripcionPredio() {
     contenedor.querySelector('input[name="area_terreno_adquirida"]')?.value || '';
   const areaTerrenoVerificada =
     contenedor.querySelector('input[name="area_terreno_verificada"]')?.value || '';
+  const clasificacionPredio =
+    contenedor.querySelector('input[name="clasificacion_predio"]')?.value || '';
 
   const linderos = [];
   const filas = contenedor.querySelectorAll('table tbody tr');
@@ -234,7 +237,18 @@ function obtenerDescripcionPredio() {
     uso,
     areaTerrenoAdquirida,
     areaTerrenoVerificada,
+    clasificacionPredio,
     linderos,
+  };
+}
+
+function obtenerEvaluacionPredio() {
+  const evaluacionPredio = document.getElementById('evaluacion-predio');
+  return {
+    enLoteColindante: evaluacionPredio.querySelector('[name="en_lote_colindante"]').value,
+    enAreaPublica: evaluacionPredio.querySelector('[name="en_area_publica"]').value,
+    enJardinAislamiento: evaluacionPredio.querySelector('[name="en_jardin_aislamiento"]').value,
+    enAreaIntangible: evaluacionPredio.querySelector('[name="en_area_intangible"]').value,
   };
 }
 
@@ -265,22 +279,31 @@ function obtenerConstrucciones() {
 }
 
 function obtenerInformacionComplementaria() {
-  const section = document.getElementById('informacion-complementaria');
+  const seccion = document.getElementById('informacion-complementaria');
 
-  // 1. Obtener cantidad de medidores
-  const cantidadMedidores = section.querySelector('input[name="cantidad_medidores"]').value;
+  const condicionDeclarante = seccion.querySelector("[name='condicion_declarante']").value;
+  const estadoFicha = seccion.querySelector("[name='estado_ficha']").value;
+  const cantidadMedidores =
+    parseInt(seccion.querySelector("[name='cantidad_medidores']").value) || 0;
+  const mantenimiento = seccion.querySelector("[name='mantenimiento']").value;
+  const numeroHabitantes = parseInt(seccion.querySelector("[name='numero_habitantes']").value) || 0;
+  const numeroFamilias = parseInt(seccion.querySelector("[name='numero_familias']").value) || 0;
 
-  // 2. Obtener posibles unidades (checkboxes)
-  const checkboxes = section.querySelectorAll('input[type="checkbox"]');
-  const posiblesUnidades = {};
-
-  checkboxes.forEach((input) => {
-    posiblesUnidades[input.name] = input.checked;
-  });
+  // Checkboxes (convertir a booleano)
+  const posiblesUnidades = seccion.querySelector("[name='posibles_unidades']").checked;
+  const subDivision = seccion.querySelector("[name='sub_division']").checked;
+  const independizacion = seccion.querySelector("[name='independización']").checked;
 
   return {
-    cantidadMedidores: Number(cantidadMedidores),
+    condicionDeclarante,
+    estadoFicha,
+    cantidadMedidores,
+    mantenimiento,
+    numeroHabitantes,
+    numeroFamilias,
     posiblesUnidades,
+    subDivision,
+    independizacion,
   };
 }
 
@@ -295,8 +318,9 @@ function obtenerImagenesAdjuntas() {
 
 function obtenerObservaciones() {
   const observaciones = document.getElementById('observaciones');
+  const campoTexto = observaciones?.querySelector('[name="texto"]');
   return {
-    text: observaciones.querySelector('[name="text"]').value,
+    texto: campoTexto ? campoTexto.value.trim() : '',
   };
 }
 

@@ -1,0 +1,23 @@
+<div class="m-form-section" data-puerta="{{puertaId}}" data-tipo="puerta">
+  <!-- <div class="m-form-section__title">Puerta {{index}}</div> -->
+  <div class="a-close-button is-danger-color btn-eliminar-puerta">x</div>
+
+  <div class="grid grid-cols-1 gap-1">
+    <div>
+      <label>Tipo</label>
+      <select class="a-input-text puerta-tipo" name="tipo">
+        {{puertaOpciones}}
+      </select>
+    </div>
+
+    <div>
+      <label>Nro. Municipal</label>
+      <input
+        placeholder="Escriba"
+        class="a-input-text puerta-numero"
+        type="text"
+        name="numero_municipal"
+      />
+    </div>
+  </div>
+</div>

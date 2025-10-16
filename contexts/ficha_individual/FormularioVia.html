@@ -1,0 +1,44 @@
+<div class="m-form-section" data-via="{{viaId}}">
+  <div class="a-close-button is-danger-color btn-eliminar-via">x</div>
+  <div class="m-form-section__title">Vía</div>
+
+  <div class="grid grid-cols-5 gap-1">
+    <div>
+      <label>Tipo de Vía</label>
+      <div class="a-autocomplete">
+        <input type="text" class="a-input-text input-tipo-via" placeholder="Escriba" />
+        <!-- <input type="hidden" class="input-hidden-tipo-via" name="via[{{viaId}}][tipoViaId]" /> -->
+        <input type="hidden" class="input-hidden-tipo-via" name="tipo" />
+        <div class="a-autocomplete__box none contenedor-tipo-vias">
+          <ul class="a-autocomplete__items lista-tipo-vias"></ul>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <label>Nombre de Vía</label>
+      <div class="a-autocomplete">
+        <input type="text" class="a-input-text input-via" placeholder="Escriba" name="nombre" />
+        <input type="hidden" class="a-input-text input-hidden-via" name="id_via" />
+
+        <div class="a-autocomplete__box none contenedor-vias">
+          <ul class="a-autocomplete__items lista-vias"></ul>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <label>Código de Vía</label>
+      <input type="text" class="a-input-text codigo-via-readonly" disabled readonly />
+      <!-- <input type="text" class="a-input-text input-hidden-via" name="via[{{viaId}}][viaId]" /> -->
+    </div>
+  </div>
+
+  <div class="m-form-section mt-8">
+    <div class="m-form-section__title">Puertas</div>
+    <div class="contenedor-puertas grid grid-cols-4 gap-1"></div>
+    <div class="mt-4">
+      <button type="button" class="a-btn a-btn--secondary btn-agregar-puerta">Añadir Puerta</button>
+    </div>
+  </div>
+</div>

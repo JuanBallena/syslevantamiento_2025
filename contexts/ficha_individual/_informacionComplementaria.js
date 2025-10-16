@@ -9,6 +9,9 @@ async function cargarCondicionesDeclarantes() {
     const res = await fetch('../../database/obtenerCondicionesDeclarantes.php');
     const data = await res.json();
 
+    // console.log('condicion declarante');
+    // console.log(data.data);
+
     const select = document.getElementById('select-condiciones-declarantes');
     Helper.llenarSelect(select, data.data, 'c_cod_tipo_condicion', 'c_desc_tipo_condicion');
     // select.innerHTML = '';
@@ -30,6 +33,9 @@ async function cargarEstadosFichas() {
     const res = await fetch('../../database/obtenerEstadosFichas.php');
     const data = await res.json();
 
+    // console.log('estado ficha');
+    // console.log(data.data);
+
     const select = document.getElementById('select-estados-fichas');
     Helper.llenarSelect(select, data.data, 'c_cod_estado_ficha', 'c_desc_estado_ficha');
 
@@ -47,6 +53,9 @@ async function cargarMantenimientos() {
   try {
     const res = await fetch('../../database/obtenerMantenimientos.php');
     const data = await res.json();
+
+    // console.log('mantenimiento');
+    // console.log(data.data);
 
     const select = document.getElementById('select-mantenimientos');
     Helper.llenarSelect(select, data.data, 'c_cod_mantenimiento', 'c_desc_mantenimiento');

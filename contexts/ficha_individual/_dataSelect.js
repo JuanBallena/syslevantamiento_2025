@@ -1,9 +1,9 @@
 class DataSelect {
   static tipoPuertaOpciones = [
-    { id: '01', nombre: 'PRINCIPAL' },
-    { id: '02', nombre: 'SECUNDARIA' },
-    { id: '03', nombre: 'GARAGE' },
-    { id: '04', nombre: 'ESTACIONAMIENTO' },
+    { value: 'P', text: 'PRINCIPAL' },
+    { value: 'S', text: 'SECUNDARIA' },
+    { value: 'G', text: 'GARAGE' },
+    { value: 'E', text: 'ESTACIONAMIENTO' },
   ];
 
   static estadoCivilOpciones = [

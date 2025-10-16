@@ -19,7 +19,15 @@ class Helper {
     });
   }
 
-  static mostrarSugerencias(input, lista, campoTexto, inputHidden, campoValue = 'id') {
+  static mostrarSugerencias(
+    input,
+    lista,
+    campoTexto,
+    inputHidden,
+    campoValue = 'id',
+    inputReadonly = null,
+    campoReadonly = 'id'
+  ) {
     const contenedor = input.parentElement.querySelector('.a-autocomplete__box');
     const ul = contenedor.querySelector('ul');
     ul.innerHTML = '';
@@ -30,6 +38,7 @@ class Helper {
         li.className = 'py-1 px-4 hover:bg-success';
         li.dataset.value = item[campoValue];
         li.dataset.text = item[campoTexto];
+        li.dataset.readonly = item[campoReadonly];
         li.dataset.item = JSON.stringify(item);
         li.textContent = item[campoTexto];
         ul.appendChild(li);
@@ -49,6 +58,10 @@ class Helper {
         input.value = e.target.dataset.text;
         inputHidden.value = e.target.dataset.value;
         contenedor.classList.add('none');
+
+        if (inputReadonly) {
+          inputReadonly.value = e.target.dataset.readonly;
+        }
       }
     };
   }

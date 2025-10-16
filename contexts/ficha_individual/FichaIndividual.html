@@ -13,8 +13,6 @@
   <body>
     <div class="o-main max-h-screen px-15 bg-white" style="overflow: auto">
       <form
-        name="datos"
-        action=""
         method="post"
         autocomplete="off"
         enctype="multipart/form-data"
@@ -30,17 +28,10 @@
               <input
                 class="a-input-text"
                 type="text"
-                value="0002780"
+                value="0002784"
                 placeholder="Escriba"
                 name="numero_ficha"
               />
-            </div>
-          </div>
-
-          <div class="w-3-12">
-            <div class="grid grid-cols-2 gap-x-1 mb-8">
-              <button class="a-btn btn-accent">Cancelar</button>
-              <button type="submit" class="a-btn btn-success">Grabar</button>
             </div>
           </div>
 
@@ -203,7 +194,7 @@
                 ></select>
               </div>
               <div>
-                <label>Nombre Habilitación Urbana</label>
+                <label>Nombre HU</label>
 
                 <div class="a-autocomplete">
                   <input
@@ -211,11 +202,12 @@
                     class="a-input-text input-text-habilitacion-urbana"
                     placeholder="Escriba"
                     tabindex="1"
+                    name="nombre_HU"
                   />
                   <input
                     type="hidden"
-                    name="habilitacion_urbana"
-                    class="input-hidden-habilitacion-urbana"
+                    class="a-input-text input-hidden-habilitacion-urbana"
+                    name="codigo_HU"
                   />
                   <div
                     id="autocompletado-contenedor-habilitaciones-urbanas"
@@ -228,6 +220,15 @@
                     ></ul>
                   </div>
                 </div>
+              </div>
+              <div>
+                <label>Código HU</label>
+                <input
+                  type="text"
+                  class="a-input-text codigo-habilitacion-urbana-readonly"
+                  disabled
+                  readonly
+                />
               </div>
               <div>
                 <label>Grupo HU</label>
@@ -255,7 +256,7 @@
                 />
               </div>
               <div>
-                <label>Nro .Manzana</label>
+                <label>Nro. Manzana</label>
                 <input
                   class="a-input-text"
                   type="text"
@@ -326,7 +327,7 @@
             <div class="m-form-section__title">Puertas del Predio Catastral</div>
             <div id="contenedor-vias"></div>
 
-            <button id="btn-agregar-via" type="button" class="a-btn a-btn--secondary">
+            <button id="btn-agregar-via" type="button" class="a-btn a-btn--secondary agregar-via">
               Añadir Vía
             </button>
           </div>
@@ -343,6 +344,7 @@
                   type="text"
                   name="referencia_uso"
                   placeholder="Escriba"
+                  value="Casa"
                 />
               </div>
               <div>
@@ -370,16 +372,18 @@
                   type="text"
                   placeholder="Escriba"
                   name="area_terreno_adquirida"
+                  value="8"
                 />
               </div>
 
               <div>
-                <label class="">Área de terreno verificado</label>
+                <label class="">Área de terreno verificada</label>
                 <input
                   class="a-input-text"
                   type="text"
                   placeholder="Escriba"
                   name="area_terreno_verificada"
+                  value="10"
                 />
               </div>
 
@@ -489,19 +493,19 @@
             <div class="grid grid-cols-5 gap-1">
               <div>
                 <label>En lote colindante</label>
-                <input class="a-input-text" type="number" name="en_lote_colindante" />
+                <input class="a-input-text" type="number" value="2" name="en_lote_colindante" />
               </div>
               <div>
                 <label>En área pública</label>
-                <input class="a-input-text" type="number" name="en_area_publica" />
+                <input class="a-input-text" type="number" value="2" name="en_area_publica" />
               </div>
               <div>
                 <label>En jardín de aislamiento</label>
-                <input class="a-input-text" type="number" name="en_jardin_aislamiento" />
+                <input class="a-input-text" type="number" value="2" name="en_jardin_aislamiento" />
               </div>
               <div>
                 <label>En área intangible</label>
-                <input class="a-input-text" type="number" name="en_area_intangible" />
+                <input class="a-input-text" type="number" value="2" name="en_area_intangible" />
               </div>
             </div>
           </div>
@@ -581,11 +585,11 @@
               <thead>
                 <tr>
                   <th class="w-10-per">N° piso</th>
-                  <th class="w-10-per">Fecha construcción</th>
+                  <th class="w-10-per">Fecha</th>
                   <th class="w-10-per">MEP</th>
                   <th class="w-10-per">ECS</th>
                   <th class="w-10-per">ECC</th>
-                  <th class="w-10-per">Muros y columnas</th>
+                  <th class="w-10-per">Muros/columnas</th>
                   <th class="w-10-per">Techos</th>
                   <th class="w-10-per">Pisos</th>
                   <th class="w-10-per">Puertas y ventanas</th>
@@ -598,7 +602,7 @@
             <template id="filaTemplate">
               <tr>
                 <td>
-                  <select class="a-input-text w-10-12" name="piso">
+                  <select class="a-input-text w-10-12" name="numero_piso">
                     <option value="0" selected>Seleccione</option>
                     <option value="1">1 piso</option>
                     <option value="2">2 piso</option>
@@ -615,7 +619,7 @@
                   </select>
                 </td>
                 <td>
-                  <input class="w-10-12 a-input-text" name="fecha_construccion" type="date" />
+                  <input class="w-10-12 a-input-text" name="fecha" type="date" />
                 </td>
                 <td>
                   <select class="a-input-text select-mep" name="mep"></select>
@@ -670,7 +674,7 @@
               </div>
               <div>
                 <label class="">Cantidad de Medidores</label>
-                <input class="a-input-text" type="number" name="cantidad_medidores" value="0" />
+                <input class="a-input-text" type="number" name="cantidad_medidores" value="1" />
               </div>
               <div>
                 <label class="">Mantenimiento</label>
@@ -687,15 +691,17 @@
                   type="text"
                   placeholder="Escriba"
                   name="numero_habitantes"
+                  value="12"
                 />
               </div>
               <div>
                 <label class="">Nro. Familias</label>
                 <input
                   class="a-input-text"
-                  type="text"
+                  type="number"
                   placeholder="Escriba"
                   name="numero_familias"
+                  value="2"
                 />
               </div>
             </div>
@@ -741,7 +747,9 @@
           <div class="m-form-section" id="observaciones">
             <div class="m-form-section__title">Observaciones</div>
 
-            <textarea class="a-input-text" name="text" cols="30" rows="5"></textarea>
+            <textarea class="a-input-text" name="texto" cols="30" rows="5">
+Esta es una observación</textarea
+            >
           </div>
 
           <!-- DATOS DEL DECLARANTE -->
@@ -752,29 +760,20 @@
               <div>
                 <label class="">Dni</label>
                 <div class="a-autocomplete">
-                  <input
-                    class="a-input-text autocompletado-dn"
-                    data-url="obtener-declarantes"
-                    data-tipo="datos-declarante"
-                    type="text"
-                    name="dni"
-                  />
-                  <div class="a-autocomplete__box none" onmousedown="event.preventDefault()">
-                    <ul class="a-autocomplete__items cursor-pointer"></ul>
-                  </div>
+                  <input class="a-input-text" type="text" value="12345678" name="dni" />
                 </div>
               </div>
               <div>
                 <label class="">Nombres</label>
-                <input class="a-input-text" type="text" name="nombres" />
+                <input class="a-input-text" type="text" name="nombres" value="Juan" />
               </div>
               <div>
                 <label class="">Apellido Paterno</label>
-                <input class="a-input-text" type="text" name="apellido_paterno" />
+                <input class="a-input-text" type="text" name="apellido_paterno" value="Rosales" />
               </div>
               <div>
                 <label class="">Apellido Materno</label>
-                <input class="a-input-text" type="text" name="apellido_materno" />
+                <input class="a-input-text" type="text" name="apellido_materno" value="Rosales" />
               </div>
               <div>
                 <label class="">Fecha Levantamiento</label>
@@ -902,6 +901,13 @@
                 <label class="">Nro. Registro</label>
                 <input class="a-input-text" type="text" name="numero_registro" />
               </div>
+            </div>
+          </div>
+
+          <div class="w-3-12">
+            <div class="grid grid-cols-2 gap-x-1 mb-8">
+              <button class="a-btn btn-accent">Cancelar</button>
+              <button type="submit" class="a-btn btn-success">Grabar</button>
             </div>
           </div>
         </div>

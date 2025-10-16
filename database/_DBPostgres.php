@@ -93,11 +93,14 @@ class DBPostgres
   */
   public function insert(string $sql, array $params): ?array
   {
+    preg_match('/INSERT\s+INTO\s+([a-zA-Z0-9_]+)/i', $sql, $matches);
+    $tabla = $matches[1] ?? null;
+
     $conn = $this->conectar();
     $result = pg_query_params($conn, $sql, $params);
 
     if (!$result) {
-      throw new Exception("❌ Error al insertar: " . pg_last_error($conn));
+      throw new Exception("❌ Error al insertar: " . $tabla . ": " . pg_last_error($conn));
     }
 
     $row = pg_fetch_assoc($result);

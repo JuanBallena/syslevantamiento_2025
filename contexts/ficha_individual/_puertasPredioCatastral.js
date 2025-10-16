@@ -29,63 +29,34 @@ async function cargarVias() {
 
 let listaVias = [];
 
-function agregarVia() {
+async function agregarVia() {
   const viaId = Helper.generarId();
   listaVias.push({ id: viaId, puertas: [] });
 
-  const contenedor = document.getElementById('contenedor-vias');
+  const contenedorVias = document.getElementById('contenedor-vias');
+  const formularioVia = await crearFormularioVia(viaId);
 
-  const nuevaVia = document.createElement('div');
-  nuevaVia.classList.add('m-form-section', 'u-relative');
-  nuevaVia.dataset.via = viaId;
-
-  nuevaVia.innerHTML = `
-    <div class="a-close-button is-danger-color btn-eliminar-via">x</div>
-    <div class="m-form-section__title">Vía</div>
-
-    <div class="o-grid o-grid__five-columns">
-      <div class="o-grid__first-column">
-        <label>Tipo de Vía</label>
-        <div class="a-autocomplete">
-          <input type="text" 
-                 class="a-input-text input-tipo-via" 
-                 placeholder="Escriba" />
-          <input type="hidden" class="input-hidden-tipo-via" 
-                 name="via[${viaId}][tipoViaId]" />
-          <div class="a-autocomplete__box none contenedor-tipo-vias">
-            <ul class="a-autocomplete__items lista-tipo-vias"></ul>
-          </div>
-        </div>
-      </div>
-      <div class="o-grid__second-column">
-        <label>Nombre de Vía</label>
-        <div class="a-autocomplete">
-          <input type="text" 
-                 class="a-input-text input-via" 
-                 placeholder="Escriba" />
-          <input type="hidden" class="input-hidden-via" 
-                 name="via[${viaId}][viaId]" />
-          <div class="a-autocomplete__box none contenedor-vias">
-            <ul class="a-autocomplete__items lista-vias"></ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="o-grid o-grid--14rem contenedor-puertas"></div>
-    <div>
-      <button type="button" class="a-btn a-btn--secondary btn-agregar-puerta">
-        Añadir Puerta
-      </button>
-    </div>
-  `;
-
-  contenedor.appendChild(nuevaVia);
+  contenedorVias.insertAdjacentHTML('beforeend', formularioVia);
 
   agregarPuerta(viaId);
 }
 
-function agregarPuerta(viaId) {
+async function crearFormularioVia(viaId) {
+  const placeholders = {
+    '{{viaId}}': viaId,
+  };
+
+  const res = await fetch('FormularioVia.html');
+  let html = await res.text();
+
+  for (const [key, value] of Object.entries(placeholders)) {
+    html = html.replace(key, value);
+  }
+
+  return html;
+}
+
+async function agregarPuerta(viaId) {
   const via = listaVias.find((v) => v.id === viaId);
   if (!via) return;
 
@@ -94,30 +65,29 @@ function agregarPuerta(viaId) {
 
   const viaEl = document.querySelector(`[data-via="${viaId}"]`);
   const contenedorPuertas = viaEl.querySelector('.contenedor-puertas');
+  const index = contenedorPuertas.querySelectorAll('[data-tipo="puerta"]').length;
 
-  const nuevaPuerta = document.createElement('div');
-  nuevaPuerta.classList.add('o-container', 'u-relative');
-  nuevaPuerta.dataset.puerta = puertaId;
+  const formularioPuerta = await crearFormularioPuerta(index, viaId, puertaId);
 
-  let opcionesPuertas = `<option value="0" selected>Seleccione</option>`;
-  DataSelect.tipoPuertaOpciones.forEach((p) => {
-    opcionesPuertas += `<option value="${p.id}">${p.nombre}</option>`;
-  });
+  contenedorPuertas.insertAdjacentHTML('beforeend', formularioPuerta);
+}
 
-  nuevaPuerta.innerHTML = `
-    <div class="a-close-button is-danger-color btn-eliminar-puerta">x</div>
-    <div class="a-text--center">Puerta</div>
-    <label>Tipo</label>
-    <select class="a-input-text puerta-tipo" 
-            name="via[${viaId}][puerta][${puertaId}][tipo]">
-      ${opcionesPuertas}
-    </select>
-    <label>Nro. Municipal</label>
-    <input placeholder="Escriba" class="a-input-text puerta-numero" type="text" 
-           name="via[${viaId}][puerta][${puertaId}][numero]" />
-  `;
+async function crearFormularioPuerta(index, viaId, puertaId) {
+  const placeholders = {
+    '{{index}}': index + 1,
+    '{{viaId}}': viaId,
+    '{{puertaId}}': puertaId,
+    '{{puertaOpciones}}': Helper.generarOpciones(DataSelect.tipoPuertaOpciones),
+  };
 
-  contenedorPuertas.appendChild(nuevaPuerta);
+  const res = await fetch('FormularioPuerta.html');
+  let html = await res.text();
+
+  for (const [key, value] of Object.entries(placeholders)) {
+    html = html.replace(key, value);
+  }
+
+  return html;
 }
 
 function eliminarVia(viaId) {
@@ -148,7 +118,18 @@ document.addEventListener('click', (e) => {
     const input = e.target;
     const hiddenInput = input.parentElement.querySelector('.input-hidden-via');
 
-    Helper.mostrarSugerencias(input, vias, 'nomb_via', hiddenInput, 'id_via');
+    const section = input.closest('.m-form-section');
+    const inputReadonly = section.querySelector('.codigo-via-readonly');
+
+    Helper.mostrarSugerencias(
+      input,
+      vias,
+      'nomb_via',
+      hiddenInput,
+      'id_via',
+      inputReadonly,
+      'codi_via'
+    );
   }
 
   if (e.target.classList.contains('btn-eliminar-via')) {
