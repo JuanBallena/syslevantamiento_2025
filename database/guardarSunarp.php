@@ -15,8 +15,9 @@ try {
   $BD = new DBPostgres();
   $BD->conectar();
 
-  $sql = "INSERT INTO tf_manzanas (id_mzna, id_sector, codi_mzna, nume_mzna)
-          VALUES ($1, $2, $3, $4)
+  $sql = "INSERT INTO tf_sunarp (id_ficha, tipo_partida, nume_partida, fojas,
+   asiento, fech_inscripcion, codi_decla_fabrica, asie_fabrica, fecha_fabrica)
+          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
           RETURNING *";
 
   $registro = $BD->insert($sql, $input);

@@ -1,0 +1,89 @@
+<?php
+
+require_once "./_DBPostgres.php";
+require_once "./_CreateResponse.php";
+
+header("Content-Type: application/json; charset=UTF-8");
+
+try {
+  $input = $_POST;
+
+  if (empty($input)) {
+    $input = json_decode(file_get_contents("php://input"), true) ?? [];
+  }
+
+  $BD = new DBPostgres();
+  $BD->conectar();
+
+  if (!is_array($input) || empty($input)) {
+    throw new Exception("No se recibieron datos válidos para insertar.");
+  }
+
+  $placeholders = [];
+  $params = [];
+  $count = 1;
+
+  foreach ($input as $fila) {
+    // Generar los 17 placeholders ($1, $2, $3, ...)
+    $placeholdersFila = [];
+    for ($i = 0; $i < 17; $i++) {
+      $placeholdersFila[] = '$' . ($count++);
+    }
+    $placeholders[] = '(' . implode(', ', $placeholdersFila) . ')';
+
+    // Agregar los valores en orden
+    array_push(
+      $params,
+      $fila['id_ficha'],
+      $fila['id_persona'],
+      $fila['codi_via'],
+      $fila['tipo_via'],
+      $fila['nomb_via'],
+      $fila['nume_muni'],
+      $fila['nomb_edificacion'],
+      $fila['nume_interior'],
+      $fila['codi_hab_urba'],
+      $fila['nomb_hab_urba'],
+      $fila['sector'],
+      $fila['mzna'],
+      $fila['lote'],
+      $fila['sublote'],
+      $fila['codi_dep'],
+      $fila['codi_pro'],
+      $fila['codi_dis']
+    );
+  }
+
+  $sql = "INSERT INTO tf_domicilio_titulares (
+            id_ficha,
+            id_persona,
+            codi_via,
+            tipo_via,
+            nomb_via,
+            nume_muni,
+            nomb_edificacion,
+            nume_interior,
+            codi_hab_urba,
+            nomb_hab_urba,
+            sector,
+            mzna,
+            lote,
+            sublote,
+            codi_dep,
+            codi_pro,
+            codi_dis
+          )
+          VALUES " . implode(", ", $placeholders) . "
+          RETURNING *";
+
+  $insertados = $BD->insert($sql, $params);
+
+  createResponse(true, $insertados);
+
+} catch (Exception $e) {
+  createResponse(false, [], $e->getMessage());
+} finally {
+  if (isset($BD)) {
+    $BD->desconectar();
+  }
+}

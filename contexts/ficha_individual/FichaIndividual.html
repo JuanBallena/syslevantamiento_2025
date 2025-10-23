@@ -652,6 +652,140 @@
             </template>
           </div>
 
+          <!-- OBRAS COMPLEMENTARIAS / OTRAS INSTALACIONES -->
+          <div class="m-form-section" id="obras-complementarias">
+            <div class="m-form-section__title">Obras complementarias / Otras instalaciones</div>
+
+            <button
+              class="a-btn btn-primary mb-6"
+              type="button"
+              onclick="agregarFilaTablaObrasComplementarias()"
+            >
+              Añadir fila
+            </button>
+
+            <table class="table-default" id="tabla-obras-complementarias" border="1">
+              <thead>
+                <tr>
+                  <th class="w-10-per">Código instalación</th>
+                  <!-- <th class="w-10-per">Código obra</th> -->
+                  <th class="w-10-per">Fecha</th>
+                  <!-- <th class="w-10-per">Descripción</th> -->
+                  <th class="w-10-per">MEP</th>
+                  <th class="w-10-per">ECS</th>
+                  <th class="w-10-per">ECC</th>
+                  <th class="w-10-per">Largo</th>
+                  <th class="w-10-per">Ancho</th>
+                  <th class="w-10-per">Alto</th>
+                  <th class="w-10-per">Total</th>
+                  <th class="w-10-per">Unidad medida</th>
+                  <th class="w-10-per">UCA</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+
+            <template id="filaTablaObrasComplementarias">
+              <tr>
+                <td>
+                  <select
+                    class="a-input-text w-10-12 select-codigos-instalaciones"
+                    name="codigo_instalacion"
+                  >
+                    <option value="0" selected>Seleccione</option>
+                  </select>
+                </td>
+                <!-- <td>
+                  <input class="w-10-12 a-input-text" name="codigo_obra" type="text" />
+                </td> -->
+                <td>
+                  <input class="w-10-12 a-input-text" name="fecha" type="date" />
+                </td>
+                <td>
+                  <select class="a-input-text select-mep" name="mep"></select>
+                </td>
+                <td>
+                  <select class="w-10-12 a-input-text select-ecs" name="ecs"></select>
+                </td>
+                <td>
+                  <select class="w-10-12 a-input-text select-ecc" name="ecc"></select>
+                </td>
+                <td>
+                  <input class="w-10-12 a-input-text" name="dimension_largo" type="number" />
+                </td>
+                <td>
+                  <input class="w-10-12 a-input-text" name="dimension_ancho" type="number" />
+                </td>
+                <td>
+                  <input class="w-10-12 a-input-text" name="dimension_alto" type="number" />
+                </td>
+                <td>
+                  <input class="w-10-12 a-input-text" name="produccion_total" type="number" />
+                </td>
+                <td>
+                  <input class="w-10-12 a-input-text" name="unidad_medida" type="text" />
+                </td>
+                <td>
+                  <input class="w-10-12 a-input-text" name="uca" type="text" />
+                </td>
+              </tr>
+            </template>
+          </div>
+
+          <!-- INSCRIPCIÓN DEL PREDIO CATASTRAL -->
+          <div class="m-form-section" id="inscripcion-predio-catastral">
+            <div class="m-form-section__title">Inscripción del Predio Catastral</div>
+
+            <div class="grid grid-cols-3 gap-1">
+              <div>
+                <label class="">Tipo de partida</label>
+                <select class="a-input-text" name="tipo_partida" id="select-tipo-partida">
+                  <option selected disabled>Seleccione</option>
+                  <option value="01">Tomo</option>
+                  <option value="02">Ficha</option>
+                  <option value="03">Partida de crédito</option>
+                  <option value="04">Código de predio</option>
+                </select>
+              </div>
+              <div>
+                <label class="">Nro. partida</label>
+                <input class="a-input-text" type="number" name="numero_partida" value="1" />
+              </div>
+              <div>
+                <label class="">Fojas</label>
+                <input class="a-input-text" type="number" name="fojas" value="1" />
+              </div>
+              <div>
+                <label class="">Asiento</label>
+                <input class="a-input-text" type="number" name="asiento" value="1" />
+              </div>
+              <div>
+                <label class="">Fecha inscripción</label>
+                <input class="a-input-text" type="date" name="fecha_inscripcion" />
+              </div>
+              <div>
+                <label class="">Código Decla. Fábrica</label>
+                <select
+                  class="a-input-text"
+                  name="codigo_declarancion_fabrica"
+                  id="select-codigo-declaracion-fabrica"
+                >
+                  <option selected disabled>Seleccione</option>
+                  <option value="01">Fábrica inscrita</option>
+                  <option value="02">Fábrica no inscrita</option>
+                </select>
+              </div>
+              <div>
+                <label class="">Asiento fábrica</label>
+                <input class="a-input-text" type="number" name="asie_fabrica" value="1" />
+              </div>
+              <div>
+                <label class="">Fecha fábrica</label>
+                <input class="a-input-text" type="date" name="fecha_fabrica" />
+              </div>
+            </div>
+          </div>
+
           <!-- INFORMACIÓN COMPLEMENTARIA -->
           <div class="m-form-section" id="informacion-complementaria">
             <div class="m-form-section__title">Información Complementaria</div>
@@ -707,6 +841,57 @@
               </div>
             </div>
 
+            <p class="my-4 text-6 text-600">Identificación de los litigantes</p>
+
+            <button
+              class="a-btn btn-primary mb-6"
+              type="button"
+              onclick="agregarFilaTablaLitigantes()"
+            >
+              Añadir fila
+            </button>
+
+            <table class="table-default" id="tabla-litigantes" border="1">
+              <thead>
+                <tr>
+                  <th class="w-20-per">N° documento</th>
+                  <th class="w-40-per">Apellidos y nombres</th>
+                  <th class="w-20-per">Código del contribuyente</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+
+            <template id="filaTablaLitigantes">
+              <tr>
+                <td>
+                  <input
+                    class="w-11-12 a-input-text"
+                    name="numero_documento"
+                    type="text"
+                    placeholder="Escriba"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="w-11-12 a-input-text"
+                    name="nombres_apellidos"
+                    type="text"
+                    placeholder="Escriba"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="w-11-12 a-input-text"
+                    name="codigo_contribuyente"
+                    type="text"
+                    placeholder="Escriba"
+                  />
+                </td>
+              </tr>
+            </template>
+            <!-- </div> -->
+
             <!-- <div class="mt-6">
               <label class="">Posibles unidades</label>
               <div class="grid grid-cols-5 gap-1">
@@ -751,6 +936,13 @@
             <textarea class="a-input-text" name="texto" cols="30" rows="5">
 Esta es una observación</textarea
             >
+
+            <div class="grid grid-cols-4 mt-4">
+              <div>
+                <label>Código Catastral antiguo</label>
+                <input class="w-10-12 a-input-text" name="codigo_catastral_antiguo" type="text" />
+              </div>
+            </div>
           </div>
 
           <!-- DATOS DEL DECLARANTE -->
@@ -926,11 +1118,13 @@ Esta es una observación</textarea
     <script type="text/javascript" src="./_identificacionTitularCatastral.js"></script>
     <script type="text/javascript" src="./_imagenesAdjuntas.js"></script>
     <script type="text/javascript" src="./_informacionComplementaria.js"></script>
+    <script type="text/javascript" src="./_obrasComplementarias.js"></script>
     <script type="text/javascript" src="./_observaciones.js"></script>
     <script type="text/javascript" src="./_puertasPredioCatastral.js"></script>
     <script type="text/javascript" src="./_serviciosBasicos.js"></script>
     <script type="text/javascript" src="./_ubicacionPredioCatastral.js"></script>
     <script type="text/javascript" src="./_ubigeo.js"></script>
+    <script type="text/javascript" src="./_validarFichaIndividual.js"></script>
 
     <script type="text/javascript" src="./_guardarFichaIndividual.js"></script>
   </body>

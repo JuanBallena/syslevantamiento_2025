@@ -20,7 +20,7 @@
     </div>
     <div>
       <label>Persona Jurídica</label>
-      <select class="a-input-text input-tipo-pj" name="persona_juridica">
+      <select class="a-input-text input-tipo-pj" name="tipo_persona_juridica">
         {{personaJuridicaOpciones}}
       </select>
     </div>
@@ -36,15 +36,15 @@
     </div>
     <div>
       <label>Departamento</label>
-      <input type="text" class="a-input-text" name="departamento" placeholder="Escriba" />
+      <input type="text" class="a-input-text" name="codigo_departamento" placeholder="Escriba" />
     </div>
     <div>
       <label>Provincia</label>
-      <input type="text" class="a-input-text" name="provincia" placeholder="Escriba" />
+      <input type="text" class="a-input-text" name="codigo_provincia" placeholder="Escriba" />
     </div>
     <div>
       <label>Distrito</label>
-      <input type="text" class="a-input-text" name="distrito" placeholder="Escriba" />
+      <input type="text" class="a-input-text" name="codigo_distrito" placeholder="Escriba" />
     </div>
     <div>
       <label>Tipo de Vía</label>
@@ -58,11 +58,21 @@
     </div>
     <div>
       <label>Nombre Vía</label>
-      <input type="text" class="a-input-text input-via" placeholder="Escriba" />
-      <input type="hidden" class="input-hidden-via" name="via" />
+      <input type="text" class="a-input-text input-via" placeholder="Escriba" name="nombre_via" />
+      <input type="hidden" class="input-hidden-via" name="id_via" />
       <div class="a-autocomplete__box none contenedor-vias">
         <ul class="a-autocomplete__items lista-vias"></ul>
       </div>
+    </div>
+    <div>
+      <label>Código de Vía</label>
+      <input
+        type="text"
+        class="a-input-text codigo-via-readonly"
+        disabled
+        readonly
+        name="codigo_via"
+      />
     </div>
     <div>
       <label>Nro. Municipal</label>
@@ -88,8 +98,9 @@
         type="text"
         class="a-input-text input-text-habilitacion-urbana"
         placeholder="Escriba"
+        name="nombre_HU"
       />
-      <input type="hidden" class="input-hidden-habilitacion-urbana" name="habilitacion_urbana" />
+      <input type="hidden" class="input-hidden-habilitacion-urbana" name="id_HU" />
       <div
         id="autocompletado-contenedor-habilitaciones-urbanas"
         class="a-autocomplete__box none"
@@ -102,10 +113,25 @@
       </div>
     </div>
     <div>
+      <label>Código HU</label>
+      <input
+        type="text"
+        class="a-input-text codigo-habilitacion-urbana-readonly"
+        disabled
+        name="codigo_HU"
+        readonly
+      />
+    </div>
+
+    <div>
       <label>Grupo HU</label>
-      <select class="a-input-text input-grupo" name="grupo_hu">
+      <select class="a-input-text input-grupo" name="grupo_HU">
         {{grupoHUOpciones}}
       </select>
+    </div>
+    <div>
+      <label>Zona/Sector/Etapa</label>
+      <input type="text" class="a-input-text" name="zona_sector_etapa" placeholder="Escriba" />
     </div>
     <div>
       <label>Manzana</label>
@@ -147,10 +173,14 @@
       </select>
     </div>
     <div>
-      <label>Forma de Adquisición</label>
+      <label>Forma de adquisición</label>
       <select class="a-input-text input-forma-adquisicion" name="forma_adquisicion">
         {{formaAdquisicionOpciones}}
       </select>
+    </div>
+    <div>
+      <label class="">Fecha de adquisición</label>
+      <input class="a-input-text" type="date" name="fecha_adquisicion" />
     </div>
   </div>
 </div>

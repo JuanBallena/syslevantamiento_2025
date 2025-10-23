@@ -15,9 +15,11 @@ try {
   $BD = new DBPostgres();
   $BD->conectar();
 
-  $sql = "INSERT INTO tf_manzanas (id_mzna, id_sector, codi_mzna, nume_mzna)
-          VALUES ($1, $2, $3, $4)
-          RETURNING *";
+  $sql = "INSERT INTO ext_fichas_codigos_antiguos (
+    id_ficha,
+    codigo_catastral
+  ) VALUES ($1, $2)
+  RETURNING *";
 
   $registro = $BD->insert($sql, $input);
 

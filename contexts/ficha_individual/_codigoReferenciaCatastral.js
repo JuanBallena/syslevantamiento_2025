@@ -21,7 +21,16 @@ document.addEventListener('click', (e) => {
     const input = e.target;
     const hiddenInput = input.parentElement.querySelector('.input-hidden-codigo-sector');
 
-    Helper.mostrarSugerencias(input, sectores, 'codi_sector', hiddenInput, 'id_sector');
+    Helper.mostrarSugerencias(
+      input,
+      sectores,
+      'codi_sector',
+      hiddenInput,
+      'id_sector',
+      null,
+      '',
+      'nomb_sector'
+    );
   }
 });
 
@@ -31,7 +40,16 @@ document.addEventListener('keyup', (e) => {
     const hiddenInput = input.parentElement.querySelector('.input-hidden-codigo-sector');
     const texto = input.value;
     const resultados = Helper.filtrarLista(texto, sectores, 'codi_sector');
-    Helper.mostrarSugerencias(input, resultados, 'codi_sector', hiddenInput, 'id_sector');
+    Helper.mostrarSugerencias(
+      input,
+      resultados,
+      'codi_sector',
+      hiddenInput,
+      'id_sector',
+      null,
+      '',
+      'nomb_sector'
+    );
   }
 });
 

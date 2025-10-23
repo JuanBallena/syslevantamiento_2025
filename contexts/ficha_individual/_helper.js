@@ -26,7 +26,8 @@ class Helper {
     inputHidden,
     campoValue = 'id',
     inputReadonly = null,
-    campoReadonly = 'id'
+    campoReadonly = 'id',
+    campoTexto2 = null
   ) {
     const contenedor = input.parentElement.querySelector('.a-autocomplete__box');
     const ul = contenedor.querySelector('ul');
@@ -37,10 +38,12 @@ class Helper {
         const li = document.createElement('li');
         li.className = 'py-1 px-4 hover:bg-success';
         li.dataset.value = item[campoValue];
-        li.dataset.text = item[campoTexto];
+        li.dataset.text =
+          campoTexto2 !== null ? `${item[campoTexto]} - ${item[campoTexto2]}` : item[campoTexto];
         li.dataset.readonly = item[campoReadonly];
         li.dataset.item = JSON.stringify(item);
-        li.textContent = item[campoTexto];
+
+        li.textContent = li.dataset.text;
         ul.appendChild(li);
       });
     } else {

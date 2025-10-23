@@ -12,8 +12,11 @@ document.getElementById('form-ficha-individual').addEventListener('submit', asyn
     evaluacionPredio: obtenerEvaluacionPredio(),
     serviciosBasicos: obtenerServiciosBasicos(),
     construcciones: obtenerConstrucciones(),
+    obrasComplementarias: obtenerObrasComplementarias(),
     informacionComplementaria: obtenerInformacionComplementaria(),
+    litigantes: obtenerLitigantes(),
     observaciones: obtenerObservaciones(),
+    inscripcionPredioCatastral: obtenerInscripcionPredioCatastral(),
     declarante: obtenerDatosDeclarante(),
     tecnico: obtenerDatosTecnico(),
     supervisor: obtenerDatosSupervisor(),
@@ -29,7 +32,7 @@ document.getElementById('form-ficha-individual').addEventListener('submit', asyn
   console.log(dataPost);
 
   try {
-    const response = await fetch('../../database/guardarFichaIndividualProceso.php', {
+    const response = await fetch('../../database/guardarInformacionCatastral.php', {
       method: 'POST',
       body: formData,
     });
@@ -48,6 +51,7 @@ document.getElementById('form-ficha-individual').addEventListener('submit', asyn
 });
 
 function obtenerNumeroFicha() {
+  const ficha = document.getElementById('ficha');
   return ficha.querySelector('[name="numero_ficha"]').value;
 }
 
@@ -106,10 +110,38 @@ function obtenerPersonas(idContenedor, tipo) {
   contenedor.querySelectorAll('.m-form-section').forEach((section) => {
     const id = section.dataset.id;
 
+    const domicilio = {
+      ubicacion: section.querySelector('[name="ubicacion"]').value,
+      codigoDepartamento: section.querySelector('[name="codigo_departamento"]').value,
+      codigoProvincia: section.querySelector('[name="codigo_provincia"]').value,
+      codigoDistrito: section.querySelector('[name="codigo_distrito"]').value,
+      tipoVia: section.querySelector('[name="tipo_via"]').value,
+      codigoVia: section.querySelector('[name="codigo_via"]').value,
+      nombreVia: section.querySelector('[name="nombre_via"]').value,
+      numeroMunicipal: section.querySelector('[name="numero_municipal"]').value,
+      numeroInterior: section.querySelector('[name="numero_interior"]').value,
+      codigoHU: section.querySelector('[name="codigo_HU"]').value,
+      nombreHU: section.querySelector('[name="nombre_HU"]').value,
+      grupoHU: section.querySelector('[name="grupo_HU"]').value,
+      zonaSectorEtapa: section.querySelector('[name="zona_sector_etapa"]').value,
+      manzana: section.querySelector('[name="manzana"]').value,
+      lote: section.querySelector('[name="lote"]').value,
+      subLote: section.querySelector('[name="sub_lote"]').value,
+      telefono: section.querySelector('[name="telefono"]').value,
+      anexo: section.querySelector('[name="anexo"]').value,
+      correo: section.querySelector('[name="correo"]').value,
+    };
+
+    const caracteristicas = {
+      condicionTitular: section.querySelector('[name="condicion_titular"]').value,
+      formaAdquisicion: section.querySelector('[name="forma_adquisicion"]').value,
+      fechaAdquisicion: section.querySelector('[name="fecha_adquisicion"]').value,
+    };
+
     if (tipo === 'natural') {
       personas.push({
         id,
-        tipo,
+        tipo: '1',
         estadoCivil: section.querySelector('[name="estado_civil"]').value,
         tipoDocumento: section.querySelector('[name="tipo_documento"]').value,
         numeroDocumento: section.querySelector('[name="numero_documento"]').value,
@@ -117,60 +149,20 @@ function obtenerPersonas(idContenedor, tipo) {
         nombres: section.querySelector('[name="nombres"]').value,
         apellidoPaterno: section.querySelector('[name="apellido_paterno"]').value,
         apellidoMaterno: section.querySelector('[name="apellido_materno"]').value,
-        domicilio: {
-          ubicacion: section.querySelector('[name="ubicacion"]').value,
-          departamento: section.querySelector('[name="departamento"]').value,
-          provincia: section.querySelector('[name="provincia"]').value,
-          distrito: section.querySelector('[name="distrito"]').value,
-          tipoVia: section.querySelector('[name="tipo_via"]').value,
-          via: section.querySelector('[name="via"]').value,
-          numeroMunicipal: section.querySelector('[name="numero_municipal"]').value,
-          numeroInterior: section.querySelector('[name="numero_interior"]').value,
-          habilitacionUrbana: section.querySelector('[name="habilitacion_urbana"]').value,
-          grupoHU: section.querySelector('[name="grupo_hu"]').value,
-          manzana: section.querySelector('[name="manzana"]').value,
-          lote: section.querySelector('[name="lote"]').value,
-          subLote: section.querySelector('[name="sub_lote"]').value,
-          telefono: section.querySelector('[name="telefono"]').value,
-          anexo: section.querySelector('[name="anexo"]').value,
-          correo: section.querySelector('[name="correo"]').value,
-        },
-        caracteristicas: {
-          condicionTitular: section.querySelector('[name="condicion_titular"]').value,
-          formaAdquisicion: section.querySelector('[name="forma_adquisicion"]').value,
-        },
+        domicilio,
+        caracteristicas,
       });
     }
 
     if (tipo === 'juridica') {
       personas.push({
         id,
-        tipo,
+        tipo: '2',
         ruc: section.querySelector('[name="ruc"]').value,
         razonSocial: section.querySelector('[name="razon_social"]').value,
-        tipoPersonaJuridica: section.querySelector('[name="persona_juridica"]').value,
-        domicilio: {
-          ubicacion: section.querySelector('[name="ubicacion"]').value,
-          departamento: section.querySelector('[name="departamento"]').value,
-          provincia: section.querySelector('[name="provincia"]').value,
-          distrito: section.querySelector('[name="distrito"]').value,
-          tipoVia: section.querySelector('[name="tipo_via"]').value,
-          via: section.querySelector('[name="via"]').value,
-          numeroMunicipal: section.querySelector('[name="numero_municipal"]').value,
-          numeroInterior: section.querySelector('[name="numero_interior"]').value,
-          habilitacionUrbana: section.querySelector('[name="habilitacion_urbana"]').value,
-          grupoHU: section.querySelector('[name="grupo_hu"]').value,
-          manzana: section.querySelector('[name="manzana"]').value,
-          lote: section.querySelector('[name="lote"]').value,
-          subLote: section.querySelector('[name="sub_lote"]').value,
-          telefono: section.querySelector('[name="telefono"]').value,
-          anexo: section.querySelector('[name="anexo"]').value,
-          correo: section.querySelector('[name="correo"]').value,
-        },
-        caracteristicas: {
-          condicionTitular: section.querySelector('[name="condicion_titular"]').value,
-          formaAdquisicion: section.querySelector('[name="forma_adquisicion"]').value,
-        },
+        tipoPersonaJuridica: section.querySelector('[name="tipo_persona_juridica"]').value,
+        domicilio,
+        caracteristicas,
       });
     }
   });
@@ -281,6 +273,40 @@ function obtenerConstrucciones() {
   return construcciones;
 }
 
+function obtenerObrasComplementarias() {
+  const filas = document.querySelectorAll('#tabla-obras-complementarias tbody tr');
+  const construcciones = [];
+
+  filas.forEach((fila, index) => {
+    const datosFila = {};
+
+    fila.querySelectorAll('input[name], select[name]').forEach((el) => {
+      datosFila[el.name] = el.value;
+    });
+
+    datosFila.correlativo = index + 1;
+
+    construcciones.push(datosFila);
+  });
+
+  return construcciones;
+}
+
+function obtenerInscripcionPredioCatastral() {
+  const inscripcion = document.getElementById('inscripcion-predio-catastral');
+  return {
+    tipoPartida: inscripcion.querySelector('[name="tipo_partida"]').value,
+    numeroPartida: inscripcion.querySelector('[name="numero_partida"]').value,
+    fojas: inscripcion.querySelector('[name="fojas"]').value,
+    asiento: inscripcion.querySelector('[name="asiento"]').value,
+    fechaInscripcion: inscripcion.querySelector('[name="fecha_inscripcion"]').value,
+    codigoDeclaracionFabrica: inscripcion.querySelector('[name="codigo_declarancion_fabrica"]')
+      .value,
+    asientoFabrica: inscripcion.querySelector('[name="asie_fabrica"]').value,
+    fechaFabrica: inscripcion.querySelector('[name="fecha_fabrica"]').value,
+  };
+}
+
 function obtenerInformacionComplementaria() {
   const seccion = document.getElementById('informacion-complementaria');
 
@@ -293,9 +319,9 @@ function obtenerInformacionComplementaria() {
   const numeroFamilias = parseInt(seccion.querySelector("[name='numero_familias']").value) || 0;
 
   // Checkboxes (convertir a booleano)
-  const posiblesUnidades = seccion.querySelector("[name='posibles_unidades']").checked;
-  const subDivision = seccion.querySelector("[name='sub_division']").checked;
-  const independizacion = seccion.querySelector("[name='independización']").checked;
+  // const posiblesUnidades = seccion.querySelector("[name='posibles_unidades']").checked;
+  // const subDivision = seccion.querySelector("[name='sub_division']").checked;
+  // const independizacion = seccion.querySelector("[name='independización']").checked;
 
   return {
     condicionDeclarante,
@@ -304,10 +330,29 @@ function obtenerInformacionComplementaria() {
     mantenimiento,
     numeroHabitantes,
     numeroFamilias,
-    posiblesUnidades,
-    subDivision,
-    independizacion,
+    // posiblesUnidades,
+    // subDivision,
+    // independizacion,
   };
+}
+
+function obtenerLitigantes() {
+  const filas = document.querySelectorAll('#tabla-litigantes tbody tr');
+  const litigantes = [];
+
+  filas.forEach((fila, index) => {
+    const datosFila = {};
+
+    fila.querySelectorAll('input[name], select[name]').forEach((el) => {
+      datosFila[el.name] = el.value;
+    });
+
+    datosFila.codigo = index + 1;
+
+    litigantes.push(datosFila);
+  });
+
+  return litigantes;
 }
 
 function obtenerImagenesAdjuntas() {
@@ -322,8 +367,13 @@ function obtenerImagenesAdjuntas() {
 function obtenerObservaciones() {
   const observaciones = document.getElementById('observaciones');
   const campoTexto = observaciones?.querySelector('[name="texto"]');
+  const codigoCatastralAntiguo = observaciones?.querySelector(
+    '[name="codigo_catastral_antiguo"]'
+  ).value;
+
   return {
     texto: campoTexto ? campoTexto.value.trim() : '',
+    codigoCatastralAntiguo,
   };
 }
 

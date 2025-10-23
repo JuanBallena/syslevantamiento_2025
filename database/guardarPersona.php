@@ -15,8 +15,19 @@ try {
   $BD = new DBPostgres();
   $BD->conectar();
 
-  $sql = "INSERT INTO tf_puertas (id_puerta, id_lote, codi_puerta, tipo_puerta, nume_muni, cond_nume)
-          VALUES ($1, $2, $3, $4, $5, $6)
+  $sql = "INSERT INTO tf_personas (
+            id_persona,
+            nume_doc,
+            tipo_doc,
+            tipo_persona,
+            nombres,
+            ape_paterno,
+            ape_materno,
+            tipo_persona_juridica,
+            tipo_funcion,
+            razon_social
+          )
+          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
           RETURNING *";
 
   $registro = $BD->insert($sql, $input);
