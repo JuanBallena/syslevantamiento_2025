@@ -93,10 +93,11 @@ include 'fichaindividual/proceso_ind/I_combos.php';
             <td width="25" height="23">
               <input type="checkbox" name="forma2" id="forma2" <?php echo $B;?>/></td>
             <td width="204" height="23">
-              <div align="left">CÓDIGO DE REFERENCIA</div></td>
+              <div align="left">CÓDIGO CATASTRAL ANTIGUO</div></td>
             <td width="81">
               <input name="referencia" type="text" id="referencia" size="9" maxlength="23" <?php echo $N;?>/></td>
-            <td width="32">
+            
+              <td width="32">
               <input type="checkbox" name="forma3" id="forma3" <?php echo $B;?>/></td>
             <td width="264">
               <div align="left">CÓDIGO ÚNICO CATASTRAL</div></td>

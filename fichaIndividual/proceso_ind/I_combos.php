@@ -185,6 +185,12 @@ function generaCombo($num)
             $name = 'upc_cond-0';
 
             break;
+        case 37:
+            $iden='HUR';
+            $name='cmb_tipohu';
+            $ancho='width:146px';
+            break;
+   
     }
 
     if ($num == 14) {
@@ -208,6 +214,9 @@ function generaCombo($num)
     } elseif ($num == 30 || $num == 31 || $num == 32) {
         $Consulta = "SELECT codigo, codigo FROM tf_tablas, tf_tablas_codigos WHERE tf_tablas.id_tabla = tf_tablas_codigos.id_tabla AND tf_tablas.id_tabla = '$iden' ORDER BY codigo";
         $consulta_combo = $BD->Consultas($Consulta);
+    }elseif ($num == 37) {
+      $Consulta="SELECT tf_tablas_codigos.codigo, tf_tablas_codigos.codigo ||' - '||  tf_tablas_codigos.desc_codigo FROM tf_tablas, tf_tablas_codigos WHERE tf_tablas.id_tabla = tf_tablas_codigos.id_tabla AND tf_tablas.id_tabla = '$iden'"; 
+	    $consulta_combo = $BD->Consultas($Consulta);
     } else {
         //relizamos consulta según las variables
         $Consulta = "SELECT codigo, codigo ||' - '||  desc_codigo AS descri FROM tf_tablas, tf_tablas_codigos WHERE tf_tablas.id_tabla = tf_tablas_codigos.id_tabla AND tf_tablas.id_tabla = '$iden' ORDER BY codigo";
@@ -232,6 +241,9 @@ function generaCombo($num)
     } elseif ($num == 30 || $num == 31  || $num == 32) {
         echo "<select class='select' name='$name' id='$name' style='width:51px'>";
     } elseif ($num == 36) {
+        echo "<select class='select' name='$name' id='$name' style='width:95px'>";
+    
+    } elseif ($num == 37) {
         echo "<select class='select' name='$name' id='$name' style='width:95px'>";
     } else {
         echo "<select style='$ancho' class='select' name='$name' id='$name'>";

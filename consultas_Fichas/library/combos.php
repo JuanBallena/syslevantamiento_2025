@@ -30,17 +30,8 @@ function generaCombo($num)
 	global $row18;
 	global $consulta_itc;
 
-	public function __CONSTRUCT()
-	{
-		try
-		{
-			$this->pdo = Database::StartUp();     
-		}
-		catch(Exception $e)
-		{
-			die($e->getMessage());
-		}
-	}
+$BD=new BaseDeDato(SERVIDOR,PUERTO,BD,USUARIO,CLAVE);
+	$BD->conectar();
 	
 	switch($num)
 	{ 	case 1:
@@ -218,8 +209,13 @@ function generaCombo($num)
 				$name='upc_cond-'.$indice1;
 				
 				break;		
-		}
 		
+    case 37:
+				$iden='HUR';
+				$name='cmb_tipohu';
+				$ancho='width:146px';
+				break;
+   }
 		if ($num==12){
 			
 				$Consulta="SELECT tf_usos.codi_uso AS codigo, tf_usos.codi_uso ||' - '||  tf_usos.desc_uso AS descri FROM tf_usos ORDER BY codi_uso ASC"; 
@@ -255,6 +251,10 @@ function generaCombo($num)
 				$Consulta="SELECT codigo, codigo ||' - '|| desc_codigo AS descri FROM tf_tablas, tf_tablas_codigos WHERE tf_tablas.id_tabla = tf_tablas_codigos.id_tabla AND tf_tablas.id_tabla = '$iden' ORDER BY codigo"; 
 				$consulta_combo = $BD->Consultas($Consulta);
 		}
+    elseif($num==23){
+    	$Consulta="SELECT tf_tablas_codigos.codigo, tf_tablas_codigos.codigo ||' - '||  tf_tablas_codigos.desc_codigo FROM tf_tablas, tf_tablas_codigos WHERE tf_tablas.id_tabla = tf_tablas_codigos.id_tabla AND tf_tablas.id_tabla = '$iden'"; 
+	    $consulta_combo = $BD->Consultas($Consulta);
+    }
 		else{
 		//relizamos consulta según las variables
 				$Consulta="SELECT codigo, codigo ||' - '||  desc_codigo as descri FROM tf_tablas, tf_tablas_codigos WHERE tf_tablas.id_tabla = tf_tablas_codigos.id_tabla AND tf_tablas.id_tabla = '$iden' ORDER BY codigo"; 
@@ -380,7 +380,15 @@ function generaCombo($num)
 		echo "<select class='select' name='$name' id='$name' style='width:95px'>";
 	
 	}
-	
+  elseif($num==37)
+    {
+      	echo "<select style='$ancho' class='combos' name='$name' id='$name'>";
+	      echo "<option value='0'>Seleccione</option>";
+	        while($registro=pg_fetch_row($consulta_combo))
+		    { echo "<option value='".$registro[0]."'>".$registro[1]."</option>"; }
+	        echo "</select>";
+    }
+  
 	else
 	{
 	
