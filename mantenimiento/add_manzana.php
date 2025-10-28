@@ -19,6 +19,7 @@ include '../funciones/captura_pagina.php';
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 <title> ST-SNCP SECRETARIA T�CNICA </title>
+<link href="../assets/styles.css" rel="stylesheet" type="text/css" />
 <link href="../css/estilo_form.css" rel="stylesheet" type="text/css">
 <link href="../CSS/tabla.css" rel="stylesheet" type="text/css">
 <link href="../CSS/botones.css" rel="stylesheet" type="text/css">
@@ -71,8 +72,9 @@ body {
                     <td width="30%"><input name="codmanzana" type="text" size="7" maxlength="6" id="codmanzana" style="text-transform:uppercase" <?php echo $N.' '.$seis;?>></td>
                 </tr>
                
-               <div>
-                <label class="">SECTOR</label>
+               <tr>
+                    <td width="9%" height="24" class="etiqueta">&nbsp;</td>
+                    <td width="14%" class="etiqueta">SECTOR</td>
                 <div class="a-autocomplete">
                   <input
                     type="text"
@@ -92,7 +94,7 @@ body {
                     ></ul>
                   </div>
                 </div>
-              </div>
+              </tr>
 
                 <tr>
                   <td height="24" class="etiqueta">&nbsp;</td>
