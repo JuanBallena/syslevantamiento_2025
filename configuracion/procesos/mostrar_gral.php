@@ -18,6 +18,7 @@ function mostrar_administrador($i)
 						<li><a href="javascript:cambiar('mantenimiento/add_notaria')" target='_self'>Notarias</a></li>
 						<li><a href="javascript:cambiar('mantenimiento/add_persona')" target='_self'>Personal</a></li>
 						<li><a href="javascript:cambiar('mantenimiento/add_sector')" target='_self'>Sectores</a></li>
+            <li><a href="javascript:cambiar('mantenimiento/add_manzana')" target='_self'>Manzanas</a></li>
 						<!--
 						<li><a href="javascript:cambiar('mantenimiento/add_codigo')" target='_self'>Tabla C&oacute;digos</a></li>
 						<li><a href="javascript:cambiar('mantenimiento/add_uso')" target='_self'>Usos</a></li>
