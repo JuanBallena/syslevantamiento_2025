@@ -35,8 +35,9 @@ try {
   // ]);
 
 
-  $idSector = $dataPost["codigoReferenciaCatastral"]["codigoSector"];
-  $codigoManzana = $dataPost["codigoReferenciaCatastral"]["codigoManzana"];
+  $idSector = $dataPost["codigoReferenciaCatastral"]["idSector"];
+  // $codigoManzana = $dataPost["codigoReferenciaCatastral"]["codigoManzana"];
+  $idManzana = $dataPost["codigoReferenciaCatastral"]["idManzana"];
   $numeroManzana = $dataPost["ubicacionPredioCatastral"]["numeroManzana"];
 
   $codigoEdifica = $dataPost['codigoReferenciaCatastral']['codigoEdifica'];
@@ -53,26 +54,27 @@ try {
   $grupoHU = $dataPost['ubicacionPredioCatastral']['grupoHU'];
   $idHU = $dataPost['ubicacionPredioCatastral']['idHU'];
 
-  // Guardar manzana
-  $datosManzana = [
-    "id_mzna" => trim($idSector . $codigoManzana),
-    "id_sector" => trim($idSector),
-    "codi_mzna" => $codigoManzana,
-    "nume_mzna" => $numeroManzana,
-  ];
+  // // Guardar manzana
+  // $datosManzana = [
+  //   "id_mzna" => trim($idSector . $codigoManzana),
+  //   "id_sector" => trim($idSector),
+  //   "codi_mzna" => $codigoManzana,
+  //   "nume_mzna" => $numeroManzana,
+  // ];
 
-  $resultadoGuardarManzana = callApiPost('guardarManzana.php', $datosManzana);
+  // $resultadoGuardarManzana = callApiPost('guardarManzana.php', $datosManzana);
 
-  if (!$resultadoGuardarManzana["success"]) {
-    return createResponse(false, null, 'Error registrando manzana');
-  }
+  // if (!$resultadoGuardarManzana["success"]) {
+  //   return createResponse(false, null, 'Error registrando manzana');
+  // }
 
-  $idMznaGuardado = $resultadoGuardarManzana["data"]['id_mzna'];
+  // $idManzana = $resultadoGuardarManzana["data"]['id_mzna'];
+  // $idManzana = $resultadoGuardarManzana["data"]['id_mzna'];
 
   // Guardar lote
   $datosLote = [
-    "id_lote" => trim($idMznaGuardado . $lote),
-    "id_mzna" => $idMznaGuardado,
+    "id_lote" => trim($idManzana . $lote),
+    "id_mzna" => $idManzana,
     "codi_lote" => $lote,
     "id_hab_urba" => trim($idHU),
     "mzna_dist" => $numeroManzana,

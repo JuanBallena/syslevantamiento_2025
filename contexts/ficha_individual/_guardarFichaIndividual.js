@@ -67,8 +67,8 @@ function obtenerUbigeo() {
 function obtenerCodigoReferenciaCatastral() {
   const codigoReferenciaCatastral = document.getElementById('codigo-referencia-catastral');
   return {
-    codigoSector: codigoReferenciaCatastral.querySelector('[name="codigo_sector"]').value,
-    codigoManzana: codigoReferenciaCatastral.querySelector('[name="codigo_manzana"]').value,
+    idSector: codigoReferenciaCatastral.querySelector('[name="id_sector"]').value,
+    idManzana: codigoReferenciaCatastral.querySelector('[name="id_manzana"]').value,
     codigoLote: codigoReferenciaCatastral.querySelector('[name="codigo_lote"]').value,
     codigoEdifica: codigoReferenciaCatastral.querySelector('[name="codigo_edifica"]').value,
     codigoEntrada: codigoReferenciaCatastral.querySelector('[name="codigo_entrada"]').value,

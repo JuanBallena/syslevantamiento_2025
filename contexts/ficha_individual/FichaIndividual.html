@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -32,6 +32,7 @@
                 value=""
                 placeholder="Escriba"
                 name="numero_ficha"
+                required
               />
             </div>
           </div>
@@ -49,6 +50,7 @@
                   value=""
                   placeholder="Escriba"
                   name="departamento"
+                  required
                 />
               </div>
               <div>
@@ -59,6 +61,7 @@
                   value=""
                   placeholder="Escriba"
                   name="provincia"
+                  required
                 />
               </div>
               <div>
@@ -69,6 +72,7 @@
                   value=""
                   placeholder="Escriba"
                   name="distrito"
+                  required
                 />
               </div>
             </div>
@@ -87,8 +91,9 @@
                     class="a-input-text input-text-codigo-sector"
                     placeholder="Escriba"
                     tabindex="1"
+                    required
                   />
-                  <input type="hidden" name="codigo_sector" class="input-hidden-codigo-sector" />
+                  <input type="hidden" name="id_sector" class="input-hidden-codigo-sector" />
                   <div
                     id="autocompletado-contenedor-sectores"
                     class="a-autocomplete__box none"
@@ -103,6 +108,22 @@
               </div>
               <div>
                 <label class="">Manzana</label>
+                <div class="a-autocomplete">
+                  <input
+                    type="text"
+                    class="a-input-text input-text-codigo-manzana"
+                    placeholder="Escriba"
+                    tabindex="1"
+                    required
+                  />
+                  <input type="hidden" name="id_manzana" class="input-hidden-codigo-manzana" />
+                  <div class="a-autocomplete__box none" onmousedown="event.preventDefault()">
+                    <ul class="a-autocomplete__items cursor-pointer"></ul>
+                  </div>
+                </div>
+              </div>
+              <!-- <div>
+                <label class="">Manzana</label>
                 <input
                   class="a-input-text"
                   type="text"
@@ -110,7 +131,7 @@
                   placeholder="Escriba"
                   name="codigo_manzana"
                 />
-              </div>
+              </div> -->
               <div>
                 <label class="">Lote</label>
                 <input
@@ -119,6 +140,7 @@
                   value="003"
                   placeholder="Escriba"
                   name="codigo_lote"
+                  required
                 />
               </div>
               <div>
@@ -129,6 +151,7 @@
                   value="01"
                   placeholder="Escriba"
                   name="codigo_edifica"
+                  required
                 />
               </div>
               <div>
@@ -139,6 +162,7 @@
                   value="01"
                   placeholder="Escriba"
                   name="codigo_entrada"
+                  required
                 />
               </div>
               <div>
@@ -149,6 +173,7 @@
                   value="01"
                   placeholder="Escriba"
                   name="codigo_piso"
+                  required
                 />
               </div>
               <div>
@@ -159,6 +184,7 @@
                   value="01"
                   placeholder="Escriba"
                   name="codigo_unidad"
+                  required
                 />
               </div>
             </div>
@@ -175,6 +201,7 @@
                   class="a-input-text"
                   name="tipo_edificacion"
                   id="select-tipo-edificaciones"
+                  required
                 ></select>
               </div>
 
@@ -184,6 +211,7 @@
                   class="a-input-text"
                   name="tipo_interior"
                   id="select-tipo-interiores"
+                  required
                 ></select>
               </div>
               <div>
@@ -192,6 +220,7 @@
                   class="a-input-text"
                   name="estado_unidad"
                   id="select-estado-unidades"
+                  required
                 ></select>
               </div>
               <div>
@@ -204,6 +233,7 @@
                     placeholder="Escriba"
                     tabindex="1"
                     name="nombre_HU"
+                    required
                   />
                   <input
                     type="hidden"
@@ -239,6 +269,7 @@
                   name="grupo_HU"
                   id="select-grupo-HU"
                   onchange="onChangeGrupoHU()"
+                  required
                 >
                   <option value="0">Seleccione</option>
                   <option value="01" selected>Zona</option>
@@ -253,7 +284,6 @@
                   type="number"
                   name="numero_etapa"
                   value="0"
-                  readonly
                   id="input-number-numero-etapa"
                 />
               </div>
