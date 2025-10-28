@@ -10,12 +10,22 @@ function generaCombo($num)
 				$name='cmb_tipovia';
 				$ancho='width:146px';
 				break;
+    
+    case 2:
+				$name='cmb_sector';
+				$ancho='width:146px';
+				break; 
 		}
 
+
 		//relizamos consulta según las variables
-		$Consulta="SELECT tf_tablas_codigos.codigo, tf_tablas_codigos.codigo ||' - '||  tf_tablas_codigos.desc_codigo FROM tf_tablas, tf_tablas_codigos WHERE tf_tablas.id_tabla = tf_tablas_codigos.id_tabla AND tf_tablas.id_tabla = '$iden'"; 
-	$consulta_combo = $BD->Consultas($Consulta);
-			
+     if ($num == 1) {
+		  $Consulta="SELECT tf_tablas_codigos.codigo, tf_tablas_codigos.codigo ||' - '||  tf_tablas_codigos.desc_codigo FROM tf_tablas, tf_tablas_codigos WHERE tf_tablas.id_tabla = tf_tablas_codigos.id_tabla AND tf_tablas.id_tabla = '$iden'"; 
+	    $consulta_combo = $BD->Consultas($Consulta);
+		} elseif ($num == 2) {
+      $Consulta="SELECT id_sector,id_sector ||' - '|| nomb_sector FROM tf_sectores";
+      $consulta_combo = $BD->Consultas($Consulta);
+    }
 	echo "<select style='$ancho' class='combos' name='$name' id='$name'>";
 	echo "<option value='0'>Seleccione</option>";
 	while($registro=pg_fetch_row($consulta_combo))
