@@ -76,7 +76,7 @@ document.addEventListener('keyup', (e) => {
     const input = e.target;
     const hiddenInput = input.parentElement.querySelector('.input-hidden-codigo-manzana');
     const texto = input.value;
-    const resultados = Helper.filtrarLista(texto, manzanas, 'codi_mzna');
+    const resultados = Helper.filtrarLista(texto, manzanas, 'nume_mzna');
     Helper.mostrarSugerencias(input, resultados, 'nume_mzna', hiddenInput, 'id_mzna', null, '');
   }
 });

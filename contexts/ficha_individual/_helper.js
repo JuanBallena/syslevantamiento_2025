@@ -58,7 +58,7 @@ class Helper {
 
     ul.onclick = (e) => {
       if (e.target.tagName === 'LI' && e.target.dataset.disabled !== 'true') {
-        input.value = e.target.dataset.text;
+        input.value = e.target.dataset.text.trim();
         inputHidden.value = e.target.dataset.value;
         contenedor.classList.add('none');
 

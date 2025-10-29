@@ -33,6 +33,7 @@
                 placeholder="Escriba"
                 name="numero_ficha"
                 required
+                oninput="soloNumeros(this); limitarCaracteres(this, 7)"
               />
             </div>
           </div>
@@ -41,7 +42,7 @@
           <div class="m-form-section" id="ubigeo">
             <div class="m-form-section__title">Ubigeo</div>
 
-            <div class="grid grid-cols-5 gap-1">
+            <div class="grid grid-cols-7 gap-1">
               <div>
                 <label>Departamento</label>
                 <input
@@ -51,6 +52,7 @@
                   placeholder="Escriba"
                   name="departamento"
                   required
+                  oninput="soloNumeros(this); limitarCaracteres(this, 2)"
                 />
               </div>
               <div>
@@ -62,6 +64,7 @@
                   placeholder="Escriba"
                   name="provincia"
                   required
+                  oninput="soloNumeros(this); limitarCaracteres(this, 2)"
                 />
               </div>
               <div>
@@ -73,6 +76,7 @@
                   placeholder="Escriba"
                   name="distrito"
                   required
+                  oninput="soloNumeros(this); limitarCaracteres(this, 2)"
                 />
               </div>
             </div>
@@ -82,7 +86,7 @@
           <div class="m-form-section" id="codigo-referencia-catastral">
             <div class="m-form-section__title">Código de Referencia Catastral</div>
 
-            <div class="grid grid-cols-5 gap-1">
+            <div class="grid grid-cols-7 gap-1">
               <div>
                 <label class="">Sector</label>
                 <div class="a-autocomplete">
@@ -92,6 +96,7 @@
                     placeholder="Escriba"
                     tabindex="1"
                     required
+                    oninput="soloNumeros(this)"
                   />
                   <input type="hidden" name="id_sector" class="input-hidden-codigo-sector" />
                   <div
@@ -115,6 +120,7 @@
                     placeholder="Escriba"
                     tabindex="1"
                     required
+                    oninput="soloNumeros(this); limitarCaracteres(this, 3)"
                   />
                   <input type="hidden" name="id_manzana" class="input-hidden-codigo-manzana" />
                   <div class="a-autocomplete__box none" onmousedown="event.preventDefault()">
@@ -122,16 +128,6 @@
                   </div>
                 </div>
               </div>
-              <!-- <div>
-                <label class="">Manzana</label>
-                <input
-                  class="a-input-text"
-                  type="text"
-                  value="024"
-                  placeholder="Escriba"
-                  name="codigo_manzana"
-                />
-              </div> -->
               <div>
                 <label class="">Lote</label>
                 <input
@@ -141,6 +137,7 @@
                   placeholder="Escriba"
                   name="codigo_lote"
                   required
+                  oninput="soloNumeros(this)"
                 />
               </div>
               <div>
@@ -152,6 +149,7 @@
                   placeholder="Escriba"
                   name="codigo_edifica"
                   required
+                  oninput="soloNumeros(this)"
                 />
               </div>
               <div>
@@ -163,6 +161,7 @@
                   placeholder="Escriba"
                   name="codigo_entrada"
                   required
+                  oninput="soloNumeros(this)"
                 />
               </div>
               <div>
@@ -174,6 +173,7 @@
                   placeholder="Escriba"
                   name="codigo_piso"
                   required
+                  oninput="soloNumeros(this)"
                 />
               </div>
               <div>
@@ -185,6 +185,7 @@
                   placeholder="Escriba"
                   name="codigo_unidad"
                   required
+                  oninput="soloNumeros(this)"
                 />
               </div>
             </div>
@@ -240,15 +241,8 @@
                     class="a-input-text input-hidden-habilitacion-urbana"
                     name="id_HU"
                   />
-                  <div
-                    id="autocompletado-contenedor-habilitaciones-urbanas"
-                    class="a-autocomplete__box none"
-                    onmousedown="event.preventDefault()"
-                  >
-                    <ul
-                      class="a-autocomplete__items cursor-pointer"
-                      id="autocompletado-lista-habilitaciones-urbanas"
-                    ></ul>
+                  <div class="a-autocomplete__box none" onmousedown="event.preventDefault()">
+                    <ul class="a-autocomplete__items cursor-pointer"></ul>
                   </div>
                 </div>
               </div>
@@ -260,6 +254,7 @@
                   disabled
                   name="codigo_HU"
                   readonly
+                  oninput="soloNumeros(this)"
                 />
               </div>
               <div>
@@ -285,6 +280,7 @@
                   name="numero_etapa"
                   value="0"
                   id="input-number-numero-etapa"
+                  oninput="soloNumeros(this)"
                 />
               </div>
               <div>
@@ -296,6 +292,7 @@
                   value="1"
                   name="numero_manzana"
                   id="input-mzna-Dist"
+                  oninput="soloNumeros(this)"
                 />
               </div>
               <div>
@@ -307,6 +304,7 @@
                   value="003"
                   name="lote"
                   id="input-lote-Dist"
+                  oninput="soloNumeros(this)"
                 />
               </div>
               <div>
@@ -318,6 +316,7 @@
                   value="2"
                   name="sub_lote"
                   id="input-subLote-Dist"
+                  oninput="soloNumeros(this)"
                 />
               </div>
             </div>
@@ -368,7 +367,7 @@
           <div class="m-form-section" id="descripcion-predio">
             <div class="m-form-section__title">Descripción del Predio</div>
 
-            <div class="grid grid-cols-4 gap-1">
+            <div class="grid grid-cols-5 gap-1">
               <div>
                 <label class="">Referencial Uso</label>
                 <input
@@ -429,93 +428,95 @@
               </div>
             </div>
 
-            <table class="table-default mt-8">
-              <thead>
-                <tr>
-                  <th>LINDEROS DE LOTE (ML)</th>
-                  <th>MEDIDA EN CAMPO</th>
-                  <th>COLINDANCIAS EN CAMPO</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>FRENTE</td>
-                  <td>
-                    <input
-                      type="text"
-                      class="a-input-text"
-                      name="medidas_campo[]"
-                      placeholder="Escriba"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      class="a-input-text"
-                      name="colindancias_campo[]"
-                      placeholder="Escriba"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>DERECHA</td>
-                  <td>
-                    <input
-                      type="text"
-                      class="a-input-text"
-                      name="medidas_campo[]"
-                      placeholder="Escriba"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      class="a-input-text"
-                      name="colindancias_campo[]"
-                      placeholder="Escriba"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>IZQUIERDA</td>
-                  <td>
-                    <input
-                      type="text"
-                      class="a-input-text"
-                      name="medidas_campo[]"
-                      placeholder="Escriba"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      class="a-input-text"
-                      name="colindancias_campo[]"
-                      placeholder="Escriba"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>FONDO</td>
-                  <td>
-                    <input
-                      type="text"
-                      class="a-input-text"
-                      name="medidas_campo[]"
-                      placeholder="Escriba"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      class="a-input-text"
-                      name="colindancias_campo[]"
-                      placeholder="Escriba"
-                    />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="w-7-12">
+              <table class="table-default mt-8">
+                <thead>
+                  <tr>
+                    <th>LINDEROS DE LOTE (ML)</th>
+                    <th>MEDIDA EN CAMPO</th>
+                    <th>COLINDANCIAS EN CAMPO</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>FRENTE</td>
+                    <td>
+                      <input
+                        type="text"
+                        class="a-input-text"
+                        name="medidas_campo[]"
+                        placeholder="Escriba"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        class="a-input-text"
+                        name="colindancias_campo[]"
+                        placeholder="Escriba"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>DERECHA</td>
+                    <td>
+                      <input
+                        type="text"
+                        class="a-input-text"
+                        name="medidas_campo[]"
+                        placeholder="Escriba"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        class="a-input-text"
+                        name="colindancias_campo[]"
+                        placeholder="Escriba"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>IZQUIERDA</td>
+                    <td>
+                      <input
+                        type="text"
+                        class="a-input-text"
+                        name="medidas_campo[]"
+                        placeholder="Escriba"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        class="a-input-text"
+                        name="colindancias_campo[]"
+                        placeholder="Escriba"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>FONDO</td>
+                    <td>
+                      <input
+                        type="text"
+                        class="a-input-text"
+                        name="medidas_campo[]"
+                        placeholder="Escriba"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        class="a-input-text"
+                        name="colindancias_campo[]"
+                        placeholder="Escriba"
+                      />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
           <!-- EVALUACIÓN DEL PREDIO -->
@@ -624,8 +625,8 @@
                   <th class="w-10-per">Muros/columnas</th>
                   <th class="w-10-per">Techos</th>
                   <th class="w-10-per">Pisos</th>
-                  <th class="w-10-per">Puertas y ventanas</th>
-                  <th class="w-10-per">Área verificada</th>
+                  <th class="w-10-per">Puertas/ventanas</th>
+                  <th class="w-10-per">A. verificada</th>
                 </tr>
               </thead>
               <tbody></tbody>
@@ -654,7 +655,7 @@
                   <input class="w-10-12 a-input-text" name="fecha" type="date" />
                 </td>
                 <td>
-                  <select class="a-input-text select-mep" name="mep"></select>
+                  <select class="w-10-12 a-input-text select-mep" name="mep"></select>
                 </td>
                 <td>
                   <select class="w-10-12 a-input-text select-ecs" name="ecs"></select>
@@ -663,18 +664,21 @@
                   <select class="w-10-12 a-input-text select-ecc" name="ecc"></select>
                 </td>
                 <td>
-                  <select class="a-input-text select-muros-columnas" name="muros_columnas"></select>
+                  <select
+                    class="w-10-12 a-input-text select-muros-columnas"
+                    name="muros_columnas"
+                  ></select>
                 </td>
 
                 <td>
-                  <select class="a-input-text select-techos" name="techos"></select>
+                  <select class="w-10-12 a-input-text select-techos" name="techos"></select>
                 </td>
                 <td>
-                  <select class="a-input-text select-pisos" name="pisos"></select>
+                  <select class="w-10-12 a-input-text select-pisos" name="pisos"></select>
                 </td>
                 <td>
                   <select
-                    class="a-input-text select-puertas-ventanas"
+                    class="w-10-12 a-input-text select-puertas-ventanas"
                     name="puertas_ventanas"
                   ></select>
                 </td>
@@ -698,7 +702,7 @@
             <table class="table-default" id="tabla-obras-complementarias" border="1">
               <thead>
                 <tr>
-                  <th class="w-10-per">Código instalación</th>
+                  <th class="w-10-per">Código</th>
                   <!-- <th class="w-10-per">Código obra</th> -->
                   <th class="w-10-per">Fecha</th>
                   <!-- <th class="w-10-per">Descripción</th> -->
@@ -709,7 +713,7 @@
                   <th class="w-10-per">Ancho</th>
                   <th class="w-10-per">Alto</th>
                   <th class="w-10-per">Total</th>
-                  <th class="w-10-per">Unidad medida</th>
+                  <th class="w-10-per">Unid. medida</th>
                   <th class="w-10-per">UCA</th>
                 </tr>
               </thead>
@@ -733,7 +737,7 @@
                   <input class="w-10-12 a-input-text" name="fecha" type="date" />
                 </td>
                 <td>
-                  <select class="a-input-text select-mep" name="mep"></select>
+                  <select class="w-10-12 a-input-text select-mep" name="mep"></select>
                 </td>
                 <td>
                   <select class="w-10-12 a-input-text select-ecs" name="ecs"></select>
@@ -767,7 +771,7 @@
           <div class="m-form-section" id="inscripcion-predio-catastral">
             <div class="m-form-section__title">Inscripción del Predio Catastral</div>
 
-            <div class="grid grid-cols-3 gap-1">
+            <div class="grid grid-cols-4 gap-1">
               <div>
                 <label class="">Tipo de partida</label>
                 <select class="a-input-text" name="tipo_partida" id="select-tipo-partida">
@@ -971,7 +975,12 @@ Esta es una observación</textarea
             <div class="grid grid-cols-4 mt-4">
               <div>
                 <label>Código Catastral antiguo</label>
-                <input class="w-10-12 a-input-text" name="codigo_catastral_antiguo" type="text" />
+                <input
+                  class="w-10-12 a-input-text"
+                  name="codigo_catastral_antiguo"
+                  type="text"
+                  oninput="soloNumeros(this); limitarCaracteres(this, 19)"
+                />
               </div>
             </div>
           </div>
@@ -984,7 +993,13 @@ Esta es una observación</textarea
               <div>
                 <label class="">Dni</label>
                 <div class="a-autocomplete">
-                  <input class="a-input-text" type="text" value="12345678" name="dni" />
+                  <input
+                    class="a-input-text"
+                    type="text"
+                    value="12345678"
+                    name="dni"
+                    oninput="soloNumeros(this); limitarCaracteres(this, 8)"
+                  />
                 </div>
               </div>
               <div>
@@ -1021,6 +1036,8 @@ Esta es una observación</textarea
                     data-tipo="datos-supervisor"
                     type="text"
                     name="dni"
+                    required
+                    oninput="soloNumeros(this); limitarCaracteres(this, 8)"
                   />
                   <div class="a-autocomplete__box none" onmousedown="event.preventDefault()">
                     <ul class="a-autocomplete__items cursor-pointer"></ul>
@@ -1029,19 +1046,19 @@ Esta es una observación</textarea
               </div>
               <div>
                 <label class="">Nombres</label>
-                <input class="a-input-text" type="text" name="nombres" />
+                <input class="a-input-text" type="text" name="nombres" required />
               </div>
               <div>
                 <label class="">Apellido Paterno</label>
-                <input class="a-input-text" type="text" name="apellido_paterno" />
+                <input class="a-input-text" type="text" name="apellido_paterno" required />
               </div>
               <div>
                 <label class="">Apellido Materno</label>
-                <input class="a-input-text" type="text" name="apellido_materno" />
+                <input class="a-input-text" type="text" name="apellido_materno" required />
               </div>
               <div>
                 <label class="">Fecha Levantamiento</label>
-                <input class="a-input-text" type="date" name="fecha" />
+                <input class="a-input-text" type="date" name="fecha" required />
               </div>
             </div>
           </div>
@@ -1060,6 +1077,8 @@ Esta es una observación</textarea
                     data-tipo="datos-tecnico"
                     type="text"
                     name="dni"
+                    required
+                    oninput="soloNumeros(this); limitarCaracteres(this, 8)"
                   />
                   <div class="a-autocomplete__box none" onmousedown="event.preventDefault()">
                     <ul class="a-autocomplete__items cursor-pointer"></ul>
@@ -1068,19 +1087,19 @@ Esta es una observación</textarea
               </div>
               <div>
                 <label class="">Nombres</label>
-                <input class="a-input-text" type="text" name="nombres" />
+                <input class="a-input-text" type="text" name="nombres" required />
               </div>
               <div>
                 <label class="">Apellido Paterno</label>
-                <input class="a-input-text" type="text" name="apellido_paterno" />
+                <input class="a-input-text" type="text" name="apellido_paterno" required />
               </div>
               <div>
                 <label class="">Apellido Materno</label>
-                <input class="a-input-text" type="text" name="apellido_materno" />
+                <input class="a-input-text" type="text" name="apellido_materno" required />
               </div>
               <div>
                 <label class="">Fecha Levantamiento</label>
-                <input class="a-input-text" type="date" name="fecha" />
+                <input class="a-input-text" type="date" name="fecha" required />
               </div>
             </div>
           </div>
@@ -1099,6 +1118,8 @@ Esta es una observación</textarea
                     data-tipo="datos-verificador"
                     type="text"
                     name="dni"
+                    required
+                    oninput="soloNumeros(this); limitarCaracteres(this, 8)"
                   />
                   <div class="a-autocomplete__box none" onmousedown="event.preventDefault()">
                     <ul class="a-autocomplete__items cursor-pointer"></ul>
@@ -1107,23 +1128,29 @@ Esta es una observación</textarea
               </div>
               <div>
                 <label class="">Nombres</label>
-                <input class="a-input-text" type="text" name="nombres" />
+                <input class="a-input-text" type="text" name="nombres" required />
               </div>
               <div>
                 <label class="">Apellido Paterno</label>
-                <input class="a-input-text" type="text" name="apellido_paterno" />
+                <input class="a-input-text" type="text" name="apellido_paterno" required />
               </div>
               <div>
                 <label class="">Apellido Materno</label>
-                <input class="a-input-text" type="text" name="apellido_materno" />
+                <input class="a-input-text" type="text" name="apellido_materno" required />
               </div>
               <div>
                 <label class="">Fecha Levantamiento</label>
-                <input class="a-input-text" type="date" name="fecha" />
+                <input class="a-input-text" type="date" name="fecha" required />
               </div>
               <div>
                 <label class="">Nro. Registro</label>
-                <input class="a-input-text" type="text" name="numero_registro" />
+                <input
+                  class="a-input-text"
+                  type="text"
+                  name="numero_registro"
+                  required
+                  oninput="soloNumeros(this); limitarCaracteres(this, 8)"
+                />
               </div>
             </div>
           </div>
@@ -1156,6 +1183,7 @@ Esta es una observación</textarea
     <script type="text/javascript" src="./_ubicacionPredioCatastral.js"></script>
     <script type="text/javascript" src="./_ubigeo.js"></script>
     <script type="text/javascript" src="./_validarFichaIndividual.js"></script>
+    <script type="text/javascript" src="./_validadores.js"></script>
 
     <script type="text/javascript" src="./_guardarFichaIndividual.js"></script>
   </body>
