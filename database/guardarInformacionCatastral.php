@@ -4,6 +4,10 @@ require_once "./_DBPostgres.php";
 require_once "./_CreateResponse.php";
 require_once "./_CallApi.php";
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 header("Content-Type: application/json; charset=UTF-8");
 
 try {
@@ -29,14 +33,7 @@ try {
   $distrito = $dataPost['ubigeo']['distrito'];
   $ubigeo = $departamento . $provincia . $distrito;
 
-
-  // return createResponse(true, [
-  //   'dato' => $numeroFicha
-  // ]);
-
-
   $idSector = $dataPost["codigoReferenciaCatastral"]["idSector"];
-  // $codigoManzana = $dataPost["codigoReferenciaCatastral"]["codigoManzana"];
   $idManzana = $dataPost["codigoReferenciaCatastral"]["idManzana"];
   $numeroManzana = $dataPost["ubicacionPredioCatastral"]["numeroManzana"];
 
@@ -53,23 +50,6 @@ try {
   $codigoHU = $dataPost['ubicacionPredioCatastral']['codigoHU'];
   $grupoHU = $dataPost['ubicacionPredioCatastral']['grupoHU'];
   $idHU = $dataPost['ubicacionPredioCatastral']['idHU'];
-
-  // // Guardar manzana
-  // $datosManzana = [
-  //   "id_mzna" => trim($idSector . $codigoManzana),
-  //   "id_sector" => trim($idSector),
-  //   "codi_mzna" => $codigoManzana,
-  //   "nume_mzna" => $numeroManzana,
-  // ];
-
-  // $resultadoGuardarManzana = callApiPost('guardarManzana.php', $datosManzana);
-
-  // if (!$resultadoGuardarManzana["success"]) {
-  //   return createResponse(false, null, 'Error registrando manzana');
-  // }
-
-  // $idManzana = $resultadoGuardarManzana["data"]['id_mzna'];
-  // $idManzana = $resultadoGuardarManzana["data"]['id_mzna'];
 
   // Guardar lote
   $datosLote = [
@@ -156,7 +136,7 @@ try {
     "fecha_verificacion" => $dataPost['verificador']['fecha'],
     "nume_registro" => $dataPost['verificador']['numeroRegistro'],
     "id_uni_cat" => $idUniCatGuardado,
-    'id_usuario' => '0218011',
+    'id_usuario' => '0218011', // POR REVISAR
     'fecha_grabado' => date("Y-m-d"),
     "activo" => "1"
   ];
@@ -170,12 +150,11 @@ try {
   $idFichaGuardado = $resultadoGuardarFicha['data']['id_ficha'];
 
   // Guardar declarante
-  // if (!empty($dataPost['declarante'])) {
   $datosDeclarante = [
     "dni" => $dataPost['declarante']['dni'],
-    "nombres" => $dataPost['declarante']['nombres'],
-    "ape_paterno" => $dataPost['declarante']['apellidoPaterno'],
-    "ape_materno" => $dataPost['declarante']['apellidoMaterno'],
+    "nombres" => $dataPost['declarante']['nombres'] ?? '',
+    "ape_paterno" => $dataPost['declarante']['apellidoPaterno'] ?? '',
+    "ape_materno" => $dataPost['declarante']['apellidoMaterno'] ?? '',
     "fecha" => $dataPost['declarante']['fecha'],
     "id_ficha" => $idFichaGuardado,
   ];
@@ -185,19 +164,28 @@ try {
   if (!$resultadoGuardarDeclarante["success"]) {
     return createResponse(false, null, 'Error registrando declarante');
   }
-  // }
 
   // Guardar sunarp
+
+
+  $fechaInscripcion = !empty($dataPost['inscripcionPredioCatastral']['fechaInscripcion'])
+    ? $dataPost['inscripcionPredioCatastral']['fechaInscripcion']
+    : null;
+
+  $fechaFabrica = !empty($dataPost['inscripcionPredioCatastral']['fechaFabrica'])
+    ? $dataPost['inscripcionPredioCatastral']['fechaFabrica']
+    : null;
+
   $datosSunarp = [
     "id_ficha" => $idFichaGuardado,
-    "tipo_partida" => $dataPost['inscripcionPredioCatastral']['tipoPartida'],
-    "nume_partida" => $dataPost['inscripcionPredioCatastral']['numeroPartida'],
-    "fojas" => $dataPost['inscripcionPredioCatastral']['fojas'],
-    "asiento" => $dataPost['inscripcionPredioCatastral']['asiento'],
-    "fecha_inscripcion" => $dataPost['inscripcionPredioCatastral']['fechaInscripcion'],
-    "codi_decla_fabrica" => $dataPost['inscripcionPredioCatastral']['codigoDeclaracionFabrica'],
-    "asie_fabrica" => $dataPost['inscripcionPredioCatastral']['asientoFabrica'],
-    "fecha_fabrica" => $dataPost['inscripcionPredioCatastral']['fechaFabrica'],
+    "tipo_partida" => $dataPost['inscripcionPredioCatastral']['tipoPartida'] ?? '',
+    "nume_partida" => $dataPost['inscripcionPredioCatastral']['numeroPartida'] ?? '',
+    "fojas" => $dataPost['inscripcionPredioCatastral']['fojas'] ?? '',
+    "asiento" => $dataPost['inscripcionPredioCatastral']['asiento'] ?? '',
+    "fecha_inscripcion" => $fechaInscripcion,
+    "codi_decla_fabrica" => $dataPost['inscripcionPredioCatastral']['codigoDeclaracionFabrica'] ?? '',
+    "asie_fabrica" => $dataPost['inscripcionPredioCatastral']['asientoFabrica'] ?? '',
+    "fecha_fabrica" => $fechaFabrica,
   ];
 
   $resultadoGuardarSunarp = callApiPost('guardarSunarp.php', $datosSunarp);
@@ -416,10 +404,10 @@ try {
     "id_ficha" => trim($idFichaGuardado),
     "codi_uso" => $dataPost['descripcionPredio']['uso'],
     "cont_en" => "",
-    "clasificacion" => $dataPost['descripcionPredio']['clasificacionPredio'],
-    "area_titulo" => $dataPost['descripcionPredio']['areaTerrenoAdquirida'],
+    "clasificacion" => $dataPost['descripcionPredio']['clasificacionPredio'] ?? '',
+    "area_titulo" => $dataPost['descripcionPredio']['areaTerrenoAdquirida'] ?? 0,
     "area_declarada" => 0,
-    "area_verificada" => $dataPost['descripcionPredio']['areaTerrenoVerificada'],
+    "area_verificada" => $dataPost['descripcionPredio']['areaTerrenoVerificada'] ?? 0,
     "porc_bc_terr_legal" => 0,
     "porc_bc_terr_fisc" => 0,
     "porc_bc_const_legal" => 0,
@@ -429,12 +417,12 @@ try {
     "en_jardin_aislamiento" => $dataPost['evaluacionPredio']['enJardinAislamiento'] ?? 0,
     "en_area_publica" => $dataPost['evaluacionPredio']['enAreaPublica'] ?? 0,
     "en_area_intangible" => $dataPost['evaluacionPredio']['enAreaIntangible'] ?? 0,
-    "cond_declarante" => $dataPost['informacionComplementaria']['condicionDeclarante'],
-    "esta_llenado" => $dataPost['informacionComplementaria']['estadoFicha'],
-    "nume_habitantes" => $dataPost['informacionComplementaria']['numeroHabitantes'],
-    "nume_familias" => $dataPost['informacionComplementaria']['numeroFamilias'],
-    "mantenimiento" => $dataPost['informacionComplementaria']['mantenimiento'],
-    "observaciones" => $dataPost['observaciones']['texto'],
+    "cond_declarante" => $dataPost['informacionComplementaria']['condicionDeclarante'] ?? '',
+    "esta_llenado" => $dataPost['informacionComplementaria']['estadoFicha'] ?? '',
+    "nume_habitantes" => $dataPost['informacionComplementaria']['numeroHabitantes'] ?? 0,
+    "nume_familias" => $dataPost['informacionComplementaria']['numeroFamilias'] ?? 0,
+    "mantenimiento" => $dataPost['informacionComplementaria']['mantenimiento'] ?? '',
+    "observaciones" => $dataPost['observaciones']['texto'] ?? '',
     "nume_ficha" => $numeroFicha
   ];
 
@@ -611,21 +599,21 @@ try {
   // Guardar linderos
   $datosLindero = [
     'id_ficha' => $idFichaGuardado,
-    'fren_campo' => $dataPost['descripcionPredio']['linderos'][0]['medida'],
+    'fren_campo' => $dataPost['descripcionPredio']['linderos'][0]['medida'] ?? '',
     'fren_titulo' => '',
-    'fren_colinda_campo' => $dataPost['descripcionPredio']['linderos'][0]['colindancia'],
+    'fren_colinda_campo' => $dataPost['descripcionPredio']['linderos'][0]['colindancia'] ?? '',
     'fren_colinda_titulo' => '',
-    'dere_campo' => $dataPost['descripcionPredio']['linderos'][1]['medida'],
+    'dere_campo' => $dataPost['descripcionPredio']['linderos'][1]['medida'] ?? '',
     'dere_titulo' => '',
-    'dere_colinda_campo' => $dataPost['descripcionPredio']['linderos'][1]['medida'],
+    'dere_colinda_campo' => $dataPost['descripcionPredio']['linderos'][1]['medida'] ?? '',
     'dere_colinda_titulo' => '',
-    'izqu_campo' => $dataPost['descripcionPredio']['linderos'][2]['medida'],
+    'izqu_campo' => $dataPost['descripcionPredio']['linderos'][2]['medida'] ?? '',
     'izqu_titulo' => '',
-    'izqu_colinda_campo' => $dataPost['descripcionPredio']['linderos'][2]['medida'],
+    'izqu_colinda_campo' => $dataPost['descripcionPredio']['linderos'][2]['medida'] ?? '',
     'izqu_colinda_titulo' => '',
-    'fond_campo' => $dataPost['descripcionPredio']['linderos'][3]['medida'],
+    'fond_campo' => $dataPost['descripcionPredio']['linderos'][3]['medida'] ?? '',
     'fond_titulo' => '',
-    'fond_colinda_campo' => $dataPost['descripcionPredio']['linderos'][3]['medida'],
+    'fond_colinda_campo' => $dataPost['descripcionPredio']['linderos'][3]['medida'] ?? '',
     'fond_colinda_titulo' => ''
   ];
 

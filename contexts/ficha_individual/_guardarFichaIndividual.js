@@ -31,24 +31,60 @@ document.getElementById('form-ficha-individual').addEventListener('submit', asyn
 
   console.log(dataPost);
 
+  console.log('📦 Enviando dataPost:', dataPost);
+
   try {
     const response = await fetch('../../database/guardarInformacionCatastral.php', {
       method: 'POST',
       body: formData,
     });
 
-    const result = await response.json();
+    // ✅ Leer la respuesta como texto primero
+    const text = await response.text();
+    console.log('📄 Respuesta cruda del servidor:', JSON.parse(text));
+
+    let result;
+    try {
+      result = JSON.parse(text); // intentar convertir a JSON
+    } catch (e) {
+      console.error(
+        '⚠️ La respuesta no es JSON válido. Revisa el texto anterior (probablemente un error de PHP).'
+      );
+      return;
+    }
+
+    // ✅ Procesar normalmente
     if (result.success) {
-      console.log(result);
+      console.log('✅ Éxito:', result);
     } else {
-      console.log('Error:');
-      console.log(result.message);
+      mostrarErrores(text);
+      console.error('❌ Error del servidor:', result.message);
     }
   } catch (err) {
-    console.log('Error catch');
-    console.log(err);
+    console.error('💥 Error de red o fetch:', err);
   }
 });
+
+function mostrarErrores(text) {
+  // if (!result.success) {
+  const errorMsg = text?.toLowerCase() || '';
+  let mensaje = '';
+  // let mensaje = '❌ Ocurrió un error al guardar la información.';
+
+  if (errorMsg.includes('llave duplicada')) {
+    if (errorMsg.includes('lotes')) {
+      mensaje = '⚠️ El lote ya fue registrado anteriormente.';
+    } else if (errorMsg.includes('edificacion')) {
+      mensaje = '⚠️ La edificación ya existe para este lote.';
+    } else if (errorMsg.includes('puerta')) {
+      mensaje = '⚠️ Ya existe una puerta registrada con ese código.';
+    }
+  }
+
+  // mostrarMensaje(mensaje);
+  alert(mensaje);
+  // }
+}
 
 function obtenerNumeroFicha() {
   const ficha = document.getElementById('ficha');

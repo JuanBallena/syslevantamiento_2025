@@ -1,11 +1,12 @@
 window.addEventListener('load', () => {
   cargarSectores();
-  cargarManzanas();
+  // cargarManzanas();
 });
 
 // autompletado sector y manzanas
 var sectores = [];
-var manzanas = [];
+var idSector = 0;
+// var manzanas = [];
 
 async function cargarSectores() {
   try {
@@ -18,18 +19,24 @@ async function cargarSectores() {
   }
 }
 
-async function cargarManzanas() {
+async function cargarManzanas(idSector = null) {
   try {
-    const res = await fetch('../../database/obtenerManzanas.php');
+    const url = idSector
+      ? `../../database/obtenerManzanas.php?id_sector=${idSector}`
+      : '../../database/obtenerManzanas.php';
+
+    // console.log(url); //
+
+    const res = await fetch(url);
     const data = await res.json();
 
-    manzanas = data.data;
+    return data.data;
   } catch (err) {
     console.error('Error cargando manzanas:', err);
   }
 }
 
-document.addEventListener('click', (e) => {
+document.addEventListener('click', async (e) => {
   if (e.target.classList.contains('input-text-codigo-sector')) {
     const input = e.target;
     const hiddenInput = input.parentElement.querySelector('.input-hidden-codigo-sector');
@@ -49,6 +56,15 @@ document.addEventListener('click', (e) => {
   if (e.target.classList.contains('input-text-codigo-manzana')) {
     const input = e.target;
     const hiddenInput = input.parentElement.querySelector('.input-hidden-codigo-manzana');
+
+    const codigoReferenciaCatastral = document.getElementById('codigo-referencia-catastral');
+    let idSector = codigoReferenciaCatastral.querySelector('[name="id_sector"]').value || null;
+
+    // console.log(idSector);
+
+    let manzanas = await cargarManzanas(idSector);
+
+    // console.log(manzanas);
 
     Helper.mostrarSugerencias(input, manzanas, 'nume_mzna', hiddenInput, 'id_mzna', null, '');
   }
