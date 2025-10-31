@@ -956,11 +956,20 @@
           </div>
 
           <!-- IMÁGENES ADJUNTAS -->
-          <div class="m-form-section" id="imagenes-adjuntas">
+          <section class="m-form-section" id="imagenes-adjuntas">
             <div class="m-form-section__title">Imágenes adjuntas</div>
             <br />
-            <input type="file" name="imagenes_adjuntas[]" />
-          </div>
+            <!-- nombre 'archivos[]' para que coincida con PHP y multiple para permitir varios -->
+            <input
+              type="file"
+              name="archivos[]"
+              id="input-archivos"
+              multiple
+              accept="image/*,application/pdf"
+            />
+
+            <button type="button" onclick="guardarArchivos()">Guardar imagen</button>
+          </section>
 
           <!-- OBSERVACIONES -->
           <div class="m-form-section" id="observaciones">
