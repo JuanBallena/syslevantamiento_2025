@@ -41,11 +41,12 @@ document.getElementById('form-ficha-individual').addEventListener('submit', asyn
 
     // ✅ Leer la respuesta como texto primero
     const text = await response.text();
-    console.log('📄 Respuesta cruda del servidor:', JSON.parse(text));
+    console.log('📄 Respuesta cruda del servidor:', text);
+    // console.log('📄 Respuesta cruda del servidor:', JSON.parse(text));
 
     let result;
     try {
-      result = JSON.parse(text); // intentar convertir a JSON
+      result = JSON.parse(text);
     } catch (e) {
       console.error(
         '⚠️ La respuesta no es JSON válido. Revisa el texto anterior (probablemente un error de PHP).'
@@ -53,7 +54,6 @@ document.getElementById('form-ficha-individual').addEventListener('submit', asyn
       return;
     }
 
-    // ✅ Procesar normalmente
     if (result.success) {
       console.log('✅ Éxito:', result);
     } else {
@@ -66,10 +66,8 @@ document.getElementById('form-ficha-individual').addEventListener('submit', asyn
 });
 
 function mostrarErrores(text) {
-  // if (!result.success) {
   const errorMsg = text?.toLowerCase() || '';
   let mensaje = '';
-  // let mensaje = '❌ Ocurrió un error al guardar la información.';
 
   if (errorMsg.includes('llave duplicada')) {
     if (errorMsg.includes('lotes')) {
@@ -81,9 +79,7 @@ function mostrarErrores(text) {
     }
   }
 
-  // mostrarMensaje(mensaje);
-  alert(mensaje);
-  // }
+  if (mensaje !== '') alert(mensaje);
 }
 
 function obtenerNumeroFicha() {
@@ -215,17 +211,17 @@ function obtenerPuertasPredioCatastral() {
     // const viaId = viaEl.dataset.via;
     const via = {
       // id: viaId,
-      nombre: viaEl.querySelector('[name="nombre"]')?.value || null,
-      tipo: viaEl.querySelector('[name="tipo"]')?.value || null,
-      idVia: viaEl.querySelector('[name="id_via"]')?.value.trim() || null,
+      nombre: viaEl.querySelector('[name="nombre"]')?.value,
+      tipo: viaEl.querySelector('[name="tipo"]')?.value,
+      idVia: viaEl.querySelector('[name="id_via"]')?.value.trim(),
       puertas: [],
     };
 
     viaEl.querySelectorAll('[data-puerta]').forEach((puertaEl, index) => {
       via.puertas.push({
-        tipo: puertaEl.querySelector('[name="tipo"]')?.value || null,
+        tipo: puertaEl.querySelector('[name="tipo"]')?.value,
         codigo: String(index + 1),
-        numeroMunicipal: puertaEl.querySelector('[name="numero_municipal"]')?.value || null,
+        numeroMunicipal: puertaEl.querySelector('[name="numero_municipal"]')?.value,
       });
     });
     vias.push(via);
@@ -238,11 +234,11 @@ function obtenerDescripcionPredio() {
   const contenedor = document.getElementById('descripcion-predio');
 
   const referenciaUso = contenedor.querySelector('input[name="referencia_uso"]')?.value || '';
-  const uso = contenedor.querySelector('.input-hidden-uso')?.value || '';
+  const uso = contenedor.querySelector('.input-hidden-uso')?.value;
   const areaTerrenoAdquirida =
-    contenedor.querySelector('input[name="area_terreno_adquirida"]')?.value || '';
+    contenedor.querySelector('input[name="area_terreno_adquirida"]')?.value || 0;
   const areaTerrenoVerificada =
-    contenedor.querySelector('input[name="area_terreno_verificada"]')?.value || '';
+    contenedor.querySelector('input[name="area_terreno_verificada"]')?.value || 0;
   const clasificacionPredio =
     contenedor.querySelector('input[name="clasificacion_predio"]')?.value || '';
 

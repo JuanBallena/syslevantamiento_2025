@@ -23,7 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const data = await res.json();
 
-      if (data.success) alert(data.error);
+      if (data.success) {
+        alert(data.error);
+
+        ficha.querySelector('input[name="numero_ficha"]').value = '';
+      }
     } catch (err) {
       console.error('❌ Error cargando ficha:', err);
     }

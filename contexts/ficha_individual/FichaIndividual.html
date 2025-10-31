@@ -398,7 +398,7 @@
                 <label class="">Área de terreno adquirida</label>
                 <input
                   class="a-input-text"
-                  type="text"
+                  type="number"
                   placeholder="Escriba"
                   name="area_terreno_adquirida"
                   value=""
@@ -409,7 +409,7 @@
                 <label class="">Área de terreno verificada</label>
                 <input
                   class="a-input-text"
-                  type="text"
+                  type="number"
                   placeholder="Escriba"
                   name="area_terreno_verificada"
                   value=""
@@ -997,8 +997,12 @@ Esta es una observación</textarea
                     value="12345678"
                     name="dni"
                     oninput="soloNumeros(this); limitarCaracteres(this, 8)"
+                    onkeyup="onKeyupDniDeclarante(this)"
                     required
                   />
+                  <div class="a-autocomplete__box none" onmousedown="event.preventDefault()">
+                    <ul class="a-autocomplete__items cursor-pointer"></ul>
+                  </div>
                 </div>
               </div>
               <div>

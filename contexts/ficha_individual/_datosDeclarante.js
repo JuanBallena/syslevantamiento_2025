@@ -53,13 +53,55 @@ document.addEventListener('keyup', async (e) => {
 document.addEventListener(
   'blur',
   (e) => {
-    if (
-      e.target.classList.contains('autocompletado-dni') ||
-      e.target.classList.contains('autocompletado-dni')
-    ) {
+    if (e.target.classList.contains('autocompletado-dni')) {
+      const contenedor = e.target.parentElement.querySelector('.a-autocomplete__box');
+      setTimeout(() => contenedor.classList.add('none'), 200);
+    }
+
+    if (e.target.classList.contains('autocompletado-dni-declarante')) {
       const contenedor = e.target.parentElement.querySelector('.a-autocomplete__box');
       setTimeout(() => contenedor.classList.add('none'), 200);
     }
   },
   true
 );
+
+async function onKeyupDniDeclarante(input) {
+  const texto = input.value;
+  const section = document.getElementById('datos-declarante');
+
+  if (texto.length < 8) {
+    section.querySelector('[name="nombres"]').value = '';
+    section.querySelector('[name="apellido_materno"]').value = '';
+    section.querySelector('[name="apellido_paterno"]').value = '';
+  }
+
+  let declarantes = await buscarDeclarantes(texto);
+
+  Helper.mostrarSugerencias(input, declarantes, 'dni', input, 'dni');
+
+  const list = input.parentElement.querySelector('.a-autocomplete__box');
+  const ul = list.querySelector('ul');
+
+  ul.onclick = (e) => {
+    input.value = e.target.dataset.text.trim();
+    const declarante = JSON.parse(e.target.dataset.item);
+    section.querySelector('[name="nombres"]').value = declarante['nombres'];
+    section.querySelector('[name="apellido_materno"]').value = declarante['ape_materno'];
+    section.querySelector('[name="apellido_paterno"]').value = declarante['ape_paterno'];
+
+    list.classList.add('none');
+  };
+}
+
+async function buscarDeclarantes(dni) {
+  try {
+    const res = await fetch(`../../database/obtenerDeclarantes.php?q=${encodeURIComponent(dni)}`);
+    const data = await res.json();
+
+    return data.data;
+  } catch (err) {
+    console.error('Error buscar declarante:', err);
+    return [];
+  }
+}
