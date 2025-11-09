@@ -1,8 +1,10 @@
 document.getElementById('form-ficha-individual').addEventListener('submit', async (event) => {
   event.preventDefault();
 
+  const ficha = document.getElementById('ficha');
+
   let dataPost = {
-    numeroFicha: obtenerNumeroFicha(),
+    numeFicha: ficha.querySelector('[name="nume_ficha"]').value,
     ubigeo: obtenerUbigeo(),
     codigoReferenciaCatastral: obtenerCodigoReferenciaCatastral(),
     ubicacionPredioCatastral: obtenerUbicacionPredioCatastral(),
@@ -23,15 +25,15 @@ document.getElementById('form-ficha-individual').addEventListener('submit', asyn
     verificador: obtenerDatosVerificador(),
   };
 
-  const imagenesAdjuntas = obtenerImagenesAdjuntas();
-
   const formData = new FormData();
-  formData.append('file', imagenesAdjuntas);
   formData.append('dataPost', JSON.stringify(dataPost));
 
-  console.log(dataPost);
+  const files = obtenerImagenesAdjuntas();
+  for (const file of files) {
+    formData.append('archivos[]', file);
+  }
 
-  console.log('📦 Enviando dataPost:', dataPost);
+  console.log(dataPost);
 
   try {
     const response = await fetch('../../database/guardarInformacionCatastral.php', {
@@ -41,27 +43,30 @@ document.getElementById('form-ficha-individual').addEventListener('submit', asyn
 
     // ✅ Leer la respuesta como texto primero
     const text = await response.text();
-    console.log('📄 Respuesta cruda del servidor:', text);
+    console.log(text);
     // console.log('📄 Respuesta cruda del servidor:', JSON.parse(text));
 
     let result;
     try {
       result = JSON.parse(text);
     } catch (e) {
-      console.error(
-        '⚠️ La respuesta no es JSON válido. Revisa el texto anterior (probablemente un error de PHP).'
-      );
+      // console.error(
+      //   '⚠️ La respuesta no es JSON válido. Revisa el texto anterior (probablemente un error de PHP).'
+      // );
       return;
     }
 
     if (result.success) {
-      console.log('✅ Éxito:', result);
+      console.log('Éxito:');
+      console.log(result);
     } else {
-      mostrarErrores(text);
-      console.error('❌ Error del servidor:', result.message);
+      // mostrarErrores(text);
+      console.log('Error del servidor:');
+      console.log(result.error);
+      alert(result.error);
     }
   } catch (err) {
-    console.error('💥 Error de red o fetch:', err);
+    console.log('Error de red o fetch:', err);
   }
 });
 
@@ -82,48 +87,40 @@ function mostrarErrores(text) {
   if (mensaje !== '') alert(mensaje);
 }
 
-function obtenerNumeroFicha() {
-  const ficha = document.getElementById('ficha');
-  return ficha.querySelector('[name="numero_ficha"]').value;
-}
-
 function obtenerUbigeo() {
   const ubigeo = document.getElementById('ubigeo');
-  return {
-    departamento: ubigeo.querySelector('[name="departamento"]').value,
-    provincia: ubigeo.querySelector('[name="provincia"]').value,
-    distrito: ubigeo.querySelector('[name="distrito"]').value,
-  };
+  const inputs = ubigeo.querySelectorAll('input[name]');
+  const result = {};
+
+  inputs.forEach((input) => {
+    result[input.name] = evaluarValorInput(input);
+  });
+
+  return result;
 }
 
 function obtenerCodigoReferenciaCatastral() {
   const codigoReferenciaCatastral = document.getElementById('codigo-referencia-catastral');
-  return {
-    idSector: codigoReferenciaCatastral.querySelector('[name="id_sector"]').value,
-    idManzana: codigoReferenciaCatastral.querySelector('[name="id_manzana"]').value,
-    codigoLote: codigoReferenciaCatastral.querySelector('[name="codigo_lote"]').value,
-    codigoEdifica: codigoReferenciaCatastral.querySelector('[name="codigo_edifica"]').value,
-    codigoEntrada: codigoReferenciaCatastral.querySelector('[name="codigo_entrada"]').value,
-    codigoPiso: codigoReferenciaCatastral.querySelector('[name="codigo_piso"]').value,
-    codigoUnidad: codigoReferenciaCatastral.querySelector('[name="codigo_unidad"]').value,
-  };
+  const inputs = codigoReferenciaCatastral.querySelectorAll('input[name], select[name]');
+  const result = {};
+
+  inputs.forEach((input) => {
+    result[input.name] = evaluarValorInput(input);
+  });
+
+  return result;
 }
 
 function obtenerUbicacionPredioCatastral() {
   const ubicacionPredioCatastral = document.getElementById('ubicacion-predio-catastral');
-  return {
-    tipoEdificacion: ubicacionPredioCatastral.querySelector('[name="tipo_edificacion"]').value,
-    tipoInterior: ubicacionPredioCatastral.querySelector('[name="tipo_interior"]').value,
-    estadoUnidad: ubicacionPredioCatastral.querySelector('[name="estado_unidad"]').value,
-    nombreHU: ubicacionPredioCatastral.querySelector('[name="nombre_HU"]').value,
-    codigoHU: ubicacionPredioCatastral.querySelector('[name="codigo_HU"]').value,
-    grupoHU: ubicacionPredioCatastral.querySelector('[name="grupo_HU"]').value,
-    idHU: ubicacionPredioCatastral.querySelector('[name="id_HU"]').value,
-    numeroEtapa: ubicacionPredioCatastral.querySelector('[name="numero_etapa"]').value,
-    numeroManzana: ubicacionPredioCatastral.querySelector('[name="numero_manzana"]').value,
-    lote: ubicacionPredioCatastral.querySelector('[name="lote"]').value,
-    subLote: ubicacionPredioCatastral.querySelector('[name="sub_lote"]').value,
-  };
+  const inputs = ubicacionPredioCatastral.querySelectorAll('input[name], select[name]');
+  const result = {};
+
+  inputs.forEach((input) => {
+    result[input.name] = evaluarValorInput(input);
+  });
+
+  return result;
 }
 
 function obtenerIdentificacionTitularCatastral() {
@@ -350,11 +347,6 @@ function obtenerInformacionComplementaria() {
   const numeroHabitantes = parseInt(seccion.querySelector("[name='numero_habitantes']").value) || 0;
   const numeroFamilias = parseInt(seccion.querySelector("[name='numero_familias']").value) || 0;
 
-  // Checkboxes (convertir a booleano)
-  // const posiblesUnidades = seccion.querySelector("[name='posibles_unidades']").checked;
-  // const subDivision = seccion.querySelector("[name='sub_division']").checked;
-  // const independizacion = seccion.querySelector("[name='independización']").checked;
-
   return {
     condicionDeclarante,
     estadoFicha,
@@ -362,9 +354,6 @@ function obtenerInformacionComplementaria() {
     mantenimiento,
     numeroHabitantes,
     numeroFamilias,
-    // posiblesUnidades,
-    // subDivision,
-    // independizacion,
   };
 }
 
@@ -388,12 +377,15 @@ function obtenerLitigantes() {
 }
 
 function obtenerImagenesAdjuntas() {
-  const contenedor = document.getElementById('imagenes-adjuntas');
-  // const section = document.getElementById('imagenes_adjuntas[]');
-  const inputFile = contenedor.querySelector('[name="imagenes_adjuntas[]"]');
+  const section = document.getElementById('imagenes-adjuntas');
+  const input = section.querySelector('#input-archivos');
 
-  // Retornar la lista de archivos seleccionados
-  return Array.from(inputFile.files);
+  if (!input || !input.files || input.files.length === 0) {
+    console.warn('No hay archivos seleccionados');
+    return [];
+  }
+
+  return input.files;
 }
 
 function obtenerObservaciones() {
@@ -410,15 +402,15 @@ function obtenerObservaciones() {
 }
 
 function obtenerDatosDeclarante() {
-  const contenedor = document.getElementById('datos-declarante');
+  const datosDeclarante = document.getElementById('datos-declarante');
+  const inputs = datosDeclarante.querySelectorAll('input[name], select[name]');
+  const result = {};
 
-  return {
-    dni: contenedor.querySelector('[name="dni"]')?.value || '',
-    nombres: contenedor.querySelector('[name="nombres"]')?.value || '',
-    apellidoPaterno: contenedor.querySelector('[name="apellido_paterno"]')?.value || '',
-    apellidoMaterno: contenedor.querySelector('[name="apellido_materno"]')?.value || '',
-    fecha: contenedor.querySelector('[name="fecha"]')?.value || '',
-  };
+  inputs.forEach((input) => {
+    result[input.name] = evaluarValorInput(input);
+  });
+
+  return result;
 }
 
 function obtenerDatosSupervisor() {
@@ -457,4 +449,32 @@ function obtenerDatosVerificador() {
     fecha: contenedor.querySelector('[name="fecha"]')?.value || '',
     numeroRegistro: contenedor.querySelector('[name="numero_registro"]')?.value || '',
   };
+}
+
+function evaluarValorInput(input) {
+  let value = input.value?.trim() ?? '';
+
+  // Si el valor está vacío, devolver un valor según el tipo
+  if (!value) {
+    switch (input.type) {
+      case 'number':
+        return 0;
+      case 'checkbox':
+        return input.checked;
+      default: // text, select, etc.
+        return '';
+    }
+  }
+
+  // Si es tipo number, convertir a número
+  if (input.type === 'number' && !isNaN(value)) {
+    return Number(value);
+  }
+
+  // Si es checkbox, devolver si está marcado
+  if (input.type === 'checkbox') {
+    return input.checked;
+  }
+
+  return value;
 }

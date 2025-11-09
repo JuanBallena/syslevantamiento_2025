@@ -4,7 +4,7 @@ class Helper {
   }
 
   static generarOpciones(arr, valueKey = 'value', textKey = 'text', includeSelect = true) {
-    let options = includeSelect ? `<option value="">Seleccione</option>` : '';
+    let options = includeSelect ? `<option disabled selected>Seleccione</option>` : '';
     arr.forEach((item) => {
       options += `<option value="${item[valueKey]}">${item[textKey]}</option>`;
     });
@@ -50,7 +50,7 @@ class Helper {
       const li = document.createElement('li');
       li.className = 'py-1 px-4';
       li.dataset.disabled = 'true';
-      li.textContent = 'Sin resultados';
+      li.textContent = 'Sin opciones';
       ul.appendChild(li);
     }
 
@@ -84,6 +84,8 @@ class Helper {
       const opt = document.createElement('option');
       opt.value = '';
       opt.textContent = 'Seleccione';
+      opt.disabled = true;
+      opt.selected = true;
       select.appendChild(opt);
     }
 
@@ -100,7 +102,7 @@ class Helper {
       const opt = document.createElement('option');
       opt.value = '';
       opt.textContent = 'Sin resultados';
-      opt.disabled = true;
+
       select.appendChild(opt);
     }
   }

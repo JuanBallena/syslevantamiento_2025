@@ -176,14 +176,14 @@
   transition: 0.4s all;
   background: #eef3f7;
 }
-*/ .disabled {
-  /* pointer-events: none; */
-  opacity: 0.4;
-  /* border: none; */
-  box-shadow: none;
+/* .disabled { */
+/* pointer-events: none; */
+/* opacity: 1; */
+/* border: none; */
+/* box-shadow: none;
   outline: none;
-  cursor: no-drop;
-}
+  cursor: no-drop; */
+/* } */
 
 .a-input-text--disabled {
   /* background: #9cd9c8; */
@@ -276,7 +276,7 @@
 }
 
 .m-form-section {
-  border: 1px solid grey;
+  border: 1px solid black;
   padding: 2rem 1.5rem 1.5rem 1.5rem;
   position: relative;
   margin-bottom: 1.6rem;
@@ -475,3 +475,7 @@
 }
 
 /*# sourceMappingURL=index.css.map */
+.error-text {
+  font-size: 13px;
+  color: tomato;
+}

@@ -1,15 +1,21 @@
 <div class="m-form-section" data-id="{{id}}" data-tipo="juridica">
-  <div class="a-close-button is-danger-color btn-eliminar">x</div>
+  <div class="a-close-button btn-eliminar">x</div>
 
   <div class="m-form-section__title">Persona Jurídica N° {{index}}</div>
 
   <p class="text-800 text-uppercase mb-2 text-4">Datos Principales</p>
-  <div class="grid grid-cols-3 gap-1">
+  <div class="grid grid-cols-5 gap-1">
+    <div>
+      <label>Persona Jurídica</label>
+      <select class="a-input-text input-tipo-pj" name="tipo_persona_juridica">
+        {{personaJuridicaOpciones}}
+      </select>
+    </div>
     <div>
       <label>N° RUC</label>
       <input type="text" class="a-input-text input-ruc" name="ruc" placeholder="Escriba" />
     </div>
-    <div class="col-span-2">
+    <div class="col-span-3">
       <label>Razón Social</label>
       <input
         type="text"
@@ -18,44 +24,30 @@
         placeholder="Escriba"
       />
     </div>
-    <div>
-      <label>Persona Jurídica</label>
-      <select class="a-input-text input-tipo-pj" name="tipo_persona_juridica">
-        {{personaJuridicaOpciones}}
-      </select>
-    </div>
   </div>
 
   <p class="text-800 text-uppercase mt-6 mb-2 text-4">Domicilio</p>
-  <div class="grid grid-cols-3 gap-1">
+  <div class="grid grid-cols-5 gap-1">
+    <div>
+      <label>Departamento</label>
+      <input type="text" class="a-input-text autocompletar-2digitos name="codigo_departamento" placeholder="Escriba" />
+    </div>
+    <div>
+      <label>Provincia</label>
+      <input type="text" class="a-input-text autocompletar-2digitos name="codigo_provincia" placeholder="Escriba" />
+    </div>
+    <div>
+      <label>Distrito</label>
+      <input type="text" class="a-input-text autocompletar-2digitos name="codigo_distrito" placeholder="Escriba" />
+    </div>
     <div>
       <label>Ubicación</label>
       <select class="a-input-text input-ubicacion" name="ubicacion">
         {{ubicacionOpciones}}
       </select>
     </div>
-    <div>
-      <label>Departamento</label>
-      <input type="text" class="a-input-text" name="codigo_departamento" placeholder="Escriba" />
-    </div>
-    <div>
-      <label>Provincia</label>
-      <input type="text" class="a-input-text" name="codigo_provincia" placeholder="Escriba" />
-    </div>
-    <div>
-      <label>Distrito</label>
-      <input type="text" class="a-input-text" name="codigo_distrito" placeholder="Escriba" />
-    </div>
-    <div>
-      <label>Tipo de Vía</label>
-      <div class="a-autocomplete">
-        <input type="text" class="a-input-text input-tipo-via" placeholder="Escriba" />
-        <input type="hidden" class="input-hidden-tipo-via" name="tipo_via" />
-        <div class="a-autocomplete__box none contenedor-tipo-vias">
-          <ul class="a-autocomplete__items lista-tipo-vias"></ul>
-        </div>
-      </div>
-    </div>
+ 
+    <div></div>
     <div>
       <label>Nombre Vía</label>
       <input type="text" class="a-input-text input-via" placeholder="Escriba" name="nombre_via" />
@@ -73,6 +65,16 @@
         readonly
         name="codigo_via"
       />
+    </div>
+        <div>
+      <label>Tipo de Vía</label>
+      <div class="a-autocomplete">
+        <input type="text" class="a-input-text input-tipo-via" placeholder="Escriba" />
+        <input type="hidden" class="input-hidden-tipo-via" name="tipo_via" />
+        <div class="a-autocomplete__box none contenedor-tipo-vias">
+          <ul class="a-autocomplete__items lista-tipo-vias"></ul>
+        </div>
+      </div>
     </div>
     <div>
       <label>Nro. Municipal</label>
@@ -165,7 +167,7 @@
   </div>
 
   <p class="text-800 text-uppercase mt-6 mb-2 text-4">Características</p>
-  <div class="grid grid-cols-3 gap-1">
+  <div class="grid grid-cols-5 gap-1">
     <div>
       <label>Condición Titular</label>
       <select class="a-input-text input-condicion" name="condicion_titular">

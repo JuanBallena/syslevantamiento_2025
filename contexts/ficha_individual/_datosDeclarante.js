@@ -10,14 +10,6 @@ async function cargarPersonas(texto = '', url) {
   }
 }
 
-// Eventos
-
-document.addEventListener('click', async (e) => {
-  if (e.target.classList.contains('autocompletado-dni')) {
-    //
-  }
-});
-
 document.addEventListener('keyup', async (e) => {
   if (e.target.classList.contains('autocompletado-dni')) {
     const input = e.target;
@@ -66,17 +58,20 @@ document.addEventListener(
   true
 );
 
-async function onKeyupDniDeclarante(input) {
-  const texto = input.value;
+async function buscarDeclarante(input) {
+  const dni = input.value;
   const section = document.getElementById('datos-declarante');
 
-  if (texto.length < 8) {
+  const existeDeclaranteCheckbox = section.querySelector('input[name="existe_declarante"]');
+  existeDeclaranteCheckbox.checked = false;
+
+  if (dni.length < 8) {
     section.querySelector('[name="nombres"]').value = '';
-    section.querySelector('[name="apellido_materno"]').value = '';
-    section.querySelector('[name="apellido_paterno"]').value = '';
+    section.querySelector('[name="ape_materno"]').value = '';
+    section.querySelector('[name="ape_paterno"]').value = '';
   }
 
-  let declarantes = await buscarDeclarantes(texto);
+  let declarantes = await buscarDeclarantePorDni(dni);
 
   Helper.mostrarSugerencias(input, declarantes, 'dni', input, 'dni');
 
@@ -87,14 +82,15 @@ async function onKeyupDniDeclarante(input) {
     input.value = e.target.dataset.text.trim();
     const declarante = JSON.parse(e.target.dataset.item);
     section.querySelector('[name="nombres"]').value = declarante['nombres'];
-    section.querySelector('[name="apellido_materno"]').value = declarante['ape_materno'];
-    section.querySelector('[name="apellido_paterno"]').value = declarante['ape_paterno'];
+    section.querySelector('[name="ape_materno"]').value = declarante['ape_materno'];
+    section.querySelector('[name="ape_paterno"]').value = declarante['ape_paterno'];
 
     list.classList.add('none');
+    existeDeclaranteCheckbox.checked = true;
   };
 }
 
-async function buscarDeclarantes(dni) {
+async function buscarDeclarantePorDni(dni) {
   try {
     const res = await fetch(`../../database/obtenerDeclarantes.php?q=${encodeURIComponent(dni)}`);
     const data = await res.json();

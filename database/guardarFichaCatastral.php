@@ -4,28 +4,6 @@ require_once "./_DBPostgres.php";
 require_once "./_CreateResponse.php";
 require_once "./_CallApi.php";
 
-// inserts
-require_once "./LoteRepository.php";
-require_once "./EdificacionRepository.php";
-require_once "./UniCatRepository.php";
-require_once "./FichaRepository.php";
-require_once "./FichaIndividualRepository.php";
-require_once "./DeclaranteRepository.php";
-require_once "./SunarpRepository.php";
-require_once "./PersonaRepository.php";
-require_once "./TitularesRepository.php";
-require_once "./DomicilioTitularesRepository.php";
-require_once "./LitigantesRepository.php";
-require_once "./FichaCodigosAntiguosRepository.php";
-require_once "./PuertasRepository.php";
-require_once "./IngresosRepository.php";
-require_once "./ViasHUSRepository.php";
-require_once "./ServiciosRepository.php";
-require_once "./LinderosRepository.php";
-require_once "./InstalacionesRepository.php";
-require_once "./ConstruccionesRepository.php";
-require_once "./ArchivosRepository.php";
-
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -43,78 +21,86 @@ try {
     throw new Exception("Error decodificando JSON");
   }
 
+  // return createResponse(true, $dataPost['puertasPredioCatastral']);
+
   $anioActual = date("Y");
-  $tipoFicha = "01"; // Ficha individual
-  $numeFicha = $dataPost['numeFicha'];
-  $ubigeo = $dataPost['ubigeo'];
-  $codiUbigeo = $ubigeo['codi_dep'] . $ubigeo['codi_pro'] . $ubigeo['codi_dis'];
-  $codigoReferenciaCatastral = $dataPost['codigoReferenciaCatastral'];
-  $ubicacionPredioCatastral = $dataPost['ubicacionPredioCatastral'];
+  $tipoFicha = "01";
 
-  // $nombreHU = $ubicacionPredioCatastral['nombreHU'];
-  // $codigoHU = $ubicacionPredioCatastral['codigoHU'];
+  $numeroFicha = $dataPost['numeroFicha'];
 
-  $db = new DBPostgres();
-  $db->conectar();
+  $departamento = $dataPost['ubigeo']['departamento'];
+  $provincia = $dataPost['ubigeo']['provincia'];
+  $distrito = $dataPost['ubigeo']['distrito'];
+  $ubigeo = $departamento . $provincia . $distrito;
 
-  $db->beginTransaction();
+  $idSector = $dataPost["codigoReferenciaCatastral"]["idSector"];
+  $idManzana = $dataPost["codigoReferenciaCatastral"]["idManzana"];
+  $numeroManzana = $dataPost["ubicacionPredioCatastral"]["numeroManzana"];
 
-  $loteRepository = new LoteRepository($db);
-  $edificacionRepository = new EdificacionRepository($db);
-  $uniCatRepository = new UniCatRepository($db);
-  $fichaRepository = new FichaRepository($db);
-  $fichaIndividualRepository = new FichaIndividualRepository($db);
-  $declaranteRepository = new DeclaranteRepository($db);
-  $sunarpRepository = new SunarpRepository($db);
-  $personaRepository = new PersonaRepository($db);
-  $titularesRepository = new TitularesRepository($db);
-  $domicilioTitularesRepository = new DomicilioTitularesRepository($db);
-  $litigantesRepository = new LitigantesRepository($db);
-  $fichaCodigosAntiguosRepository = new FichaCodigosAntiguosRepository($db);
-  $puertasRepository = new PuertasRepository($db);
-  $viasHUSRepository = new ViasHUSRepository($db);
-  $ingresosRepository = new IngresosRepository($db);
-  $serviciosRepository = new ServiciosRepository($db);
-  $linderosRepository = new LinderosRepository($db);
-  $instalacionesRepository = new InstalacionesRepository($db);
-  $construccionesRepository = new ConstruccionesRepository($db);
-  $archivosRepository = new ArchivosRepository($db);
+  $codigoEdifica = $dataPost['codigoReferenciaCatastral']['codigoEdifica'];
+  $codigoEntrada = $dataPost['codigoReferenciaCatastral']['codigoEntrada'];
+  $codigoPiso = $dataPost['codigoReferenciaCatastral']['codigoPiso'];
+  $codigoUnidad = $dataPost['codigoReferenciaCatastral']['codigoUnidad'];
 
+  $tipoEdificacion = $dataPost['ubicacionPredioCatastral']['tipoEdificacion'];
+  $tipoInterior = $dataPost['ubicacionPredioCatastral']['tipoInterior'];
+  $lote = $dataPost['ubicacionPredioCatastral']['lote'];
+  $subLote = $dataPost['ubicacionPredioCatastral']['subLote'];
+  $nombreHU = $dataPost['ubicacionPredioCatastral']['nombreHU'];
+  $codigoHU = $dataPost['ubicacionPredioCatastral']['codigoHU'];
+  $grupoHU = $dataPost['ubicacionPredioCatastral']['grupoHU'];
+  $idHU = $dataPost['ubicacionPredioCatastral']['idHU'];
+
+  // Guardar lote
   $datosLote = [
-    "id_lote" => trim($codigoReferenciaCatastral["id_mzna"] . $codigoReferenciaCatastral["codi_lote"]),
-    "id_mzna" => trim($codigoReferenciaCatastral["id_mzna"]),
-    "codi_lote" => $codigoReferenciaCatastral["codi_lote"],
-    "id_hab_urba" => trim($ubicacionPredioCatastral['id_hab_urba']),
-    "mzna_dist" => $codigoReferenciaCatastral["nume_mzna"],
-    "lote_dist" => $ubicacionPredioCatastral["lote_dist"],
-    "sub_lote_dist" => $ubicacionPredioCatastral['sub_lote_dist'],
+    "id_lote" => trim($idManzana . $lote),
+    "id_mzna" => $idManzana,
+    "codi_lote" => $lote,
+    "id_hab_urba" => trim($idHU),
+    "mzna_dist" => $numeroManzana,
+    "lote_dist" => $lote,
+    "sub_lote_dist" => $subLote,
     "estructuracion" => "",
     "zonificacion" => "",
     "cuc" => "",
-    "zona_dist" => $ubicacionPredioCatastral['grup_urba'],
+    "zona_dist" => $grupoHU,
   ];
 
-  $loteRepository->guardarLote($datosLote);
+  $resultadoGuardarLote = callApiPost('guardarLote.php', $datosLote);
 
+  if (!$resultadoGuardarLote["success"]) {
+    return createResponse(false, null, 'Error registrando lote');
+  }
+
+  $idLoteGuardado = $resultadoGuardarLote["data"]['id_lote'];
+
+  // Guardar edificacion
   $datosEdificacion = [
-    "id_edificacion" => trim($datosLote['id_lote'] . $codigoReferenciaCatastral['codi_edificacion']),
-    "id_lote" => $datosLote['id_lote'],
-    "codi_edificacion" => $codigoReferenciaCatastral['codi_edificacion'],
-    "tipo_edificacion" => $ubicacionPredioCatastral['tipo_edificacion'],
+    "id_edificacion" => trim($idLoteGuardado . $codigoEdifica),
+    "id_lote" => trim($idLoteGuardado),
+    "codi_edificacion" => $codigoEdifica,
+    "tipo_edificacion" => $tipoEdificacion,
     "nomb_edificacion" => '',
     "clasificacion" => '',
   ];
 
-  $edificacionRepository->guardarEdificacion($datosEdificacion);
+  $resultadoGuardarEdificacion = callApiPost('guardarEdificacion.php', $datosEdificacion);
 
+  if (!$resultadoGuardarEdificacion["success"]) {
+    return createResponse(false, null, 'Error registrando edificacion');
+  }
+
+  $idEdificacionGuardado = $resultadoGuardarEdificacion['data']['id_edificacion'];
+
+  // Guardar Uni cat
   $datosUniCat = [
-    "id_uni_cat" => trim($codigoReferenciaCatastral['codi_edificacion'] . $codigoReferenciaCatastral['codi_entrada'] . $codigoReferenciaCatastral['codi_piso'] . $codigoReferenciaCatastral['codi_unidad']),
-    "id_lote" => $datosLote['id_lote'],
-    "id_edificacion" => $datosEdificacion['id_edificacion'],
-    "codi_entrada" => $codigoReferenciaCatastral['codi_entrada'],
-    "codi_piso" => $codigoReferenciaCatastral['codi_piso'],
-    "codi_unidad" => $codigoReferenciaCatastral['codi_unidad'],
-    "tipo_interior" => $ubicacionPredioCatastral['tipo_interior'],
+    "id_uni_cat" => trim($codigoEdifica . $codigoEntrada . $codigoPiso . $codigoUnidad),
+    "id_lote" => trim($idLoteGuardado),
+    "id_edificacion" => trim($idEdificacionGuardado),
+    "codi_entrada" => $codigoEntrada,
+    "codi_piso" => $codigoPiso,
+    "codi_unidad" => $codigoUnidad,
+    "tipo_interior" => $tipoInterior,
     "cuc" => "",
     "cuc_antecedente" => "",
     "codi_hoja_catastral" => "",
@@ -124,17 +110,24 @@ try {
     "codi_cont_rentas" => "",
   ];
 
-  $uniCatRepository->guardarUniCat($datosUniCat);
+  $resultadoGuardarUniCat = callApiPost('guardarUniCat.php', $datosUniCat);
 
+  if (!$resultadoGuardarUniCat["success"]) {
+    return createResponse(false, null, 'Error registrando uni cat');
+  }
+
+  $idUniCatGuardado = $resultadoGuardarUniCat['data']['id_uni_cat'];
+
+  // Guardar ficha
   $datosFicha = [
-    "id_ficha" => trim($anioActual . $codiUbigeo . $tipoFicha . $numeFicha),
+    "id_ficha" => trim($anioActual . $ubigeo . $tipoFicha . $numeroFicha),
     "tipo_ficha" => $tipoFicha,
-    "nume_ficha" => $numeFicha,
-    "id_lote" => $datosLote['id_lote'],
+    "nume_ficha" => $numeroFicha,
+    "id_lote" => trim($idLoteGuardado),
     "dc" => "",
     "nume_ficha_lote" => "",
     "declarante" => $dataPost['declarante']['dni'],
-    "fecha_declarante" => $dataPost['declarante']['fecha_declarante'],
+    "fecha_declarante" => $dataPost['declarante']['fecha'],
     "supervisor" => $dataPost['supervisor']['dni'],
     "fecha_supervision" => $dataPost['supervisor']['fecha'],
     "tecnico" => $dataPost['tecnico']['dni'],
@@ -142,28 +135,23 @@ try {
     "verificador" => $dataPost['verificador']['dni'],
     "fecha_verificacion" => $dataPost['verificador']['fecha'],
     "nume_registro" => $dataPost['verificador']['numeroRegistro'],
-    "id_uni_cat" => $datosUniCat['id_uni_cat'],
-    'id_usuario' => '0218011', // POR REVISAR################################################3
+    "id_uni_cat" => $idUniCatGuardado,
+    'id_usuario' => '0218011', // POR REVISAR
     'fecha_grabado' => date("Y-m-d"),
     "activo" => "1"
   ];
 
-  $fichaRepository->guardarFicha($datosFicha);
+  $resultadoGuardarFicha = callApiPost('guardarFicha.php', $datosFicha);
 
-
-  if (!$dataPost['declarante']['existe_declarante']) {
-    $declaranteRepository->guardarDeclarante([
-      "dni" => $dataPost['declarante']['dni'],
-      "nombres" => $dataPost['declarante']['nombres'] ?? '',
-      "ape_paterno" => $dataPost['declarante']['ape_paterno'] ?? '',
-      "ape_materno" => $dataPost['declarante']['ape_materno'] ?? '',
-      "fecha" => $dataPost['declarante']['fecha_declarante'],
-      "id_ficha" => $datosFicha['id_ficha'],
-    ]);
+  if (!$resultadoGuardarFicha["success"]) {
+    return createResponse(false, null, 'Error registrando ficha');
   }
 
+  $idFichaGuardado = $resultadoGuardarFicha['data']['id_ficha'];
+
+  // Guardar ficha individual
   $datosFichaIndividual = [
-    "id_ficha" => $datosFicha['id_ficha'],
+    "id_ficha" => trim($idFichaGuardado),
     "codi_uso" => $dataPost['descripcionPredio']['uso'],
     "cont_en" => "",
     "clasificacion" => $dataPost['descripcionPredio']['clasificacionPredio'] ?? '',
@@ -185,23 +173,59 @@ try {
     "nume_familias" => $dataPost['informacionComplementaria']['numeroFamilias'] ?? 0,
     "mantenimiento" => $dataPost['informacionComplementaria']['mantenimiento'] ?? '',
     "observaciones" => $dataPost['observaciones']['texto'] ?? '',
-    "nume_ficha" => $numeFicha
+    "nume_ficha" => $numeroFicha
   ];
 
-  $fichaIndividualRepository->guardarFichaIndividual($datosFichaIndividual);
+  $resultadoGuardarFichaIndividual = callApiPost('guardarFichaIndividual.php', $datosFichaIndividual);
 
-  $sunarpRepository->guardarSunarp([
-    "id_ficha" => $datosFicha['id_ficha'],
+  if (!$resultadoGuardarFichaIndividual["success"]) {
+    return createResponse(false, null, 'Error registrando ficha individual');
+  }
+
+  // Guardar declarante
+  $datosDeclarante = [
+    "dni" => $dataPost['declarante']['dni'],
+    "nombres" => $dataPost['declarante']['nombres'] ?? '',
+    "ape_paterno" => $dataPost['declarante']['apellidoPaterno'] ?? '',
+    "ape_materno" => $dataPost['declarante']['apellidoMaterno'] ?? '',
+    "fecha" => $dataPost['declarante']['fecha'],
+    "id_ficha" => $idFichaGuardado,
+  ];
+
+  $resultadoGuardarDeclarante = callApiPost('guardarDeclarante.php', $datosDeclarante);
+
+  if (!$resultadoGuardarDeclarante["success"]) {
+    return createResponse(false, null, 'Error registrando declarante');
+  }
+
+  // Guardar sunarp
+  $fechaInscripcion = !empty($dataPost['inscripcionPredioCatastral']['fechaInscripcion'])
+    ? $dataPost['inscripcionPredioCatastral']['fechaInscripcion']
+    : null;
+
+  $fechaFabrica = !empty($dataPost['inscripcionPredioCatastral']['fechaFabrica'])
+    ? $dataPost['inscripcionPredioCatastral']['fechaFabrica']
+    : null;
+
+  $datosSunarp = [
+    "id_ficha" => $idFichaGuardado,
     "tipo_partida" => $dataPost['inscripcionPredioCatastral']['tipoPartida'] ?? '',
     "nume_partida" => $dataPost['inscripcionPredioCatastral']['numeroPartida'] ?? '',
     "fojas" => $dataPost['inscripcionPredioCatastral']['fojas'] ?? '',
     "asiento" => $dataPost['inscripcionPredioCatastral']['asiento'] ?? '',
-    "fecha_inscripcion" => validarValor($dataPost['inscripcionPredioCatastral']['fechaInscripcion']),
+    "fecha_inscripcion" => $fechaInscripcion,
     "codi_decla_fabrica" => $dataPost['inscripcionPredioCatastral']['codigoDeclaracionFabrica'] ?? '',
     "asie_fabrica" => $dataPost['inscripcionPredioCatastral']['asientoFabrica'] ?? '',
-    "fecha_fabrica" => validarValor($dataPost['inscripcionPredioCatastral']['fechaFabrica']),
-  ]);
+    "fecha_fabrica" => $fechaFabrica,
+  ];
 
+  $resultadoGuardarSunarp = callApiPost('guardarSunarp.php', $datosSunarp);
+
+  if (!$resultadoGuardarSunarp["success"]) {
+    return createResponse(false, null, 'Error registrando sunarp');
+  }
+
+  // Guardar titulares y domicilio titulares
   $datosTitulares = [];
   $datosDomicilioTitulares = [];
 
@@ -209,8 +233,12 @@ try {
 
     foreach ($dataPost['identificacionTitularCatastral']['personasNaturales'] as $personaNatural) {
 
-      $datosPersonaNatural = [
-        "id_persona" => trim($personaNatural['tipo'] . $personaNatural['tipoDocumento'] . $personaNatural['numeroDocumento']),
+      $idPersona = $personaNatural['tipo']
+      . $personaNatural['tipoDocumento']
+      . $personaNatural['numeroDocumento'];
+
+      $datosPersona = [
+        "id_persona" => $idPersona,
         "nume_doc" => $personaNatural['numeroDocumento'],
         "tipo_doc" => $personaNatural['tipoDocumento'],
         "tipo_persona" => $personaNatural['tipo'],
@@ -222,13 +250,20 @@ try {
         "razon_social" => '',
       ];
 
-      $personaRepository->guardarPersona($datosPersonaNatural);
+      // Guardar Persona Natural
+      $resultadoGuardarPersona = callApiPost('guardarPersona.php', $datosPersona);
+
+      if (!$resultadoGuardarPersona["success"]) {
+        return createResponse(false, null, 'Error registrando persona');
+      }
+
+      $idPersonaGuardado = $resultadoGuardarPersona['data']['id_persona'];
 
       array_push($datosTitulares, [
-        "id_ficha" => $datosFicha['id_ficha'],
-        "id_persona" => $datosPersonaNatural['id_persona'],
+        "id_ficha" => $idFichaGuardado,
+        "id_persona" => trim($idPersonaGuardado),
         "form_adquisicion" => $personaNatural['caracteristicas']['formaAdquisicion'],
-        "fecha_adquisicion" => validarValor($personaNatural['caracteristicas']['fechaAdquisicion']),
+        "fecha_adquisicion" => $personaNatural['caracteristicas']['fechaAdquisicion'],
         "porc_cotitular" => '0.0',
         "esta_civil" => $personaNatural['estadoCivil'],
         "fax" => '',
@@ -241,8 +276,8 @@ try {
       ]);
 
       array_push($datosDomicilioTitulares, [
-        "id_ficha" => $datosFicha['id_ficha'],
-        "id_persona" => $datosPersonaNatural['id_persona'],
+        "id_ficha" => $idFichaGuardado,
+        "id_persona" => trim($idPersonaGuardado),
         "codi_via" => trim($personaNatural['domicilio']['codigoVia']),
         "tipo_via" => $personaNatural['domicilio']['tipoVia'],
         "nomb_via" => $personaNatural['domicilio']['nombreVia'],
@@ -265,8 +300,12 @@ try {
   if (count($dataPost['identificacionTitularCatastral']['personasJuridicas']) > 0) {
     foreach ($dataPost['identificacionTitularCatastral']['personasJuridicas'] as $personaJuridica) {
 
+      $idPersonaJuridica = $personaJuridica['tipo']
+        . $personaJuridica['tipoPersonaJuridica']
+        . $personaJuridica['ruc'];
+
       $datosPersonaJuridica = [
-        "id_persona" => trim($personaJuridica['tipo'] . $personaJuridica['tipoPersonaJuridica'] . $personaJuridica['ruc']),
+        "id_persona" => trim($idPersonaJuridica),
         "nume_doc" => $personaJuridica['ruc'],
         "tipo_doc" => '',
         "tipo_persona" => $personaJuridica['tipo'],
@@ -278,13 +317,20 @@ try {
         "razon_social" => $personaJuridica['razonSocial'],
       ];
 
-      $personaRepository->guardarPersona($datosPersonaJuridica);
+      // Guardar Persona Juridica
+      $resultadoGuardarPersonaJuridica = callApiPost('guardarPersona.php', $datosPersonaJuridica);
+
+      if (!$resultadoGuardarPersonaJuridica["success"]) {
+        return createResponse(false, null, 'Error registrando persona juridica');
+      }
+
+      $idPersonaJuridicaGuardado = $resultadoGuardarPersonaJuridica['data']['id_persona'];
 
       array_push($datosTitulares, [
-        "id_ficha" => $datosFicha['id_ficha'],
-        "id_persona" => $datosPersonaJuridica['id_persona'],
+        "id_ficha" => $idFichaGuardado,
+        "id_persona" => $idPersonaJuridicaGuardado,
         "form_adquisicion" => $personaJuridica['caracteristicas']['formaAdquisicion'],
-        "fecha_adquisicion" => validarValor($personaJuridica['caracteristicas']['fechaAdquisicion']),
+        "fecha_adquisicion" => $personaJuridica['caracteristicas']['fechaAdquisicion'],
         "porc_cotitular" => '0.0',
         "esta_civil" => '00',
         "fax" => '',
@@ -297,8 +343,8 @@ try {
       ]);
 
       array_push($datosDomicilioTitulares, [
-        "id_ficha" => $datosFicha['id_ficha'],
-        "id_persona" => $datosPersonaJuridica['id_persona'],
+        "id_ficha" => $idFichaGuardado,
+        "id_persona" => trim($idPersonaJuridicaGuardado),
         "codi_via" => trim($personaJuridica['domicilio']['codigoVia']),
         "tipo_via" => $personaJuridica['domicilio']['tipoVia'],
         "nomb_via" => $personaJuridica['domicilio']['nombreVia'],
@@ -319,13 +365,22 @@ try {
   }
 
   if (count($datosTitulares) > 0) {
-    $titularesRepository->guardarTitularesMultiple($datosTitulares);
+    $resultadoGuardarTitulares = callApiPost('guardarTitulares.php', $datosTitulares);
+
+    if (!$resultadoGuardarTitulares["success"]) {
+      return createResponse(false, null, 'Error registrando titulares');
+    }
   }
 
   if (count($datosDomicilioTitulares) > 0) {
-    $domicilioTitularesRepository->guardarDomicilioTitularesMultiple($datosDomicilioTitulares);
+    $resultadoGuardarDomicilioTitulares = callApiPost('guardarDomicilioTitulares.php', $datosDomicilioTitulares);
+
+    if (!$resultadoGuardarDomicilioTitulares["success"]) {
+      return createResponse(false, null, 'Error registrando domicilio titulares');
+    }
   }
 
+  // Guardar litigantes
   $datosLitigantes = [];
 
   if (count($dataPost['litigantes']) > 0) {
@@ -333,8 +388,12 @@ try {
       $tipoPersonaPorDefecto = '1'; // Persona natural
       $tipoDocumentoPorDefecto = '02'; //DNI
 
+      $idPersonaLitigante = $tipoPersonaPorDefecto
+       . $tipoDocumentoPorDefecto
+       . $litigante['numero_documento'];
+
       $datosPersonaLitigante = [
-        "id_persona" => trim($tipoPersonaPorDefecto . $tipoDocumentoPorDefecto . $litigante['numero_documento']),
+        "id_persona" => $idPersonaLitigante,
         "nume_doc" => $litigante['numero_documento'],
         "tipo_doc" => '',
         "tipo_persona" => '',
@@ -346,26 +405,46 @@ try {
         "razon_social" => '',
       ];
 
-      $personaRepository->guardarPersona($datosPersonaLitigante);
+      // Guardar Persona Litigante
+      $resultadoGuardarPersonaLitigante = callApiPost('guardarPersona.php', $datosPersonaLitigante);
+
+      if (!$resultadoGuardarPersonaLitigante["success"]) {
+        return createResponse(false, null, 'Error registrando persona litigante');
+      }
+
+      $idPersonaLitiganteGuardado = $resultadoGuardarPersonaLitigante['data']['id_persona'];
 
       $datosLitigantes[] = [
-        "id_ficha" => $datosFicha['id_ficha'],
-        "id_persona" => $datosPersonaLitigante['id_persona'],
+        "id_ficha" => $idFichaGuardado,
+        "id_persona" => $idPersonaLitiganteGuardado,
         "codi_contribuye" => $litigante['codigo_contribuyente'],
       ];
     }
   }
 
   if (count($datosLitigantes) > 0) {
-    $litigantesRepository->guardarLitigantesMultiple($datosLitigantes);
+    $resultadoGuardarLitigantes = callApiPost('guardarLitigantes.php', $datosLitigantes);
+
+    if (!$resultadoGuardarLitigantes["success"]) {
+      return createResponse(false, null, 'Error registrando litigantes');
+    }
   }
 
-  $fichaCodigosAntiguosRepository->guardarFichaCodigosAntiguos([
-    "id_ficha" => $datosFicha['id_ficha'],
-    "codigo_catastral" => $dataPost['observaciones']['codigoCatastralAntiguo'],
-  ]);
+  // Guardar ficha codigos antiguos
+  if (!empty($dataPost['observaciones']['codigoCatastralAntiguo'])) {
+    $datosCodigoFichaAntiguo = [
+      "id_ficha" => $idFichaGuardado,
+      "codigo_catastral" => $dataPost['observaciones']['codigoCatastralAntiguo'],
+    ];
 
+    $resultadoGuardarFichasCodigosAntiguos = callApiPost('guardarFichaCodigosAntiguos.php', $datosCodigoFichaAntiguo);
 
+    if (!$resultadoGuardarFichasCodigosAntiguos["success"]) {
+      return createResponse(false, null, 'Error registrando fichas codigos antiguos');
+    }
+  }
+
+  // Guardar vias
   $vias = $dataPost['puertasPredioCatastral'];
   $datosViasHUS = [];
 
@@ -376,14 +455,14 @@ try {
       $idVia = $via['idVia'];
 
       array_push($datosViasHUS, [
-        'id_hab_urba' => trim($ubicacionPredioCatastral['id_hab_urba']),
+        'id_hab_urba' => trim($idHU),
         'id_via' => trim($idVia)
       ]);
 
       foreach ($via['puertas'] as $puerta) {
         $datosPuerta = [
-          'id_puerta' => trim($datosLote['id_lote'] . $puerta['codigo']),
-          'id_lote' => trim($datosLote['id_lote']),
+          'id_puerta' => trim($idLoteGuardado . $puerta['codigo']),
+          'id_lote' => trim($idLoteGuardado),
           'codi_puerta' => $puerta['codigo'],
           'tipo_puerta' => $puerta['tipo'],
           'nume_muni' => $puerta['numeroMunicipal'],
@@ -395,27 +474,42 @@ try {
         array_push($datosPuertas, $datosPuerta);
       }
 
-      $puertasRepository->guardarPuertasMultiple($datosPuertas);
+      $puertasGuardadas = callApiPost('guardarPuertas.php', $datosPuertas);
 
+      if (!$puertasGuardadas["success"]) {
+        return createResponse(false, null, 'Error registrando puertas');
+      }
+
+      // Guardar ingresos
       $datosIngresos = [];
 
       foreach ($datosPuertas as $puertaIngresada) {
         array_push($datosIngresos, [
-          'id_ficha' => $datosFicha['id_ficha'],
+          'id_ficha' => $idFichaGuardado,
           'id_puerta' => $puertaIngresada['id_puerta']
         ]);
       }
 
-      $ingresosRepository->guardarIngresosMultiple($datosIngresos);
+      $ingresosGuardadas = callApiPost('guardarIngresos.php', $datosIngresos);
+
+      if (!$ingresosGuardadas["success"]) {
+        return createResponse(false, null, 'Error registrando ingresos');
+      }
     }
   }
 
   if (count($datosViasHUS) > 0) {
-    $viasHUSRepository->guardarViasHUSMultiple($datosViasHUS);
+    // Guardar HUS
+    $resultadoViasHUSGuardadas = callApiPost('guardarViasHUS.php', $datosViasHUS);
+
+    if (!$resultadoViasHUSGuardadas["success"]) {
+      return createResponse(false, null, 'Error registrando vias HUS');
+    }
   }
 
-  $serviciosRepository->guardarServicios([
-    'id_ficha' => trim($datosFicha['id_ficha']),
+  // Guardar servicios
+  $datosServicios = [
+    'id_ficha' => trim($idFichaGuardado),
     'luz' => $dataPost['serviciosBasicos']['luz'],
     'agua' => $dataPost['serviciosBasicos']['agua'],
     'telefono' => $dataPost['serviciosBasicos']['telefono'],
@@ -426,16 +520,22 @@ try {
     'tv_cable' => $dataPost['serviciosBasicos']['cable'],
     'gas_natural' => $dataPost['serviciosBasicos']['gas'],
     'internet' => $dataPost['serviciosBasicos']['internet'],
-  ]);
+  ];
 
+  $resultadoGuardarServicios = callApiPost('guardarServicios.php', $datosServicios);
 
+  if (!$resultadoGuardarServicios["success"]) {
+    return createResponse(false, null, 'Error registrando servicios ');
+  }
+
+  // Guardar construcciones
   $datosConstrucciones = [];
 
   if (count($dataPost['construcciones']) > 0) {
     foreach ($dataPost['construcciones'] as $construccion) {
       $datosConstruccion = [
-        'id_construccion' => trim($datosFicha['id_ficha'] . $construccion['codigo']),
-        'id_ficha' => $datosFicha['id_ficha'],
+        'id_construccion' => $idFichaGuardado,
+        'id_ficha' => $idFichaGuardado,
         'codi_construccion' => $construccion['codigo'],
         'nume_piso' => $construccion['numero_piso'],
         'fecha' => $construccion['fecha'],
@@ -457,16 +557,21 @@ try {
       array_push($datosConstrucciones, $datosConstruccion);
     }
 
-    $construccionesRepository->guardarConstruccionesMultiple($datosConstrucciones);
+    $resultadoGuardarConstrucciones = callApiPost('guardarConstrucciones.php', $datosConstrucciones);
+
+    if (!$resultadoGuardarConstrucciones["success"]) {
+      return createResponse(false, null, 'Error registrando construcciones ');
+    }
   }
 
+  // Guardar instalaciones
   $datosInstalaciones = [];
 
   if (count($dataPost['obrasComplementarias']) > 0) {
     foreach ($dataPost['obrasComplementarias'] as $obraComplementaria) {
       array_push($datosInstalaciones, [
-        'id_instalacion' => trim($datosFicha['id_ficha'] .  $obraComplementaria['codigo_instalacion'] . $obraComplementaria['correlativo']),
-        'id_ficha' => trim($datosFicha['id_ficha']),
+        'id_instalacion' => trim($idFichaGuardado .  $obraComplementaria['codigo_instalacion'] . $obraComplementaria['correlativo']),
+        'id_ficha' => trim($idFichaGuardado),
         'codi_instalacion' => $obraComplementaria['codigo_instalacion'],
         'codi_obra' => $obraComplementaria['correlativo'],
         'fecha' => $obraComplementaria['fecha'],
@@ -482,11 +587,16 @@ try {
       ]);
     }
 
-    $instalacionesRepository->guardarInstalacionesMultiple($datosInstalaciones);
+    $resultadoGuardarInstalaciones = callApiPost('guardarInstalaciones.php', $datosInstalaciones);
+
+    if (!$resultadoGuardarInstalaciones["success"]) {
+      return createResponse(false, null, 'Error registrando instalaciones');
+    }
   }
 
+  // Guardar linderos
   $datosLindero = [
-    'id_ficha' => $datosFicha['id_ficha'],
+    'id_ficha' => $idFichaGuardado,
     'fren_campo' => $dataPost['descripcionPredio']['linderos'][0]['medida'] ?? '',
     'fren_titulo' => '',
     'fren_colinda_campo' => $dataPost['descripcionPredio']['linderos'][0]['colindancia'] ?? '',
@@ -505,30 +615,18 @@ try {
     'fond_colinda_titulo' => ''
   ];
 
-  $linderosRepository->guardarLinderos($datosLindero);
+  $resultadoGuardarLinderos = callApiPost('guardarLindero.php', $datosLindero);
 
-  //Guardar archivos
-  if (isset($_FILES['archivos'])) {
-    $archivos = $_FILES['archivos'];
-    $archivosRepository->guardarArchivos($datosFicha['id_ficha'], $archivos);
+  if (!$resultadoGuardarLinderos["success"]) {
+    return createResponse(false, null, 'Error registrando linderos ');
   }
 
-  $db->commit();
-
-  createResponse(true, $datosFicha);
+  createResponse(true, $resultadoGuardarFichaIndividual["data"]);
 
 } catch (Exception $e) {
-  $db->rollback();
-
   createResponse(false, [], $e->getMessage());
 } finally {
-  if (isset($db)) {
-    $db->desconectar();
+  if (isset($BD)) {
+    $BD->desconectar();
   }
-}
-
-
-function validarValor($valor)
-{
-  return !empty($valor) ? $valor : null;
 }

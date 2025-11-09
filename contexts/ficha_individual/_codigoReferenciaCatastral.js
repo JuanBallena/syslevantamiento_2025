@@ -5,8 +5,8 @@ window.addEventListener('load', () => {
 
 // autompletado sector y manzanas
 var sectores = [];
-var idSector = 0;
-// var manzanas = [];
+var idSector = null;
+var manzanas = [];
 
 async function cargarSectores() {
   try {
@@ -24,8 +24,6 @@ async function cargarManzanas(idSector = null) {
     const url = idSector
       ? `../../database/obtenerManzanas.php?id_sector=${idSector}`
       : '../../database/obtenerManzanas.php';
-
-    // console.log(url); //
 
     const res = await fetch(url);
     const data = await res.json();
@@ -60,13 +58,11 @@ document.addEventListener('click', async (e) => {
     const codigoReferenciaCatastral = document.getElementById('codigo-referencia-catastral');
     let idSector = codigoReferenciaCatastral.querySelector('[name="id_sector"]').value || null;
 
-    // console.log(idSector);
+    if (idSector) {
+      manzanas = await cargarManzanas(idSector);
 
-    let manzanas = await cargarManzanas(idSector);
-
-    // console.log(manzanas);
-
-    Helper.mostrarSugerencias(input, manzanas, 'nume_mzna', hiddenInput, 'id_mzna', null, '');
+      Helper.mostrarSugerencias(input, manzanas, 'nume_mzna', hiddenInput, 'id_mzna', null, '');
+    }
   }
 });
 
@@ -86,6 +82,9 @@ document.addEventListener('keyup', (e) => {
       '',
       'nomb_sector'
     );
+
+    // document.querySelector('.input-text-codigo-manzana').value = '';
+    // document.querySelector('.input-hidden-codigo-manzana').value = '';
   }
 
   if (e.target.classList.contains('input-text-codigo-manzana')) {
@@ -112,3 +111,9 @@ document.addEventListener(
   },
   true
 );
+
+// function onChangeSector() {
+//   alert('Cambio de sector');
+//   document.querySelector('.input-text-codigo-manzana').value = '';
+//   document.querySelector('.input-hidden-codigo-manzana').value = '';
+// }

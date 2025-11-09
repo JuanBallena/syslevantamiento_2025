@@ -197,7 +197,7 @@
   padding: 0.8em 1em;
   width: 100%;
   font-weight: 500;
-  color: #5e6278;
+  /* color: #5e6278; */
 }
 .a-input-text--disabled::placeholder {
   color: #a1a5b7;
@@ -472,6 +472,20 @@
   gap: 1rem;
   grid-template-columns: repeat(auto-fill, minmax(200px, max-content));
   justify-content: start;
+}
+
+input:disabled {
+  background: red;
+}
+
+.close {
+  color: tomato;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 20px;
+}
+.close :hover {
+  transform: scale(1.1);
 }
 
 /*# sourceMappingURL=index.css.map */

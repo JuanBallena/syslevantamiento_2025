@@ -12,12 +12,12 @@ try {
     $input = json_decode(file_get_contents("php://input"), true) ?? [];
   }
 
-  if (empty($input['numero_ficha'])) {
-    createResponse(false, [], "El parámetro 'numero_ficha' es requerido.");
+  if (empty($input['nume_ficha'])) {
+    createResponse(false, [], "El parámetro 'nume_ficha' es requerido.");
     exit;
   }
 
-  $idFicha = $input['numero_ficha'];
+  $idFicha = $input['nume_ficha'];
 
   // Instancia de base de datos
   $BD = new DBPostgres();

@@ -69,6 +69,13 @@ input[type='time']::-webkit-calendar-picker-indicator {
   display: none;
 }
 
+input:disabled {
+  background-color: #f0f0f0;
+  color: #777;
+  border: 1px solid #ccc;
+  cursor: not-allowed;
+}
+
 label {
   color: var(--light, #87888c) var(--dark, #87888c);
   margin-bottom: 0.4rem;
@@ -2099,16 +2106,14 @@ label {
   width: 9.1rem;
 }
 
-.wrapper-checkbox {
-  display: flex;
-}
-
 .custom-checkbox {
-  /* display: flex;
-  align-items: center; */
+  display: inline-flex; /* ✅ clave: se ajusta al contenido */
+  align-items: center;
   cursor: pointer;
-  font-size: 14px;
   gap: 8px;
+  font-size: 16px;
+  user-select: none;
+  width: fit-content; /* ✅ asegura que no ocupe todo el ancho */
 }
 
 /* Oculta el checkbox nativo */
@@ -2116,32 +2121,33 @@ label {
   display: none;
 }
 
-/* Estilo del "checkmark" */
+/* Cuadro visible */
 .custom-checkbox .checkmark {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   border: 2px solid #4ccd99;
   border-radius: 4px;
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition:
-    background-color 0.3s,
-    border-color 0.3s;
+  transition: all 0.3s ease;
 }
 
-/* Estilo cuando el checkbox está marcado */
+/* Al marcar */
 .custom-checkbox input:checked + .checkmark {
   background-color: #4ccd99;
   border-color: #4ccd99;
 }
 
-/* Agregar un "check" */
+/* ✔ aparece */
 .custom-checkbox input:checked + .checkmark::before {
   content: '✔';
-  color: white;
-  font-size: 14px;
+  color: #fff;
+  font-size: 13px;
+}
+
+.custom-checkbox .label-text {
+  color: black !important;
 }
 
 .form-control {

@@ -1,38 +1,10 @@
 <div class="m-form-section" data-id="{{id}}" data-tipo="natural">
-  <div class="a-close-button is-danger-color btn-eliminar">x</div>
+  <div class="a-close-button btn-eliminar">x</div>
 
   <div class="m-form-section__title">Persona Natural N° {{index}}</div>
 
   <p class="text-800 text-uppercase mb-2 text-4">Datos Principales</p>
-  <div class="grid grid-cols-3 gap-1">
-    <div>
-      <label>Estado Civil</label>
-      <select name="estado_civil" class="a-input-text input-estado-civil">
-        {{estadoCivilOpciones}}
-      </select>
-    </div>
-    <div>
-      <label>Tipo Doc. Identidad</label>
-      <select name="tipo_documento" class="a-input-text input-tipo-doc">
-        {{tipoDocumentoOpciones}}
-      </select>
-    </div>
-    <div>
-      <label>N° Documento</label>
-      <input
-        type="text"
-        class="a-input-text input-num-doc"
-        name="numero_documento"
-        placeholder="Escriba"
-      />
-      <div class="wrapper-checkbox mt-1">
-        <label class="custom-checkbox">
-          <input type="checkbox" class="chk-sin-doc" name="sin_documento" />
-          <span class="checkmark"></span>
-        </label>
-        <span class="pl-2 text-4">Sin Nro. Doc.</span>
-      </div>
-    </div>
+  <div class="grid grid-cols-5 gap-1">
     <div>
       <label>Nombres</label>
       <input type="text" class="a-input-text input-nombres" name="nombres" placeholder="Escriba" />
@@ -55,10 +27,38 @@
         placeholder="Escriba"
       />
     </div>
+    <div>
+      <label>Estado Civil</label>
+      <select name="estado_civil" class="a-input-text input-estado-civil">
+        {{estadoCivilOpciones}}
+      </select>
+    </div>
+    <div>
+      <label>Tipo Doc. Identidad</label>
+      <select name="tipo_documento" class="a-input-text input-tipo-doc">
+        {{tipoDocumentoOpciones}}
+      </select>
+    </div>
+    <div>
+      <label>N° Documento</label>
+      <input
+        type="text"
+        class="a-input-text input-num-doc"
+        name="numero_documento"
+        placeholder="Escriba"
+      />
+      <div class="wrapper-checkbox mt-2">
+        <label class="custom-checkbox">
+          <input type="checkbox" class="chk-sin-doc" name="sin_documento" />
+          <span class="checkmark"></span>
+        </label>
+        <span class="pl-2">Sin Nro. Doc.</span>
+      </div>
+    </div>
   </div>
 
   <p class="text-800 text-uppercase mt-6 mb-2 text-4">Domicilio</p>
-  <div class="grid grid-cols-3 gap-1">
+  <div class="grid grid-cols-5 gap-1">
     <div>
       <label>Ubicación</label>
       <select class="a-input-text input-ubicacion" name="ubicacion">
@@ -77,16 +77,8 @@
       <label>Distrito</label>
       <input type="text" class="a-input-text" name="codigo_distrito" placeholder="Escriba" />
     </div>
-    <div>
-      <label>Tipo de Vía</label>
-      <div class="a-autocomplete">
-        <input type="text" class="a-input-text input-tipo-via" placeholder="Escriba" />
-        <input type="hidden" class="input-hidden-tipo-via" name="tipo_via" />
-        <div class="a-autocomplete__box none contenedor-tipo-vias">
-          <ul class="a-autocomplete__items lista-tipo-vias"></ul>
-        </div>
-      </div>
-    </div>
+    <div></div>
+
     <div>
       <label>Nombre Vía</label>
       <input type="text" class="a-input-text input-via" placeholder="Escriba" name="nombre_via" />
@@ -105,6 +97,16 @@
         readonly
         name="codigo_via"
       />
+    </div>
+    <div>
+      <label>Tipo de Vía</label>
+      <div class="a-autocomplete">
+        <input type="text" class="a-input-text input-tipo-via" placeholder="Escriba" />
+        <input type="hidden" class="input-hidden-tipo-via" name="tipo_via" />
+        <div class="a-autocomplete__box none contenedor-tipo-vias">
+          <ul class="a-autocomplete__items lista-tipo-vias"></ul>
+        </div>
+      </div>
     </div>
     <div>
       <label>Nro. Municipal</label>
@@ -196,7 +198,7 @@
   </div>
 
   <p class="text-800 text-uppercase mt-6 mb-2 text-4">Características</p>
-  <div class="grid grid-cols-3 gap-1">
+  <div class="grid grid-cols-5 gap-1">
     <div>
       <label>Condición Titular</label>
       <select class="a-input-text input-condicion" name="condicion_titular">

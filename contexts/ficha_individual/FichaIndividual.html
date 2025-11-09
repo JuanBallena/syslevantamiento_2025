@@ -12,7 +12,7 @@
     <link href="../../assets/index.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <div class="o-main max-h-screen px-15" style="overflow: auto">
+    <div class="o-main max-h-screen px-20" style="overflow: auto">
       <form
         method="post"
         autocomplete="off"
@@ -29,12 +29,14 @@
               <input
                 class="a-input-text"
                 type="text"
-                value=""
+                value="5487548"
                 placeholder="Escriba"
-                name="numero_ficha"
+                name="nume_ficha"
                 required
                 oninput="soloNumeros(this); limitarCaracteres(this, 7)"
+                onkeyup="validarNumeFicha(this)"
               />
+              <span class="error-text error-nume-ficha"></span>
             </div>
           </div>
 
@@ -42,15 +44,15 @@
           <div class="m-form-section" id="ubigeo">
             <div class="m-form-section__title">Ubigeo</div>
 
-            <div class="grid grid-cols-7 gap-1">
+            <div class="grid grid-cols-10 gap-1">
               <div>
                 <label>Departamento</label>
                 <input
-                  class="a-input-text"
+                  class="a-input-text autocompletar-2digitos"
                   type="text"
-                  value=""
+                  value="01"
                   placeholder="Escriba"
-                  name="departamento"
+                  name="codi_dep"
                   required
                   oninput="soloNumeros(this); limitarCaracteres(this, 2)"
                 />
@@ -58,11 +60,11 @@
               <div>
                 <label class="">Provincia</label>
                 <input
-                  class="a-input-text"
+                  class="a-input-text autocompletar-2digitos"
                   type="text"
-                  value=""
+                  value="12"
                   placeholder="Escriba"
-                  name="provincia"
+                  name="codi_pro"
                   required
                   oninput="soloNumeros(this); limitarCaracteres(this, 2)"
                 />
@@ -70,11 +72,11 @@
               <div>
                 <label class="">Distrito</label>
                 <input
-                  class="a-input-text"
+                  class="a-input-text autocompletar-2digitos"
                   type="text"
-                  value=""
+                  value="02"
                   placeholder="Escriba"
-                  name="distrito"
+                  name="codi_dis"
                   required
                   oninput="soloNumeros(this); limitarCaracteres(this, 2)"
                 />
@@ -86,8 +88,8 @@
           <div class="m-form-section" id="codigo-referencia-catastral">
             <div class="m-form-section__title">Código de Referencia Catastral</div>
 
-            <div class="grid grid-cols-7 gap-1">
-              <div>
+            <div class="grid grid-cols-10 gap-1">
+              <div class="col-start-1 col-end-3">
                 <label class="">Sector</label>
                 <div class="a-autocomplete">
                   <input
@@ -97,6 +99,7 @@
                     tabindex="1"
                     required
                     oninput="soloNumeros(this)"
+                    onblur="validarIdFicha()"
                   />
                   <input type="hidden" name="id_sector" class="input-hidden-codigo-sector" />
                   <div
@@ -118,11 +121,13 @@
                     type="text"
                     class="a-input-text input-text-codigo-manzana"
                     placeholder="Escriba"
+                    name="nume_mzna"
                     tabindex="1"
                     required
                     oninput="soloNumeros(this); limitarCaracteres(this, 3)"
+                    onblur="validarIdFicha()"
                   />
-                  <input type="hidden" name="id_manzana" class="input-hidden-codigo-manzana" />
+                  <input type="hidden" name="id_mzna" class="input-hidden-codigo-manzana" />
                   <div class="a-autocomplete__box none" onmousedown="event.preventDefault()">
                     <ul class="a-autocomplete__items cursor-pointer"></ul>
                   </div>
@@ -131,61 +136,66 @@
               <div>
                 <label class="">Lote</label>
                 <input
-                  class="a-input-text"
+                  class="a-input-text autocompletar-3digitos"
                   type="text"
                   value=""
                   placeholder="Escriba"
-                  name="codigo_lote"
+                  name="codi_lote"
                   required
                   oninput="soloNumeros(this)"
+                  onblur="validarIdFicha()"
                 />
               </div>
               <div>
                 <label class="">Edifica</label>
                 <input
-                  class="a-input-text"
+                  class="a-input-text autocompletar-2digitos"
                   type="text"
-                  value=""
+                  value="01"
                   placeholder="Escriba"
-                  name="codigo_edifica"
+                  name="codi_edificacion"
                   required
                   oninput="soloNumeros(this)"
+                  onblur="validarIdFicha()"
                 />
               </div>
               <div>
                 <label class="">Entrada</label>
                 <input
-                  class="a-input-text"
+                  class="a-input-text autocompletar-2digitos"
                   type="text"
-                  value=""
+                  value="01"
                   placeholder="Escriba"
-                  name="codigo_entrada"
+                  name="codi_entrada"
                   required
                   oninput="soloNumeros(this)"
+                  onblur="validarIdFicha()"
                 />
               </div>
               <div>
                 <label class="">Piso</label>
                 <input
-                  class="a-input-text"
+                  class="a-input-text autocompletar-2digitos"
                   type="text"
-                  value=""
+                  value="01"
                   placeholder="Escriba"
-                  name="codigo_piso"
+                  name="codi_piso"
                   required
                   oninput="soloNumeros(this)"
+                  onblur="validarIdFicha()"
                 />
               </div>
               <div>
                 <label class="">Unidad</label>
                 <input
-                  class="a-input-text"
+                  class="a-input-text autocompletar-3digitos"
                   type="text"
-                  value=""
+                  value="001"
                   placeholder="Escriba"
-                  name="codigo_unidad"
+                  name="codi_unidad"
                   required
                   oninput="soloNumeros(this)"
+                  onblur="validarIdFicha()"
                 />
               </div>
             </div>
@@ -203,6 +213,7 @@
                   name="tipo_edificacion"
                   id="select-tipo-edificaciones"
                   required
+                  value=""
                 ></select>
               </div>
 
@@ -216,10 +227,10 @@
                 ></select>
               </div>
               <div>
-                <label class="">Estado Unidad Cat.</label>
+                <label class="">Estado Uni. Cat.</label>
                 <select
                   class="a-input-text"
-                  name="estado_unidad"
+                  name="estado_uni_cat"
                   id="select-estado-unidades"
                   required
                 ></select>
@@ -233,13 +244,13 @@
                     class="a-input-text input-text-habilitacion-urbana"
                     placeholder="Escriba"
                     tabindex="1"
-                    name="nombre_HU"
+                    name="nomb_hab_urba"
                     required
                   />
                   <input
                     type="hidden"
                     class="a-input-text input-hidden-habilitacion-urbana"
-                    name="id_HU"
+                    name="id_hab_urba"
                   />
                   <div class="a-autocomplete__box none" onmousedown="event.preventDefault()">
                     <ul class="a-autocomplete__items cursor-pointer"></ul>
@@ -252,7 +263,7 @@
                   type="text"
                   class="a-input-text codigo-habilitacion-urbana-readonly"
                   disabled
-                  name="codigo_HU"
+                  name="codi_hab_urba"
                   readonly
                   oninput="soloNumeros(this)"
                 />
@@ -261,12 +272,12 @@
                 <label>Grupo HU</label>
                 <select
                   class="a-input-text"
-                  name="grupo_HU"
+                  name="grup_urba"
                   id="select-grupo-HU"
                   onchange="onChangeGrupoHU()"
                   required
                 >
-                  <option disabled>Seleccione</option>
+                  <option disabled selected>Seleccione</option>
                   <option value="01">Zona</option>
                   <option value="02">Sector</option>
                   <option value="03">Etapa</option>
@@ -277,8 +288,8 @@
                 <input
                   class="a-input-text disabled"
                   type="number"
-                  name="numero_etapa"
-                  value=""
+                  name="nume_etapa"
+                  value="0"
                   id="input-number-numero-etapa"
                   oninput="soloNumeros(this)"
                 />
@@ -290,7 +301,7 @@
                   type="text"
                   placeholder="Escriba"
                   value=""
-                  name="numero_manzana"
+                  name="mzna_dist"
                   id="input-mzna-Dist"
                   oninput="soloNumeros(this)"
                 />
@@ -302,7 +313,7 @@
                   type="text"
                   placeholder="Escriba"
                   value=""
-                  name="lote"
+                  name="lote_dist"
                   id="input-lote-Dist"
                   oninput="soloNumeros(this)"
                 />
@@ -314,7 +325,7 @@
                   type="text"
                   placeholder="Escriba"
                   value=""
-                  name="sub_lote"
+                  name="sub_lote_dist"
                   id="input-subLote-Dist"
                   oninput="soloNumeros(this)"
                 />
@@ -331,23 +342,23 @@
             <div class="m-form-section__title">Identificación del Titular Catastral</div>
 
             <div>
-              <h3 class="font-600 text-uppercase text-4 mt-2">Personas Naturales</h3>
+              <h3 class="font-600 text-uppercase text-4 my-2">Personas Naturales</h3>
               <div id="contenedor-personas-naturales" class="mt-4"></div>
             </div>
 
             <div class="flex my-4">
-              <button id="btn-add-natural" class="btn-secondary btn-sm" type="button">
+              <button id="btn-add-natural" class="a-btn a-btn--secondary" type="button">
                 Añadir Persona Natural
               </button>
             </div>
 
             <div>
               <h3 class="font-600 text-4 mt-2 text-uppercase">Personas Jurídicas</h3>
-              <div id="contenedor-personas-juridicas" class="mt-4"></div>
+              <div id="contenedor-personas-juridicas" class="mt-4 mb-2"></div>
             </div>
 
             <div class="flex mt-4">
-              <button id="btn-add-juridica" class="btn-secondary btn-sm" type="button">
+              <button id="btn-add-juridica" class="a-btn a-btn--secondary" type="button">
                 Añadir Persona Jurídica
               </button>
             </div>
@@ -545,62 +556,48 @@
           <div class="m-form-section" id="servicios-basicos">
             <div class="m-form-section__title">Servicios Básicos</div>
 
-            <div class="grid grid-cols-7 gap-1">
-              <div class="wrapper-checkbox">
-                <label class="custom-checkbox">
-                  <input name="luz" type="checkbox" />
-                  <span class="checkmark"></span>
-                </label>
-                <span class="pl-2">Luz</span>
-              </div>
+            <div class="grid grid-cols-5 gap-1">
+              <label class="custom-checkbox">
+                <input name="luz" type="checkbox" />
+                <span class="checkmark"></span>
+                <span class="label-text">Luz</span>
+              </label>
 
-              <div class="wrapper-checkbox">
-                <label class="custom-checkbox">
-                  <input name="agua" type="checkbox" />
-                  <span class="checkmark"></span>
-                </label>
-                <span class="pl-2">Agua</span>
-              </div>
+              <label class="custom-checkbox">
+                <input name="agua" type="checkbox" />
+                <span class="checkmark"></span>
+                <span class="label-text">Agua</span>
+              </label>
 
-              <div class="wrapper-checkbox">
-                <label class="custom-checkbox">
-                  <input name="telefono" type="checkbox" />
-                  <span class="checkmark"></span>
-                </label>
-                <span class="pl-2">Telefono</span>
-              </div>
+              <label class="custom-checkbox">
+                <input name="telefono" type="checkbox" />
+                <span class="checkmark"></span>
+                <span class="label-text">Telefono</span>
+              </label>
 
-              <div class="wrapper-checkbox">
-                <label class="custom-checkbox">
-                  <input name="desague" type="checkbox" />
-                  <span class="checkmark"></span>
-                </label>
-                <span class="pl-2">Desague</span>
-              </div>
+              <label class="custom-checkbox">
+                <input name="desague" type="checkbox" />
+                <span class="checkmark"></span>
+                <span class="label-text">Desague</span>
+              </label>
 
-              <div class="wrapper-checkbox">
-                <label class="custom-checkbox">
-                  <input name="gas" type="checkbox" />
-                  <span class="checkmark"></span>
-                </label>
-                <span class="pl-2">Gas Natural</span>
-              </div>
+              <label class="custom-checkbox">
+                <input name="gas" type="checkbox" />
+                <span class="checkmark"></span>
+                <span class="label-text">Gas Natural</span>
+              </label>
 
-              <div class="wrapper-checkbox">
-                <label class="custom-checkbox">
-                  <input name="internet" type="checkbox" />
-                  <span class="checkmark"></span>
-                </label>
-                <span class="pl-2">Internet</span>
-              </div>
+              <label class="custom-checkbox">
+                <input name="internet" type="checkbox" />
+                <span class="checkmark"></span>
+                <span class="label-text">Internet</span>
+              </label>
 
-              <div class="wrapper-checkbox">
-                <label class="custom-checkbox">
-                  <input name="cable" type="checkbox" />
-                  <span class="checkmark"></span>
-                </label>
-                <span class="pl-2">TV por cable o cable satelital</span>
-              </div>
+              <label class="custom-checkbox">
+                <input name="cable" type="checkbox" />
+                <span class="checkmark"></span>
+                <span class="label-text">TV por cable o cable satelital</span>
+              </label>
             </div>
           </div>
 
@@ -769,7 +766,7 @@
           <div class="m-form-section" id="inscripcion-predio-catastral">
             <div class="m-form-section__title">Inscripción del Predio Catastral</div>
 
-            <div class="grid grid-cols-4 gap-1">
+            <div class="grid grid-cols-5 gap-1">
               <div>
                 <label class="">Tipo de partida</label>
                 <select class="a-input-text" name="tipo_partida" id="select-tipo-partida">
@@ -823,7 +820,7 @@
           <div class="m-form-section" id="informacion-complementaria">
             <div class="m-form-section__title">Información Complementaria</div>
 
-            <div class="grid grid-cols-3 gap-1">
+            <div class="grid grid-cols-5 gap-1">
               <div>
                 <label class="">Condición del declarante</label>
                 <select
@@ -923,36 +920,6 @@
                 </td>
               </tr>
             </template>
-            <!-- </div> -->
-
-            <!-- <div class="mt-6">
-              <label class="">Posibles unidades</label>
-              <div class="grid grid-cols-5 gap-1">
-                <div class="wrapper-checkbox">
-                  <label class="custom-checkbox">
-                    <input name="posibles_unidades" type="checkbox" />
-                    <span class="checkmark"></span>
-                  </label>
-                  <span class="pl-2">Subdivisión</span>
-                </div>
-
-                <div class="wrapper-checkbox">
-                  <label class="custom-checkbox">
-                    <input name="sub_division" type="checkbox" />
-                    <span class="checkmark"></span>
-                  </label>
-                  <span class="pl-2">Acumulación</span>
-                </div>
-
-                <div class="wrapper-checkbox">
-                  <label class="custom-checkbox">
-                    <input name="independización" type="checkbox" />
-                    <span class="checkmark"></span>
-                  </label>
-                  <span class="pl-2">Independización</span>
-                </div>
-              </div>
-            </div> -->
           </div>
 
           <!-- IMÁGENES ADJUNTAS -->
@@ -968,7 +935,7 @@
               accept="image/*,application/pdf"
             />
 
-            <button type="button" onclick="guardarArchivos()">Guardar imagen</button>
+            <!-- <button type="button" onclick="guardarArchivos()">Guardar imagen</button> -->
           </section>
 
           <!-- OBSERVACIONES -->
@@ -986,6 +953,7 @@ Esta es una observación</textarea
                   class="w-10-12 a-input-text"
                   name="codigo_catastral_antiguo"
                   type="text"
+                  value="986532986532"
                   oninput="soloNumeros(this); limitarCaracteres(this, 19)"
                 />
               </div>
@@ -1006,9 +974,10 @@ Esta es una observación</textarea
                     value="12345678"
                     name="dni"
                     oninput="soloNumeros(this); limitarCaracteres(this, 8)"
-                    onkeyup="onKeyupDniDeclarante(this)"
+                    onkeyup="buscarDeclarante(this)"
                     required
                   />
+                  <input type="checkbox" class="none" name="existe_declarante" />
                   <div class="a-autocomplete__box none" onmousedown="event.preventDefault()">
                     <ul class="a-autocomplete__items cursor-pointer"></ul>
                   </div>
@@ -1020,15 +989,21 @@ Esta es una observación</textarea
               </div>
               <div>
                 <label class="">Apellido Paterno</label>
-                <input class="a-input-text" type="text" name="apellido_paterno" value="Rosales" />
+                <input class="a-input-text" type="text" name="ape_paterno" value="Rosales" />
               </div>
               <div>
                 <label class="">Apellido Materno</label>
-                <input class="a-input-text" type="text" name="apellido_materno" value="Rosales" />
+                <input class="a-input-text" type="text" name="ape_materno" value="Rosales" />
               </div>
               <div>
                 <label class="">Fecha Levantamiento</label>
-                <input class="a-input-text" type="date" name="fecha" required />
+                <input
+                  class="a-input-text"
+                  type="date"
+                  name="fecha_declarante"
+                  required
+                  value="2025-05-05"
+                />
               </div>
             </div>
           </div>
@@ -1058,19 +1033,19 @@ Esta es una observación</textarea
               </div>
               <div>
                 <label class="">Nombres</label>
-                <input class="a-input-text" type="text" name="nombres" required />
+                <input class="a-input-text" type="text" name="nombres" required disabled />
               </div>
               <div>
                 <label class="">Apellido Paterno</label>
-                <input class="a-input-text" type="text" name="apellido_paterno" required />
+                <input class="a-input-text" type="text" name="apellido_paterno" required disabled />
               </div>
               <div>
                 <label class="">Apellido Materno</label>
-                <input class="a-input-text" type="text" name="apellido_materno" required />
+                <input class="a-input-text" type="text" name="apellido_materno" required disabled />
               </div>
               <div>
                 <label class="">Fecha Levantamiento</label>
-                <input class="a-input-text" type="date" name="fecha" required />
+                <input class="a-input-text" type="date" name="fecha" required value="2025-05-05" />
               </div>
             </div>
           </div>
@@ -1099,19 +1074,19 @@ Esta es una observación</textarea
               </div>
               <div>
                 <label class="">Nombres</label>
-                <input class="a-input-text" type="text" name="nombres" required />
+                <input class="a-input-text" type="text" name="nombres" required disabled />
               </div>
               <div>
                 <label class="">Apellido Paterno</label>
-                <input class="a-input-text" type="text" name="apellido_paterno" required />
+                <input class="a-input-text" type="text" name="apellido_paterno" required disabled />
               </div>
               <div>
                 <label class="">Apellido Materno</label>
-                <input class="a-input-text" type="text" name="apellido_materno" required />
+                <input class="a-input-text" type="text" name="apellido_materno" required disabled />
               </div>
               <div>
                 <label class="">Fecha Levantamiento</label>
-                <input class="a-input-text" type="date" name="fecha" required />
+                <input class="a-input-text" type="date" name="fecha" required value="2025-05-05" />
               </div>
             </div>
           </div>
@@ -1140,19 +1115,19 @@ Esta es una observación</textarea
               </div>
               <div>
                 <label class="">Nombres</label>
-                <input class="a-input-text" type="text" name="nombres" required />
+                <input class="a-input-text" type="text" name="nombres" required disabled />
               </div>
               <div>
                 <label class="">Apellido Paterno</label>
-                <input class="a-input-text" type="text" name="apellido_paterno" required />
+                <input class="a-input-text" type="text" name="apellido_paterno" required disabled />
               </div>
               <div>
                 <label class="">Apellido Materno</label>
-                <input class="a-input-text" type="text" name="apellido_materno" required />
+                <input class="a-input-text" type="text" name="apellido_materno" required disabled />
               </div>
               <div>
                 <label class="">Fecha Levantamiento</label>
-                <input class="a-input-text" type="date" name="fecha" required />
+                <input class="a-input-text" type="date" name="fecha" required value="2025-05-05" />
               </div>
               <div>
                 <label class="">Nro. Registro</label>
@@ -1161,6 +1136,7 @@ Esta es una observación</textarea
                   type="text"
                   name="numero_registro"
                   required
+                  value="5454"
                   oninput="soloNumeros(this); limitarCaracteres(this, 8)"
                 />
               </div>
@@ -1176,8 +1152,6 @@ Esta es una observación</textarea
         </div>
       </form>
     </div>
-
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"></script> -->
 
     <script type="text/javascript" src="./_helper.js"></script>
     <script type="text/javascript" src="./_dataSelect.js"></script>
@@ -1195,7 +1169,7 @@ Esta es una observación</textarea
     <script type="text/javascript" src="./_ubicacionPredioCatastral.js"></script>
     <script type="text/javascript" src="./_ubigeo.js"></script>
     <script type="text/javascript" src="./_validarFichaIndividual.js"></script>
-    <script type="text/javascript" src="./_validadores.js"></script>
+    <script type="text/javascript" src="./_validadoresGenerales.js"></script>
 
     <script type="text/javascript" src="./_guardarFichaIndividual.js"></script>
   </body>
