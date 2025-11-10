@@ -165,7 +165,7 @@ try {
   $datosFichaIndividual = [
     "id_ficha" => $datosFicha['id_ficha'],
     "codi_uso" => $dataPost['descripcionPredio']['uso'],
-    "cont_en" => "",
+    "cont_en" => $dataPost['descripcionPredio']['cond_en'],
     "clasificacion" => $dataPost['descripcionPredio']['clasificacionPredio'] ?? '',
     "area_titulo" => $dataPost['descripcionPredio']['areaTerrenoAdquirida'] ?? 0,
     "area_declarada" => 0,

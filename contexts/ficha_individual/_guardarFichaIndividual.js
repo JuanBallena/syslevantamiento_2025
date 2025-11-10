@@ -240,6 +240,8 @@ function obtenerDescripcionPredio() {
   const clasificacionPredio =
     contenedor.querySelector('input[name="clasificacion_predio"]')?.value || '';
 
+  const cond_en = contenedor.querySelector('input[name="cond_en"]')?.value || '';
+
   const linderos = [];
   const filas = contenedor.querySelectorAll('table tbody tr');
 
@@ -259,6 +261,7 @@ function obtenerDescripcionPredio() {
     areaTerrenoAdquirida,
     areaTerrenoVerificada,
     clasificacionPredio,
+    cond_en,
     linderos,
   };
 }
