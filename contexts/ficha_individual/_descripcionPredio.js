@@ -1,6 +1,19 @@
 window.addEventListener('load', () => {
   cargarClasificacionesPredios();
+  cargarPrediosCatastrales();
 });
+
+async function cargarPrediosCatastrales() {
+  try {
+    const res = await fetch('../../database/obtenerPrediosCatastrales.php');
+    const data = await res.json();
+
+    const select = document.getElementById('select-predios-catastrales');
+    Helper.llenarSelect(select, data.data, 'c_cod_predio_catastral', 'c_desc_predio_catastral');
+  } catch (err) {
+    console.error('Error cargando clasificaciones declarantes:', err);
+  }
+}
 
 async function cargarClasificacionesPredios() {
   try {

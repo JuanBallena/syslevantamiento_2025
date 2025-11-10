@@ -219,6 +219,7 @@ function obtenerPuertasPredioCatastral() {
         tipo: puertaEl.querySelector('[name="tipo"]')?.value,
         codigo: String(index + 1),
         numeroMunicipal: puertaEl.querySelector('[name="numero_municipal"]')?.value,
+        cond_nume: puertaEl.querySelector('[name="cond_nume"]')?.value,
       });
     });
     vias.push(via);

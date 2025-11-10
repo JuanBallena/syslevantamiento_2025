@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Levantamiento de Informacion Catastrales</title>
+    <title>Ficha Catastral Urbana Individual</title>
 
     <link rel="stylesheet" href="styles.css" />
 
@@ -21,9 +21,7 @@
       >
         <div class="py-4 px-8 border-1-accent">
           <div class="flex justify-space-between mb-6">
-            <div class="text-center text-14 text-600 mb-8">
-              Levantamiento de información Catastral
-            </div>
+            <div class="text-center text-14 text-600 mb-8">Ficha Catastral Urbana Individual</div>
             <div id="ficha">
               <label>Número de ficha</label>
               <input
@@ -41,8 +39,15 @@
           </div>
 
           <!-- UBIGEO -->
-          <div class="m-form-section" id="ubigeo">
+          <!-- <div class="m-form-section" id="ubigeo">
             <div class="m-form-section__title">Ubigeo</div>
+
+            <div class="grid grid-cols-10 gap-1"></div>
+          </div> -->
+
+          <!-- CÓDIGO DE REFERENCIA CATASTRAL -->
+          <div class="m-form-section" id="codigo-referencia-catastral">
+            <div class="m-form-section__title">Código de Referencia Catastral</div>
 
             <div class="grid grid-cols-10 gap-1">
               <div>
@@ -81,14 +86,9 @@
                   oninput="soloNumeros(this); limitarCaracteres(this, 2)"
                 />
               </div>
-            </div>
-          </div>
 
-          <!-- CÓDIGO DE REFERENCIA CATASTRAL -->
-          <div class="m-form-section" id="codigo-referencia-catastral">
-            <div class="m-form-section__title">Código de Referencia Catastral</div>
+              <div class="col-span-7"></div>
 
-            <div class="grid grid-cols-10 gap-1">
               <div class="col-start-1 col-end-3">
                 <label class="">Sector</label>
                 <div class="a-autocomplete">
@@ -216,7 +216,15 @@
                   value=""
                 ></select>
               </div>
-
+              <div>
+                <label class="">Nombre edificación</label>
+                <input
+                  class="a-input-text"
+                  type="text"
+                  placeholder="Escriba"
+                  name="nomb_edificacion"
+                />
+              </div>
               <div>
                 <label class="">Tipo de interior</label>
                 <select
@@ -225,6 +233,15 @@
                   id="select-tipo-interiores"
                   required
                 ></select>
+              </div>
+              <div>
+                <label class="">Nro. interior</label>
+                <input
+                  class="a-input-text"
+                  type="text"
+                  placeholder="Escriba"
+                  name="nume_interior"
+                />
               </div>
               <div>
                 <label class="">Estado Uni. Cat.</label>
@@ -433,6 +450,15 @@
                   class="a-input-text"
                   name="clasificacion_predio"
                   id="select-clasificaciones-predios"
+                ></select>
+              </div>
+
+              <div>
+                <label class="">Predio Catastral En</label>
+                <select
+                  class="a-input-text"
+                  name="clasificacion_predio"
+                  id="select-predios-catastrales"
                 ></select>
               </div>
             </div>
@@ -1014,7 +1040,7 @@ Esta es una observación</textarea
 
             <div class="grid grid-cols-5 gap-1">
               <div>
-                <label class="">Dni</label>
+                <label class="">Buscar por Nomb/Ape</label>
 
                 <div class="a-autocomplete">
                   <input
@@ -1022,10 +1048,10 @@ Esta es una observación</textarea
                     data-url="obtenerPersonas"
                     data-tipo="datos-supervisor"
                     type="text"
-                    name="dni"
                     required
-                    oninput="soloNumeros(this); limitarCaracteres(this, 8)"
+                    placeholder="Escriba"
                   />
+                  <input type="hidden" class="input-hidden-dni" name="dni" />
                   <div class="a-autocomplete__box none" onmousedown="event.preventDefault()">
                     <ul class="a-autocomplete__items cursor-pointer"></ul>
                   </div>
@@ -1056,17 +1082,17 @@ Esta es una observación</textarea
 
             <div class="grid grid-cols-5 gap-1">
               <div>
-                <label class="">Dni</label>
+                <label class="">Buscar por Nomb/Ape</label>
                 <div class="a-autocomplete">
                   <input
                     class="a-input-text autocompletado-dni"
                     data-url="obtenerPersonas"
                     data-tipo="datos-tecnico"
                     type="text"
-                    name="dni"
                     required
-                    oninput="soloNumeros(this); limitarCaracteres(this, 8)"
+                    placeholder="Escriba"
                   />
+                  <input type="hidden" class="input-hidden-dni" name="dni" />
                   <div class="a-autocomplete__box none" onmousedown="event.preventDefault()">
                     <ul class="a-autocomplete__items cursor-pointer"></ul>
                   </div>
@@ -1097,17 +1123,16 @@ Esta es una observación</textarea
 
             <div class="grid grid-cols-5 gap-1">
               <div>
-                <label class="">Dni</label>
+                <label class="">Buscar por Nomb/Ape</label>
                 <div class="a-autocomplete">
                   <input
                     class="a-input-text autocompletado-dni"
                     data-url="obtenerPersonas"
                     data-tipo="datos-verificador"
                     type="text"
-                    name="dni"
                     required
-                    oninput="soloNumeros(this); limitarCaracteres(this, 8)"
                   />
+                  <input type="hidden" class="input-hidden-dni" name="dni" />
                   <div class="a-autocomplete__box none" onmousedown="event.preventDefault()">
                     <ul class="a-autocomplete__items cursor-pointer"></ul>
                   </div>

@@ -11,11 +11,13 @@ try {
 
   $texto = isset($_GET['q']) ? trim($_GET['q']) : '';
 
-  $sql = "SELECT nume_doc, nombres, ape_materno, ape_paterno
-        FROM tf_personas
-        WHERE nume_doc ILIKE $1 || '%'
-        ORDER BY nume_doc ASC
-        LIMIT 20";
+  $sql = "
+    SELECT nume_doc, nombres, ape_materno, ape_paterno
+    FROM tf_personas
+    WHERE ape_materno ILIKE '%' || $1 || '%'
+      OR ape_paterno ILIKE '%' || $1 || '%'
+      OR nombres ILIKE '%' || $1 || '%'
+  ";
   $params = [$texto];
   $result = $BD->queryParams($sql, $params);
 

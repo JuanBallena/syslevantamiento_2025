@@ -101,7 +101,7 @@ try {
     "id_lote" => $datosLote['id_lote'],
     "codi_edificacion" => $codigoReferenciaCatastral['codi_edificacion'],
     "tipo_edificacion" => $ubicacionPredioCatastral['tipo_edificacion'],
-    "nomb_edificacion" => '',
+    "nomb_edificacion" => $ubicacionPredioCatastral['nomb_edificacion'],
     "clasificacion" => '',
   ];
 
@@ -119,7 +119,7 @@ try {
     "cuc_antecedente" => "",
     "codi_hoja_catastral" => "",
     "codi_pred_rentas" => "",
-    "nume_interior" => "",
+    "nume_interior" => $ubicacionPredioCatastral['nume_interior'],
     "unid_acum_rentas" => "",
     "codi_cont_rentas" => "",
   ];
@@ -387,7 +387,7 @@ try {
           'codi_puerta' => $puerta['codigo'],
           'tipo_puerta' => $puerta['tipo'],
           'nume_muni' => $puerta['numeroMunicipal'],
-          'cond_nume' => '',
+          'cond_nume' => $puerta['cond_nume'],
           'id_via' => trim($idVia),
           'nume_certificacion' => ''
         ];

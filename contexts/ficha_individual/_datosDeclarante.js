@@ -13,6 +13,8 @@ async function cargarPersonas(texto = '', url) {
 document.addEventListener('keyup', async (e) => {
   if (e.target.classList.contains('autocompletado-dni')) {
     const input = e.target;
+    const hiddenInput = input.parentElement.querySelector('.input-hidden-dni');
+
     const texto = input.value;
     let url = input.dataset.url;
     let tipo = input.dataset.tipo;
@@ -25,7 +27,7 @@ document.addEventListener('keyup', async (e) => {
     }
 
     let resultados = await cargarPersonas(texto, url);
-    Helper.mostrarSugerencias(input, resultados, 'nume_doc', input, 'nume_doc');
+    mostrarSugerenciasPersonas(input, resultados, 'nombres', hiddenInput, 'nume_doc');
 
     const contenedor = input.parentElement.querySelector('.a-autocomplete__box');
     const ul = contenedor.querySelector('ul');
@@ -100,4 +102,39 @@ async function buscarDeclarantePorDni(dni) {
     console.error('Error buscar declarante:', err);
     return [];
   }
+}
+
+function mostrarSugerenciasPersonas(input, lista, campoTexto, inputHidden, campoValue = 'id') {
+  const contenedor = input.parentElement.querySelector('.a-autocomplete__box');
+  const ul = contenedor.querySelector('ul');
+  ul.innerHTML = '';
+
+  if (lista.length > 0) {
+    lista.forEach((item) => {
+      const li = document.createElement('li');
+      li.className = 'py-1 px-4 hover:bg-success';
+      li.dataset.value = item[campoValue];
+      li.dataset.text = `${item[campoTexto]} ${item['ape_paterno']} ${item['ape_materno']}`;
+      li.dataset.item = JSON.stringify(item);
+
+      li.textContent = li.dataset.text;
+      ul.appendChild(li);
+    });
+  } else {
+    const li = document.createElement('li');
+    li.className = 'py-1 px-4';
+    li.dataset.disabled = 'true';
+    li.textContent = 'Sin opciones';
+    ul.appendChild(li);
+  }
+
+  contenedor.classList.remove('none');
+
+  ul.onclick = (e) => {
+    if (e.target.tagName === 'LI' && e.target.dataset.disabled !== 'true') {
+      input.value = e.target.dataset.text.trim();
+      inputHidden.value = e.target.dataset.value;
+      contenedor.classList.add('none');
+    }
+  };
 }
