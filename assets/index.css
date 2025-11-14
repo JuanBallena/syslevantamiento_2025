@@ -77,7 +77,7 @@ input:disabled {
 }
 
 label {
-  color: var(--light, #87888c) var(--dark, #87888c);
+  color: var(--light, #4d4d4d) var(--dark, #87888c);
   margin-bottom: 0.4rem;
   display: block;
   font-size: 0.9rem;

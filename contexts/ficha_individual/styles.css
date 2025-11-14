@@ -479,3 +479,23 @@
   font-size: 13px;
   color: tomato;
 }
+
+.box-label-blue {
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid #ccc;
+  color: white;
+  padding: 0.3em 0.5em;
+  background: dodgerblue;
+  margin-right: 3px;
+}
+
+.box-label-red {
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid #ccc;
+  color: white;
+  padding: 0.3em 0.5em;
+  background: tomato;
+  margin-right: 3px;
+}

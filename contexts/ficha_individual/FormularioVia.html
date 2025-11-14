@@ -4,39 +4,29 @@
 
   <div class="grid grid-cols-5 gap-1">
     <div>
-      <label>Tipo de Vía</label>
-      <div class="a-autocomplete">
-        <input type="text" class="a-input-text input-tipo-via" placeholder="Escriba" required />
-        <!-- <input type="hidden" class="input-hidden-tipo-via" name="via[{{viaId}}][tipoViaId]" /> -->
-        <input type="hidden" class="input-hidden-tipo-via" name="tipo" />
-        <div class="a-autocomplete__box none contenedor-tipo-vias">
-          <ul class="a-autocomplete__items lista-tipo-vias"></ul>
-        </div>
-      </div>
+      <label><span class="box-label-red">7</span>Código de Vía</label>
+      <input
+        type="text"
+        data-autocomplete
+        data-label="codi_via"
+        data-value="id_via"
+        data-target=".id-via"
+        class="a-input-text codi-via"
+      />
+
+      <input type="hidden" class="id-via" name="id_via" />
+      <!-- <section class="a-autocomplete__box none">
+        <ul class="a-autocomplete__items"></ul>
+      </section> -->
+    </div>
+    <div>
+      <label><span class="box-label-blue">8</span>Tipo de Vía</label>
+      <input type="text" class="a-input-text tipo-via" name="tipo_via" disabled readonly />
     </div>
 
     <div>
-      <label>Nombre de Vía</label>
-      <div class="a-autocomplete">
-        <input
-          type="text"
-          class="a-input-text input-via"
-          placeholder="Escriba"
-          name="nombre"
-          required
-        />
-        <input type="hidden" class="a-input-text input-hidden-via" name="id_via" />
-
-        <div class="a-autocomplete__box none contenedor-vias">
-          <ul class="a-autocomplete__items lista-vias"></ul>
-        </div>
-      </div>
-    </div>
-
-    <div>
-      <label>Código de Vía</label>
-      <input type="text" class="a-input-text codigo-via-readonly" disabled readonly />
-      <!-- <input type="text" class="a-input-text input-hidden-via" name="via[{{viaId}}][viaId]" /> -->
+      <label><span class="box-label-blue">9</span>Nombre de Vía</label>
+      <input type="text" class="a-input-text nomb-via" name="nomb_via" disabled readonly />
     </div>
   </div>
 

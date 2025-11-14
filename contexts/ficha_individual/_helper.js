@@ -19,6 +19,15 @@ class Helper {
     });
   }
 
+  static crearSinOpciones() {
+    const li = document.createElement('li');
+    li.className = 'py-1 px-4';
+    li.dataset.disabled = 'true';
+    li.textContent = 'Sin opciones';
+
+    return li;
+  }
+
   static mostrarSugerencias(
     input,
     lista,

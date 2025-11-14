@@ -12,7 +12,7 @@
     <link href="../../assets/index.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <div class="o-main max-h-screen px-20" style="overflow: auto">
+    <div class="o-main max-h-screen px-20 bg-whit" style="overflow: auto">
       <form
         method="post"
         autocomplete="off"
@@ -20,14 +20,15 @@
         id="form-ficha-individual"
       >
         <div class="py-4 px-8 border-1-accent">
-          <div class="flex justify-space-between mb-6">
-            <div class="text-center text-14 text-600 mb-8">Ficha Catastral Urbana Individual</div>
-            <div id="ficha">
+          <div class="text-center text-14 text-600 mb-8">Ficha Catastral Urbana Individual</div>
+
+          <div class="flex justify-space-between mb-6" id="principal">
+            <div>
               <label>Número de ficha</label>
               <input
                 class="a-input-text"
                 type="text"
-                value="5487548"
+                value=""
                 placeholder="Escriba"
                 name="nume_ficha"
                 required
@@ -36,61 +37,121 @@
               />
               <span class="error-text error-nume-ficha"></span>
             </div>
+            <div class="w-2-12">
+              <label>Número de fichas por lote</label>
+              <div class="grid grid-cols-2 gap-x-1">
+                <input
+                  class="a-input-text"
+                  type="text"
+                  value=""
+                  placeholder="Escriba"
+                  name="nume_ficha_lote[]"
+                  required
+                  oninput="soloNumeros(this); limitarCaracteres(this, 1)"
+                />
+                <input
+                  class="a-input-text"
+                  type="text"
+                  value=""
+                  placeholder="Escriba"
+                  name="nume_ficha_lote[]"
+                  required
+                  oninput="soloNumeros(this); limitarCaracteres(this, 1)"
+                />
+              </div>
+              <span class="error-text error-nume-ficha"></span>
+            </div>
           </div>
 
-          <!-- UBIGEO -->
-          <!-- <div class="m-form-section" id="ubigeo">
-            <div class="m-form-section__title">Ubigeo</div>
+          <!-- DATOS GENERALES -->
+          <div class="m-form-section" id="datos-generales">
+            <div class="m-form-section__title">Datos Generales</div>
 
-            <div class="grid grid-cols-10 gap-1"></div>
-          </div> -->
+            <div class="flex justify-space-between mb-8">
+              <div class="w-3-12">
+                <label><span class="box-label-blue">1</span>Código Único Catastral CUC</label>
+                <div class="grid grid-cols-2 gap-x-1">
+                  <input
+                    class="a-input-text"
+                    type="text"
+                    value=""
+                    placeholder="Escriba"
+                    name="cuc[]"
+                    required
+                    oninput="soloNumeros(this); limitarCaracteres(this, 8)"
+                  />
+                  <input
+                    class="a-input-text"
+                    type="text"
+                    value=""
+                    placeholder="Escriba"
+                    name="cuc[]"
+                    required
+                    oninput="soloNumeros(this); limitarCaracteres(this, 4)"
+                  />
+                </div>
+              </div>
 
-          <!-- CÓDIGO DE REFERENCIA CATASTRAL -->
-          <div class="m-form-section" id="codigo-referencia-catastral">
-            <div class="m-form-section__title">Código de Referencia Catastral</div>
+              <div>
+                <label><span class="box-label-blue">2</span>Código Hoja Catastral</label>
+                <div>
+                  <input
+                    class="a-input-text"
+                    type="text"
+                    value=""
+                    placeholder="Escriba"
+                    name="codi_hoja_catastral"
+                    required
+                    oninput="soloNumeros(this); limitarCaracteres(this, 7)"
+                    onkeyup="validarNumeFicha(this)"
+                  />
+                </div>
+              </div>
+            </div>
 
-            <div class="grid grid-cols-10 gap-1">
+            <label class="mb-2">
+              <span class="box-label-red">3</span>Código de Referencia Catastral
+            </label>
+
+            <div class="grid grid-cols-11 gap-1 mb-8">
               <div>
                 <label>Departamento</label>
                 <input
                   class="a-input-text autocompletar-2digitos"
                   type="text"
-                  value="01"
+                  value="13"
                   placeholder="Escriba"
                   name="codi_dep"
-                  required
+                  disabled
                   oninput="soloNumeros(this); limitarCaracteres(this, 2)"
                 />
               </div>
               <div>
-                <label class="">Provincia</label>
+                <label>Provincia</label>
                 <input
                   class="a-input-text autocompletar-2digitos"
                   type="text"
-                  value="12"
+                  value="13"
                   placeholder="Escriba"
                   name="codi_pro"
-                  required
+                  disabled
                   oninput="soloNumeros(this); limitarCaracteres(this, 2)"
                 />
               </div>
               <div>
-                <label class="">Distrito</label>
+                <label>Distrito</label>
                 <input
                   class="a-input-text autocompletar-2digitos"
                   type="text"
-                  value="02"
+                  value="01"
                   placeholder="Escriba"
                   name="codi_dis"
-                  required
+                  disabled
                   oninput="soloNumeros(this); limitarCaracteres(this, 2)"
                 />
               </div>
-
-              <div class="col-span-7"></div>
-
-              <div class="col-start-1 col-end-3">
-                <label class="">Sector</label>
+              <div>
+                <label>Sector</label>
                 <div class="a-autocomplete">
                   <input
                     type="text"
@@ -115,7 +176,7 @@
                 </div>
               </div>
               <div>
-                <label class="">Manzana</label>
+                <label>Manzana</label>
                 <div class="a-autocomplete">
                   <input
                     type="text"
@@ -134,7 +195,7 @@
                 </div>
               </div>
               <div>
-                <label class="">Lote</label>
+                <label>Lote</label>
                 <input
                   class="a-input-text autocompletar-3digitos"
                   type="text"
@@ -147,11 +208,11 @@
                 />
               </div>
               <div>
-                <label class="">Edifica</label>
+                <label>Edifica</label>
                 <input
                   class="a-input-text autocompletar-2digitos"
                   type="text"
-                  value="01"
+                  value=""
                   placeholder="Escriba"
                   name="codi_edificacion"
                   required
@@ -160,11 +221,11 @@
                 />
               </div>
               <div>
-                <label class="">Entrada</label>
+                <label>Entrada</label>
                 <input
                   class="a-input-text autocompletar-2digitos"
                   type="text"
-                  value="01"
+                  value=""
                   placeholder="Escriba"
                   name="codi_entrada"
                   required
@@ -173,11 +234,11 @@
                 />
               </div>
               <div>
-                <label class="">Piso</label>
+                <label>Piso</label>
                 <input
                   class="a-input-text autocompletar-2digitos"
                   type="text"
-                  value="01"
+                  value=""
                   placeholder="Escriba"
                   name="codi_piso"
                   required
@@ -186,11 +247,11 @@
                 />
               </div>
               <div>
-                <label class="">Unidad</label>
+                <label>Unidad</label>
                 <input
                   class="a-input-text autocompletar-3digitos"
                   type="text"
-                  value="001"
+                  value=""
                   placeholder="Escriba"
                   name="codi_unidad"
                   required
@@ -198,16 +259,85 @@
                   onblur="validarIdFicha()"
                 />
               </div>
+              <div>
+                <label>DC</label>
+                <input
+                  class="a-input-text autocompletar-3digitos"
+                  type="text"
+                  value=""
+                  placeholder="Escriba"
+                  name="dc"
+                  required
+                  oninput="soloNumeros(this)"
+                  onblur="validarIdFicha()"
+                />
+              </div>
+            </div>
+
+            <div class="flex justify-space-between mb-6">
+              <div>
+                <label><span class="box-label-blue">4</span>Código Contribuyente de Rentas</label>
+                <div>
+                  <input
+                    class="a-input-text"
+                    type="text"
+                    value=""
+                    placeholder="Escriba"
+                    name="codi_cont_rentas"
+                    required
+                    oninput="soloNumeros(this)"
+                  />
+                </div>
+              </div>
+              <div>
+                <label><span class="box-label-blue">5</span>Código Predial de Rentas</label>
+                <div>
+                  <input
+                    class="a-input-text"
+                    type="text"
+                    value=""
+                    placeholder="Escriba"
+                    name="codi_pred_rentas"
+                    required
+                    oninput="soloNumeros(this)"
+                  />
+                </div>
+              </div>
             </div>
           </div>
 
+          <button
+            class="btn"
+            type="button"
+            onclick="obtenerDatosDesdeContenedor('ubicacion-predio-catastral')"
+          >
+            Click
+          </button>
+
           <!-- UBICACIÓN DEL PREDIO CATASTRAL -->
-          <div class="m-form-section" id="ubicacion-predio-catastral">
+          <div class="m-form-section">
             <div class="m-form-section__title">Ubicación del Predio Catastral</div>
 
-            <div class="grid grid-cols-5 gap-1">
+            <div class="mb-8">
+              <div id="contenedor-vias"></div>
+
+              <button id="btn-agregar-via" type="button" class="a-btn a-btn--secondary agregar-via">
+                Añadir Vía
+              </button>
+            </div>
+
+            <div class="grid grid-cols-5 gap-1" id="ubicacion-predio-catastral">
               <div>
-                <label class="">Tipo de edificación</label>
+                <label><span class="box-label-blue">14</span>Nombre edificación</label>
+                <input
+                  class="a-input-text"
+                  type="text"
+                  placeholder="Escriba"
+                  name="nomb_edificacion"
+                />
+              </div>
+              <div>
+                <label><span class="box-label-blue">15</span>Tipo de edificación</label>
                 <select
                   class="a-input-text"
                   name="tipo_edificacion"
@@ -217,16 +347,7 @@
                 ></select>
               </div>
               <div>
-                <label class="">Nombre edificación</label>
-                <input
-                  class="a-input-text"
-                  type="text"
-                  placeholder="Escriba"
-                  name="nomb_edificacion"
-                />
-              </div>
-              <div>
-                <label class="">Tipo de interior</label>
+                <label><span class="box-label-blue">16</span>Tipo de interior</label>
                 <select
                   class="a-input-text"
                   name="tipo_interior"
@@ -235,7 +356,7 @@
                 ></select>
               </div>
               <div>
-                <label class="">Nro. interior</label>
+                <label><span class="box-label-blue">17</span>Nro. interior</label>
                 <input
                   class="a-input-text"
                   type="text"
@@ -244,16 +365,18 @@
                 />
               </div>
               <div>
-                <label class="">Estado Uni. Cat.</label>
-                <select
-                  class="a-input-text"
-                  name="estado_uni_cat"
-                  id="select-estado-unidades"
-                  required
-                ></select>
+                <label><span class="box-label-red">18</span>Código HU</label>
+                <input
+                  type="text"
+                  class="a-input-text codigo-habilitacion-urbana-readonly"
+                  disabled
+                  name="codi_hab_urba"
+                  readonly
+                  oninput="soloNumeros(this)"
+                />
               </div>
               <div>
-                <label>Nombre HU</label>
+                <label><span class="box-label-blue">19</span>Nombre HU</label>
 
                 <div class="a-autocomplete">
                   <input
@@ -275,33 +398,7 @@
                 </div>
               </div>
               <div>
-                <label>Código HU</label>
-                <input
-                  type="text"
-                  class="a-input-text codigo-habilitacion-urbana-readonly"
-                  disabled
-                  name="codi_hab_urba"
-                  readonly
-                  oninput="soloNumeros(this)"
-                />
-              </div>
-              <div>
-                <label>Grupo HU</label>
-                <select
-                  class="a-input-text"
-                  name="grup_urba"
-                  id="select-grupo-HU"
-                  onchange="onChangeGrupoHU()"
-                  required
-                >
-                  <option disabled selected>Seleccione</option>
-                  <option value="01">Zona</option>
-                  <option value="02">Sector</option>
-                  <option value="03">Etapa</option>
-                </select>
-              </div>
-              <div>
-                <label>Nro. Etapa</label>
+                <label><span class="box-label-blue">20</span>Zona/Sector/Etapa</label>
                 <input
                   class="a-input-text disabled"
                   type="number"
@@ -312,7 +409,7 @@
                 />
               </div>
               <div>
-                <label>Nro. Manzana</label>
+                <label><span class="box-label-blue">21</span>Nro. Manzana</label>
                 <input
                   class="a-input-text"
                   type="text"
@@ -324,7 +421,7 @@
                 />
               </div>
               <div>
-                <label>Lote</label>
+                <label><span class="box-label-blue">22</span>Lote</label>
                 <input
                   class="a-input-text"
                   type="text"
@@ -336,7 +433,7 @@
                 />
               </div>
               <div>
-                <label>Sublote</label>
+                <label><span class="box-label-blue">23</span>Sublote</label>
                 <input
                   class="a-input-text"
                   type="text"
@@ -351,53 +448,319 @@
           </div>
 
           <!-- IDENTIFICACIÓN DEL TITULAR CATASTRAL -->
-          <div
-            class="m-form-section"
-            id="identificacion-titular-catastral"
-            id="identificacion-titular-catastral"
-          >
+          <div class="m-form-section" id="identificacion-titular-catastral">
             <div class="m-form-section__title">Identificación del Titular Catastral</div>
 
+            <div class="grid grid-cols-5">
+              <div>
+                <label><span class="box-label-red">24</span>Tipo de titular</label>
+                <select
+                  class="a-input-text"
+                  name="tipo_titular"
+                  id=""
+                  onchange="cargarFormularioTitular()"
+                  required
+                >
+                  <option disabled selected>Seleccione</option>
+                  <option value="01">Natural</option>
+                  <option value="02">Juridica</option>
+                </select>
+              </div>
+            </div>
+
             <div>
-              <h3 class="font-600 text-uppercase text-4 my-2">Personas Naturales</h3>
-              <div id="contenedor-personas-naturales" class="mt-4"></div>
-            </div>
-
-            <div class="flex my-4">
-              <button id="btn-add-natural" class="a-btn a-btn--secondary" type="button">
-                Añadir Persona Natural
-              </button>
+              <!-- <h3 class="font-600 text-uppercase text-4 my-2">Personas Naturales</h3> -->
+              <div id="contenedor-personas-naturales" class="mt-6"></div>
             </div>
 
             <div>
-              <h3 class="font-600 text-4 mt-2 text-uppercase">Personas Jurídicas</h3>
-              <div id="contenedor-personas-juridicas" class="mt-4 mb-2"></div>
+              <!-- <h3 class="font-600 text-4 mt-2 text-uppercase">Personas Jurídicas</h3> -->
+              <div id="contenedor-personas-juridicas" class="mt-6"></div>
             </div>
+          </div>
 
-            <div class="flex mt-4">
-              <button id="btn-add-juridica" class="a-btn a-btn--secondary" type="button">
-                Añadir Persona Jurídica
-              </button>
+          <!-- DOMICILIIO DEL TITULAR CATASTRAL -->
+          <div class="m-form-section" id="domicilio-titular-catastral">
+            <div class="m-form-section__title">Domicilio del Titular Catastral</div>
+
+            <div class="grid grid-cols-5 gap-1">
+              <!-- <div>
+                <label>Ubicación</label>
+                <select class="a-input-text input-ubicacion" name="ubicacion">
+                  {{ubicacionOpciones}}
+                </select>
+              </div> -->
+              <div>
+                <label><span class="box-label-red">39</span>Departamento</label>
+                <input
+                  type="text"
+                  class="a-input-text"
+                  name="codigo_departamento"
+                  placeholder="Escriba"
+                />
+              </div>
+              <div>
+                <label><span class="box-label-red">40</span>Provincia</label>
+                <input
+                  type="text"
+                  class="a-input-text"
+                  name="codigo_provincia"
+                  placeholder="Escriba"
+                />
+              </div>
+              <div>
+                <label><span class="box-label-red">41</span>Distrito</label>
+                <input
+                  type="text"
+                  class="a-input-text"
+                  name="codigo_distrito"
+                  placeholder="Escriba"
+                />
+              </div>
+              <div></div>
+
+              <div>
+                <label><span class="box-label-blue">9</span>Nombre Vía</label>
+                <input
+                  type="text"
+                  class="a-input-text input-via"
+                  placeholder="Escriba"
+                  name="nombre_via"
+                />
+                <input type="hidden" class="input-hidden-via" name="id_via" />
+                <div class="a-autocomplete__box none contenedor-vias">
+                  <ul class="a-autocomplete__items lista-vias"></ul>
+                </div>
+              </div>
+
+              <div>
+                <label><span class="box-label-blue">7</span>Código de Vía</label>
+                <input
+                  type="text"
+                  class="a-input-text codigo-via-readonly"
+                  disabled
+                  readonly
+                  name="codigo_via"
+                />
+              </div>
+              <div>
+                <label><span class="box-label-blue">8</span>Tipo de Vía</label>
+                <div class="a-autocomplete">
+                  <input type="text" class="a-input-text input-tipo-via" placeholder="Escriba" />
+                  <input type="hidden" class="input-hidden-tipo-via" name="tipo_via" />
+                  <div class="a-autocomplete__box none contenedor-tipo-vias">
+                    <ul class="a-autocomplete__items lista-tipo-vias"></ul>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <label><span class="box-label-blue">11</span>Nro. Municipal</label>
+                <input
+                  class="a-input-text puerta-numero"
+                  type="text"
+                  name="numero_municipal"
+                  placeholder="Escriba"
+                />
+              </div>
+              <div>
+                <label><span class="box-label-blue">14</span>Nombre edificación</label>
+                <input
+                  class="a-input-text"
+                  type="text"
+                  placeholder="Escriba"
+                  name="nomb_edificacion"
+                />
+              </div>
+              <div>
+                <label><span class="box-label-blue">17</span>Nro. Interior</label>
+                <input
+                  class="a-input-text puerta-interior"
+                  type="text"
+                  name="numero_interior"
+                  placeholder="Escriba"
+                />
+              </div>
+              <div>
+                <label><span class="box-label-blue">19</span>Nombre de Habilitación Urbana</label>
+                <input
+                  type="text"
+                  class="a-input-text input-text-habilitacion-urbana"
+                  placeholder="Escriba"
+                  name="nombre_HU"
+                />
+                <input type="hidden" class="input-hidden-habilitacion-urbana" name="id_HU" />
+                <div
+                  id="autocompletado-contenedor-habilitaciones-urbanas"
+                  class="a-autocomplete__box none"
+                  onmousedown="event.preventDefault()"
+                >
+                  <ul
+                    class="a-autocomplete__items cursor-pointer"
+                    id="autocompletado-lista-habilitaciones-urbanas"
+                  ></ul>
+                </div>
+              </div>
+              <div>
+                <label><span class="box-label-blue">18</span>Código HU</label>
+                <input
+                  type="text"
+                  class="a-input-text codigo-habilitacion-urbana-readonly"
+                  disabled
+                  name="codigo_HU"
+                  readonly
+                />
+              </div>
+              <div>
+                <!-- <label>Grupo HU</label>
+                <select class="a-input-text input-grupo" name="grupo_HU">
+                  {{grupoHUOpciones}}
+                </select> -->
+                <label><span class="box-label-blue">20</span>Zona/Sector/Etapa</label>
+                <input
+                  class="a-input-text disabled"
+                  type="number"
+                  name="nume_etapa"
+                  value="0"
+                  id="input-number-numero-etapa"
+                  oninput="soloNumeros(this)"
+                />
+              </div>
+              <!-- <div>
+                <label>Zona/Sector/Etapa</label>
+                <input
+                  type="text"
+                  class="a-input-text"
+                  name="zona_sector_etapa"
+                  placeholder="Escriba"
+                />
+              </div> -->
+              <div>
+                <label><span class="box-label-blue">21</span>Manzana</label>
+                <input
+                  type="text"
+                  class="a-input-text input-manzana"
+                  name="manzana"
+                  placeholder="Escriba"
+                />
+              </div>
+              <div>
+                <label><span class="box-label-blue">22</span>Lote</label>
+                <input
+                  type="text"
+                  class="a-input-text input-lote"
+                  name="lote"
+                  placeholder="Escriba"
+                />
+              </div>
+              <div>
+                <label><span class="box-label-blue">23</span>SubLote</label>
+                <input
+                  type="text"
+                  class="a-input-text input-sublote"
+                  name="sub_lote"
+                  placeholder="Escriba"
+                />
+              </div>
+              <div>
+                <label><span class="box-label-blue">42</span>Teléfono</label>
+                <input
+                  type="text"
+                  class="a-input-text input-telefono"
+                  name="telefono"
+                  placeholder="Escriba"
+                />
+              </div>
+              <div>
+                <label><span class="box-label-blue">43</span>Anexo</label>
+                <input
+                  type="text"
+                  class="a-input-text input-anexo"
+                  name="anexo"
+                  placeholder="Escriba"
+                />
+              </div>
+              <div>
+                <label><span class="box-label-blue">45</span>Correo Electrónico</label>
+                <input
+                  type="text"
+                  class="a-input-text input-correo"
+                  name="correo"
+                  placeholder="Escriba"
+                />
+              </div>
+              <div>
+                <label><span class="box-label-blue">44</span>Fax</label>
+                <input
+                  type="text"
+                  class="a-input-text input-fax"
+                  name="fax"
+                  placeholder="Escriba"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- CARACTERISTICAS DE LA TITULARIDAD-->
+          <div class="m-form-section" id="carecteristicas-titularidad">
+            <div class="m-form-section__title">Caracteristicas de la titularidad</div>
+
+            <div class="grid grid-cols-5 gap-1">
+              <div>
+                <label><span class="box-label-red">46</span>Condición Titular</label>
+                <select class="a-input-text input-condicion" name="condicion_titular">
+                  {{condicionTitularOpciones}}
+                </select>
+              </div>
+              <div>
+                <label><span class="box-label-blue">47</span>Forma de adquisición</label>
+                <select class="a-input-text input-forma-adquisicion" name="forma_adquisicion">
+                  {{formaAdquisicionOpciones}}
+                </select>
+              </div>
+              <div>
+                <label><span class="box-label-blue">48</span>Fecha de adquisición</label>
+                <input class="a-input-text" type="date" name="fecha_adquisicion" />
+              </div>
+              <div>
+                <label><span class="box-label-blue">49</span>Ponde. Cond. Efp. del Predio</label>
+                <select class="a-input-text" name=""></select>
+              </div>
+              <div>
+                <label><span class="box-label-blue">50</span>Num. Resol. Exoneración</label>
+                <input class="a-input-text" type="text" name="" />
+              </div>
+              <div>
+                <label><span class="box-label-blue">51</span>Porcentaje</label>
+                <input class="a-input-text" type="text" name="" />
+              </div>
+              <div>
+                <label><span class="box-label-blue">52</span>Fecha de inicio</label>
+                <input class="a-input-text" type="date" name="" />
+              </div>
+              <div>
+                <label><span class="box-label-blue">53</span>Fecha de vencimiento</label>
+                <input class="a-input-text" type="date" name="" />
+              </div>
             </div>
           </div>
 
           <!-- PUERTAS DEL PREDIO CATASTRAL -->
-          <div class="m-form-section" id="puertas-predio-catastral">
+          <!-- <div class="m-form-section" id="puertas-predio-catastral">
             <div class="m-form-section__title">Puertas del Predio Catastral</div>
             <div id="contenedor-vias"></div>
 
             <button id="btn-agregar-via" type="button" class="a-btn a-btn--secondary agregar-via">
               Añadir Vía
             </button>
-          </div>
+          </div> -->
 
           <!-- DESCRIPCIÓN DEL PREDIO -->
           <div class="m-form-section" id="descripcion-predio">
             <div class="m-form-section__title">Descripción del Predio</div>
 
             <div class="grid grid-cols-5 gap-1">
-              <div>
-                <label class="">Referencial Uso</label>
+              <!-- <div>
+                <label >Referencial Uso</label>
                 <input
                   class="a-input-text"
                   type="text"
@@ -405,9 +768,19 @@
                   placeholder="Escriba"
                   value=""
                 />
-              </div>
+              </div> -->
               <div>
-                <label>Uso</label>
+                <label><span class="box-label-blue">58</span>Estructuración</label>
+                <input class="a-input-text" type="number" placeholder="Escriba" name="" value="" />
+              </div>
+
+              <div>
+                <label><span class="box-label-blue">59</span>Zonificación</label>
+                <input class="a-input-text" type="number" placeholder="Escriba" name="" value="" />
+              </div>
+
+              <div>
+                <label><span class="box-label-red">57</span>Uso Predio Catastral</label>
                 <div class="a-autocomplete">
                   <input
                     type="text"
@@ -423,7 +796,7 @@
               </div>
 
               <div>
-                <label class="">Área de terreno adquirida</label>
+                <label><span class="box-label-blue">60</span>Área de terreno adquirida</label>
                 <input
                   class="a-input-text"
                   type="number"
@@ -434,7 +807,7 @@
               </div>
 
               <div>
-                <label class="">Área de terreno verificada</label>
+                <label><span class="box-label-blue">62</span>Área de terreno verificada</label>
                 <input
                   class="a-input-text"
                   type="number"
@@ -445,7 +818,7 @@
               </div>
 
               <div>
-                <label class="">Clasificación del predio</label>
+                <label><span class="box-label-red">54</span>Clasificación del predio</label>
                 <select
                   class="a-input-text"
                   name="clasificacion_predio"
@@ -454,7 +827,7 @@
               </div>
 
               <div>
-                <label class="">Predio Catastral En</label>
+                <label><span class="box-label-red">55</span>Predio Catastral En</label>
                 <select
                   class="a-input-text"
                   name="cond_en"
@@ -469,8 +842,8 @@
                 <thead>
                   <tr>
                     <th>LINDEROS DE LOTE (ML)</th>
-                    <th>MEDIDA EN CAMPO</th>
-                    <th>COLINDANCIAS EN CAMPO</th>
+                    <th><span class="box-label-blue">63</span>MEDIDA EN CAMPO</th>
+                    <th><span class="box-label-blue">65</span>COLINDANCIAS EN CAMPO</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -555,57 +928,33 @@
             </div>
           </div>
 
-          <!-- EVALUACIÓN DEL PREDIO -->
-          <div class="m-form-section" id="evaluacion-predio">
-            <div class="m-form-section__title">Evaluación del Predio</div>
-
-            <div class="grid grid-cols-5 gap-1">
-              <div>
-                <label>En lote colindante</label>
-                <input class="a-input-text" type="number" value="2" name="en_lote_colindante" />
-              </div>
-              <div>
-                <label>En área pública</label>
-                <input class="a-input-text" type="number" value="2" name="en_area_publica" />
-              </div>
-              <div>
-                <label>En jardín de aislamiento</label>
-                <input class="a-input-text" type="number" value="2" name="en_jardin_aislamiento" />
-              </div>
-              <div>
-                <label>En área intangible</label>
-                <input class="a-input-text" type="number" value="2" name="en_area_intangible" />
-              </div>
-            </div>
-          </div>
-
           <!-- SERVICIOS BÁSICOS -->
           <div class="m-form-section" id="servicios-basicos">
             <div class="m-form-section__title">Servicios Básicos</div>
 
-            <div class="grid grid-cols-5 gap-1">
+            <div class="grid grid-cols-5 gap-1 mb-8">
               <label class="custom-checkbox">
                 <input name="luz" type="checkbox" />
                 <span class="checkmark"></span>
-                <span class="label-text">Luz</span>
+                <span class="label-text"><span class="box-label-blue">67</span>Luz</span>
               </label>
 
               <label class="custom-checkbox">
                 <input name="agua" type="checkbox" />
                 <span class="checkmark"></span>
-                <span class="label-text">Agua</span>
+                <span class="label-text"><span class="box-label-blue">68</span>Agua</span>
               </label>
 
               <label class="custom-checkbox">
                 <input name="telefono" type="checkbox" />
                 <span class="checkmark"></span>
-                <span class="label-text">Telefono</span>
+                <span class="label-text"><span class="box-label-blue">69</span>Telefono</span>
               </label>
 
               <label class="custom-checkbox">
                 <input name="desague" type="checkbox" />
                 <span class="checkmark"></span>
-                <span class="label-text">Desague</span>
+                <span class="label-text"><span class="box-label-blue">70</span>Desague</span>
               </label>
 
               <label class="custom-checkbox">
@@ -626,6 +975,21 @@
                 <span class="label-text">TV por cable o cable satelital</span>
               </label>
             </div>
+
+            <div class="grid grid-cols-5 gap-1">
+              <div>
+                <label><span class="box-label-blue">71</span>Nro. Suministro Luz</label>
+                <input class="a-input-text" type="text" name="" />
+              </div>
+              <div>
+                <label><span class="box-label-blue">72</span>Nro. Contrato Agua</label>
+                <input class="a-input-text" type="text" name="" />
+              </div>
+              <div>
+                <label><span class="box-label-blue">73</span>Nro. Telefono</label>
+                <input class="a-input-text" type="text" name="" />
+              </div>
+            </div>
           </div>
 
           <!-- CONSTRUCCIONES -->
@@ -639,6 +1003,22 @@
             <table class="table-default" id="tabla-construcciones" border="1">
               <thead>
                 <tr>
+                  <th><span class="box-label-blue">74</span></th>
+                  <th><span class="box-label-blue">75</span></th>
+                  <th><span class="box-label-blue">76</span></th>
+                  <th><span class="box-label-blue">77</span></th>
+                  <th><span class="box-label-blue">78</span></th>
+                  <th><span class="box-label-blue">79</span></th>
+                  <th><span class="box-label-blue">80</span></th>
+                  <th><span class="box-label-blue">81</span></th>
+                  <th><span class="box-label-blue">82</span></th>
+                  <th><span class="box-label-blue">83</span></th>
+                  <th><span class="box-label-blue">84</span></th>
+                  <th><span class="box-label-blue">85</span></th>
+                  <th><span class="box-label-blue">87</span></th>
+                  <th><span class="box-label-blue">88</span></th>
+                </tr>
+                <tr>
                   <th class="w-10-per">N° piso</th>
                   <th class="w-10-per">Fecha</th>
                   <th class="w-10-per">MEP</th>
@@ -648,7 +1028,11 @@
                   <th class="w-10-per">Techos</th>
                   <th class="w-10-per">Pisos</th>
                   <th class="w-10-per">Puertas/ventanas</th>
+                  <th class="w-10-per">Revest</th>
+                  <th class="w-10-per">Baños</th>
+                  <th class="w-10-per">Inst. Elect. y Sanitarias</th>
                   <th class="w-10-per">A. verificada</th>
+                  <th class="w-10-per">UCA</th>
                 </tr>
               </thead>
               <tbody></tbody>
@@ -724,10 +1108,23 @@
             <table class="table-default" id="tabla-obras-complementarias" border="1">
               <thead>
                 <tr>
+                  <th><span class="box-label-blue">90</span></th>
+                  <th><span class="box-label-blue">91</span></th>
+                  <th><span class="box-label-blue">75</span></th>
+                  <th><span class="box-label-blue">76</span></th>
+                  <th><span class="box-label-blue">77</span></th>
+                  <th><span class="box-label-blue">78</span></th>
+                  <th><span class="box-label-blue">92</span></th>
+                  <th><span class="box-label-blue">93</span></th>
+                  <th><span class="box-label-blue">94</span></th>
+                  <th><span class="box-label-blue">95</span></th>
+                  <th><span class="box-label-blue">96</span></th>
+                  <th><span class="box-label-blue">88</span></th>
+                </tr>
+                <tr>
                   <th class="w-10-per">Código</th>
-                  <!-- <th class="w-10-per">Código obra</th> -->
+                  <th class="w-10-per">Descripción</th>
                   <th class="w-10-per">Fecha</th>
-                  <!-- <th class="w-10-per">Descripción</th> -->
                   <th class="w-10-per">MEP</th>
                   <th class="w-10-per">ECS</th>
                   <th class="w-10-per">ECC</th>
@@ -789,13 +1186,18 @@
             </template>
           </div>
 
+          <!-- DOCUMENTOS -->
+          <div class="m-form-section" id="evaluacion-predio">
+            <div class="m-form-section__title">Documentos</div>
+          </div>
+
           <!-- INSCRIPCIÓN DEL PREDIO CATASTRAL -->
           <div class="m-form-section" id="inscripcion-predio-catastral">
             <div class="m-form-section__title">Inscripción del Predio Catastral</div>
 
             <div class="grid grid-cols-5 gap-1">
               <div>
-                <label class="">Tipo de partida</label>
+                <label><span class="box-label-blue">104</span>Tipo de partida</label>
                 <select class="a-input-text" name="tipo_partida" id="select-tipo-partida">
                   <option disabled>Seleccione</option>
                   <option value="01">Tomo</option>
@@ -805,40 +1207,86 @@
                 </select>
               </div>
               <div>
-                <label class="">Nro. partida</label>
+                <label><span class="box-label-blue">105</span>Nro. partida</label>
                 <input class="a-input-text" type="number" name="numero_partida" value="" />
               </div>
               <div>
-                <label class="">Fojas</label>
+                <label><span class="box-label-blue">106</span>Fojas</label>
                 <input class="a-input-text" type="number" name="fojas" value="" />
               </div>
               <div>
-                <label class="">Asiento</label>
+                <label><span class="box-label-blue">107</span>Asiento</label>
                 <input class="a-input-text" type="number" name="asiento" value="" />
               </div>
               <div>
-                <label class="">Fecha inscripción</label>
+                <label><span class="box-label-blue">108</span>Fecha inscripción</label>
                 <input class="a-input-text" type="date" name="fecha_inscripcion" />
               </div>
               <div>
-                <label class="">Código Decla. Fábrica</label>
+                <label><span class="box-label-blue">109</span>Decla. Fábrica</label>
                 <select
                   class="a-input-text"
                   name="codigo_declarancion_fabrica"
                   id="select-codigo-declaracion-fabrica"
                 >
                   <option disabled>Seleccione</option>
-                  <option value="01">Fábrica inscrita</option>
-                  <option value="02">Fábrica no inscrita</option>
+                  <option value="01">01 - Fábrica inscrita</option>
+                  <option value="02">02 - Fábrica no inscrita</option>
                 </select>
               </div>
               <div>
-                <label class="">Asiento fábrica</label>
+                <label><span class="box-label-blue">110</span>Asiento fábrica</label>
                 <input class="a-input-text" type="number" name="asie_fabrica" value="" />
               </div>
               <div>
-                <label class="">Fecha fábrica</label>
+                <label><span class="box-label-blue">111</span>Fecha fábrica</label>
                 <input class="a-input-text" type="date" name="fecha_fabrica" value="" />
+              </div>
+            </div>
+          </div>
+
+          <!-- EVALUACIÓN DEL PREDIO -->
+          <div class="m-form-section" id="evaluacion-predio">
+            <div class="m-form-section__title">Evaluación del Predio</div>
+
+            <div class="mb-8">
+              <label><span class="box-label-blue">112</span>Evaluación del Predio Catastral</label>
+              <div class="flex gap-x-1">
+                <label>
+                  <input type="radio" name="color" value="rojo" /> Predio Catastral Omiso </label
+                ><br />
+
+                <label>
+                  <input type="radio" name="color" value="gris" /> Predio Catastral Subvaluado </label
+                ><br />
+
+                <label>
+                  <input type="radio" name="color" value="negro" /> Predio Catastral Sobrevaluado </label
+                ><br />
+
+                <label>
+                  <input type="radio" name="color" value="amarillo" /> Predio Catastral Conforme
+                </label>
+              </div>
+            </div>
+
+            <label><span class="box-label-blue">113</span>Área de terreno invadida (M2)</label>
+            <div class="grid grid-cols-5 gap-1">
+              <div>
+                <label>En lote colindante</label>
+                <input class="a-input-text" type="number" value="2" name="en_lote_colindante" />
+              </div>
+              <div>
+                <label>En área pública</label>
+                <input class="a-input-text" type="number" value="2" name="en_area_publica" />
+              </div>
+              <div>
+                <label>En jardín de aislamiento</label>
+                <input class="a-input-text" type="number" value="2" name="en_jardin_aislamiento" />
+              </div>
+              <div>
+                <label>En área intangible</label>
+                <input class="a-input-text" type="number" value="2" name="en_area_intangible" />
               </div>
             </div>
           </div>
@@ -849,7 +1297,7 @@
 
             <div class="grid grid-cols-5 gap-1">
               <div>
-                <label class="">Condición del declarante</label>
+                <label><span class="box-label-blue">114</span>Condición del declarante</label>
                 <select
                   class="a-input-text"
                   name="condicion_declarante"
@@ -857,19 +1305,19 @@
                 ></select>
               </div>
               <div>
-                <label class="">Estado llenado de la Ficha</label>
+                <label><span class="box-label-red">116</span>Estado llenado de la Ficha</label>
                 <select
                   class="a-input-text"
                   name="estado_ficha"
                   id="select-estados-fichas"
                 ></select>
               </div>
-              <div>
-                <label class="">Cantidad de Medidores</label>
+              <!-- <div>
+                <label>Cantidad de Medidores</label>
                 <input class="a-input-text" type="number" name="cantidad_medidores" value="1" />
-              </div>
+              </div> -->
               <div>
-                <label class="">Mantenimiento</label>
+                <label><span class="box-label-blue">119</span>Mantenimiento</label>
                 <select
                   class="a-input-text"
                   name="mantenimiento"
@@ -877,7 +1325,7 @@
                 ></select>
               </div>
               <div>
-                <label class="">Nro. Habitantes</label>
+                <label><span class="box-label-blue">117</span>Nro. Habitantes</label>
                 <input
                   class="a-input-text"
                   type="text"
@@ -887,7 +1335,7 @@
                 />
               </div>
               <div>
-                <label class="">Nro. Familias</label>
+                <label><span class="box-label-blue">118</span>Nro. Familias</label>
                 <input
                   class="a-input-text"
                   type="number"
@@ -898,7 +1346,9 @@
               </div>
             </div>
 
-            <p class="my-4 text-6 text-600">Identificación de los litigantes</p>
+            <p class="my-4 text-6 text-600">
+              <span class="box-label-blue">115</span>Identificación de los litigantes
+            </p>
 
             <button
               class="a-btn btn-primary mb-6"
@@ -950,10 +1400,10 @@
           </div>
 
           <!-- IMÁGENES ADJUNTAS -->
-          <section class="m-form-section" id="imagenes-adjuntas">
+          <!-- <section class="m-form-section" id="imagenes-adjuntas">
             <div class="m-form-section__title">Imágenes adjuntas</div>
             <br />
-            <!-- nombre 'archivos[]' para que coincida con PHP y multiple para permitir varios -->
+            
             <input
               type="file"
               name="archivos[]"
@@ -962,8 +1412,7 @@
               accept="image/*,application/pdf"
             />
 
-            <!-- <button type="button" onclick="guardarArchivos()">Guardar imagen</button> -->
-          </section>
+          </section> -->
 
           <!-- OBSERVACIONES -->
           <div class="m-form-section" id="observaciones">
@@ -989,11 +1438,13 @@ Esta es una observación</textarea
 
           <!-- DATOS DEL DECLARANTE -->
           <div class="m-form-section" id="datos-declarante">
-            <div class="m-form-section__title">Datos del Declarante</div>
+            <div class="m-form-section__title">
+              <span class="box-label-blue">120</span>Datos del Declarante
+            </div>
 
             <div class="grid grid-cols-5 gap-1">
               <div>
-                <label class="">Dni</label>
+                <label>Dni</label>
                 <div class="a-autocomplete">
                   <input
                     class="a-input-text"
@@ -1011,19 +1462,19 @@ Esta es una observación</textarea
                 </div>
               </div>
               <div>
-                <label class="">Nombres</label>
+                <label>Nombres</label>
                 <input class="a-input-text" type="text" name="nombres" value="Juan" />
               </div>
               <div>
-                <label class="">Apellido Paterno</label>
+                <label>Apellido Paterno</label>
                 <input class="a-input-text" type="text" name="ape_paterno" value="Rosales" />
               </div>
               <div>
-                <label class="">Apellido Materno</label>
+                <label>Apellido Materno</label>
                 <input class="a-input-text" type="text" name="ape_materno" value="Rosales" />
               </div>
               <div>
-                <label class="">Fecha Levantamiento</label>
+                <label>Fecha Levantamiento</label>
                 <input
                   class="a-input-text"
                   type="date"
@@ -1037,11 +1488,13 @@ Esta es una observación</textarea
 
           <!-- DATOS DEL SUPERVISOR -->
           <div class="m-form-section" id="datos-supervisor">
-            <div class="m-form-section__title">Datos del Supervisor</div>
+            <div class="m-form-section__title">
+              <span class="box-label-blue">121</span>Datos del Supervisor
+            </div>
 
             <div class="grid grid-cols-5 gap-1">
               <div>
-                <label class="">Buscar por Nomb/Ape</label>
+                <label>Buscar por Nomb/Ape</label>
 
                 <div class="a-autocomplete">
                   <input
@@ -1059,19 +1512,19 @@ Esta es una observación</textarea
                 </div>
               </div>
               <div>
-                <label class="">Nombres</label>
+                <label>Nombres</label>
                 <input class="a-input-text" type="text" name="nombres" required disabled />
               </div>
               <div>
-                <label class="">Apellido Paterno</label>
+                <label>Apellido Paterno</label>
                 <input class="a-input-text" type="text" name="apellido_paterno" required disabled />
               </div>
               <div>
-                <label class="">Apellido Materno</label>
+                <label>Apellido Materno</label>
                 <input class="a-input-text" type="text" name="apellido_materno" required disabled />
               </div>
               <div>
-                <label class="">Fecha Levantamiento</label>
+                <label>Fecha Levantamiento</label>
                 <input class="a-input-text" type="date" name="fecha" required value="2025-05-05" />
               </div>
             </div>
@@ -1079,11 +1532,13 @@ Esta es una observación</textarea
 
           <!-- DATOS DEL TÉCNICO  -->
           <div class="m-form-section" id="datos-tecnico">
-            <div class="m-form-section__title">Datos del Técnico</div>
+            <div class="m-form-section__title">
+              <span class="box-label-red">122</span>Datos del Técnico
+            </div>
 
             <div class="grid grid-cols-5 gap-1">
               <div>
-                <label class="">Buscar por Nomb/Ape</label>
+                <label>Buscar por Nomb/Ape</label>
                 <div class="a-autocomplete">
                   <input
                     class="a-input-text autocompletado-dni"
@@ -1100,19 +1555,19 @@ Esta es una observación</textarea
                 </div>
               </div>
               <div>
-                <label class="">Nombres</label>
+                <label>Nombres</label>
                 <input class="a-input-text" type="text" name="nombres" required disabled />
               </div>
               <div>
-                <label class="">Apellido Paterno</label>
+                <label>Apellido Paterno</label>
                 <input class="a-input-text" type="text" name="apellido_paterno" required disabled />
               </div>
               <div>
-                <label class="">Apellido Materno</label>
+                <label>Apellido Materno</label>
                 <input class="a-input-text" type="text" name="apellido_materno" required disabled />
               </div>
               <div>
-                <label class="">Fecha Levantamiento</label>
+                <label>Fecha Levantamiento</label>
                 <input class="a-input-text" type="date" name="fecha" required value="2025-05-05" />
               </div>
             </div>
@@ -1120,11 +1575,13 @@ Esta es una observación</textarea
 
           <!-- DATOS DEL VERIFICADOR CATASTRAL -->
           <div class="m-form-section" id="datos-verificador">
-            <div class="m-form-section__title">Datos del Verificador</div>
+            <div class="m-form-section__title">
+              <span class="box-label-blue">123</span>Datos del Verificador
+            </div>
 
             <div class="grid grid-cols-5 gap-1">
               <div>
-                <label class="">Buscar por Nomb/Ape</label>
+                <label>Buscar por Nomb/Ape</label>
                 <div class="a-autocomplete">
                   <input
                     class="a-input-text autocompletado-dni"
@@ -1140,23 +1597,23 @@ Esta es una observación</textarea
                 </div>
               </div>
               <div>
-                <label class="">Nombres</label>
+                <label>Nombres</label>
                 <input class="a-input-text" type="text" name="nombres" required disabled />
               </div>
               <div>
-                <label class="">Apellido Paterno</label>
+                <label>Apellido Paterno</label>
                 <input class="a-input-text" type="text" name="apellido_paterno" required disabled />
               </div>
               <div>
-                <label class="">Apellido Materno</label>
+                <label>Apellido Materno</label>
                 <input class="a-input-text" type="text" name="apellido_materno" required disabled />
               </div>
               <div>
-                <label class="">Fecha Levantamiento</label>
+                <label>Fecha Levantamiento</label>
                 <input class="a-input-text" type="date" name="fecha" required value="2025-05-05" />
               </div>
               <div>
-                <label class="">Nro. Registro</label>
+                <label>Nro. Registro</label>
                 <input
                   class="a-input-text"
                   type="text"
@@ -1179,6 +1636,7 @@ Esta es una observación</textarea
       </form>
     </div>
 
+    <script type="text/javascript" src="./../_shared/Autocomplete.js"></script>
     <script type="text/javascript" src="./_helper.js"></script>
     <script type="text/javascript" src="./_dataSelect.js"></script>
     <script type="text/javascript" src="./_codigoReferenciaCatastral.js"></script>

@@ -55,13 +55,13 @@ document.addEventListener('click', async (e) => {
     const input = e.target;
     const hiddenInput = input.parentElement.querySelector('.input-hidden-codigo-manzana');
 
-    const codigoReferenciaCatastral = document.getElementById('codigo-referencia-catastral');
+    const codigoReferenciaCatastral = document.getElementById('datos-generales');
     let idSector = codigoReferenciaCatastral.querySelector('[name="id_sector"]').value || null;
 
     if (idSector) {
       manzanas = await cargarManzanas(idSector);
 
-      Helper.mostrarSugerencias(input, manzanas, 'nume_mzna', hiddenInput, 'id_mzna', null, '');
+      Helper.mostrarSugerencias(input, manzanas, 'codi_mzna', hiddenInput, 'id_mzna', null, '');
     }
   }
 });

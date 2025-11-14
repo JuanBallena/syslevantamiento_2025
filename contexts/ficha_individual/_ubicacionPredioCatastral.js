@@ -1,7 +1,7 @@
 window.addEventListener('load', () => {
   cargarTipoEdificaciones();
   cargarTipoInteriores();
-  cargarEstadosUnidades();
+  // cargarEstadosUnidades();
   cargarHabilitacionesUrbanas();
 });
 
@@ -30,28 +30,28 @@ async function cargarTipoInteriores() {
   }
 }
 
-async function cargarEstadosUnidades() {
-  try {
-    const res = await fetch('../../database/obtenerEstadosUnidades.php');
-    const data = await res.json();
+// async function cargarEstadosUnidades() {
+//   try {
+//     const res = await fetch('../../database/obtenerEstadosUnidades.php');
+//     const data = await res.json();
 
-    const select = document.getElementById('select-estado-unidades');
-    Helper.llenarSelect(select, data.data, 'i_cod_est_unid', 'c_des_est_unid');
-    // select.innerHTML = '';
+//     const select = document.getElementById('select-estado-unidades');
+//     Helper.llenarSelect(select, data.data, 'i_cod_est_unid', 'c_des_est_unid');
+//     // select.innerHTML = '';
 
-    // let options = `<option value="0" selected>Seleccione</option>`;
+//     // let options = `<option value="0" selected>Seleccione</option>`;
 
-    // if (data.success && data.data.length > 0) {
-    //   for (const item of data.data) {
-    //     options += `<option value="${item.i_cod_est_unid}">${item.c_des_est_unid}</option>`;
-    //   }
-    // }
+//     // if (data.success && data.data.length > 0) {
+//     //   for (const item of data.data) {
+//     //     options += `<option value="${item.i_cod_est_unid}">${item.c_des_est_unid}</option>`;
+//     //   }
+//     // }
 
-    // select.innerHTML = options;
-  } catch (err) {
-    console.error('Error cargando estado unidades:', err);
-  }
-}
+//     // select.innerHTML = options;
+//   } catch (err) {
+//     console.error('Error cargando estado unidades:', err);
+//   }
+// }
 
 var habilitacionesUrbanas = [];
 

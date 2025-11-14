@@ -3,6 +3,21 @@ const contenedorJuridicas = document.getElementById('contenedor-personas-juridic
 
 let listaFormularios = [];
 
+async function cargarFormularioTitular() {
+  const tipoTitular = document.querySelector(
+    "#identificacion-titular-catastral select[name='tipo_titular']"
+  ).value;
+  contenedorNaturales.innerHTML = '';
+  contenedorJuridicas.innerHTML = '';
+
+  if (tipoTitular === '01') {
+    contenedorNaturales.insertAdjacentHTML('beforeend', await crearFormularioPersonaNatural(0));
+  } else if (tipoTitular === '02') {
+    contenedorJuridicas.insertAdjacentHTML('beforeend', await crearFormularioPersonaJuridica(0));
+  }
+  activarEventos();
+}
+
 async function crearFormularioPersonaNatural(index) {
   const id = Helper.generarId();
 
@@ -54,21 +69,13 @@ async function crearFormularioPersonaJuridica(index) {
   return html;
 }
 
-document.getElementById('btn-add-natural').addEventListener('click', async () => {
-  const index = contenedorNaturales.querySelectorAll('[data-tipo="natural"]').length;
-  contenedorNaturales.insertAdjacentHTML('beforeend', await crearFormularioPersonaNatural(index));
-
-  activarEventos();
-});
-
-document.getElementById('btn-add-juridica').addEventListener('click', async () => {
-  const index = contenedorJuridicas.querySelectorAll('[data-tipo="juridica"]').length;
-  contenedorJuridicas.insertAdjacentHTML('beforeend', await crearFormularioPersonaJuridica(index));
-
-  activarEventos();
-});
-
 function activarEventos() {
+  // ⭐ Nuevo: controlar estado civil
+  document.querySelectorAll('.input-estado-civil').forEach((select) => {
+    select.onchange = () => manejarEstadoCivil(select);
+  });
+
+  // Evento para el checkbox "sin documento"
   document.querySelectorAll('.chk-sin-doc').forEach((chk) => {
     chk.onchange = () => {
       const bloque = chk.closest("[data-tipo='natural']");
@@ -76,7 +83,7 @@ function activarEventos() {
       const inputNum = bloque.querySelector('.input-num-doc');
 
       if (chk.checked) {
-        selectDoc.value = '01'; // "No presentó documento"
+        selectDoc.value = '01';
         inputNum.value = '';
         inputNum.disabled = true;
       } else {
@@ -84,6 +91,58 @@ function activarEventos() {
       }
     };
   });
+}
+
+async function manejarEstadoCivil(select) {
+  const valor = select.value;
+
+  // Buscar si ya existe el formulario de pareja
+  const formPareja = document.querySelector("[data-tipo='pareja']");
+
+  // CASADO o CONVIVIENTE → debe existir
+  if (valor === '02' || valor === '05') {
+    // Si NO existe, crearlo
+    if (!formPareja) {
+      const bloqueNatural = select.closest("[data-tipo='natural']");
+      const htmlPareja = await crearFormularioPareja();
+
+      bloqueNatural.insertAdjacentHTML('afterend', htmlPareja);
+
+      activarEventos(); // Reactivar eventos dentro del nuevo bloque
+    }
+  } else {
+    // Cualquier otro estado civil → eliminar si existe
+    if (formPareja) {
+      formPareja.remove();
+    }
+  }
+}
+
+async function crearFormularioPareja() {
+  const id = Helper.generarId();
+
+  const placeholders = {
+    '{{id}}': id,
+    '{{index}}': 'Pareja',
+    '{{estadoCivilOpciones}}': Helper.generarOpciones(DataSelect.estadoCivilOpciones),
+    '{{tipoDocumentoOpciones}}': Helper.generarOpciones(DataSelect.tipoDocumentoOpciones),
+    '{{ubicacionOpciones}}': Helper.generarOpciones(DataSelect.ubicacionOpciones),
+    '{{grupoHUOpciones}}': Helper.generarOpciones(DataSelect.grupoHUOpciones),
+    '{{condicionTitularOpciones}}': Helper.generarOpciones(DataSelect.condicionTitularOpciones),
+    '{{formaAdquisicionOpciones}}': Helper.generarOpciones(DataSelect.formaAdquisicionOpciones),
+  };
+
+  let res = await fetch('FormularioPareja.html');
+  let html = await res.text();
+
+  for (const [key, value] of Object.entries(placeholders)) {
+    html = html.replace(key, value);
+  }
+
+  // Cambiar el tipo del formulario
+  html = html.replace(`data-tipo="natural"`, `data-tipo="pareja"`);
+
+  return html;
 }
 
 document.addEventListener('click', (e) => {

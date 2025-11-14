@@ -1,21 +1,11 @@
 window.addEventListener('load', async () => {
-  await cargarTipoVias();
   await cargarVias();
+
   agregarVia();
 });
 
-var tipoVias = [];
 var vias = [];
-
-async function cargarTipoVias() {
-  try {
-    const res = await fetch('../../database/obtenerTipoVias.php');
-    const data = await res.json();
-    tipoVias = data.data;
-  } catch (err) {
-    console.error('Error cargando tipo vias:', err);
-  }
-}
+let listaVias = [];
 
 async function cargarVias() {
   try {
@@ -27,16 +17,41 @@ async function cargarVias() {
   }
 }
 
-let listaVias = [];
-
 async function agregarVia() {
   const viaId = Helper.generarId();
   listaVias.push({ id: viaId, puertas: [] });
 
   const contenedorVias = document.getElementById('contenedor-vias');
   const formularioVia = await crearFormularioVia(viaId);
-
   contenedorVias.insertAdjacentHTML('beforeend', formularioVia);
+
+  // Aquí inicializas el autocomplete del formulario insertado
+  const nuevosInputs = document.querySelectorAll(`[data-via="${viaId}"] [data-autocomplete]`);
+
+  nuevosInputs.forEach((input) => {
+    new Autocomplete({
+      input,
+      data: vias,
+      label: input.dataset.label,
+      value: input.dataset.value,
+      onSelect: (item) => {
+        const section = input.closest('[data-via]');
+
+        // Llenar hidden
+        const hiddenSelector = input.dataset.target;
+        if (hiddenSelector) {
+          const hidden = section.querySelector(hiddenSelector);
+          hidden.value = item[input.dataset.value];
+        }
+
+        // Llenar tipo de vía
+        section.querySelector('.tipo-via').value = item.tipo_via;
+
+        // Llenar nombre de vía
+        section.querySelector('.nomb-via').value = item.nomb_via;
+      },
+    });
+  });
 
   agregarPuerta(viaId);
 }
@@ -50,7 +65,7 @@ async function crearFormularioVia(viaId) {
   let html = await res.text();
 
   for (const [key, value] of Object.entries(placeholders)) {
-    html = html.replace(key, value);
+    html = html.replaceAll(key, value);
   }
 
   return html;
@@ -63,8 +78,21 @@ async function agregarPuerta(viaId) {
   const puertaId = Helper.generarId();
   via.puertas.push({ id: puertaId });
 
+  console.log('viaId:', viaId);
+
   const viaEl = document.querySelector(`[data-via="${viaId}"]`);
-  const contenedorPuertas = viaEl.querySelector('.contenedor-puertas');
+  console.log('viaEl:', viaEl);
+
+  if (!viaEl) {
+    console.error('❌ No se encontró el contenedor de la vía');
+  }
+
+  const contenedorPuertas = viaEl?.querySelector('.contenedor-puertas');
+  console.log('contenedorPuertas:', contenedorPuertas);
+
+  if (!contenedorPuertas) {
+    console.error('❌ No existe .contenedor-puertas dentro del FormularioVia.html');
+  }
   const index = contenedorPuertas.querySelectorAll('[data-tipo="puerta"]').length;
 
   const formularioPuerta = await crearFormularioPuerta(index, viaId, puertaId);
@@ -84,7 +112,7 @@ async function crearFormularioPuerta(index, viaId, puertaId) {
   let html = await res.text();
 
   for (const [key, value] of Object.entries(placeholders)) {
-    html = html.replace(key, value);
+    html = html.replaceAll(key, value);
   }
 
   return html;
@@ -106,31 +134,33 @@ document.getElementById('btn-agregar-via').addEventListener('click', () => {
   agregarVia();
 });
 
+//Eventos
+
 document.addEventListener('click', (e) => {
-  if (e.target.classList.contains('input-tipo-via')) {
-    const input = e.target;
-    const hiddenInput = input.parentElement.querySelector('.input-hidden-tipo-via');
+  // if (e.target.classList.contains('input-tipo-via')) {
+  //   const input = e.target;
+  //   const hiddenInput = input.parentElement.querySelector('.input-hidden-tipo-via');
 
-    Helper.mostrarSugerencias(input, tipoVias, 'c_desc_tipo_via', hiddenInput, 'c_cod_tipo_via');
-  }
+  //   Helper.mostrarSugerencias(input, tipoVias, 'c_desc_tipo_via', hiddenInput, 'c_cod_tipo_via');
+  // }
 
-  if (e.target.classList.contains('input-via')) {
-    const input = e.target;
-    const hiddenInput = input.parentElement.querySelector('.input-hidden-via');
+  // if (e.target.classList.contains('input-via')) {
+  //   const input = e.target;
+  //   const hiddenInput = input.parentElement.querySelector('.input-hidden-via');
 
-    const section = input.closest('.m-form-section');
-    const inputReadonly = section.querySelector('.codigo-via-readonly');
+  //   const section = input.closest('.m-form-section');
+  //   const inputReadonly = section.querySelector('.codigo-via-readonly');
 
-    Helper.mostrarSugerencias(
-      input,
-      vias,
-      'nomb_via',
-      hiddenInput,
-      'id_via',
-      inputReadonly,
-      'codi_via'
-    );
-  }
+  //   Helper.mostrarSugerencias(
+  //     input,
+  //     vias,
+  //     'nomb_via',
+  //     hiddenInput,
+  //     'id_via',
+  //     inputReadonly,
+  //     'codi_via'
+  //   );
+  // }
 
   if (e.target.classList.contains('btn-eliminar-via')) {
     const viaId = e.target.closest('[data-via]').dataset.via;
@@ -153,31 +183,54 @@ document.addEventListener('click', (e) => {
   }
 });
 
-document.addEventListener('keyup', (e) => {
-  if (e.target.classList.contains('input-tipo-via')) {
-    const input = e.target;
-    const hiddenInput = input.parentElement.querySelector('.input-hidden-tipo-via');
-    const texto = input.value;
-    const resultados = Helper.filtrarLista(texto, tipoVias, 'c_desc_tipo_via');
-    Helper.mostrarSugerencias(input, resultados, 'c_desc_tipo_via', hiddenInput, 'c_cod_tipo_via');
-  }
+// function buscarVia(input) {
+//   const contenedor = input.parentElement.querySelector('section');
+//   const ul = contenedor.querySelector('ul');
+//   ul.innerHTML = '';
 
-  if (e.target.classList.contains('input-via')) {
-    const input = e.target;
-    const hiddenInput = input.parentElement.querySelector('.input-hidden-via');
-    const texto = input.value;
-    const resultados = Helper.filtrarLista(texto, vias, 'nomb_via');
-    Helper.mostrarSugerencias(input, resultados, 'nomb_via', hiddenInput, 'id_via');
-  }
-});
+//   if (vias.length === 0) {
+//     ul.appendChild(Autocompletado.crearLiSinOpciones());
+//     return;
+//   }
 
-document.addEventListener(
-  'blur',
-  (e) => {
-    if (e.target.classList.contains('input-tipo-via') || e.target.classList.contains('input-via')) {
-      const contenedor = e.target.parentElement.querySelector('.a-autocomplete__box');
-      setTimeout(() => contenedor.classList.add('none'), 200);
-    }
-  },
-  true
-);
+//   vias.forEach((item) => {
+//     ul.appendChild(Autocompletado.crearLi(item['codi_via'], item));
+//   });
+
+//   contenedor.classList.remove('none');
+
+//   ul.onclick = (e) => {
+//     if (e.target.tagName === 'LI' && e.target.dataset.disabled !== 'true') {
+//       const item = JSON.parse(e.target.dataset.item);
+
+//       input.value = item['codi_via'];
+//       document.querySelector('.id-via').value = item['id_via'];
+//       document.querySelector('.nomb-via').value = item['nomb_via'];
+//       document.querySelector('.tipo-via').value = item['tipo_via'];
+
+//       contenedor.classList.add('none');
+//     }
+//   };
+// }
+
+// document.addEventListener('keyup', (e) => {
+//   if (e.target.matches('.codi-via')) {
+//     buscarVia(e.target);
+//   }
+// });
+
+// document.addEventListener('click', (e) => {
+//   if (e.target.matches('.codi-via')) {
+//     buscarVia(e.target);
+//   }
+// });
+
+// document.addEventListener(
+//   'blur',
+//   (e) => {
+//     if (e.target.matches('.codi-via')) {
+//       Autocompletado.cerrar(e.target);
+//     }
+//   },
+//   true
+// );

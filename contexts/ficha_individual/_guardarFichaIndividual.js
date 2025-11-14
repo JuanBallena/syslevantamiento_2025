@@ -1,15 +1,12 @@
 document.getElementById('form-ficha-individual').addEventListener('submit', async (event) => {
   event.preventDefault();
 
-  const ficha = document.getElementById('ficha');
-
   let dataPost = {
-    numeFicha: ficha.querySelector('[name="nume_ficha"]').value,
-    ubigeo: obtenerUbigeo(),
-    codigoReferenciaCatastral: obtenerCodigoReferenciaCatastral(),
-    ubicacionPredioCatastral: obtenerUbicacionPredioCatastral(),
+    principal: obtenerDatosDesdeContenedor('principal'),
+    datosGenerales: obtenerDatosDesdeContenedor('datos-generales'),
+    ubicacionPredioCatastral: obtenerDatosDesdeContenedor('ubicacion-predio-catastral'),
+    vias: obtenerVias(),
     identificacionTitularCatastral: obtenerIdentificacionTitularCatastral(),
-    puertasPredioCatastral: obtenerPuertasPredioCatastral(),
     descripcionPredio: obtenerDescripcionPredio(),
     evaluacionPredio: obtenerEvaluacionPredio(),
     serviciosBasicos: obtenerServiciosBasicos(),
@@ -87,38 +84,38 @@ function mostrarErrores(text) {
   if (mensaje !== '') alert(mensaje);
 }
 
-function obtenerUbigeo() {
-  const ubigeo = document.getElementById('ubigeo');
-  const inputs = ubigeo.querySelectorAll('input[name]');
-  const result = {};
-
-  inputs.forEach((input) => {
-    result[input.name] = evaluarValorInput(input);
-  });
-
-  return result;
+function asignarValor(result, name, value) {
+  if (name.endsWith('[]')) {
+    const cleanName = name.replace('[]', '');
+    if (!result[cleanName]) {
+      result[cleanName] = [];
+    }
+    result[cleanName].push(value);
+  } else {
+    result[name] = value;
+  }
 }
 
-function obtenerCodigoReferenciaCatastral() {
-  const codigoReferenciaCatastral = document.getElementById('codigo-referencia-catastral');
-  const inputs = codigoReferenciaCatastral.querySelectorAll('input[name], select[name]');
+function obtenerDatosDesdeContenedor(
+  idContenedor,
+  selectorCampos = 'input[name], select[name], textarea[name]'
+) {
+  const contenedor = document.getElementById(idContenedor);
+  if (!contenedor) {
+    console.warn(`No se encontró el contenedor con id "${idContenedor}"`);
+    return {};
+  }
+
+  const campos = contenedor.querySelectorAll(selectorCampos);
   const result = {};
 
-  inputs.forEach((input) => {
-    result[input.name] = evaluarValorInput(input);
+  campos.forEach((campo) => {
+    const name = campo.name;
+    const value = evaluarValorInput(campo);
+    asignarValor(result, name, value);
   });
 
-  return result;
-}
-
-function obtenerUbicacionPredioCatastral() {
-  const ubicacionPredioCatastral = document.getElementById('ubicacion-predio-catastral');
-  const inputs = ubicacionPredioCatastral.querySelectorAll('input[name], select[name]');
-  const result = {};
-
-  inputs.forEach((input) => {
-    result[input.name] = evaluarValorInput(input);
-  });
+  console.log(result);
 
   return result;
 }
@@ -199,7 +196,7 @@ function obtenerPersonas(idContenedor, tipo) {
   return personas;
 }
 
-function obtenerPuertasPredioCatastral() {
+function obtenerVias() {
   const contenedor = document.getElementById('contenedor-vias');
 
   const vias = [];
@@ -224,6 +221,8 @@ function obtenerPuertasPredioCatastral() {
     });
     vias.push(via);
   });
+
+  console.log(vias);
 
   return vias;
 }

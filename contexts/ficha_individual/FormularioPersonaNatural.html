@@ -1,16 +1,43 @@
 <div class="m-form-section" data-id="{{id}}" data-tipo="natural">
   <div class="a-close-button btn-eliminar">x</div>
 
-  <div class="m-form-section__title">Persona Natural N° {{index}}</div>
+  <div class="m-form-section__title">Datos generales</div>
 
-  <p class="text-800 text-uppercase mb-2 text-4">Datos Principales</p>
   <div class="grid grid-cols-5 gap-1">
     <div>
-      <label>Nombres</label>
+      <label><span class="box-label-blue">25</span>Estado Civil</label>
+      <select name="estado_civil" class="a-input-text input-estado-civil">
+        {{estadoCivilOpciones}}
+      </select>
+    </div>
+    <div>
+      <label><span class="box-label-red">26</span>Tipo Doc. Identidad</label>
+      <select name="tipo_documento" class="a-input-text input-tipo-doc">
+        {{tipoDocumentoOpciones}}
+      </select>
+    </div>
+    <div>
+      <label><span class="box-label-red">27</span>N° Documento</label>
+      <input
+        type="text"
+        class="a-input-text input-num-doc"
+        name="numero_documento"
+        placeholder="Escriba"
+      />
+      <!-- <div>
+        <label class="custom-checkbox">
+          <input name="chk-sin-doc" type="checkbox" name="sin_documento" />
+          <span class="checkmark"></span>
+          <span class="label-text">Sin Nro. Doc.</span>
+        </label>
+      </div> -->
+    </div>
+    <div>
+      <label><span class="box-label-red">28</span>Nombres</label>
       <input type="text" class="a-input-text input-nombres" name="nombres" placeholder="Escriba" />
     </div>
     <div>
-      <label>Apellido Paterno</label>
+      <label><span class="box-label-red">29</span>Apellido Paterno</label>
       <input
         type="text"
         class="a-input-text input-apellido-paterno"
@@ -19,201 +46,13 @@
       />
     </div>
     <div>
-      <label>Apellido Materno</label>
+      <label><span class="box-label-red">30</span>Apellido Materno</label>
       <input
         type="text"
         class="a-input-text input-apellido-materno"
         name="apellido_materno"
         placeholder="Escriba"
       />
-    </div>
-    <div>
-      <label>Estado Civil</label>
-      <select name="estado_civil" class="a-input-text input-estado-civil">
-        {{estadoCivilOpciones}}
-      </select>
-    </div>
-    <div>
-      <label>Tipo Doc. Identidad</label>
-      <select name="tipo_documento" class="a-input-text input-tipo-doc">
-        {{tipoDocumentoOpciones}}
-      </select>
-    </div>
-    <div>
-      <label>N° Documento</label>
-      <input
-        type="text"
-        class="a-input-text input-num-doc"
-        name="numero_documento"
-        placeholder="Escriba"
-      />
-      <div class="wrapper-checkbox mt-2">
-        <label class="custom-checkbox">
-          <input type="checkbox" class="chk-sin-doc" name="sin_documento" />
-          <span class="checkmark"></span>
-        </label>
-        <span class="pl-2">Sin Nro. Doc.</span>
-      </div>
-    </div>
-  </div>
-
-  <p class="text-800 text-uppercase mt-6 mb-2 text-4">Domicilio</p>
-  <div class="grid grid-cols-5 gap-1">
-    <div>
-      <label>Ubicación</label>
-      <select class="a-input-text input-ubicacion" name="ubicacion">
-        {{ubicacionOpciones}}
-      </select>
-    </div>
-    <div>
-      <label>Departamento</label>
-      <input type="text" class="a-input-text" name="codigo_departamento" placeholder="Escriba" />
-    </div>
-    <div>
-      <label>Provincia</label>
-      <input type="text" class="a-input-text" name="codigo_provincia" placeholder="Escriba" />
-    </div>
-    <div>
-      <label>Distrito</label>
-      <input type="text" class="a-input-text" name="codigo_distrito" placeholder="Escriba" />
-    </div>
-    <div></div>
-
-    <div>
-      <label>Nombre Vía</label>
-      <input type="text" class="a-input-text input-via" placeholder="Escriba" name="nombre_via" />
-      <input type="hidden" class="input-hidden-via" name="id_via" />
-      <div class="a-autocomplete__box none contenedor-vias">
-        <ul class="a-autocomplete__items lista-vias"></ul>
-      </div>
-    </div>
-
-    <div>
-      <label>Código de Vía</label>
-      <input
-        type="text"
-        class="a-input-text codigo-via-readonly"
-        disabled
-        readonly
-        name="codigo_via"
-      />
-    </div>
-    <div>
-      <label>Tipo de Vía</label>
-      <div class="a-autocomplete">
-        <input type="text" class="a-input-text input-tipo-via" placeholder="Escriba" />
-        <input type="hidden" class="input-hidden-tipo-via" name="tipo_via" />
-        <div class="a-autocomplete__box none contenedor-tipo-vias">
-          <ul class="a-autocomplete__items lista-tipo-vias"></ul>
-        </div>
-      </div>
-    </div>
-    <div>
-      <label>Nro. Municipal</label>
-      <input
-        class="a-input-text puerta-numero"
-        type="text"
-        name="numero_municipal"
-        placeholder="Escriba"
-      />
-    </div>
-    <div>
-      <label>Nro. Interior</label>
-      <input
-        class="a-input-text puerta-interior"
-        type="text"
-        name="numero_interior"
-        placeholder="Escriba"
-      />
-    </div>
-    <div>
-      <label>Nombre de Habilitación Urbana</label>
-      <input
-        type="text"
-        class="a-input-text input-text-habilitacion-urbana"
-        placeholder="Escriba"
-        name="nombre_HU"
-      />
-      <input type="hidden" class="input-hidden-habilitacion-urbana" name="id_HU" />
-      <div
-        id="autocompletado-contenedor-habilitaciones-urbanas"
-        class="a-autocomplete__box none"
-        onmousedown="event.preventDefault()"
-      >
-        <ul
-          class="a-autocomplete__items cursor-pointer"
-          id="autocompletado-lista-habilitaciones-urbanas"
-        ></ul>
-      </div>
-    </div>
-    <div>
-      <label>Código HU</label>
-      <input
-        type="text"
-        class="a-input-text codigo-habilitacion-urbana-readonly"
-        disabled
-        name="codigo_HU"
-        readonly
-      />
-    </div>
-    <div>
-      <label>Grupo HU</label>
-      <select class="a-input-text input-grupo" name="grupo_HU">
-        {{grupoHUOpciones}}
-      </select>
-    </div>
-    <div>
-      <label>Zona/Sector/Etapa</label>
-      <input type="text" class="a-input-text" name="zona_sector_etapa" placeholder="Escriba" />
-    </div>
-    <div>
-      <label>Manzana</label>
-      <input type="text" class="a-input-text input-manzana" name="manzana" placeholder="Escriba" />
-    </div>
-    <div>
-      <label>Lote</label>
-      <input type="text" class="a-input-text input-lote" name="lote" placeholder="Escriba" />
-    </div>
-    <div>
-      <label>SubLote</label>
-      <input type="text" class="a-input-text input-sublote" name="sub_lote" placeholder="Escriba" />
-    </div>
-    <div>
-      <label>Teléfono</label>
-      <input
-        type="text"
-        class="a-input-text input-telefono"
-        name="telefono"
-        placeholder="Escriba"
-      />
-    </div>
-    <div>
-      <label>Anexo</label>
-      <input type="text" class="a-input-text input-anexo" name="anexo" placeholder="Escriba" />
-    </div>
-    <div>
-      <label>Correo Electrónico</label>
-      <input type="text" class="a-input-text input-correo" name="correo" placeholder="Escriba" />
-    </div>
-  </div>
-
-  <p class="text-800 text-uppercase mt-6 mb-2 text-4">Características</p>
-  <div class="grid grid-cols-5 gap-1">
-    <div>
-      <label>Condición Titular</label>
-      <select class="a-input-text input-condicion" name="condicion_titular">
-        {{condicionTitularOpciones}}
-      </select>
-    </div>
-    <div>
-      <label>Forma de adquisición</label>
-      <select class="a-input-text input-forma-adquisicion" name="forma_adquisicion">
-        {{formaAdquisicionOpciones}}
-      </select>
-    </div>
-    <div>
-      <label class="">Fecha de adquisición</label>
-      <input class="a-input-text" type="date" name="fecha_adquisicion" />
     </div>
   </div>
 </div>
