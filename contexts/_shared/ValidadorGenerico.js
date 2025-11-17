@@ -5,6 +5,7 @@ class ValidatorGenerico {
     this.rules = {
       required: (value) => value !== null && value !== undefined && value.trim().length > 0,
       numeric: (value) => /^[0-9]+$/.test(value),
+      text: (value) => /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s]+$/.test(value),
       min: (value, n) => value.length >= Number(n),
       max: (value, n) => value.length <= Number(n),
 
@@ -20,6 +21,7 @@ class ValidatorGenerico {
     this.messages = {
       required: 'Campo obligatorio',
       numeric: 'Solo se permiten números',
+      text: 'Solo se permiten letras',
       min: (n) => `Debe tener al menos ${n} caracteres`,
       max: (n) => `Debe tener máximo ${n} caracteres`,
       pad: () => '',
