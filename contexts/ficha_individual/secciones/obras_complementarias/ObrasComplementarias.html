@@ -1,0 +1,85 @@
+<div class="m-form-section" id="obras-complementarias">
+  <div class="m-form-section__title">Obras complementarias / Otras instalaciones</div>
+
+  <button
+    class="a-btn btn-primary mb-6"
+    type="button"
+    onclick="agregarFilaTablaObrasComplementarias()"
+  >
+    Añadir fila
+  </button>
+
+  <table class="table-default" id="tabla-obras-complementarias" border="1">
+    <thead>
+      <tr>
+        <th><span class="box-label-blue">90</span></th>
+        <th><span class="box-label-blue">91</span></th>
+        <th><span class="box-label-blue">75</span></th>
+        <th><span class="box-label-blue">76</span></th>
+        <th><span class="box-label-blue">77</span></th>
+        <th><span class="box-label-blue">78</span></th>
+        <th><span class="box-label-blue">92</span></th>
+        <th><span class="box-label-blue">93</span></th>
+        <th><span class="box-label-blue">94</span></th>
+        <th><span class="box-label-blue">95</span></th>
+        <th><span class="box-label-blue">96</span></th>
+        <th><span class="box-label-blue">88</span></th>
+      </tr>
+      <tr>
+        <th class="w-10-per">Código</th>
+        <th class="w-10-per">Descripción</th>
+        <th class="w-10-per">Fecha</th>
+        <th class="w-10-per">MEP</th>
+        <th class="w-10-per">ECS</th>
+        <th class="w-10-per">ECC</th>
+        <th class="w-10-per">Largo</th>
+        <th class="w-10-per">Ancho</th>
+        <th class="w-10-per">Alto</th>
+        <th class="w-10-per">Total</th>
+        <th class="w-10-per">Unid. medida</th>
+        <th class="w-10-per">UCA</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <template id="filaTablaObrasComplementarias">
+    <tr>
+      <td>
+        <select class="a-input-text w-10-12 select-codigos-instalaciones" name="codigo_instalacion">
+          <option value="0">Seleccione</option>
+        </select>
+      </td>
+      <td>
+        <input class="w-10-12 a-input-text" name="fecha" type="date" />
+      </td>
+      <td>
+        <select class="w-10-12 a-input-text select-mep" name="mep"></select>
+      </td>
+      <td>
+        <select class="w-10-12 a-input-text select-ecs" name="ecs"></select>
+      </td>
+      <td>
+        <select class="w-10-12 a-input-text select-ecc" name="ecc"></select>
+      </td>
+      <td>
+        <input class="w-10-12 a-input-text" name="dimension_largo" type="number" />
+      </td>
+      <td>
+        <input class="w-10-12 a-input-text" name="dimension_ancho" type="number" />
+      </td>
+      <td>
+        <input class="w-10-12 a-input-text" name="dimension_alto" type="number" />
+      </td>
+      <td>
+        <input class="w-10-12 a-input-text" name="produccion_total" type="number" />
+      </td>
+      <td>
+        <input class="w-10-12 a-input-text" name="unidad_medida" type="text" />
+      </td>
+      <td>
+        <input class="w-10-12 a-input-text" name="uca" type="text" />
+      </td>
+    </tr>
+  </template>
+</div>

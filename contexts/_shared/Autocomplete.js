@@ -1,49 +1,68 @@
 class Autocomplete {
-  constructor({ input, data, label, value, onSelect }) {
-    this.input = input;
+  constructor({ input, inputHidden, data, label, value, onSelect, onInput }) {
+    this.input = input; // input visible
+    this.hiddenInput = inputHidden;
     this.data = data;
-    this.label = label;
-    this.value = value;
+    this.label = label; // string o función
+    this.value = value; // propiedad para hidden
     this.onSelect = onSelect;
+    this.onInput = onInput;
 
     this.box = this.createBox();
+    this.list = this.box.querySelector('ul');
+
+    this.mouseDownOnList = false; // 🔹 flag para click en la lista
+
     this.bindEvents();
   }
 
+  updateData(newData) {
+    this.data = newData;
+  }
+
   createBox() {
-    const box = document.createElement('section');
+    const wrapper = document.createElement('div');
+    wrapper.className = 'a-autocomplete';
+    this.input.parentNode.insertBefore(wrapper, this.input);
+    wrapper.appendChild(this.input);
+
+    const box = document.createElement('div');
     box.className = 'a-autocomplete__box none';
-    box.innerHTML = `<ul class="a-autocomplete__items"></ul>`;
-    this.input.parentElement.appendChild(box);
+    const ul = document.createElement('ul');
+    ul.className = 'a-autocomplete__items cursor-pointer';
+    box.appendChild(ul);
+    wrapper.appendChild(box);
+
     return box;
+  }
+
+  getLabel(item) {
+    return typeof this.label === 'function' ? this.label(item) || '' : item?.[this.label] || '';
   }
 
   createLi(texto, item) {
     const li = document.createElement('li');
     li.className = 'py-1 px-4 hover:bg-success';
     li.textContent = texto;
-    li.dataset.item = JSON.stringify(item);
+    if (item) li.dataset.item = JSON.stringify(item);
+    else li.dataset.disabled = 'true';
     return li;
   }
 
   show() {
-    const ul = this.box.querySelector('ul');
-    ul.innerHTML = '';
+    const texto = this.input.value.toLowerCase().trim();
+    this.list.innerHTML = '';
 
-    const texto = this.input.value.toLowerCase();
-
-    const filtrados = this.data.filter((item) => item[this.label].toLowerCase().includes(texto));
+    const filtrados = this.data.filter((item) => this.getLabel(item).toLowerCase().includes(texto));
 
     if (!filtrados.length) {
-      ul.appendChild(this.createLi('Sin opciones', { disabled: true }));
+      this.list.appendChild(this.createLi('Sin opciones', null));
       this.box.classList.remove('none');
       return;
     }
 
     filtrados.forEach((item) => {
-      const textoItem = typeof this.label === 'function' ? this.label(item) : item[this.label];
-
-      ul.appendChild(this.createLi(textoItem, item));
+      this.list.appendChild(this.createLi(this.getLabel(item), item));
     });
 
     this.box.classList.remove('none');
@@ -53,47 +72,80 @@ class Autocomplete {
     this.box.classList.add('none');
   }
 
+  showError(message) {
+    let msgEl = this.input.nextElementSibling;
+    if (!msgEl || !msgEl.classList.contains('error-msg')) {
+      msgEl = document.createElement('div');
+      msgEl.classList.add('error-msg');
+      msgEl.style.color = 'tomato';
+      msgEl.style.fontSize = '14px';
+      msgEl.style.marginTop = '4px';
+      this.input.insertAdjacentElement('afterend', msgEl);
+    }
+    msgEl.textContent = message;
+    this.input.classList.add('input-error');
+  }
+
+  clearError() {
+    let msgEl = this.input.nextElementSibling;
+    if (msgEl && msgEl.classList.contains('error-msg')) {
+      msgEl.textContent = '';
+    }
+    this.input.classList.remove('input-error');
+  }
+
   bindEvents() {
-    this.input.addEventListener('keyup', () => this.show());
-    this.input.addEventListener('click', () => this.show());
-    this.input.addEventListener('blur', () => setTimeout(() => this.hide(), 200));
+    // 🔹 limpiar hidden y borrar error al escribir
+    this.input.addEventListener('input', () => {
+      if (this.hiddenInput) this.hiddenInput.value = '';
 
-    this.box.addEventListener('click', (e) => {
-      if (e.target.tagName === 'LI') {
-        const item = JSON.parse(e.target.dataset.item);
-        this.input.value = item[this.label].trim();
-
-        if (this.onSelect) {
-          this.onSelect(item);
-        }
-
-        this.hide();
+      if (typeof this.onInput === 'function') {
+        this.onInput();
       }
+
+      this.clearError();
+      this.show();
     });
+
+    // 🔹 click en la lista
+    this.list.addEventListener('mousedown', () => {
+      this.mouseDownOnList = true;
+    });
+    this.list.addEventListener('mouseup', () => {
+      this.mouseDownOnList = false;
+    });
+
+    this.list.addEventListener('click', (e) => {
+      const li = e.target.closest('li');
+      if (!li || !li.dataset.item) return;
+
+      const item = JSON.parse(li.dataset.item);
+
+      this.input.value = this.getLabel(item).trim();
+
+      if (this.hiddenInput && this.value) this.hiddenInput.value = item[this.value] || '';
+
+      if (this.onSelect) this.onSelect(item);
+
+      this.clearError();
+      this.hide();
+    });
+
+    // 🔹 blur del input-text
+    this.input.addEventListener('blur', () => {
+      setTimeout(() => {
+        if (!this.mouseDownOnList) {
+          if (this.hiddenInput && !this.hiddenInput.value) {
+            this.showError('Debe seleccionar una opción de la lista');
+          } else {
+            this.clearError();
+          }
+          this.hide();
+        }
+      }, 100);
+    });
+
+    this.input.addEventListener('click', () => this.show());
+    this.input.addEventListener('keyup', () => this.show());
   }
 }
-
-// class Autocompletado {
-//   static crearLiSinOpciones() {
-//     const li = document.createElement('li');
-//     li.className = 'py-1 px-4';
-//     li.dataset.disabled = 'true';
-//     li.textContent = 'Sin opciones';
-
-//     return li;
-//   }
-
-//   static crearLi(texto = '', item = null) {
-//     const li = document.createElement('li');
-//     li.className = 'py-1 px-4 hover:bg-success';
-//     li.dataset.item = JSON.stringify(item);
-//     li.textContent = texto;
-
-//     return li;
-//   }
-
-//   static cerrar(input) {
-//     const contenedor = input.parentElement.querySelector('section');
-//     setTimeout(() => contenedor.classList.add('none'), 150);
-//   }
-// }

@@ -22,7 +22,7 @@
         <div class="py-4 px-8 border-1-accent">
           <div class="text-center text-14 text-600 mb-8">Ficha Catastral Urbana Individual</div>
 
-          <div class="flex justify-space-between mb-6" id="principal">
+          <!-- <div class="flex justify-space-between mb-6" id="principal">
             <div>
               <label>Número de ficha</label>
               <input
@@ -61,10 +61,10 @@
               </div>
               <span class="error-text error-nume-ficha"></span>
             </div>
-          </div>
+          </div> -->
 
           <!-- DATOS GENERALES -->
-          <div class="m-form-section" id="datos-generales">
+          <!-- <div class="m-form-section" id="datos-generales">
             <div class="m-form-section__title">Datos Generales</div>
 
             <div class="flex justify-space-between mb-8">
@@ -304,18 +304,18 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
-          <button
+          <!-- <button
             class="btn"
             type="button"
             onclick="obtenerDatosDesdeContenedor('ubicacion-predio-catastral')"
           >
             Click
-          </button>
+          </button> -->
 
           <!-- UBICACIÓN DEL PREDIO CATASTRAL -->
-          <div class="m-form-section">
+          <!-- <div class="m-form-section">
             <div class="m-form-section__title">Ubicación del Predio Catastral</div>
 
             <div class="mb-8">
@@ -445,7 +445,7 @@
                 />
               </div>
             </div>
-          </div>
+          </div> -->
 
           <!-- IDENTIFICACIÓN DEL TITULAR CATASTRAL -->
           <div class="m-form-section" id="identificacion-titular-catastral">
@@ -701,7 +701,7 @@
           </div>
 
           <!-- CARACTERISTICAS DE LA TITULARIDAD-->
-          <div class="m-form-section" id="carecteristicas-titularidad">
+          <!-- <div class="m-form-section" id="carecteristicas-titularidad">
             <div class="m-form-section__title">Caracteristicas de la titularidad</div>
 
             <div class="grid grid-cols-5 gap-1">
@@ -742,7 +742,7 @@
                 <input class="a-input-text" type="date" name="" />
               </div>
             </div>
-          </div>
+          </div> -->
 
           <!-- PUERTAS DEL PREDIO CATASTRAL -->
           <!-- <div class="m-form-section" id="puertas-predio-catastral">
@@ -1399,42 +1399,7 @@
             </template>
           </div>
 
-          <!-- IMÁGENES ADJUNTAS -->
-          <!-- <section class="m-form-section" id="imagenes-adjuntas">
-            <div class="m-form-section__title">Imágenes adjuntas</div>
-            <br />
-            
-            <input
-              type="file"
-              name="archivos[]"
-              id="input-archivos"
-              multiple
-              accept="image/*,application/pdf"
-            />
-
-          </section> -->
-
           <!-- OBSERVACIONES -->
-          <div class="m-form-section" id="observaciones">
-            <div class="m-form-section__title">Observaciones</div>
-
-            <textarea class="a-input-text" name="texto" cols="30" rows="5">
-Esta es una observación</textarea
-            >
-
-            <div class="grid grid-cols-4 mt-4">
-              <div>
-                <label>Código Catastral antiguo</label>
-                <input
-                  class="w-10-12 a-input-text"
-                  name="codigo_catastral_antiguo"
-                  type="text"
-                  value="986532986532"
-                  oninput="soloNumeros(this); limitarCaracteres(this, 19)"
-                />
-              </div>
-            </div>
-          </div>
 
           <!-- DATOS DEL DECLARANTE -->
           <div class="m-form-section" id="datos-declarante">

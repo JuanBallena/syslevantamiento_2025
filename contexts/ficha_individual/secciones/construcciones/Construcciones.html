@@ -1,0 +1,94 @@
+<div class="m-form-section" id="construcciones">
+  <div class="m-form-section__title">Construcciones</div>
+
+  <button class="a-btn btn-primary mb-6" type="button" id="btn-add-row">Añadir fila</button>
+
+  <table class="table-default" id="tabla-construcciones" border="1">
+    <thead>
+      <tr>
+        <th><span class="box-label-blue">74</span></th>
+        <th><span class="box-label-blue">75</span></th>
+        <th><span class="box-label-blue">76</span></th>
+        <th><span class="box-label-blue">77</span></th>
+        <th><span class="box-label-blue">78</span></th>
+        <th><span class="box-label-blue">79</span></th>
+        <th><span class="box-label-blue">80</span></th>
+        <th><span class="box-label-blue">81</span></th>
+        <th><span class="box-label-blue">82</span></th>
+        <th><span class="box-label-blue">83</span></th>
+        <th><span class="box-label-blue">84</span></th>
+        <th><span class="box-label-blue">85</span></th>
+        <th><span class="box-label-blue">87</span></th>
+        <th><span class="box-label-blue">88</span></th>
+      </tr>
+      <tr>
+        <th class="w-10-per">N° piso</th>
+        <th class="w-10-per">Fecha</th>
+        <th class="w-10-per">MEP</th>
+        <th class="w-10-per">ECS</th>
+        <th class="w-10-per">ECC</th>
+        <th class="w-10-per">Muros/columnas</th>
+        <th class="w-10-per">Techos</th>
+        <th class="w-10-per">Pisos</th>
+        <th class="w-10-per">Puertas/ventanas</th>
+        <th class="w-10-per">Revest</th>
+        <th class="w-10-per">Baños</th>
+        <th class="w-10-per">Inst. Elect. y Sanitarias</th>
+        <th class="w-10-per">A. verificada</th>
+        <th class="w-10-per">UCA</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <template id="filaTemplate">
+    <tr>
+      <td>
+        <select class="a-input-text w-10-12" name="numero_piso">
+          <option value="0">Seleccione</option>
+          <option value="1">1 piso</option>
+          <option value="2">2 piso</option>
+          <option value="3">3 piso</option>
+          <option value="4">4 piso</option>
+          <option value="5">5 piso</option>
+          <option value="6">6 piso</option>
+          <option value="7">7 piso</option>
+          <option value="8">8 piso</option>
+          <option value="9">9 piso</option>
+          <option value="10">10 piso</option>
+          <option value="11">11 piso</option>
+          <option value="12">12 piso</option>
+        </select>
+      </td>
+      <td>
+        <input class="w-10-12 a-input-text" name="fecha" type="date" />
+      </td>
+      <td>
+        <select class="w-10-12 a-input-text" name="mep"></select>
+      </td>
+      <td>
+        <select class="w-10-12 a-input-text" name="ecs"></select>
+      </td>
+      <td>
+        <select class="w-10-12 a-input-text" name="ecc"></select>
+      </td>
+      <td>
+        <select class="w-10-12 a-input-text" name="muros_columnas"></select>
+      </td>
+      <td>
+        <select class="w-10-12 a-input-text" name="techos"></select>
+      </td>
+      <td>
+        <select class="w-10-12 a-input-text" name="pisos"></select>
+      </td>
+      <td>
+        <select class="w-10-12 a-input-text" name="puertas_ventanas"></select>
+      </td>
+      <td><input class="w-10-12 a-input-text" name="area_verificada" type="text" /></td>
+      <td><input class="w-10-12 a-input-text" name="" type="text" /></td>
+      <td><input class="w-10-12 a-input-text" name="" type="text" /></td>
+      <td><input class="w-10-12 a-input-text" name="" type="text" /></td>
+      <td><input class="w-10-12 a-input-text" name="" type="text" /></td>
+    </tr>
+  </template>
+</div>

@@ -41,39 +41,39 @@ async function cargarUsos(texto = '') {
   }
 }
 
-// Eventos
-document.addEventListener('click', async (e) => {
-  if (e.target.classList.contains('input-text-uso')) {
-    const input = e.target;
-    const hiddenInput = input.parentElement.querySelector('.input-hidden-uso');
+// // Eventos
+// document.addEventListener('click', async (e) => {
+//   if (e.target.classList.contains('input-text-uso')) {
+//     const input = e.target;
+//     const hiddenInput = input.parentElement.querySelector('.input-hidden-uso');
 
-    let resultados = await cargarUsos('');
+//     let resultados = await cargarUsos('');
 
-    Helper.mostrarSugerencias(input, resultados, 'desc_uso', hiddenInput, 'codi_uso');
-  }
-});
+//     Helper.mostrarSugerencias(input, resultados, 'desc_uso', hiddenInput, 'codi_uso');
+//   }
+// });
 
-document.addEventListener('keyup', async (e) => {
-  if (e.target.classList.contains('input-text-uso')) {
-    const input = e.target;
-    const hiddenInput = input.parentElement.querySelector('.input-hidden-uso');
-    const texto = input.value;
+// document.addEventListener('keyup', async (e) => {
+//   if (e.target.classList.contains('input-text-uso')) {
+//     const input = e.target;
+//     const hiddenInput = input.parentElement.querySelector('.input-hidden-uso');
+//     const texto = input.value;
 
-    let resultados = await cargarUsos(texto);
-    Helper.mostrarSugerencias(input, resultados, 'desc_uso', hiddenInput, 'codi_uso');
-  }
-});
+//     let resultados = await cargarUsos(texto);
+//     Helper.mostrarSugerencias(input, resultados, 'desc_uso', hiddenInput, 'codi_uso');
+//   }
+// });
 
-document.addEventListener(
-  'blur',
-  (e) => {
-    if (
-      e.target.classList.contains('input-text-uso') ||
-      e.target.classList.contains('input-hidden-uso')
-    ) {
-      const contenedor = e.target.parentElement.querySelector('.a-autocomplete__box');
-      setTimeout(() => contenedor.classList.add('none'), 200);
-    }
-  },
-  true
-);
+// document.addEventListener(
+//   'blur',
+//   (e) => {
+//     if (
+//       e.target.classList.contains('input-text-uso') ||
+//       e.target.classList.contains('input-hidden-uso')
+//     ) {
+//       const contenedor = e.target.parentElement.querySelector('.a-autocomplete__box');
+//       setTimeout(() => contenedor.classList.add('none'), 200);
+//     }
+//   },
+//   true
+// );

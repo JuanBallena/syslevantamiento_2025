@@ -1,0 +1,57 @@
+<div class="m-form-section">
+  <div class="m-form-section__title">Ubicación del Predio Catastral</div>
+
+  <div class="mb-8">
+    <div id="contenedor-vias"></div>
+
+    <button id="btn-agregar-via" type="button" class="a-btn a-btn--secondary agregar-via">
+      Añadir Vía
+    </button>
+  </div>
+
+  <div class="grid grid-cols-5 gap-1" id="ubicacion-predio-catastral">
+    <div>
+      <label><span class="box-label-blue">14</span>Nombre edificación</label>
+      <input class="a-input-text" type="text" placeholder="Escriba" name="nomb_edificacion" />
+    </div>
+    <div>
+      <label><span class="box-label-blue">15</span>Tipo de edificación</label>
+      <select class="a-input-text" name="tipo_edificacion" data-validate="required"></select>
+    </div>
+    <div>
+      <label><span class="box-label-blue">16</span>Tipo de interior</label>
+      <select class="a-input-text" name="tipo_interior"></select>
+    </div>
+    <div>
+      <label><span class="box-label-blue">17</span>Nro. interior</label>
+      <input class="a-input-text" type="text" placeholder="Escriba" name="nume_interior" />
+    </div>
+    <div>
+      <label><span class="box-label-red">18</span>Código HU</label>
+      <input type="text" name="codi_hab_urba" class="a-input-text" disabled />
+    </div>
+    <div>
+      <label><span class="box-label-blue">19</span>Nombre HU</label>
+      <div class="a-autocomplete">
+        <input type="text" class="a-input-text" placeholder="Escriba" name="nomb_hab_urba" />
+        <input type="hidden" class="a-input-text" name="id_hab_urba" />
+      </div>
+    </div>
+    <div>
+      <label><span class="box-label-blue">20</span>Zona/Sector/Etapa</label>
+      <input class="a-input-text" type="number" name="nume_etapa" />
+    </div>
+    <div>
+      <label><span class="box-label-blue">21</span>Nro. Manzana</label>
+      <input class="a-input-text" type="text" placeholder="Escriba" name="mzna_dist" />
+    </div>
+    <div>
+      <label><span class="box-label-blue">22</span>Lote</label>
+      <input class="a-input-text" type="text" placeholder="Escriba" name="lote_dist" />
+    </div>
+    <div>
+      <label><span class="box-label-blue">23</span>Sublote</label>
+      <input class="a-input-text" type="text" placeholder="Escriba" name="sub_lote_dist" />
+    </div>
+  </div>
+</div>

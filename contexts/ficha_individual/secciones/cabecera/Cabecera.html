@@ -1,0 +1,35 @@
+<section class="flex justify-space-between mb-6" id="cabecera">
+  <div>
+    <label>Número de ficha</label>
+    <input
+      class="a-input-text"
+      type="text"
+      placeholder="Escriba"
+      name="nume_ficha"
+      data-validate="required|numeric|max:7|min:7"
+    />
+  </div>
+  <div class="w-2-12">
+    <label>Número de fichas por lote</label>
+    <div class="grid grid-cols-2 gap-x-1">
+      <div>
+        <input
+          class="a-input-text"
+          type="text"
+          placeholder="Escriba"
+          name="nume_ficha_lote[]"
+          data-validate="required|numeric|max:1|min:1"
+        />
+      </div>
+      <div>
+        <input
+          class="a-input-text"
+          type="text"
+          placeholder="Escriba"
+          name="nume_ficha_lote[]"
+          data-validate="required|numeric|max:1|min:1"
+        />
+      </div>
+    </div>
+  </div>
+</section>

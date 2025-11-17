@@ -1,0 +1,117 @@
+<div class="m-form-section" id="descripcion-predio">
+  <div class="m-form-section__title">Descripción del Predio</div>
+
+  <div class="grid grid-cols-5 gap-1">
+    <div>
+      <label><span class="box-label-red">54</span>Clasificación del predio</label>
+      <select class="a-input-text" name="clasificacion_predio"></select>
+    </div>
+    <div>
+      <label><span class="box-label-red">55</span>Predio Catastral En</label>
+      <select class="a-input-text" name="cond_en"></select>
+    </div>
+    <div>
+      <label><span class="box-label-red">57</span>Uso Predio Catastral</label>
+      <div>
+        <input type="text" name="desc_uso" class="a-input-text" placeholder="Escriba" />
+        <input type="hidden" name="codi_uso" />
+      </div>
+    </div>
+    <div>
+      <label><span class="box-label-blue">58</span>Estructuración</label>
+      <input class="a-input-text" type="number" placeholder="Escriba" name="estructuracion" />
+    </div>
+    <div>
+      <label><span class="box-label-blue">59</span>Zonificación</label>
+      <input class="a-input-text" type="number" placeholder="Escriba" name="zonificacion" />
+    </div>
+    <div>
+      <label><span class="box-label-blue">60</span>Área de terreno adquirida</label>
+      <input
+        class="a-input-text"
+        type="number"
+        placeholder="Escriba"
+        name="area_terreno_adquirida"
+      />
+    </div>
+    <div>
+      <label><span class="box-label-blue">62</span>Área de terreno verificada</label>
+      <input
+        class="a-input-text"
+        type="number"
+        placeholder="Escriba"
+        name="area_terreno_verificada"
+      />
+    </div>
+  </div>
+
+  <div class="w-7-12">
+    <table class="table-default mt-8">
+      <thead>
+        <tr>
+          <th>LINDEROS DE LOTE (ML)</th>
+          <th><span class="box-label-blue">63</span>MEDIDA EN CAMPO</th>
+          <th><span class="box-label-blue">65</span>COLINDANCIAS EN CAMPO</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>FRENTE</td>
+          <td>
+            <input type="text" class="a-input-text" name="medidas_campo[]" placeholder="Escriba" />
+          </td>
+          <td>
+            <input
+              type="text"
+              class="a-input-text"
+              name="colindancias_campo[]"
+              placeholder="Escriba"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>DERECHA</td>
+          <td>
+            <input type="text" class="a-input-text" name="medidas_campo[]" placeholder="Escriba" />
+          </td>
+          <td>
+            <input
+              type="text"
+              class="a-input-text"
+              name="colindancias_campo[]"
+              placeholder="Escriba"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>IZQUIERDA</td>
+          <td>
+            <input type="text" class="a-input-text" name="medidas_campo[]" placeholder="Escriba" />
+          </td>
+          <td>
+            <input
+              type="text"
+              class="a-input-text"
+              name="colindancias_campo[]"
+              placeholder="Escriba"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>FONDO</td>
+          <td>
+            <input type="text" class="a-input-text" name="medidas_campo[]" placeholder="Escriba" />
+          </td>
+          <td>
+            <input
+              type="text"
+              class="a-input-text"
+              name="colindancias_campo[]"
+              placeholder="Escriba"
+            />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="m-form-section" id="observaciones">
+  <div class="m-form-section__title">Observaciones</div>
+
+  <textarea class="a-input-text" name="texto" cols="30" rows="5">Esta es una observación</textarea>
+
+  <div class="grid grid-cols-4 mt-4">
+    <div>
+      <label>Código Catastral antiguo</label>
+      <input
+        class="w-10-12 a-input-text"
+        name="codigo_catastral_antiguo"
+        type="text"
+        value="986532986532"
+        oninput="soloNumeros(this); limitarCaracteres(this, 19)"
+      />
+    </div>
+  </div>
+</div>
