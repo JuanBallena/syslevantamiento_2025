@@ -17,7 +17,7 @@
         method="post"
         autocomplete="off"
         enctype="multipart/form-data"
-        id="formulario-ficha-catastral-urbana-individual"
+        id="formulario-ficha-urbana-individual"
       >
         <div class="py-4 px-8 border-1-accent">
           <div class="text-center text-14 text-600 mb-8">Ficha Catastral Urbana Individual</div>
@@ -54,6 +54,7 @@
     <script type="text/javascript" src="./../_shared/Autocomplete.js"></script>
     <script type="text/javascript" src="./../_shared/SelectDinamico.js"></script>
     <script type="text/javascript" src="./../_shared/Helper.js"></script>
+    <script type="text/javascript" src="./../_shared/FormBackup.js"></script>
 
     <!-- SERVICES -->
     <script type="text/javascript" src="./../_services/BaseServicio.js"></script>
@@ -70,6 +71,8 @@
     <script type="text/javascript" src="./../_services/ServicioTipoMateriales.js"></script>
     <script type="text/javascript" src="./../_services/ServicioTipoCategorias.js"></script>
     <script type="text/javascript" src="./../_services/ServicioCodigosInstalaciones.js"></script>
+    <script type="text/javascript" src="./../_services/ServicioTipoDocumentos.js"></script>
+    <script type="text/javascript" src="./../_services/ServicioNotarias.js"></script>
 
     <!-- SECCIONES -->
     <script type="text/javascript" src="./../ficha_individual/secciones/cabecera/Cabecera.js"></script>
@@ -85,8 +88,9 @@
     <script type="text/javascript" src="./../ficha_individual/secciones/descripcion_predio/DescripcionPredio.js"></script>
     <script type="text/javascript" src="./../ficha_individual/secciones/construcciones/Construcciones.js"></script>
     <script type="text/javascript" src="./../ficha_individual/secciones/obras_complementarias/ObrasComplementarias.js"></script>
-
-
+    <script type="text/javascript" src="./../ficha_individual/secciones/documentos/Documentos.js"></script>
+    
+  
     <script type="text/javascript" src="./../ficha_individual/ControladorFichaUrbanaIndividual.js"></script>
 
   </body>

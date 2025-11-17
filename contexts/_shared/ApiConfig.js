@@ -16,4 +16,6 @@ window.ENDPOINTS = {
   obtenerTipoMateriales: 'obtenerTipoMateriales.php',
   obtenerTipoCategorias: 'obtenerTipoCategorias.php',
   obtenerCodigosInstalaciones: 'obtenerCodigosInstalaciones.php',
+  obtenerTipoDocumentos: 'obtenerTipoDocumentos.php',
+  obtenerNotarias: 'obtenerNotarias.php',
 };

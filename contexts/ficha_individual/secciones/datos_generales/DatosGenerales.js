@@ -2,6 +2,7 @@ class DatosGenerales {
   constructor() {
     this.inputSector = document.querySelector('[name="nomb_sector"]');
     this.hiddenSector = document.querySelector('[name="id_sector"]');
+    document.querySelector('input[name="nume_mzna"]');
 
     this.initAutocompleteSector();
   }

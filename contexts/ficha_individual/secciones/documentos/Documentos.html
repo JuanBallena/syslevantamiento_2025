@@ -1,3 +1,53 @@
-<div class="m-form-section" id="evaluacion-predio">
+<div class="m-form-section" id="documentos">
   <div class="m-form-section__title">Documentos</div>
+
+  <button class="a-btn btn-primary mb-6" type="button" id="agregar-fila-documento">
+    Añadir fila
+  </button>
+
+  <table class="table-default" id="tabla-documentos" border="1">
+    <thead>
+      <tr>
+        <th class="w-10-per"><span class="box-label-blue">97</span>Tipo de documento</th>
+        <th class="w-10-per"><span class="box-label-blue">98</span>N° de documento</th>
+        <th class="w-10-per"><span class="box-label-blue">99</span>Fecha</th>
+        <th class="w-10-per"><span class="box-label-blue">100</span>Area autorizada</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <template id="filaTemplateDocumento">
+    <tr>
+      <td>
+        <select class="a-input-text w-10-12" name="tipo_documento"></select>
+      </td>
+      <td>
+        <input class="w-10-12 a-input-text" name="nume_documento" type="text" />
+      </td>
+      <td>
+        <input class="w-10-12 a-input-text" name="fecha" type="date" />
+      </td>
+      <td>
+        <input class="w-10-12 a-input-text" name="area_autorizada" type="text" />
+      </td>
+    </tr>
+  </template>
+
+  <p class="text-5 text-600 mt-8 mb-4">Registro Notarial de la Escritura Pública</p>
+
+  <div class="grid grid-cols-5 gap-1">
+    <div>
+      <label for="">Nombre de la Notaría</label>
+      <select class="a-input-text" name="notaria"></select>
+    </div>
+    <div>
+      <label for="">Kardex</label>
+      <input class="a-input-text" name="kardex" type="text" />
+    </div>
+    <div>
+      <label for="">Fecha escritura pública</label>
+      <input class="a-input-text" name="fecha_escritura_publica" type="date" />
+    </div>
+  </div>
 </div>
