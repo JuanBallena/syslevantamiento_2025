@@ -69,6 +69,7 @@
     <script type="text/javascript" src="./../_services/ServicioPrediosCatastrales.js"></script>
     <script type="text/javascript" src="./../_services/ServicioTipoMateriales.js"></script>
     <script type="text/javascript" src="./../_services/ServicioTipoCategorias.js"></script>
+    <script type="text/javascript" src="./../_services/ServicioCodigosInstalaciones.js"></script>
 
     <!-- SECCIONES -->
     <script type="text/javascript" src="./../ficha_individual/secciones/cabecera/Cabecera.js"></script>
@@ -83,6 +84,7 @@
     <script type="text/javascript" src="./../ficha_individual/secciones/caracteristicas_titularidad//CaracteristicasTitularidad.js"></script>
     <script type="text/javascript" src="./../ficha_individual/secciones/descripcion_predio/DescripcionPredio.js"></script>
     <script type="text/javascript" src="./../ficha_individual/secciones/construcciones/Construcciones.js"></script>
+    <script type="text/javascript" src="./../ficha_individual/secciones/obras_complementarias/ObrasComplementarias.js"></script>
 
 
     <script type="text/javascript" src="./../ficha_individual/ControladorFichaUrbanaIndividual.js"></script>

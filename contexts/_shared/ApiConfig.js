@@ -15,4 +15,5 @@ window.ENDPOINTS = {
   obtenerPrediosCatastrales: 'obtenerPrediosCatastrales.php',
   obtenerTipoMateriales: 'obtenerTipoMateriales.php',
   obtenerTipoCategorias: 'obtenerTipoCategorias.php',
+  obtenerCodigosInstalaciones: 'obtenerCodigosInstalaciones.php',
 };

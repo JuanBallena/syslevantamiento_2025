@@ -18,77 +18,40 @@ class Construcciones {
   }
 
   async init() {
-    await this.initSelectTipoMaterial();
-    await this.initSelectTipoCategoria();
+    await this.cargarTiposMateriales();
+    await this.cargarTipoCategoria();
 
     document.querySelector('#btn-add-row').addEventListener('click', this.addRow.bind(this));
   }
 
-  async initSelectTipoMaterial() {
-    let materiales = [];
-
+  async cargarTiposMateriales() {
     try {
       const res = await ServicioTipoMateriales.obtenerTipoMateriales();
 
       if (res && res.success && Array.isArray(res.data)) {
-        materiales = res.data;
+        this.materiales = res.data;
       } else {
         console.warn('ServicioTipoMateriales: respuesta inválida', res);
       }
     } catch (err) {
       console.error('Error al obtener tipo materiales:', err);
     }
-
-    // Guardamos para las filas
-    this.tipoMateriales = materiales;
-
-    // // Crear select dinámico general
-    // new SelectDinamico({
-    //   select: this.selectTipoMaterialGeneral,
-    //   data: materiales,
-    //   label: (item) => item.c_des_tip_material,
-    //   value: 'i_cod_tip_material',
-    //   defaultText: 'Seleccione',
-    //   onSelect: (item) => {
-    //     // opcional
-    //   },
-    // });
   }
 
-  async initSelectTipoCategoria() {
-    let categorias = [];
-
+  async cargarTipoCategoria() {
     try {
       const res = await ServicioTipoCategorias.obtenerTipoCategorias();
 
       if (res && res.success && Array.isArray(res.data)) {
-        categorias = res.data;
+        this.categorias = res.data;
       } else {
         console.warn('ServicioTipoCategorias: respuesta inválida', res);
       }
     } catch (err) {
       console.error('Error al obtener tipo categorías:', err);
     }
-
-    // Guardamos para llenar las filas
-    this.tipoCategorias = categorias;
-
-    // // Crear select dinámico general
-    // new SelectDinamico({
-    //   select: this.selectTipoCategoriaGeneral,
-    //   data: categorias,
-    //   label: (item) => item.c_des_tip_categoria,
-    //   value: 'i_cod_tip_categoria',
-    //   defaultText: 'Seleccione',
-    //   onSelect: (item) => {
-    //     // opcional
-    //   },
-    // });
   }
 
-  // ============================================================
-  // 3. AGREGAR FILA — cada select es un SelectDinamico real
-  // ============================================================
   addRow() {
     this.rowCount++;
     const clone = this.template.content.cloneNode(true);
@@ -114,10 +77,6 @@ class Construcciones {
     const selectPisos = newRow.querySelector('select[name="pisos"]');
     const selectPuertasVentanas = newRow.querySelector('select[name="puertas_ventanas"]');
 
-    // ==========================================
-    // Crear SelectDinamico en cada select MATERIAL
-    // ==========================================
-
     new SelectDinamico({
       select: selectMEP,
       data: this.tipoMateriales,
@@ -141,10 +100,6 @@ class Construcciones {
       value: 'i_cod_tip_material',
       defaultText: 'Seleccione',
     });
-
-    // ==========================================
-    // Crear SelectDinamico en cada select CATEGORÍA
-    // ==========================================
 
     new SelectDinamico({
       select: selectMurosColumnas,
@@ -180,6 +135,12 @@ class Construcciones {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  window.ConstruccionesInstance = new Construcciones();
+document.addEventListener('DOMContentLoaded', async () => {
+  let construcciones = new Construcciones();
+
+  let obrasComplementarias = new ObrasComplementarias();
+  obrasComplementarias.cargarTipoMaterialesYCategorias(
+    construcciones.tipoMateriales,
+    construcciones.tipoCategorias
+  );
 });

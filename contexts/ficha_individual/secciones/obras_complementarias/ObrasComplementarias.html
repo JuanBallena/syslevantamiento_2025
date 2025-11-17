@@ -1,13 +1,7 @@
 <div class="m-form-section" id="obras-complementarias">
   <div class="m-form-section__title">Obras complementarias / Otras instalaciones</div>
 
-  <button
-    class="a-btn btn-primary mb-6"
-    type="button"
-    onclick="agregarFilaTablaObrasComplementarias()"
-  >
-    Añadir fila
-  </button>
+  <button class="a-btn btn-primary mb-6" type="button" id="btn-add-row-obras">Añadir fila</button>
 
   <table class="table-default" id="tabla-obras-complementarias" border="1">
     <thead>
@@ -49,6 +43,9 @@
         <select class="a-input-text w-10-12 select-codigos-instalaciones" name="codigo_instalacion">
           <option value="0">Seleccione</option>
         </select>
+      </td>
+      <td>
+        <input class="w-10-12 a-input-text" name="desc" type="text" />
       </td>
       <td>
         <input class="w-10-12 a-input-text" name="fecha" type="date" />
