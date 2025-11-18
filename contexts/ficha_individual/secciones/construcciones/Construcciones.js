@@ -1,20 +1,11 @@
 class Construcciones {
   constructor() {
-    // SELECTS GENERALES PARA SELECT DINÁMICO
-    this.selectTipoMaterialGeneral = document.querySelector('[name="tipo_material_general"]');
-    this.selectTipoCategoriaGeneral = document.querySelector('[name="tipo_categoria_general"]');
-
-    // Datos cargados desde servicios
     this.tipoMateriales = [];
     this.tipoCategorias = [];
 
-    // Tabla
     this.rowCount = 0;
     this.tbody = document.querySelector('#tabla-construcciones tbody');
-    this.template = document.querySelector('#filaTemplate');
-
-    // Iniciar todo
-    this.init();
+    this.template = document.querySelector('#filaTemplateConstruccion');
   }
 
   async init() {
@@ -29,7 +20,7 @@ class Construcciones {
       const res = await ServicioTipoMateriales.obtenerTipoMateriales();
 
       if (res && res.success && Array.isArray(res.data)) {
-        this.materiales = res.data;
+        this.tipoMateriales = res.data;
       } else {
         console.warn('ServicioTipoMateriales: respuesta inválida', res);
       }
@@ -43,7 +34,7 @@ class Construcciones {
       const res = await ServicioTipoCategorias.obtenerTipoCategorias();
 
       if (res && res.success && Array.isArray(res.data)) {
-        this.categorias = res.data;
+        this.tipoCategorias = res.data;
       } else {
         console.warn('ServicioTipoCategorias: respuesta inválida', res);
       }
@@ -138,7 +129,10 @@ class Construcciones {
 document.addEventListener('DOMContentLoaded', async () => {
   let construcciones = new Construcciones();
 
+  await construcciones.init();
+
   let obrasComplementarias = new ObrasComplementarias();
+
   obrasComplementarias.cargarTipoMaterialesYCategorias(
     construcciones.tipoMateriales,
     construcciones.tipoCategorias

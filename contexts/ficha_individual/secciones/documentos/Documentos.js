@@ -29,7 +29,6 @@ class Documentos {
 
       if (res && res.success && Array.isArray(res.data)) {
         this.notarias = res.data;
-        console.log(this.notarias);
       } else {
         console.warn('ServicioTipoDocumentos: respuesta inválida', res);
       }
