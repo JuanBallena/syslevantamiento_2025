@@ -92,8 +92,23 @@ class UbicacionPredio {
       },
     });
   }
+
+  getData() {
+    const formDataExtractor = new FormDataExtractor();
+
+    const vias = formDataExtractor.obtenerDatosDesdeDataset(
+      'contenedor-vias',
+      '[data-via]',
+      '[data-puerta]'
+    );
+
+    return {
+      ...formDataExtractor.obtenerDatosDesdeContenedor('ubicacion-predio'),
+      vias: vias,
+    };
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  new UbicacionPredio();
+  window.ubicacionPredio = new UbicacionPredio();
 });

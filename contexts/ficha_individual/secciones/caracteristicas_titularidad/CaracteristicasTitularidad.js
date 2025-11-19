@@ -80,8 +80,14 @@ class CaracteristicasTitularidad {
       },
     });
   }
+
+  getData() {
+    const formDataExtractor = new FormDataExtractor();
+
+    return formDataExtractor.obtenerDatosDesdeContenedor('caracteristicas-titularidad');
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  new CaracteristicasTitularidad();
+  window.caracteristicasTitularidad = new CaracteristicasTitularidad();
 });

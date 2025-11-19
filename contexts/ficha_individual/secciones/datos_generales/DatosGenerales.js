@@ -61,8 +61,14 @@ class DatosGenerales {
       },
     });
   }
+
+  getData() {
+    const formDataExtractor = new FormDataExtractor();
+
+    return formDataExtractor.obtenerDatosDesdeContenedor('datos-generales');
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  new DatosGenerales();
+  window.datosGenerales = new DatosGenerales();
 });

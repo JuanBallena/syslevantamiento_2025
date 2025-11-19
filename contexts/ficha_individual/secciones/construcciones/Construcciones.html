@@ -3,7 +3,7 @@
 
   <button class="a-btn btn-primary mb-6" type="button" id="btn-add-row">Añadir fila</button>
 
-  <table class="table-default" id="tabla-construcciones" border="1">
+  <table class="table-default text-2 table-uniform" id="tabla-construcciones" border="1">
     <thead>
       <tr>
         <th><span class="box-label-blue">74</span></th>
@@ -22,20 +22,20 @@
         <th><span class="box-label-blue">88</span></th>
       </tr>
       <tr>
-        <th class="w-10-per">N° piso</th>
-        <th class="w-10-per">Fecha</th>
-        <th class="w-10-per">MEP</th>
-        <th class="w-10-per">ECS</th>
-        <th class="w-10-per">ECC</th>
-        <th class="w-10-per">Muros/columnas</th>
-        <th class="w-10-per">Techos</th>
-        <th class="w-10-per">Pisos</th>
-        <th class="w-10-per">Puertas/ventanas</th>
-        <th class="w-10-per">Revest</th>
-        <th class="w-10-per">Baños</th>
-        <th class="w-10-per">Inst. Elect. y Sanitarias</th>
-        <th class="w-10-per">A. verificada</th>
-        <th class="w-10-per">UCA</th>
+        <th>N° piso</th>
+        <th>Fecha</th>
+        <th>MEP</th>
+        <th>ECS</th>
+        <th>ECC</th>
+        <th>Muros y columnas</th>
+        <th>Techos</th>
+        <th>Pisos</th>
+        <th>Puertas y ventanas</th>
+        <th>Revest</th>
+        <th>Baños</th>
+        <th>Inst. Elect. y Sanitarias</th>
+        <th>A. verificada</th>
+        <th>UCA</th>
       </tr>
     </thead>
     <tbody></tbody>
@@ -44,7 +44,7 @@
   <template id="filaTemplateConstruccion">
     <tr>
       <td>
-        <select class="a-input-text w-10-12" name="numero_piso">
+        <select class="a-input-text" name="numero_piso">
           <option value="0">Seleccione</option>
           <option value="1">1 piso</option>
           <option value="2">2 piso</option>
@@ -61,34 +61,34 @@
         </select>
       </td>
       <td>
-        <input class="w-10-12 a-input-text" name="fecha" type="date" />
+        <input class="a-input-text" name="fecha" type="date" />
       </td>
       <td>
-        <select class="w-10-12 a-input-text" name="mep"></select>
+        <select class="a-input-text" name="mep"></select>
       </td>
       <td>
-        <select class="w-10-12 a-input-text" name="ecs"></select>
+        <select class="a-input-text" name="ecs"></select>
       </td>
       <td>
-        <select class="w-10-12 a-input-text" name="ecc"></select>
+        <select class="a-input-text" name="ecc"></select>
       </td>
       <td>
-        <select class="w-10-12 a-input-text" name="muros_columnas"></select>
+        <select class="a-input-text" name="muros_columnas"></select>
       </td>
       <td>
-        <select class="w-10-12 a-input-text" name="techos"></select>
+        <select class="a-input-text" name="techos"></select>
       </td>
       <td>
-        <select class="w-10-12 a-input-text" name="pisos"></select>
+        <select class="a-input-text" name="pisos"></select>
       </td>
       <td>
-        <select class="w-10-12 a-input-text" name="puertas_ventanas"></select>
+        <select class="a-input-text" name="puertas_ventanas"></select>
       </td>
-      <td><input class="w-10-12 a-input-text" name="area_verificada" type="text" /></td>
-      <td><input class="w-10-12 a-input-text" name="" type="text" /></td>
-      <td><input class="w-10-12 a-input-text" name="" type="text" /></td>
-      <td><input class="w-10-12 a-input-text" name="" type="text" /></td>
-      <td><input class="w-10-12 a-input-text" name="" type="text" /></td>
+      <td><input class="a-input-text" name="area_verificada" type="text" /></td>
+      <td><input class="a-input-text" name="" type="text" /></td>
+      <td><input class="a-input-text" name="" type="text" /></td>
+      <td><input class="a-input-text" name="" type="text" /></td>
+      <td><input class="a-input-text" name="" type="text" /></td>
     </tr>
   </template>
 </div>

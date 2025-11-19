@@ -188,5 +188,5 @@ class Vias {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  new Vias();
+  window.vias = new Vias();
 });

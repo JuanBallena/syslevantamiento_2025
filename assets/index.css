@@ -2332,10 +2332,10 @@ label {
   color: var(--light, #626262) var(--dark, #ffffff);
   text-transform: uppercase;
   font-weight: 400;
-  font-size: 0.8rem;
+  /* font-size: 0.8rem; */
 }
 .table-default td {
-  font-size: 0.9rem;
+  /* font-size: 0.9rem; */
   height: 3.4rem;
   padding: 0 0.7rem 0 0.7rem;
   color: var(--light, #626262) var(--dark, #87888c);

@@ -120,8 +120,28 @@ class IdentificacionTitular {
 
     this.initSelectTipoDocumento(contenedorConyugue);
   }
+
+  getData() {
+    const formDataExtractor = new FormDataExtractor();
+
+    return {
+      tipoTitular: document.querySelector('[name="tipo_titular"]').value,
+      personaNatural: formDataExtractor.obtenerDatosDesdeDataset(
+        'identificacion-titular',
+        '[data-tipo="natural"]'
+      ),
+      personaJuridica: formDataExtractor.obtenerDatosDesdeDataset(
+        'identificacion-titular',
+        '[data-tipo="juridica"]'
+      ),
+      conyugue: formDataExtractor.obtenerDatosDesdeDataset(
+        'identificacion-titular',
+        '[data-tipo="conyugue"]'
+      ),
+    };
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  new IdentificacionTitular();
+  window.identificacionTitular = new IdentificacionTitular();
 });

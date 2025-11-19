@@ -18,4 +18,9 @@ window.ENDPOINTS = {
   obtenerCodigosInstalaciones: 'obtenerCodigosInstalaciones.php',
   obtenerTipoDocumentos: 'obtenerTipoDocumentos.php',
   obtenerNotarias: 'obtenerNotarias.php',
+  obtenerCondicionesDeclarantes: 'obtenerCondicionesDeclarantes.php',
+  obtenerEstadosFichas: 'obtenerEstadosFichas.php',
+  obtenerMantenimientos: 'obtenerMantenimientos.php',
+  obtenerPersonasPorNombresApellidos: 'obtenerPersonasPorNombresApellidos.php',
+  obtenerDeclarantesPorDni: 'obtenerDeclarantesPorDni.php',
 };

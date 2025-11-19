@@ -67,58 +67,56 @@ document.getElementById('form-ficha-individual').addEventListener('submit', asyn
   }
 });
 
-function mostrarErrores(text) {
-  const errorMsg = text?.toLowerCase() || '';
-  let mensaje = '';
+// function mostrarErrores(text) {
+//   const errorMsg = text?.toLowerCase() || '';
+//   let mensaje = '';
 
-  if (errorMsg.includes('llave duplicada')) {
-    if (errorMsg.includes('lotes')) {
-      mensaje = '⚠️ El lote ya fue registrado anteriormente.';
-    } else if (errorMsg.includes('edificacion')) {
-      mensaje = '⚠️ La edificación ya existe para este lote.';
-    } else if (errorMsg.includes('puerta')) {
-      mensaje = '⚠️ Ya existe una puerta registrada con ese código.';
-    }
-  }
+//   if (errorMsg.includes('llave duplicada')) {
+//     if (errorMsg.includes('lotes')) {
+//       mensaje = '⚠️ El lote ya fue registrado anteriormente.';
+//     } else if (errorMsg.includes('edificacion')) {
+//       mensaje = '⚠️ La edificación ya existe para este lote.';
+//     } else if (errorMsg.includes('puerta')) {
+//       mensaje = '⚠️ Ya existe una puerta registrada con ese código.';
+//     }
+//   }
 
-  if (mensaje !== '') alert(mensaje);
-}
+//   if (mensaje !== '') alert(mensaje);
+// }
 
-function asignarValor(result, name, value) {
-  if (name.endsWith('[]')) {
-    const cleanName = name.replace('[]', '');
-    if (!result[cleanName]) {
-      result[cleanName] = [];
-    }
-    result[cleanName].push(value);
-  } else {
-    result[name] = value;
-  }
-}
+// function asignarValor(result, name, value) {
+//   if (name.endsWith('[]')) {
+//     const cleanName = name.replace('[]', '');
+//     if (!result[cleanName]) {
+//       result[cleanName] = [];
+//     }
+//     result[cleanName].push(value);
+//   } else {
+//     result[name] = value;
+//   }
+// }
 
-function obtenerDatosDesdeContenedor(
-  idContenedor,
-  selectorCampos = 'input[name], select[name], textarea[name]'
-) {
-  const contenedor = document.getElementById(idContenedor);
-  if (!contenedor) {
-    console.warn(`No se encontró el contenedor con id "${idContenedor}"`);
-    return {};
-  }
+// function obtenerDatosDesdeContenedor(
+//   idContenedor,
+//   selectorCampos = 'input[name], select[name], textarea[name]'
+// ) {
+//   const contenedor = document.getElementById(idContenedor);
+//   if (!contenedor) {
+//     console.warn(`No se encontró el contenedor con id "${idContenedor}"`);
+//     return {};
+//   }
 
-  const campos = contenedor.querySelectorAll(selectorCampos);
-  const result = {};
+//   const campos = contenedor.querySelectorAll(selectorCampos);
+//   const result = {};
 
-  campos.forEach((campo) => {
-    const name = campo.name;
-    const value = evaluarValorInput(campo);
-    asignarValor(result, name, value);
-  });
+//   campos.forEach((campo) => {
+//     const name = campo.name;
+//     const value = evaluarValorInput(campo);
+//     asignarValor(result, name, value);
+//   });
 
-  console.log(result);
-
-  return result;
-}
+//   return result;
+// }
 
 function obtenerIdentificacionTitularCatastral() {
   const personasNaturales = obtenerPersonas('contenedor-personas-naturales', 'natural');
@@ -454,30 +452,30 @@ function obtenerDatosVerificador() {
   };
 }
 
-function evaluarValorInput(input) {
-  let value = input.value?.trim() ?? '';
+// function evaluarValorInput(input) {
+//   let value = input.value?.trim() ?? '';
 
-  // Si el valor está vacío, devolver un valor según el tipo
-  if (!value) {
-    switch (input.type) {
-      case 'number':
-        return 0;
-      case 'checkbox':
-        return input.checked;
-      default: // text, select, etc.
-        return '';
-    }
-  }
+//   // Si el valor está vacío, devolver un valor según el tipo
+//   if (!value) {
+//     switch (input.type) {
+//       case 'number':
+//         return 0;
+//       case 'checkbox':
+//         return input.checked;
+//       default: // text, select, etc.
+//         return '';
+//     }
+//   }
 
-  // Si es tipo number, convertir a número
-  if (input.type === 'number' && !isNaN(value)) {
-    return Number(value);
-  }
+//   // Si es tipo number, convertir a número
+//   if (input.type === 'number' && !isNaN(value)) {
+//     return Number(value);
+//   }
 
-  // Si es checkbox, devolver si está marcado
-  if (input.type === 'checkbox') {
-    return input.checked;
-  }
+//   // Si es checkbox, devolver si está marcado
+//   if (input.type === 'checkbox') {
+//     return input.checked;
+//   }
 
-  return value;
-}
+//   return value;
+// }

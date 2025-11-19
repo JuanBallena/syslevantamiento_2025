@@ -6,18 +6,29 @@
       <span class="box-label-blue">112</span>Evaluación del Predio Catastral
     </p>
 
-    <div class="flex gap-x-1">
-      <label> <input type="radio" name="color" value="rojo" /> Predio Catastral Omiso </label><br />
+    <div class="flex gap-x-4">
+      <label class="custom-radio">
+        <input type="radio" name="tipo_predio[]" />
+        <span class="checkmark"></span>
+        Predio Catastral Omiso
+      </label>
 
-      <label> <input type="radio" name="color" value="gris" /> Predio Catastral Subvaluado </label
-      ><br />
+      <label class="custom-radio">
+        <input type="radio" name="tipo_predio[]" />
+        <span class="checkmark"></span>
+        Predio Catastral Subvaluado
+      </label>
 
-      <label>
-        <input type="radio" name="color" value="negro" /> Predio Catastral Sobrevaluado </label
-      ><br />
+      <label class="custom-radio">
+        <input type="radio" name="tipo_predio[]" />
+        <span class="checkmark"></span>
+        Predio Catastral Sobrevaluado
+      </label>
 
-      <label>
-        <input type="radio" name="color" value="amarillo" /> Predio Catastral Conforme
+      <label class="custom-radio">
+        <input type="radio" name="tipo_predio[]" />
+        <span class="checkmark"></span>
+        Predio Catastral Conforme
       </label>
     </div>
   </div>
@@ -28,19 +39,19 @@
   <div class="grid grid-cols-5 gap-1">
     <div>
       <label>En lote colindante</label>
-      <input class="a-input-text" type="number" value="2" name="en_lote_colindante" />
+      <input class="a-input-text" type="number" name="en_lote_colindante" />
     </div>
     <div>
       <label>En área pública</label>
-      <input class="a-input-text" type="number" value="2" name="en_area_publica" />
+      <input class="a-input-text" type="number" name="en_area_publica" />
     </div>
     <div>
       <label>En jardín de aislamiento</label>
-      <input class="a-input-text" type="number" value="2" name="en_jardin_aislamiento" />
+      <input class="a-input-text" type="number" name="en_jardin_aislamiento" />
     </div>
     <div>
       <label>En área intangible</label>
-      <input class="a-input-text" type="number" value="2" name="en_area_intangible" />
+      <input class="a-input-text" type="number" name="en_area_intangible" />
     </div>
   </div>
 </div>

@@ -12,60 +12,103 @@ class FormBackup {
     this.registerEvents();
   }
 
-  // 🔵 Restaurar valores desde localStorage sin sobreescribir predeterminados
-  restore() {
-    const saved = localStorage.getItem(this.storageKey);
-    if (!saved) return;
+  // -----------------------------------------------------
+  // Convierte names con formato "a[b][c][0][x]" en paths
+  // -----------------------------------------------------
+  parseName(name) {
+    return name.replace(/\]/g, '').split('[');
+  }
 
-    const data = JSON.parse(saved);
+  // -----------------------------------------------------
+  // Asigna valor profundo según el name del input
+  // -----------------------------------------------------
+  setDeep(obj, pathArray, value) {
+    let current = obj;
 
-    Object.keys(data).forEach((name) => {
-      const field = this.form.querySelector(`[name="${name}"]`);
-      if (!field) return;
+    pathArray.forEach((key, i) => {
+      const isLast = i === pathArray.length - 1;
 
-      // --- REGLA NUEVA ---
-      // No reemplazar si el campo ya tiene valor predeterminado
-      if (field.type !== 'checkbox' && field.type !== 'radio') {
-        if (field.value && field.value.trim() !== '') return; // ya tiene valor → no restaurar
+      if (!isLast) {
+        // Crear array si el siguiente índice es numérico
+        const nextKey = pathArray[i + 1];
+        if (!current[key]) {
+          current[key] = isNaN(nextKey) ? {} : [];
+        }
+        current = current[key];
       } else {
-        if (field.checked === true) return; // si ya está marcado por defecto → no restaurar
-      }
-      // ---------------------
-
-      // Restaurar desde respaldo
-      if (field.type === 'checkbox' || field.type === 'radio') {
-        field.checked = data[name];
-      } else {
-        field.value = data[name];
+        current[key] = value;
       }
     });
-
-    console.log(`FormBackup: Datos restaurados desde "${this.storageKey}"`);
   }
 
-  // Guardar en cada cambio
-  registerEvents() {
-    this.form.addEventListener('input', () => this.save());
-  }
-
-  // Guardar datos del formulario
+  // -----------------------------------------------------
+  // Lee el formulario y lo guarda como objeto anidado
+  // -----------------------------------------------------
   save() {
     const data = {};
 
     [...this.form.elements].forEach((el) => {
       if (!el.name) return;
 
-      if (el.type === 'checkbox' || el.type === 'radio') {
-        data[el.name] = el.checked;
-      } else {
-        data[el.name] = el.value;
-      }
+      const path = this.parseName(el.name);
+      const value = el.type === 'checkbox' || el.type === 'radio' ? el.checked : el.value;
+
+      this.setDeep(data, path, value);
     });
 
     localStorage.setItem(this.storageKey, JSON.stringify(data));
   }
 
-  // Borrar el backup manualmente
+  // -----------------------------------------------------
+  // Restaura un input si coincide el name exacto
+  // Sin sobrescribir valores predeterminados.
+  // -----------------------------------------------------
+  restore() {
+    const saved = localStorage.getItem(this.storageKey);
+    if (!saved) return;
+
+    const data = JSON.parse(saved);
+
+    const restoreRecursive = (obj, prefix = '') => {
+      Object.keys(obj).forEach((key) => {
+        const fullName = prefix ? `${prefix}[${key}]` : key;
+        const value = obj[key];
+
+        if (typeof value === 'object' && value !== null) {
+          restoreRecursive(value, fullName);
+        } else {
+          const field = this.form.querySelector(`[name="${fullName}"]`);
+          if (!field) return;
+
+          // No sobrescribir valores predeterminados
+          if (field.type === 'checkbox' || field.type === 'radio') {
+            if (!field.defaultChecked) field.checked = value;
+          } else {
+            if (!field.value) field.value = value;
+          }
+        }
+      });
+    };
+
+    restoreRecursive(data);
+  }
+
+  registerEvents() {
+    // Cambios manuales del usuario
+    this.form.addEventListener('input', () => this.save());
+
+    // Cambios en selects o cambios hechos por JS
+    this.form.addEventListener('change', () => this.save());
+
+    // Mutaciones del DOM (por ejemplo: agregar vías, puertas, inputs nuevos)
+    const observer = new MutationObserver(() => this.save());
+    observer.observe(this.form, {
+      subtree: true,
+      childList: true,
+      attributes: true,
+    });
+  }
+
   clear() {
     localStorage.removeItem(this.storageKey);
     console.log(`FormBackup: Backup "${this.storageKey}" eliminado`);
@@ -73,16 +116,10 @@ class FormBackup {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const backup = new FormBackup(
+  window.backup = new FormBackup(
     '#formulario-ficha-urbana-individual',
     'backup_ficha_urbana_individual'
   );
 
   console.log('Guardando...');
 });
-
-// Para eliminar datos luego de guardar
-function guardar() {
-  // tu lógica de guardado...
-  backup.clear();
-}

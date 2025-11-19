@@ -24,8 +24,14 @@ class Cabecera {
       this.numeFicha.select();
     }
   }
+
+  getData() {
+    const formDataExtractor = new FormDataExtractor();
+
+    return formDataExtractor.obtenerDatosDesdeContenedor('cabecera');
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  new Cabecera();
+  window.cabecera = new Cabecera();
 });

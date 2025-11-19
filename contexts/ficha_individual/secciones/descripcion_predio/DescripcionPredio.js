@@ -100,8 +100,14 @@ class DescripcionPredio {
       },
     });
   }
+
+  getData() {
+    const formDataExtractor = new FormDataExtractor();
+
+    return formDataExtractor.obtenerDatosDesdeContenedor('descripcion-predio');
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  new DescripcionPredio();
+  window.descripcionPredio = new DescripcionPredio();
 });

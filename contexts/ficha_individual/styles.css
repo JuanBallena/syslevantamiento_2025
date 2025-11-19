@@ -499,3 +499,51 @@
   background: tomato;
   margin-right: 3px;
 }
+
+.table-uniform {
+  table-layout: fixed;
+  width: 100%;
+}
+
+/* radio button */
+/* Ocultar el radio original */
+.custom-radio {
+  position: relative;
+  padding-left: 25px;
+  cursor: pointer;
+  font-size: 14px;
+  user-select: none;
+  display: flex;
+  align-items: center;
+}
+
+/* Input original oculto */
+.custom-radio input[type='radio'] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Círculo del radio */
+.custom-radio .checkmark {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  border: 2px solid #8fd19e; /* verde claro */
+  transition: all 0.2s ease-in-out;
+}
+
+/* Cuando está seleccionado */
+.custom-radio input:checked ~ .checkmark {
+  background-color: #8fd19e; /* verde claro */
+  border-color: #8fd19e;
+}
+
+/* Hover */
+.custom-radio:hover .checkmark {
+  border-color: #6ec587; /* verde un poco más fuerte al pasar */
+}

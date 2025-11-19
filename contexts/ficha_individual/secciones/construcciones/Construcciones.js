@@ -6,6 +6,8 @@ class Construcciones {
     this.rowCount = 0;
     this.tbody = document.querySelector('#tabla-construcciones tbody');
     this.template = document.querySelector('#filaTemplateConstruccion');
+
+    this.init();
   }
 
   async init() {
@@ -124,17 +126,14 @@ class Construcciones {
       defaultText: 'Seleccione',
     });
   }
+
+  getData() {
+    const formDataExtractor = new FormDataExtractor();
+
+    return formDataExtractor.obtenerDatosDesdeTabla('tabla-construcciones');
+  }
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  let construcciones = new Construcciones();
-
-  await construcciones.init();
-
-  let obrasComplementarias = new ObrasComplementarias();
-
-  obrasComplementarias.cargarTipoMaterialesYCategorias(
-    construcciones.tipoMateriales,
-    construcciones.tipoCategorias
-  );
+  window.construcciones = new Construcciones();
 });

@@ -7,21 +7,29 @@ class ObrasComplementarias {
 
     this.codigosInstalaciones = [];
     this.tipoMateriales = [];
-    this.tipoCategorias = [];
 
     this.init();
   }
 
-  cargarTipoMaterialesYCategorias(tipoMateriales, tipoCategorias) {
-    console.log(tipoMateriales);
-    this.tipoMateriales = tipoMateriales;
-    this.tipoCategorias = tipoCategorias;
-  }
-
   async init() {
+    await this.cargarTiposMateriales();
     await this.cargarCodigosInstalaciones();
 
     document.querySelector('#btn-add-row-obras').addEventListener('click', this.addRow.bind(this));
+  }
+
+  async cargarTiposMateriales() {
+    try {
+      const res = await ServicioTipoMateriales.obtenerTipoMateriales();
+
+      if (res && res.success && Array.isArray(res.data)) {
+        this.tipoMateriales = res.data;
+      } else {
+        console.warn('ServicioTipoMateriales: respuesta inválida', res);
+      }
+    } catch (err) {
+      console.error('Error al obtener tipo materiales:', err);
+    }
   }
 
   async cargarCodigosInstalaciones() {
@@ -88,4 +96,14 @@ class ObrasComplementarias {
       defaultText: 'Seleccione',
     });
   }
+
+  getData() {
+    const formDataExtractor = new FormDataExtractor();
+
+    return formDataExtractor.obtenerDatosDesdeTabla('tabla-obras-complementarias');
+  }
 }
+
+document.addEventListener('DOMContentLoaded', async () => {
+  window.obrasComplementarias = new ObrasComplementarias();
+});

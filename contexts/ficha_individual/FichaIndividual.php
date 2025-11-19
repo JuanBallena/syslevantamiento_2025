@@ -12,7 +12,7 @@
     <link href="../../assets/index.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <div class="o-main max-h-screen px-20 bg-whit" style="overflow: auto">
+    <div class="o-main max-h-screen px-20 bg-white" style="overflow: auto">
       <form
         method="post"
         autocomplete="off"
@@ -55,6 +55,7 @@
     <script type="text/javascript" src="./../_shared/SelectDinamico.js"></script>
     <script type="text/javascript" src="./../_shared/Helper.js"></script>
     <script type="text/javascript" src="./../_shared/FormBackup.js"></script>
+    <script type="text/javascript" src="./../_shared/FormDataExtractor.js"></script>
 
     <!-- SERVICES -->
     <script type="text/javascript" src="./../_services/BaseServicio.js"></script>
@@ -73,6 +74,11 @@
     <script type="text/javascript" src="./../_services/ServicioCodigosInstalaciones.js"></script>
     <script type="text/javascript" src="./../_services/ServicioTipoDocumentos.js"></script>
     <script type="text/javascript" src="./../_services/ServicioNotarias.js"></script>
+    <script type="text/javascript" src="./../_services/ServicioEstadosFichas.js"></script>
+    <script type="text/javascript" src="./../_services/ServicioMantenimientos.js"></script>
+    <script type="text/javascript" src="./../_services/ServicioCondicionesDeclarantes.js"></script>
+    <script type="text/javascript" src="./../_services/ServicioPersonas.js"></script>
+    <script type="text/javascript" src="./../_services/ServicioDeclarantes.js"></script>
 
     <!-- SECCIONES -->
     <script type="text/javascript" src="./../ficha_individual/secciones/cabecera/Cabecera.js"></script>
@@ -84,13 +90,19 @@
     <script type="text/javascript" src="./../ficha_individual/secciones/identificacion_titular/FormularioPersonaNatural.js"></script>
     <script type="text/javascript" src="./../ficha_individual/secciones/identificacion_titular/FormularioPersonaJuridica.js"></script>
     <script type="text/javascript" src="./../ficha_individual/secciones/identificacion_titular/FormularioConyugue.js"></script>
+    <script type="text/javascript" src="./../ficha_individual/secciones/domicilio_titular/DomicilioTitular.js"></script>
     <script type="text/javascript" src="./../ficha_individual/secciones/caracteristicas_titularidad//CaracteristicasTitularidad.js"></script>
     <script type="text/javascript" src="./../ficha_individual/secciones/descripcion_predio/DescripcionPredio.js"></script>
+    <script type="text/javascript" src="./../ficha_individual/secciones/servicios_basicos/ServiciosBasicos.js"></script>
     <script type="text/javascript" src="./../ficha_individual/secciones/construcciones/Construcciones.js"></script>
     <script type="text/javascript" src="./../ficha_individual/secciones/obras_complementarias/ObrasComplementarias.js"></script>
     <script type="text/javascript" src="./../ficha_individual/secciones/documentos/Documentos.js"></script>
-    
-  
+    <script type="text/javascript" src="./../ficha_individual/secciones/inscripcion_predio/InscripcionPredio.js"></script>
+    <script type="text/javascript" src="./../ficha_individual/secciones/evaluacion_predio/EvaluacionPredio.js"></script>
+    <script type="text/javascript" src="./../ficha_individual/secciones/informacion_complementaria/InformacionComplementaria.js"></script>
+    <script type="text/javascript" src="./../ficha_individual/secciones/observaciones/Observaciones.js"></script>
+    <script type="text/javascript" src="./../ficha_individual/secciones/firmas/Firmas.js"></script>
+
     <script type="text/javascript" src="./../ficha_individual/ControladorFichaUrbanaIndividual.js"></script>
 
   </body>

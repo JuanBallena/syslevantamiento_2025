@@ -6,38 +6,27 @@
 
   <div class="grid grid-cols-5 gap-1">
     <div>
-      <label>Dni</label>
-      <div class="a-autocomplete">
-        <input
-          class="a-input-text"
-          type="text"
-          value="12345678"
-          name="dni"
-          oninput="soloNumeros(this); limitarCaracteres(this, 8)"
-          onkeyup="buscarDeclarante(this)"
-          required
-        />
+      <label>DNI</label>
+      <div>
+        <input class="a-input-text" placeholder="Escriba" type="text" name="dni" />
         <input type="checkbox" class="none" name="existe_declarante" />
-        <div class="a-autocomplete__box none" onmousedown="event.preventDefault()">
-          <ul class="a-autocomplete__items cursor-pointer"></ul>
-        </div>
       </div>
     </div>
     <div>
       <label>Nombres</label>
-      <input class="a-input-text" type="text" name="nombres" value="Juan" />
+      <input class="a-input-text" type="text" name="nombres" />
     </div>
     <div>
       <label>Apellido Paterno</label>
-      <input class="a-input-text" type="text" name="ape_paterno" value="Rosales" />
+      <input class="a-input-text" type="text" name="ape_paterno" />
     </div>
     <div>
       <label>Apellido Materno</label>
-      <input class="a-input-text" type="text" name="ape_materno" value="Rosales" />
+      <input class="a-input-text" type="text" name="ape_materno" />
     </div>
     <div>
       <label>Fecha Levantamiento</label>
-      <input class="a-input-text" type="date" name="fecha_declarante" required value="2025-05-05" />
+      <input class="a-input-text" type="date" name="fecha" />
     </div>
   </div>
 </div>
@@ -52,36 +41,32 @@
     <div>
       <label>Buscar por Nomb/Ape</label>
 
-      <div class="a-autocomplete">
+      <div>
         <input
-          class="a-input-text autocompletado-dni"
-          data-url="obtenerPersonas"
-          data-tipo="datos-supervisor"
+          class="a-input-text dni-persona"
+          data-section="datos-supervisor"
+          name="dni"
           type="text"
-          required
           placeholder="Escriba"
         />
-        <input type="hidden" class="input-hidden-dni" name="dni" />
-        <div class="a-autocomplete__box none" onmousedown="event.preventDefault()">
-          <ul class="a-autocomplete__items cursor-pointer"></ul>
-        </div>
+        <input type="hidden" name="dni" />
       </div>
     </div>
     <div>
       <label>Nombres</label>
-      <input class="a-input-text" type="text" name="nombres" required disabled />
+      <input class="a-input-text" type="text" name="nombres" disabled />
     </div>
     <div>
       <label>Apellido Paterno</label>
-      <input class="a-input-text" type="text" name="apellido_paterno" required disabled />
+      <input class="a-input-text" type="text" name="ape_paterno" disabled />
     </div>
     <div>
       <label>Apellido Materno</label>
-      <input class="a-input-text" type="text" name="apellido_materno" required disabled />
+      <input class="a-input-text" type="text" name="ape_materno" disabled />
     </div>
     <div>
       <label>Fecha Levantamiento</label>
-      <input class="a-input-text" type="date" name="fecha" required value="2025-05-05" />
+      <input class="a-input-text" type="date" name="fecha" />
     </div>
   </div>
 </div>
@@ -93,36 +78,31 @@
   <div class="grid grid-cols-5 gap-1">
     <div>
       <label>Buscar por Nomb/Ape</label>
-      <div class="a-autocomplete">
+      <div>
         <input
-          class="a-input-text autocompletado-dni"
-          data-url="obtenerPersonas"
-          data-tipo="datos-tecnico"
+          class="a-input-text dni-persona"
+          data-section="datos-tecnico"
           type="text"
-          required
           placeholder="Escriba"
         />
-        <input type="hidden" class="input-hidden-dni" name="dni" />
-        <div class="a-autocomplete__box none" onmousedown="event.preventDefault()">
-          <ul class="a-autocomplete__items cursor-pointer"></ul>
-        </div>
+        <input type="hidden" name="dni" />
       </div>
     </div>
     <div>
       <label>Nombres</label>
-      <input class="a-input-text" type="text" name="nombres" required disabled />
+      <input class="a-input-text" type="text" name="nombres" disabled />
     </div>
     <div>
       <label>Apellido Paterno</label>
-      <input class="a-input-text" type="text" name="apellido_paterno" required disabled />
+      <input class="a-input-text" type="text" name="ape_paterno" disabled />
     </div>
     <div>
       <label>Apellido Materno</label>
-      <input class="a-input-text" type="text" name="apellido_materno" required disabled />
+      <input class="a-input-text" type="text" name="ape_materno" disabled />
     </div>
     <div>
       <label>Fecha Levantamiento</label>
-      <input class="a-input-text" type="date" name="fecha" required value="2025-05-05" />
+      <input class="a-input-text" type="date" name="fecha" />
     </div>
   </div>
 </div>
@@ -136,46 +116,30 @@
   <div class="grid grid-cols-5 gap-1">
     <div>
       <label>Buscar por Nomb/Ape</label>
-      <div class="a-autocomplete">
-        <input
-          class="a-input-text autocompletado-dni"
-          data-url="obtenerPersonas"
-          data-tipo="datos-verificador"
-          type="text"
-          required
-        />
-        <input type="hidden" class="input-hidden-dni" name="dni" />
-        <div class="a-autocomplete__box none" onmousedown="event.preventDefault()">
-          <ul class="a-autocomplete__items cursor-pointer"></ul>
-        </div>
+      <div>
+        <input class="a-input-text dni-persona" data-section="datos-verificador" type="text" />
+        <input type="hidden" name="dni" />
       </div>
     </div>
     <div>
       <label>Nombres</label>
-      <input class="a-input-text" type="text" name="nombres" required disabled />
+      <input class="a-input-text" type="text" name="nombres" disabled />
     </div>
     <div>
       <label>Apellido Paterno</label>
-      <input class="a-input-text" type="text" name="apellido_paterno" required disabled />
+      <input class="a-input-text" type="text" name="ape_paterno" disabled />
     </div>
     <div>
       <label>Apellido Materno</label>
-      <input class="a-input-text" type="text" name="apellido_materno" required disabled />
+      <input class="a-input-text" type="text" name="ape_materno" disabled />
     </div>
     <div>
       <label>Fecha Levantamiento</label>
-      <input class="a-input-text" type="date" name="fecha" required value="2025-05-05" />
+      <input class="a-input-text" type="date" name="fecha" />
     </div>
     <div>
       <label>Nro. Registro</label>
-      <input
-        class="a-input-text"
-        type="text"
-        name="numero_registro"
-        required
-        value="5454"
-        oninput="soloNumeros(this); limitarCaracteres(this, 8)"
-      />
+      <input class="a-input-text" type="text" name="nume_registro" />
     </div>
   </div>
 </div>

@@ -85,8 +85,17 @@ class Documentos {
       defaultText: 'Seleccione',
     });
   }
+
+  getData() {
+    const formDataExtractor = new FormDataExtractor();
+
+    return {
+      registroNotarial: formDataExtractor.obtenerDatosDesdeContenedor('documentos'),
+      lista: formDataExtractor.obtenerDatosDesdeTabla('tabla-documentos'),
+    };
+  }
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  new Documentos();
+  window.documentos = new Documentos();
 });

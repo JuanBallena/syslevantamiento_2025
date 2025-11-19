@@ -1,4 +1,5 @@
-class DomicilioTitular {
+class Observaciones {
+  //
   constructor() {
     //
   }
@@ -6,9 +7,10 @@ class DomicilioTitular {
   getData() {
     const formDataExtractor = new FormDataExtractor();
 
-    return formDataExtractor.obtenerDatosDesdeContenedor('domicilio-titular');
+    return formDataExtractor.obtenerDatosDesdeContenedor('observaciones');
   }
 }
+
 document.addEventListener('DOMContentLoaded', async () => {
-  window.domicilioTitular = new DomicilioTitular();
+  window.observaciones = new Observaciones();
 });
