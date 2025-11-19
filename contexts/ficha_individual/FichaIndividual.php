@@ -12,7 +12,7 @@
     <link href="../../assets/index.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <div class="o-main max-h-screen px-20 bg-white" style="overflow: auto">
+    <div class="o-main max-h-screen px-20 bg-whit" style="overflow: auto">
       <form
         method="post"
         autocomplete="off"
