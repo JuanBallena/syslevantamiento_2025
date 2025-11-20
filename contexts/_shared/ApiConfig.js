@@ -23,4 +23,7 @@ window.ENDPOINTS = {
   obtenerMantenimientos: 'obtenerMantenimientos.php',
   obtenerPersonasPorNombresApellidos: 'obtenerPersonasPorNombresApellidos.php',
   obtenerDeclarantesPorDni: 'obtenerDeclarantesPorDni.php',
+  obtenerTipoUcas: 'obtenerTipoUcas.php',
+  obtenerTiposEcs: 'obtenerTiposEcs.php',
+  obtenerTiposEcc: 'obtenerTiposEcc.php',
 };

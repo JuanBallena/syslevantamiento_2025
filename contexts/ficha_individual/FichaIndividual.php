@@ -23,24 +23,39 @@
           <div class="text-center text-14 text-600 mb-8">Ficha Catastral Urbana Individual</div>
 
           <?php include 'secciones/cabecera/Cabecera.html' ?>
+          <br>
           <?php include 'secciones/datos_generales/DatosGenerales.html' ?>
+          <br>
           <?php include 'secciones/ubicacion_predio/UbicacionPredio.html' ?>
+          <br>
           <?php include 'secciones/identificacion_titular/IdentificacionTitular.html' ?>
+          <br>
           <?php include 'secciones/domicilio_titular/DomicilioTitular.html' ?>
+          <br>
           <?php include 'secciones/caracteristicas_titularidad/CaracteristicasTitularidad.html' ?>
+          <br>
           <?php include 'secciones/descripcion_predio/DescripcionPredio.html' ?>
+          <br>
           <?php include 'secciones/servicios_basicos/ServiciosBasicos.html' ?>
+          <br>
           <?php include 'secciones/construcciones/Construcciones.html' ?>
+          <br>
           <?php include 'secciones/obras_complementarias/ObrasComplementarias.html' ?>
+          <br>
           <?php include 'secciones/documentos/Documentos.html' ?>
+          <br>
           <?php include 'secciones/inscripcion_predio/InscripcionPredio.html' ?>
+          <br>
           <?php include 'secciones/evaluacion_predio/EvaluacionPredio.html' ?>
+          <br>
           <?php include 'secciones/informacion_complementaria/InformacionComplementaria.html' ?>
+          <br>
           <?php include 'secciones/observaciones/Observaciones.html' ?>
+          <br>
           <?php include 'secciones/firmas/Firmas.html' ?>
 
           <div class="w-3-12">
-            <div class="grid grid-cols-2 gap-x-1 mb-8">
+            <div class="grid grid-cols-2 gap-x-1 mb-4">
               <button class="a-btn btn-accent">Cancelar</button>
               <button type="submit" class="a-btn btn-success">Grabar</button>
             </div>
@@ -79,6 +94,9 @@
     <script type="text/javascript" src="./../_services/ServicioCondicionesDeclarantes.js"></script>
     <script type="text/javascript" src="./../_services/ServicioPersonas.js"></script>
     <script type="text/javascript" src="./../_services/ServicioDeclarantes.js"></script>
+    <script type="text/javascript" src="./../_services/ServicioTiposEcc.js"></script>
+    <script type="text/javascript" src="./../_services/ServicioTiposEcs.js"></script>
+    <script type="text/javascript" src="./../_services/ServicioTipoUcas.js"></script>
 
     <!-- SECCIONES -->
     <script type="text/javascript" src="./../ficha_individual/secciones/cabecera/Cabecera.js"></script>
@@ -94,8 +112,8 @@
     <script type="text/javascript" src="./../ficha_individual/secciones/caracteristicas_titularidad//CaracteristicasTitularidad.js"></script>
     <script type="text/javascript" src="./../ficha_individual/secciones/descripcion_predio/DescripcionPredio.js"></script>
     <script type="text/javascript" src="./../ficha_individual/secciones/servicios_basicos/ServiciosBasicos.js"></script>
-    <script type="text/javascript" src="./../ficha_individual/secciones/construcciones/Construcciones.js"></script>
     <script type="text/javascript" src="./../ficha_individual/secciones/obras_complementarias/ObrasComplementarias.js"></script>
+    <script type="text/javascript" src="./../ficha_individual/secciones/construcciones/Construcciones.js"></script>
     <script type="text/javascript" src="./../ficha_individual/secciones/documentos/Documentos.js"></script>
     <script type="text/javascript" src="./../ficha_individual/secciones/inscripcion_predio/InscripcionPredio.js"></script>
     <script type="text/javascript" src="./../ficha_individual/secciones/evaluacion_predio/EvaluacionPredio.js"></script>

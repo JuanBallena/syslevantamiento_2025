@@ -11,7 +11,7 @@ class DescripcionPredio {
     this.initSelectCondEn();
   }
 
-  initAutocompleteUso() {
+  async initAutocompleteUso() {
     this.autocompleteUso = new Autocomplete({
       input: this.descUso,
       inputHidden: this.hiddenCodiUso,
@@ -23,6 +23,12 @@ class DescripcionPredio {
       },
     });
 
+    // const res = await ServicioUsos.obtenerUsosPorDescripcion();
+
+    // if (res.success && Array.isArray(res.data)) {
+    //   this.autocompleteUso.updateData(res.data);
+    // }
+
     // Escuchar cuando el usuario escribe
     this.descUso.addEventListener('input', this.buscarUsos.bind(this));
   }
@@ -30,8 +36,8 @@ class DescripcionPredio {
   async buscarUsos(e) {
     const texto = e.target.value.trim();
 
-    if (texto.length < 2) {
-      this.autocompleteUso.updateData([]);
+    if (texto.length < 1) {
+      // this.autocompleteUso.updateData([]);
       return;
     }
 
@@ -41,7 +47,7 @@ class DescripcionPredio {
       if (res.success && Array.isArray(res.data)) {
         this.autocompleteUso.updateData(res.data);
       } else {
-        this.autocompleteUso.updateData([]);
+        // this.autocompleteUso.updateData([]);
       }
     } catch (err) {
       console.error('Error al buscar usos:', err);

@@ -1,20 +1,30 @@
 class Construcciones {
   constructor() {
     this.tipoMateriales = [];
+    this.tiposEcs = [];
+    this.tiposEcc = [];
     this.tipoCategorias = [];
+    this.tipoUcas = [];
 
     this.rowCount = 0;
     this.tbody = document.querySelector('#tabla-construcciones tbody');
     this.template = document.querySelector('#filaTemplateConstruccion');
 
-    this.init();
+    // this.init();
   }
 
   async init() {
     await this.cargarTiposMateriales();
-    await this.cargarTipoCategoria();
+    await this.cargarTiposEcs();
+    await this.cargarTiposEcc();
+    await this.cargarTipoCategorias();
+    await this.cargarTipoUcas();
 
     document.querySelector('#btn-add-row').addEventListener('click', this.addRow.bind(this));
+  }
+
+  getTipoCategorias() {
+    return this.tipoCategorias;
   }
 
   async cargarTiposMateriales() {
@@ -31,7 +41,35 @@ class Construcciones {
     }
   }
 
-  async cargarTipoCategoria() {
+  async cargarTiposEcs() {
+    try {
+      const res = await ServicioTiposEcs.obtenerTiposEcs();
+
+      if (res && res.success && Array.isArray(res.data)) {
+        this.tiposEcs = res.data;
+      } else {
+        console.warn('ServicioTiposEcs: respuesta inválida', res);
+      }
+    } catch (err) {
+      console.error('Error al obtener tipos ecs:', err);
+    }
+  }
+
+  async cargarTiposEcc() {
+    try {
+      const res = await ServicioTiposEcc.obtenerTiposEcc();
+
+      if (res && res.success && Array.isArray(res.data)) {
+        this.tiposEcc = res.data;
+      } else {
+        console.warn('ServicioTiposEcc: respuesta inválida', res);
+      }
+    } catch (err) {
+      console.error('Error al obtener tipos ecc:', err);
+    }
+  }
+
+  async cargarTipoCategorias() {
     try {
       const res = await ServicioTipoCategorias.obtenerTipoCategorias();
 
@@ -42,6 +80,20 @@ class Construcciones {
       }
     } catch (err) {
       console.error('Error al obtener tipo categorías:', err);
+    }
+  }
+
+  async cargarTipoUcas() {
+    try {
+      const res = await ServicioTipoUcas.obtenerTipoUcas();
+
+      if (res && res.success && Array.isArray(res.data)) {
+        this.tipoUcas = res.data;
+      } else {
+        console.warn('ServicioTipoUcas: respuesta inválida', res);
+      }
+    } catch (err) {
+      console.error('Error al obtener tipo ucas:', err);
     }
   }
 
@@ -65,10 +117,11 @@ class Construcciones {
     const selectECS = newRow.querySelector('select[name="ecs"]');
     const selectECC = newRow.querySelector('select[name="ecc"]');
 
-    const selectMurosColumnas = newRow.querySelector('select[name="muros_columnas"]');
     const selectTechos = newRow.querySelector('select[name="techos"]');
     const selectPisos = newRow.querySelector('select[name="pisos"]');
     const selectPuertasVentanas = newRow.querySelector('select[name="puertas_ventanas"]');
+
+    const selectTipoUca = newRow.querySelector('select[name="uca"]');
 
     new SelectDinamico({
       select: selectMEP,
@@ -80,25 +133,17 @@ class Construcciones {
 
     new SelectDinamico({
       select: selectECS,
-      data: this.tipoMateriales,
-      label: (item) => item.c_des_tip_material,
-      value: 'i_cod_tip_material',
+      data: this.tiposEcs,
+      label: (item) => item.c_des_tip_ecs,
+      value: 'i_cod_tip_ecs',
       defaultText: 'Seleccione',
     });
 
     new SelectDinamico({
       select: selectECC,
-      data: this.tipoMateriales,
-      label: (item) => item.c_des_tip_material,
-      value: 'i_cod_tip_material',
-      defaultText: 'Seleccione',
-    });
-
-    new SelectDinamico({
-      select: selectMurosColumnas,
-      data: this.tipoCategorias,
-      label: (item) => item.c_des_tip_categoria,
-      value: 'i_cod_tip_categoria',
+      data: this.tiposEcc,
+      label: (item) => item.c_des_tip_ecc,
+      value: 'i_cod_tip_ecc',
       defaultText: 'Seleccione',
     });
 
@@ -125,6 +170,14 @@ class Construcciones {
       value: 'i_cod_tip_categoria',
       defaultText: 'Seleccione',
     });
+
+    new SelectDinamico({
+      select: selectTipoUca,
+      data: this.tipoUcas,
+      label: (item) => item.c_des_tip_uca,
+      value: 'i_cod_tip_uca',
+      defaultText: 'Seleccione',
+    });
   }
 
   getData() {
@@ -135,5 +188,13 @@ class Construcciones {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  window.construcciones = new Construcciones();
+  const construcciones = new Construcciones();
+  await construcciones.init();
+
+  const obrasComplementarias = new ObrasComplementarias({
+    construccionesData: construcciones,
+  });
+
+  window.construcciones = construcciones;
+  window.obrasComplementarias = obrasComplementarias;
 });

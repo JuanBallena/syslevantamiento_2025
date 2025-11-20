@@ -1,35 +1,23 @@
 class ObrasComplementarias {
-  constructor() {
+  constructor({ construccionesData }) {
     this.rowCount = 0;
 
     this.tbody = document.querySelector('#tabla-obras-complementarias tbody');
     this.template = document.querySelector('#filaTablaObrasComplementarias');
 
     this.codigosInstalaciones = [];
-    this.tipoMateriales = [];
+    this.tipoMateriales = construccionesData.tipoMateriales;
+    this.tiposEcs = construccionesData.tiposEcs;
+    this.tiposEcc = construccionesData.tiposEcc;
+    this.tipoUcas = construccionesData.tipoUcas;
 
     this.init();
   }
 
   async init() {
-    await this.cargarTiposMateriales();
     await this.cargarCodigosInstalaciones();
 
     document.querySelector('#btn-add-row-obras').addEventListener('click', this.addRow.bind(this));
-  }
-
-  async cargarTiposMateriales() {
-    try {
-      const res = await ServicioTipoMateriales.obtenerTipoMateriales();
-
-      if (res && res.success && Array.isArray(res.data)) {
-        this.tipoMateriales = res.data;
-      } else {
-        console.warn('ServicioTipoMateriales: respuesta inválida', res);
-      }
-    } catch (err) {
-      console.error('Error al obtener tipo materiales:', err);
-    }
   }
 
   async cargarCodigosInstalaciones() {
@@ -63,6 +51,7 @@ class ObrasComplementarias {
     const selectMEP = newRow.querySelector('select[name="mep"]');
     const selectECS = newRow.querySelector('select[name="ecs"]');
     const selectECC = newRow.querySelector('select[name="ecc"]');
+    const selectTipoUca = newRow.querySelector('select[name="uca"]');
 
     new SelectDinamico({
       select: selectCodigoInst,
@@ -82,17 +71,25 @@ class ObrasComplementarias {
 
     new SelectDinamico({
       select: selectECS,
-      data: this.tipoMateriales,
-      label: (item) => item.c_des_tip_material,
-      value: 'i_cod_tip_material',
+      data: this.tiposEcs,
+      label: (item) => item.c_des_tip_ecs,
+      value: 'i_cod_tip_ecs',
       defaultText: 'Seleccione',
     });
 
     new SelectDinamico({
       select: selectECC,
-      data: this.tipoMateriales,
-      label: (item) => item.c_des_tip_material,
-      value: 'i_cod_tip_material',
+      data: this.tiposEcc,
+      label: (item) => item.c_des_tip_ecc,
+      value: 'i_cod_tip_ecc',
+      defaultText: 'Seleccione',
+    });
+
+    new SelectDinamico({
+      select: selectTipoUca,
+      data: this.tipoUcas,
+      label: (item) => item.c_des_tip_uca,
+      value: 'i_cod_tip_uca',
       defaultText: 'Seleccione',
     });
   }
@@ -103,7 +100,3 @@ class ObrasComplementarias {
     return formDataExtractor.obtenerDatosDesdeTabla('tabla-obras-complementarias');
   }
 }
-
-document.addEventListener('DOMContentLoaded', async () => {
-  window.obrasComplementarias = new ObrasComplementarias();
-});

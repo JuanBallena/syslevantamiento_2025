@@ -2,12 +2,11 @@ class Firmas {
   constructor() {
     this.inputsDniPersona = document.querySelectorAll('.dni-persona');
 
-    this.initAutocompleteDeclarante();
+    // this.initAutocompleteDeclarante();
     this.initAutocompletePersonas();
   }
 
   initAutocompleteDeclarante() {
-    // this.inputDeclarante.forEach((input) => {
     const section = document.getElementById('datos-declarante');
     const inputDeclarante = section.querySelector('[name="dni"]');
     const checkbox = section.querySelector('input[name="existe_declarante"]');
@@ -47,7 +46,6 @@ class Firmas {
         autocomplete.updateData([]);
       }
     });
-    // });
   }
 
   initAutocompletePersonas() {
@@ -61,6 +59,7 @@ class Firmas {
         data: [],
         label: (item) => `${item.nombres} ${item.ape_paterno} ${item.ape_materno}`,
         value: 'nume_doc',
+        required: false,
         onSelect: (item) => {
           section.querySelector('[name="nombres"]').value = item.nombres;
           section.querySelector('[name="ape_materno"]').value = item.ape_materno;
@@ -76,7 +75,7 @@ class Firmas {
           section.querySelector('[name="nombres"]').value = '';
           section.querySelector('[name="ape_materno"]').value = '';
           section.querySelector('[name="ape_paterno"]').value = '';
-          return;
+          // return;
         }
 
         const res = await ServicioPersonas.obtenerPersonasPorNombresApellidos(texto);

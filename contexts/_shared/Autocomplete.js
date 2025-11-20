@@ -1,5 +1,5 @@
 class Autocomplete {
-  constructor({ input, inputHidden, data, label, value, onSelect, onInput }) {
+  constructor({ input, inputHidden, data, label, value, onSelect, onInput, required = true }) {
     this.input = input; // input visible
     this.hiddenInput = inputHidden;
     this.data = data;
@@ -7,6 +7,7 @@ class Autocomplete {
     this.value = value; // propiedad para hidden
     this.onSelect = onSelect;
     this.onInput = onInput;
+    this.required = required;
 
     this.box = this.createBox();
     this.list = this.box.querySelector('ul');
@@ -23,14 +24,22 @@ class Autocomplete {
   createBox() {
     const wrapper = document.createElement('div');
     wrapper.className = 'a-autocomplete';
+
+    // Insertar wrapper antes del input
     this.input.parentNode.insertBefore(wrapper, this.input);
+
+    // Mover input dentro del wrapper
     wrapper.appendChild(this.input);
 
+    // Crear caja de opciones
     const box = document.createElement('div');
     box.className = 'a-autocomplete__box none';
+
     const ul = document.createElement('ul');
     ul.className = 'a-autocomplete__items cursor-pointer';
     box.appendChild(ul);
+
+    // 🚨 IMPORTANTE: insertar box antes del mensaje de error
     wrapper.appendChild(box);
 
     return box;
@@ -53,14 +62,24 @@ class Autocomplete {
     const texto = this.input.value.toLowerCase().trim();
     this.list.innerHTML = '';
 
-    const filtrados = this.data.filter((item) => this.getLabel(item).toLowerCase().includes(texto));
+    let filtrados = [];
 
+    // Si hay texto → filtrar
+    if (texto) {
+      filtrados = this.data.filter((item) => this.getLabel(item).toLowerCase().includes(texto));
+    } else {
+      // Si NO hay texto pero existe data → mostrar toda la lista
+      filtrados = [...this.data];
+    }
+
+    // Si no hay opciones
     if (!filtrados.length) {
       this.list.appendChild(this.createLi('Sin opciones', null));
       this.box.classList.remove('none');
       return;
     }
 
+    // Mostrar opciones
     filtrados.forEach((item) => {
       this.list.appendChild(this.createLi(this.getLabel(item), item));
     });
@@ -73,31 +92,44 @@ class Autocomplete {
   }
 
   showError(message) {
-    let msgEl = this.input.nextElementSibling;
+    let msgEl = this.box.nextElementSibling;
+
     if (!msgEl || !msgEl.classList.contains('error-msg')) {
       msgEl = document.createElement('div');
       msgEl.classList.add('error-msg');
       msgEl.style.color = 'tomato';
       msgEl.style.fontSize = '14px';
       msgEl.style.marginTop = '4px';
-      this.input.insertAdjacentElement('afterend', msgEl);
+
+      // Insertar el error DESPUÉS de la caja del autocomplete
+      this.box.insertAdjacentElement('afterend', msgEl);
     }
+
     msgEl.textContent = message;
     this.input.classList.add('input-error');
   }
 
   clearError() {
-    let msgEl = this.input.nextElementSibling;
+    let msgEl = this.box.nextElementSibling;
+
     if (msgEl && msgEl.classList.contains('error-msg')) {
       msgEl.textContent = '';
     }
+
     this.input.classList.remove('input-error');
   }
 
   bindEvents() {
     // 🔹 limpiar hidden y borrar error al escribir
     this.input.addEventListener('input', () => {
-      if (this.hiddenInput) this.hiddenInput.value = '';
+      const texto = this.input.value.trim().toLowerCase();
+
+      // Si el texto NO coincide con ningún item seleccionado → limpiar hidden
+      const coincide = this.data.some((item) => this.getLabel(item).toLowerCase() === texto);
+
+      if (!coincide && this.hiddenInput) {
+        this.hiddenInput.value = '';
+      }
 
       if (typeof this.onInput === 'function') {
         this.onInput();
@@ -135,7 +167,7 @@ class Autocomplete {
     this.input.addEventListener('blur', () => {
       setTimeout(() => {
         if (!this.mouseDownOnList) {
-          if (this.hiddenInput && !this.hiddenInput.value) {
+          if (this.required && this.hiddenInput && !this.hiddenInput.value) {
             this.showError('Debe seleccionar una opción de la lista');
           } else {
             this.clearError();
@@ -146,6 +178,6 @@ class Autocomplete {
     });
 
     this.input.addEventListener('click', () => this.show());
-    this.input.addEventListener('keyup', () => this.show());
+    // this.input.addEventListener('keyup', () => this.show());
   }
 }

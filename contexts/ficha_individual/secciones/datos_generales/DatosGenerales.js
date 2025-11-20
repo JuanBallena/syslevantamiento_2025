@@ -1,10 +1,14 @@
 class DatosGenerales {
   constructor() {
+    this.autocompleteManzana = null;
+
     this.inputSector = document.querySelector('[name="nomb_sector"]');
     this.hiddenSector = document.querySelector('[name="id_sector"]');
-    document.querySelector('input[name="nume_mzna"]');
+    this.inputNumeMzna = document.querySelector('input[name="nume_mzna"]');
+    this.hiddenNumeMzna = document.querySelector('input[name="id_mzna"]');
 
     this.initAutocompleteSector();
+    this.initAutocompleteManzana();
   }
 
   async initAutocompleteSector() {
@@ -28,38 +32,46 @@ class DatosGenerales {
       data: sectores,
       label: (item) => `${item.codi_sector}, ${item.nomb_sector}`,
       value: 'id_sector',
-      onSelect: (item) => {
-        this.initAutocompleteManzana(item.id_sector);
+      onSelect: async (item) => {
+        await this.actualizarAutocompleteManzanas(item.id_sector);
+
+        this.inputNumeMzna.disabled = false;
+      },
+      onInput: () => {
+        this.inputNumeMzna.value = '';
+        this.hiddenNumeMzna.value = '';
+        this.inputNumeMzna.disabled = true;
       },
     });
   }
 
-  async initAutocompleteManzana(idSector) {
-    let manzanas = [];
-
-    try {
-      const res = await ServicioManzanas.obtenerManzanas(idSector);
-
-      if (res && res.success && Array.isArray(res.data)) {
-        manzanas = res.data;
-        console.log(manzanas);
-      } else {
-        console.warn('ServicioManzanas: respuesta inválida', res);
-      }
-    } catch (err) {
-      console.error('Error al obtener manzanas:', err);
-    }
-
-    new Autocomplete({
-      input: document.querySelector('input[name="nume_mzna"]'),
-      inputHidden: document.querySelector('input[name="id_mzna"]'),
-      data: manzanas,
+  async initAutocompleteManzana() {
+    this.autocompleteManzana = new Autocomplete({
+      input: this.inputNumeMzna,
+      inputHidden: this.hiddenNumeMzna,
+      data: [],
       label: (item) => `${item.codi_mzna}`,
       value: 'id_mzna',
       onSelect: (item) => {
         //
       },
     });
+  }
+
+  async actualizarAutocompleteManzanas(idSector) {
+    this.autocompleteManzana.updateData([]);
+
+    try {
+      const res = await ServicioManzanas.obtenerManzanas(idSector);
+
+      if (res && res.success && Array.isArray(res.data)) {
+        this.autocompleteManzana.updateData(res.data);
+      } else {
+        console.warn('ServicioManzanas: respuesta inválida', res);
+      }
+    } catch (err) {
+      console.error('Error al obtener manzanas:', err);
+    }
   }
 
   getData() {

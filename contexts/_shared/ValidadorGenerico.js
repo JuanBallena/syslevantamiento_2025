@@ -84,6 +84,7 @@ class ValidatorGenerico {
       msgEl.style.color = 'tomato';
       msgEl.style.fontSize = '14px';
       msgEl.style.marginTop = '4px';
+
       input.parentNode.appendChild(msgEl);
     }
     msgEl.textContent = message;
