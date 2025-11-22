@@ -38,29 +38,28 @@ class Vias {
     const formularioVia = await this.crearFormularioVia(viaId);
     contenedorVias.insertAdjacentHTML('beforeend', formularioVia);
 
-    const nuevosInputs = document.querySelectorAll(`[data-via="${viaId}"] [autocomplete]`);
+    const nuevosInputs = document.querySelectorAll(`[data-via="${viaId}"] [via-autocomplete]`);
+
+    const contenedor = document.querySelector(`[data-via="${viaId}"]`);
+    window.validadorGenerico.registerInputs(contenedor);
 
     nuevosInputs.forEach((input) => {
+      const hidden = input.closest('div').querySelector('input[name="id_via"]');
+
       new Autocomplete({
         input,
+        inputHidden: hidden,
         data: this.vias,
         label: (item) => `${item.codi_via}`,
         value: 'id_via',
         onSelect: (item) => {
+          // console.log(item);
           const section = input.closest('[data-via]');
-
-          const hiddenSelector = input.dataset.target;
-          if (hiddenSelector) {
-            const hidden = section.querySelector(hiddenSelector);
-            hidden.value = item[input.dataset.value];
-          }
-
           section.querySelector('input[name="tipo_via"]').value = item.tipo_via;
           section.querySelector('input[name="nomb_via"]').value = item.nomb_via;
         },
         onInput: () => {
           const section = input.closest('[data-via]');
-
           section.querySelector('input[name="tipo_via"]').value = '';
           section.querySelector('input[name="nomb_via"]').value = '';
         },
@@ -103,6 +102,9 @@ class Vias {
     const selectTipoPuertas = document.querySelectorAll(
       `[data-via="${viaId}"] [data-puerta="${puertaId}"] [select-tipo-puerta]`
     );
+
+    const contenedor = document.querySelector(`[data-via="${viaId}"] [data-puerta="${puertaId}"]`);
+    window.validadorGenerico.registerInputs(contenedor);
 
     selectTipoPuertas.forEach((select) => {
       new SelectDinamico({

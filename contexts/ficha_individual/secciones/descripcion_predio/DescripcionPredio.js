@@ -3,11 +3,11 @@ class DescripcionPredio {
     this.descUso = document.querySelector('[name="desc_uso"]');
     this.hiddenCodiUso = document.querySelector('[name="codi_uso"]');
 
-    this.selectClasificacionPredio = document.querySelector('[name="clasificacion_predio"]');
+    this.selectClasificacion = document.querySelector('[name="clasificacion"]');
     this.selectCondEn = document.querySelector('[name="cond_en"]');
 
     this.initAutocompleteUso();
-    this.initSelectClasificacionPredio();
+    this.initSelectClasificacion();
     this.initSelectCondEn();
   }
 
@@ -22,12 +22,6 @@ class DescripcionPredio {
         // Tu lógica
       },
     });
-
-    // const res = await ServicioUsos.obtenerUsosPorDescripcion();
-
-    // if (res.success && Array.isArray(res.data)) {
-    //   this.autocompleteUso.updateData(res.data);
-    // }
 
     // Escuchar cuando el usuario escribe
     this.descUso.addEventListener('input', this.buscarUsos.bind(this));
@@ -55,7 +49,7 @@ class DescripcionPredio {
     }
   }
 
-  async initSelectClasificacionPredio() {
+  async initSelectClasificacion() {
     let clasificacionesPredios = [];
 
     try {
@@ -70,7 +64,7 @@ class DescripcionPredio {
     }
 
     new SelectDinamico({
-      select: this.selectClasificacionPredio,
+      select: this.selectClasificacion,
       data: clasificacionesPredios,
       label: (item) => item.c_desc_tipo_clasificacion,
       value: 'c_cod_tipo_clasificacion',

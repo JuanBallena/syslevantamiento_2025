@@ -7,14 +7,14 @@ class IdentificacionTitular {
   }
 
   async cargarFormularioTitular() {
-    const tipoTitular = document.querySelector(
-      "#identificacion-titular select[name='tipo_titular']"
+    const tipoPersona = document.querySelector(
+      "#identificacion-titular select[name='tipo_persona']"
     ).value;
 
     this.contenedorNaturales.innerHTML = '';
     this.contenedorJuridicas.innerHTML = '';
 
-    if (tipoTitular === '01') {
+    if (tipoPersona === '01') {
       const html = await FormularioPersonaNatural.crear();
       this.contenedorNaturales.insertAdjacentHTML('beforeend', html);
 
@@ -24,7 +24,7 @@ class IdentificacionTitular {
       this.initSelectTipoDocumento(contenedorPersonaNatural);
     }
 
-    if (tipoTitular === '02') {
+    if (tipoPersona === '02') {
       const html = await FormularioPersonaJuridica.crear();
       this.contenedorJuridicas.insertAdjacentHTML('beforeend', html);
 
@@ -83,7 +83,7 @@ class IdentificacionTitular {
 
   initEventosGlobales() {
     document.addEventListener('change', (e) => {
-      if (e.target.name === 'tipo_titular') {
+      if (e.target.name === 'tipo_persona') {
         this.cargarFormularioTitular();
       }
     });
@@ -125,7 +125,7 @@ class IdentificacionTitular {
     const formDataExtractor = new FormDataExtractor();
 
     return {
-      tipoTitular: document.querySelector('[name="tipo_titular"]').value,
+      tipo_persona: document.querySelector('[name="tipo_persona"]').value,
       personaNatural: formDataExtractor.obtenerDatosDesdeDataset(
         'identificacion-titular',
         '[data-tipo="natural"]'

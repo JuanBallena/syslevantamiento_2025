@@ -1,7 +1,7 @@
 class ControladorFichaUrbanaIndividual {
   constructor(formSelector) {
     this.form = document.querySelector(formSelector);
-    this.validator = new ValidatorGenerico();
+    // this.validator = new ValidatorGenerico();
 
     this.form.addEventListener('submit', (e) => this.onSubmit(e));
   }
@@ -9,14 +9,14 @@ class ControladorFichaUrbanaIndividual {
   onSubmit(e) {
     e.preventDefault();
 
-    // const valid = this.validator.validateAll();
+    const valid = window.validadorGenerico.validateAll();
 
-    // if (!valid) {
-    //   e.preventDefault();
-    //   this.showGlobalError();
-    //   this.scrollToFirstError();
-    //   return;
-    // }
+    if (!valid) {
+      e.preventDefault();
+      this.showGlobalError();
+      this.scrollToFirstError();
+      return;
+    }
 
     this.enviarFormulario();
   }
@@ -83,17 +83,19 @@ class ControladorFichaUrbanaIndividual {
       // ✅ Leer la respuesta como texto primero
       const text = await response.text();
       console.log(text);
+
+      alert(text);
       // console.log('📄 Respuesta cruda del servidor:', JSON.parse(text));
 
-      let result;
-      try {
-        result = JSON.parse(text);
-      } catch (e) {
-        // console.error(
-        //   '⚠️ La respuesta no es JSON válido. Revisa el texto anterior (probablemente un error de PHP).'
-        // );
-        return;
-      }
+      // let result;
+      // try {
+      //   result = JSON.parse(text);
+      // } catch (e) {
+      //   // console.error(
+      //   //   '⚠️ La respuesta no es JSON válido. Revisa el texto anterior (probablemente un error de PHP).'
+      //   // );
+      //   return;
+      // }
 
       if (result.success) {
         console.log('Éxito:');

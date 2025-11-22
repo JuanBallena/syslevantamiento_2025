@@ -1,7 +1,7 @@
 class InformacionComplementaria {
   constructor() {
     this.selectCondicionDeclarante = document.querySelector('[name="cond_declarante"]');
-    this.selectEstadoFicha = document.querySelector('[name="estado_ficha"]');
+    this.selectEstadoFicha = document.querySelector('[name="esta_llenado"]');
     this.selectMantenimiento = document.querySelector('[name="mantenimiento"]');
 
     // Tabla Litigantes
@@ -87,7 +87,10 @@ class InformacionComplementaria {
   getData() {
     const formDataExtractor = new FormDataExtractor();
 
-    return formDataExtractor.obtenerDatosDesdeContenedor('informacion-complementaria');
+    return {
+      ...formDataExtractor.obtenerDatosDesdeContenedor('informacion-complementaria'),
+      litigantes: formDataExtractor.obtenerDatosDesdeTabla('tabla-litigantes'),
+    };
   }
 }
 

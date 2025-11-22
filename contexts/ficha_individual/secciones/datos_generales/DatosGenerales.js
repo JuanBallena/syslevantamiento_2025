@@ -35,12 +35,12 @@ class DatosGenerales {
       onSelect: async (item) => {
         await this.actualizarAutocompleteManzanas(item.id_sector);
 
-        this.inputNumeMzna.disabled = false;
+        // this.inputNumeMzna.disabled = false;
       },
       onInput: () => {
         this.inputNumeMzna.value = '';
         this.hiddenNumeMzna.value = '';
-        this.inputNumeMzna.disabled = true;
+        // this.inputNumeMzna.disabled = true;
       },
     });
   }

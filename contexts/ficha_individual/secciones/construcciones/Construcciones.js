@@ -116,11 +116,6 @@ class Construcciones {
     const selectMEP = newRow.querySelector('select[name="mep"]');
     const selectECS = newRow.querySelector('select[name="ecs"]');
     const selectECC = newRow.querySelector('select[name="ecc"]');
-
-    /* const selectTechos = newRow.querySelector('select[name="techos"]');
-    const selectPisos = newRow.querySelector('select[name="pisos"]');
-    const selectPuertasVentanas = newRow.querySelector('select[name="puertas_ventanas"]');*/
-
     const selectTipoUca = newRow.querySelector('select[name="uca"]');
 
     new SelectDinamico({
@@ -147,30 +142,6 @@ class Construcciones {
       defaultText: 'Seleccione',
     });
 
-    /*new SelectDinamico({
-      select: selectTechos,
-      data: this.tipoCategorias,
-      label: (item) => item.c_des_tip_categoria,
-      value: 'i_cod_tip_categoria',
-      defaultText: 'Seleccione',
-    });
-
-    new SelectDinamico({
-      select: selectPisos,
-      data: this.tipoCategorias,
-      label: (item) => item.c_des_tip_categoria,
-      value: 'i_cod_tip_categoria',
-      defaultText: 'Seleccione',
-    });
-
-    new SelectDinamico({
-      select: selectPuertasVentanas,
-      data: this.tipoCategorias,
-      label: (item) => item.c_des_tip_categoria,
-      value: 'i_cod_tip_categoria',
-      defaultText: 'Seleccione',
-    });
-*/
     new SelectDinamico({
       select: selectTipoUca,
       data: this.tipoUcas,

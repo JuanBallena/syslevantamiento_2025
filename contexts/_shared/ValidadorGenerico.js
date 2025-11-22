@@ -81,7 +81,8 @@ class ValidatorGenerico {
     if (!msgEl) {
       msgEl = document.createElement('div');
       msgEl.classList.add('error-msg');
-      msgEl.style.color = 'tomato';
+      msgEl.style.color = 'red';
+      msgEl.style.fontWeight = 'bold';
       msgEl.style.fontSize = '14px';
       msgEl.style.marginTop = '4px';
 
@@ -105,4 +106,23 @@ class ValidatorGenerico {
     });
     return allValid;
   }
+
+  registerInputs(container) {
+    const nuevos = container.querySelectorAll('[data-validate]');
+
+    nuevos.forEach((input) => {
+      // Evitar registrar duplicados
+      if (![...this.inputs].includes(input)) {
+        this.inputs = [...this.inputs, input];
+
+        // Registrar eventos
+        input.addEventListener('input', (e) => this.validate(input, e.type));
+        input.addEventListener('blur', (e) => this.validate(input, e.type));
+      }
+    });
+  }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  window.validadorGenerico = new ValidatorGenerico();
+});
