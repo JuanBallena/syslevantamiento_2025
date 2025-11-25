@@ -1,5 +1,12 @@
 class DomicilioTitular {
+  static UbicacionOpciones = [
+    { value: '01', text: '01 - Igual a UU.CC' },
+    { value: '02', text: '02 - Otros' },
+  ];
+
   constructor() {
+    this.selectTipoUbicacion = document.querySelector('[name="tipo_ubicacion"]');
+
     this.selectCodiDep = document.querySelector('select[name="codi_dep"]');
     this.selectCodiPro = document.querySelector('select[name="codi_pro"]');
     this.selectCodiDis = document.querySelector('select[name="codi_dis"]');
@@ -20,6 +27,7 @@ class DomicilioTitular {
   }
 
   async init() {
+    this.initSelectTipoUbicacion();
     this.initSelectCodiDep();
 
     this.selectDistritos = new SelectDinamico({
@@ -39,6 +47,16 @@ class DomicilioTitular {
       onSelect: async (item) => {
         await this.initSelectCodiDisSegunCodiPro(item.codi_pro);
       },
+    });
+  }
+
+  initSelectTipoUbicacion() {
+    new SelectDinamico({
+      select: this.selectTipoUbicacion,
+      data: DomicilioTitular.UbicacionOpciones,
+      label: (item) => item.text,
+      value: 'value',
+      defaultText: 'Seleccione',
     });
   }
 

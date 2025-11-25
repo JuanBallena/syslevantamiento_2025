@@ -3,18 +3,26 @@
 
   <div class="grid grid-cols-5 gap-1">
     <div>
+      <label><span class="box-label-red">30</span>Ubicación</label>
+      <select class="a-input-text" name="tipo_ubicacion" data-validate="required"></select>
+    </div>
+    <div>
       <label><span class="box-label-red">31</span>Departamento</label>
-      <select class="a-input-text hidden-codi-dep" name="codi_dep"></select>
+      <select
+        class="a-input-text hidden-codi-dep"
+        name="codi_dep"
+        data-validate="required"
+      ></select>
       <!-- <input type="text" class="a-input-text" name="codi_dep" placeholder="Escriba" /> -->
     </div>
     <div>
       <label><span class="box-label-red">32</span>Provincia</label>
-      <select class="a-input-text" name="codi_pro"></select>
+      <select class="a-input-text" name="codi_pro" data-validate="required"></select>
       <!-- <input type="text" class="a-input-text" name="codi_pro" placeholder="Escriba" /> -->
     </div>
     <div>
       <label><span class="box-label-red">33</span>Distrito</label>
-      <select class="a-input-text" name="codi_dis"></select>
+      <select class="a-input-text" name="codi_dis" data-validate="required"></select>
       <!-- <input type="text" class="a-input-text" name="codi_dis" placeholder="Escriba" /> -->
     </div>
     <div>
@@ -74,14 +82,13 @@
       <label><span class="box-label-blue">35</span>Anexo</label>
       <input type="text" class="a-input-text" name="anexo" placeholder="Escriba" />
     </div>
-
-    <div>
+    <!-- <div>
       <label><span class="box-label-blue">44</span>Fax</label>
       <input type="text" class="a-input-text" name="fax" placeholder="Escriba" />
-    </div>
-    <!--<div>
+    </div>-->
+    <div>
       <label><span class="box-label-blue">36</span>Correo Electrónico</label>
       <input type="text" class="a-input-text" name="correo" placeholder="Escriba" />
-    </div>-->
+    </div>
   </div>
 </div>
