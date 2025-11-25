@@ -108,19 +108,19 @@ class IdentificacionTitular {
     const contenedorPersonaNatural = select.closest("[data-tipo='natural']");
     let contenedorConyugue = document.querySelector("[data-tipo='conyugue']");
 
-    if (valor === '02' || valor === '05') {
+    if (valor === '02') {
       if (!contenedorConyugue) {
         const htmlConyugue = await FormularioConyugue.crear();
         contenedorPersonaNatural.insertAdjacentHTML('afterend', htmlConyugue);
 
         contenedorConyugue = document.querySelector("[data-tipo='conyugue']");
+
+        this.initSelectTipoDocumento(contenedorConyugue);
       }
     } else {
       if (contenedorConyugue) contenedorConyugue.remove();
       return;
     }
-
-    this.initSelectTipoDocumento(contenedorConyugue);
   }
 
   getData() {

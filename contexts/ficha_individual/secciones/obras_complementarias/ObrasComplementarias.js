@@ -56,7 +56,7 @@ class ObrasComplementarias {
     new SelectDinamico({
       select: selectCodigoInst,
       data: this.codigosInstalaciones,
-      label: (item) => item.desc_instalacion,
+      label: (item) => `${item.codi_instalacion} - ${item.desc_instalacion}`,
       value: 'codi_instalacion',
       defaultText: 'Seleccione',
     });
@@ -64,7 +64,7 @@ class ObrasComplementarias {
     new SelectDinamico({
       select: selectMEP,
       data: this.tipoMateriales,
-      label: (item) => item.c_des_tip_material,
+      label: (item) => `${item.i_cod_tip_material} - ${item.c_des_tip_material}`,
       value: 'i_cod_tip_material',
       defaultText: 'Seleccione',
     });
@@ -72,7 +72,7 @@ class ObrasComplementarias {
     new SelectDinamico({
       select: selectECS,
       data: this.tiposEcs,
-      label: (item) => item.c_des_tip_ecs,
+      label: (item) => `${item.i_cod_tip_ecs} - ${item.c_des_tip_ecs}`,
       value: 'i_cod_tip_ecs',
       defaultText: 'Seleccione',
     });
@@ -80,7 +80,7 @@ class ObrasComplementarias {
     new SelectDinamico({
       select: selectECC,
       data: this.tiposEcc,
-      label: (item) => item.c_des_tip_ecc,
+      label: (item) => `${item.i_cod_tip_ecc} - ${item.c_des_tip_ecc}`,
       value: 'i_cod_tip_ecc',
       defaultText: 'Seleccione',
     });
@@ -88,7 +88,7 @@ class ObrasComplementarias {
     new SelectDinamico({
       select: selectTipoUca,
       data: this.tipoUcas,
-      label: (item) => item.c_des_tip_uca,
+      label: (item) => `${item.i_cod_tip_uca} - ${item.c_des_tip_uca}`,
       value: 'i_cod_tip_uca',
       defaultText: 'Seleccione',
     });

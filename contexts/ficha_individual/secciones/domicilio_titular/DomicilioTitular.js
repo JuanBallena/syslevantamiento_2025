@@ -4,15 +4,19 @@ class DomicilioTitular {
     this.selectCodiPro = document.querySelector('select[name="codi_pro"]');
     this.selectCodiDis = document.querySelector('select[name="codi_dis"]');
 
+    const domicilioTitular = document.querySelector('#domicilio-titular');
+    this.inputNombHabUrba = domicilioTitular.querySelector('[name="nomb_hab_urba"]');
+    this.inputIdHabUrba = domicilioTitular.querySelector('[name="id_hab_urba"]');
+    this.inputCodiHabUrba = domicilioTitular.querySelector('[name="codi_hab_urba"]');
+
     this.departamentos = [];
     this.provincias = [];
     this.distritos = [];
 
-    // this.selectDinamicoDistritos = null;
-
     this.codiDep = null;
 
     this.init();
+    this.initAutocompleteHabUrba();
   }
 
   async init() {
@@ -41,8 +45,6 @@ class DomicilioTitular {
   async initSelectCodiDep() {
     try {
       const res = await ServicioUbigeos.obtenerDepartamentos();
-
-      console.log(res);
 
       if (res && res.success && Array.isArray(res.data)) {
         this.departamentos = res.data;
@@ -98,6 +100,35 @@ class DomicilioTitular {
     }
 
     this.selectDistritos.setData(this.distritos);
+  }
+
+  async initAutocompleteHabUrba() {
+    let habilitacionesUrbanas = [];
+
+    try {
+      const res = await ServicioHabilitacionesUrbanas.obtenerHabilitacionesUrbanas();
+      if (res && res.success && Array.isArray(res.data)) {
+        habilitacionesUrbanas = res.data;
+      } else {
+        console.warn('ServicioHabilitacionesUrbanas: respuesta inválida', res);
+      }
+    } catch (err) {
+      console.error('Error al obtener habilitaciones urbanas:', err);
+    }
+
+    new Autocomplete({
+      input: this.inputCodiHabUrba,
+      inputHidden: this.inputIdHabUrba,
+      data: habilitacionesUrbanas,
+      label: (item) => `${item.codi_hab_urba} - ${item.nomb_hab_urba}`,
+      value: 'id_hab_urba',
+      onSelect: (item) => {
+        this.inputNombHabUrba.value = item.nomb_hab_urba;
+      },
+      onInput: () => {
+        this.inputNombHabUrba.value = '';
+      },
+    });
   }
 
   getData() {

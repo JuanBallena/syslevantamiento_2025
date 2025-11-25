@@ -1,7 +1,9 @@
 class DescripcionPredio {
   constructor() {
-    this.descUso = document.querySelector('[name="desc_uso"]');
-    this.hiddenCodiUso = document.querySelector('[name="codi_uso"]');
+    // this.buscarUso = document.querySelector('[name="buscar_uso"]');
+    this.inputCodiUso = document.querySelector('[name="codi_uso"]');
+
+    this.inputDescUso = document.querySelector('[name="desc_uso"]');
 
     this.selectClasificacion = document.querySelector('[name="clasificacion"]');
     this.selectCondEn = document.querySelector('[name="cond_en"]');
@@ -13,30 +15,30 @@ class DescripcionPredio {
 
   async initAutocompleteUso() {
     this.autocompleteUso = new Autocomplete({
-      input: this.descUso,
-      inputHidden: this.hiddenCodiUso,
+      input: this.inputCodiUso,
+      inputHidden: null,
       data: [], // inicia vacío
-      label: (item) => `${item.desc_uso}`,
+      label: (item) => `${item.codi_uso} - ${item.desc_uso}`,
       value: 'codi_uso',
       onSelect: (item) => {
-        // Tu lógica
+        this.inputDescUso.value = item.desc_uso;
       },
     });
 
     // Escuchar cuando el usuario escribe
-    this.descUso.addEventListener('input', this.buscarUsos.bind(this));
+    this.inputCodiUso.addEventListener('input', this.buscarUsos.bind(this));
   }
 
   async buscarUsos(e) {
-    const texto = e.target.value.trim();
+    const codiUso = e.target.value.trim();
 
-    if (texto.length < 1) {
+    if (codiUso.length < 1) {
       // this.autocompleteUso.updateData([]);
       return;
     }
 
     try {
-      const res = await ServicioUsos.obtenerUsosPorDescripcion(texto);
+      const res = await ServicioUsos.obtenerUsosPorCodigo(codiUso);
 
       if (res.success && Array.isArray(res.data)) {
         this.autocompleteUso.updateData(res.data);

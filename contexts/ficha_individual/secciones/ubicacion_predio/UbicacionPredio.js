@@ -3,9 +3,9 @@ class UbicacionPredio {
     this.selectTipoEdificacion = document.querySelector('[name="tipo_edificacion"]');
     this.selectTipoInteriores = document.querySelector('[name="tipo_interior"]');
 
-    this.inputHabUrba = document.querySelector('[name="nomb_hab_urba"]');
-    this.hiddenHabUrba = document.querySelector('[name="id_hab_urba"]');
-    this.codiHabUrba = document.querySelector('[name="codi_hab_urba"]');
+    this.inputNombHabUrba = document.querySelector('[name="nomb_hab_urba"]');
+    this.inputIdHabUrba = document.querySelector('[name="id_hab_urba"]');
+    this.inputCodiHabUrba = document.querySelector('[name="codi_hab_urba"]');
 
     this.initSelectTipoEdificacion();
     this.initSelectTipoInterior();
@@ -79,16 +79,16 @@ class UbicacionPredio {
     }
 
     new Autocomplete({
-      input: this.inputHabUrba,
-      inputHidden: this.hiddenHabUrba,
+      input: this.inputCodiHabUrba,
+      inputHidden: this.inputIdHabUrba,
       data: habilitacionesUrbanas,
-      label: (item) => `${item.nomb_hab_urba}`,
+      label: (item) => `${item.codi_hab_urba} - ${item.nomb_hab_urba}`,
       value: 'id_hab_urba',
       onSelect: (item) => {
-        this.codiHabUrba.value = item.codi_hab_urba;
+        this.inputNombHabUrba.value = item.nomb_hab_urba;
       },
       onInput: () => {
-        this.codiHabUrba.value = '';
+        this.inputNombHabUrba.value = '';
       },
     });
   }

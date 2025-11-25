@@ -11,6 +11,7 @@ window.ENDPOINTS = {
   obtenerHabilitacionesUrbanas: 'obtenerHabilitacionesUrbanas.php',
   obtenerVias: 'obtenerVias.php',
   obtenerUsosPorDescripcion: 'obtenerUsosPorDescripcion.php',
+  obtenerUsosPorCodigo: 'obtenerUsosPorCodigo.php',
   obtenerClasificacionesPredios: 'obtenerClasificacionesPredios.php',
   obtenerPrediosCatastrales: 'obtenerPrediosCatastrales.php',
   obtenerTipoMateriales: 'obtenerTipoMateriales.php',
