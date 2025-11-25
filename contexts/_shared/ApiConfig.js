@@ -26,4 +26,7 @@ window.ENDPOINTS = {
   obtenerTipoUcas: 'obtenerTipoUcas.php',
   obtenerTiposEcs: 'obtenerTiposEcs.php',
   obtenerTiposEcc: 'obtenerTiposEcc.php',
+  obtenerDepartamentos: 'obtenerDepartamentos.php',
+  obtenerProvinciasSegunCodiDep: 'obtenerProvinciasSegunCodiDep.php',
+  obtenerDistritosSegunCodiPro: 'obtenerDistritosSegunCodiPro.php',
 };

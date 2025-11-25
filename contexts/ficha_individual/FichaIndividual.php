@@ -97,6 +97,7 @@
     <script type="text/javascript" src="./../_services/ServicioTiposEcc.js"></script>
     <script type="text/javascript" src="./../_services/ServicioTiposEcs.js"></script>
     <script type="text/javascript" src="./../_services/ServicioTipoUcas.js"></script>
+    <script type="text/javascript" src="./../_services/ServicioUbigeos.js"></script>
 
     <!-- SECCIONES -->
     <script type="text/javascript" src="./../ficha_individual/secciones/cabecera/Cabecera.js"></script>
