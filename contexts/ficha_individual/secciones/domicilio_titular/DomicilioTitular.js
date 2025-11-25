@@ -17,6 +17,25 @@ class DomicilioTitular {
 
   async init() {
     this.initSelectCodiDep();
+
+    this.selectDistritos = new SelectDinamico({
+      select: this.selectCodiDis,
+      data: this.distritos,
+      label: (item) => item.descri,
+      value: 'codi_dis',
+      defaultText: 'Seleccione',
+    });
+
+    this.selectProvincias = new SelectDinamico({
+      select: this.selectCodiPro,
+      data: this.provincias,
+      label: (item) => item.descri,
+      value: 'codi_pro',
+      defaultText: 'Seleccione',
+      onSelect: async (item) => {
+        await this.initSelectCodiDisSegunCodiPro(item.codi_pro);
+      },
+    });
   }
 
   async initSelectCodiDep() {
@@ -41,17 +60,16 @@ class DomicilioTitular {
       value: 'codi_dep',
       defaultText: 'Seleccione',
       onSelect: async (item) => {
-        await this.initSelectCodiProSegunCodiDep(item.codi_dep);
+        this.selectProvincias.setData([]);
+        this.selectDistritos.setData([]);
 
-        this.distritos = [];
+        await this.initSelectCodiProSegunCodiDep(item.codi_dep);
       },
     });
   }
 
   async initSelectCodiProSegunCodiDep(codi_dep) {
     try {
-      console.log(codi_dep);
-
       this.codiDep = codi_dep;
       const res = await ServicioUbigeos.obtenerProvinciasSegunCodiDep(codi_dep);
 
@@ -64,16 +82,7 @@ class DomicilioTitular {
       console.error('Error al obtener ubigeos:', err);
     }
 
-    new SelectDinamico({
-      select: this.selectCodiPro,
-      data: this.provincias,
-      label: (item) => item.descri,
-      value: 'codi_pro',
-      defaultText: 'Seleccione',
-      onSelect: async (item) => {
-        await this.initSelectCodiDisSegunCodiPro(item.codi_pro);
-      },
-    });
+    this.selectProvincias.setData(this.provincias);
   }
   async initSelectCodiDisSegunCodiPro(codi_pro) {
     try {
@@ -88,13 +97,7 @@ class DomicilioTitular {
       console.error('Error al obtener ubigeos:', err);
     }
 
-    new SelectDinamico({
-      select: this.selectCodiDis,
-      data: this.distritos,
-      label: (item) => item.descri,
-      value: 'codi_dis',
-      defaultText: 'Seleccione',
-    });
+    this.selectDistritos.setData(this.distritos);
   }
 
   getData() {
