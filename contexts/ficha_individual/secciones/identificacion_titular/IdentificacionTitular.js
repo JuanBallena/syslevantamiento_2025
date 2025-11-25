@@ -37,7 +37,7 @@ class IdentificacionTitular {
   }
 
   initSelectEstadoCivil(contenedor) {
-    const selectEstadoCivil = contenedor.querySelector('[name="estado_civil"]');
+    const selectEstadoCivil = contenedor.querySelector('[name="esta_civil"]');
 
     new SelectDinamico({
       select: selectEstadoCivil,
@@ -52,7 +52,9 @@ class IdentificacionTitular {
   }
 
   initSelectTipoDocumento(contenedor) {
-    const selectTipoDocumento = contenedor.querySelector('[name="tipo_documento"]');
+    // console.log(contenedor);
+    const selectTipoDocumento = contenedor.querySelector('[name="tipo_doc"]');
+    // console.log(selectTipoDocumento);
 
     new SelectDinamico({
       select: selectTipoDocumento,
@@ -94,7 +96,7 @@ class IdentificacionTitular {
 
     if (contenedorPersonaNatural) {
       contenedorPersonaNatural.addEventListener('change', (e) => {
-        if (e.target.name === 'estado_civil') {
+        if (e.target.name === 'esta_civil') {
           this.manejarEstadoCivil(e.target);
         }
       });

@@ -84,7 +84,8 @@ class ControladorFichaUrbanaIndividual {
       const text = await response.text();
       console.log(text);
 
-      alert(text);
+      console.log(JSON.parse(text));
+
       // console.log('📄 Respuesta cruda del servidor:', JSON.parse(text));
 
       // let result;

@@ -34,6 +34,7 @@
   <table class="table-default table-uniform text-3" id="tabla-litigantes" border="1">
     <thead>
       <tr>
+        <th class="w-20-per">Tipo documento</th>
         <th class="w-20-per">N° documento</th>
         <th class="w-40-per">Apellidos y nombres</th>
         <th class="w-20-per">Código del contribuyente</th>
@@ -44,6 +45,12 @@
 
   <template id="filaTablaLitigantes">
     <tr>
+      <td>
+        <select name="tipo_doc" class="a-input-text"></select>
+      </td>
+      <td>
+        <input class="w-11-12 a-input-text" name="nume_doc" type="text" placeholder="Escriba" />
+      </td>
       <td>
         <input class="w-11-12 a-input-text" name="nume_doc" type="text" placeholder="Escriba" />
       </td>

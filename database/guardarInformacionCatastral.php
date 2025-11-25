@@ -1,8 +1,16 @@
 <?php
 
+// Desactivar errores en salida
 ini_set('display_errors', 0);
-error_reporting(E_ERROR | E_PARSE);
+ini_set('display_startup_errors', 0);
+error_reporting(0);
 
+// Limpiar buffer SOLO si existe
+if (ob_get_length()) {
+  ob_clean();
+}
+
+header('Content-Type: application/json; charset=utf-8');
 
 require_once "./_DBPostgres.php";
 require_once "./_CreateResponse.php";
@@ -29,12 +37,6 @@ require_once "./LinderosRepository.php";
 require_once "./InstalacionesRepository.php";
 require_once "./ConstruccionesRepository.php";
 require_once "./ArchivosRepository.php";
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-header("Content-Type: application/json; charset=UTF-8");
 
 try {
   if (!isset($_POST['dataPost'])) {
@@ -316,7 +318,7 @@ try {
 
     $titularesRepository->guardarTitularesMultiple([$datosTitularJuridico]);
 
-    $datosDomicilioTitularNatural = [
+    $datosDomicilioTitularJuridico = [
       "id_ficha" => $datosFicha['id_ficha'],
       "id_persona" => $datosPersonaJuridica['id_persona'],
       "codi_via" => trim($domicilioTitular['codi_via']),
@@ -336,7 +338,7 @@ try {
       "codi_dis" => $domicilioTitular['codi_dis'],
     ];
 
-    $domicilioTitularesRepository->guardarDomicilioTitularesMultiple([$datosDomicilioTitular]);
+    $domicilioTitularesRepository->guardarDomicilioTitularesMultiple([$datosDomicilioTitularJuridico]);
   }
 
   $datosLitigantes = [];
@@ -561,129 +563,3 @@ function validarValor($valor)
 {
   return !empty($valor) ? $valor : null;
 }
-
-
-
-// $datosTitulares = [];
-// $datosDomicilioTitulares = [];
-
-// if (count($dataPost['identificacionTitularCatastral']['personasNaturales']) > 0) {
-
-//   foreach ($dataPost['identificacionTitularCatastral']['personasNaturales'] as $personaNatural) {
-
-//     $datosPersonaNatural = [
-//       "id_persona" => trim($personaNatural['tipo'] . $personaNatural['tipoDocumento'] . $personaNatural['numeroDocumento']),
-//       "nume_doc" => $personaNatural['numeroDocumento'],
-//       "tipo_doc" => $personaNatural['tipoDocumento'],
-//       "tipo_persona" => $personaNatural['tipo'],
-//       "nombres" => $personaNatural['nombres'],
-//       "ape_paterno" => $personaNatural['apellidoPaterno'],
-//       "ape_materno" => $personaNatural['apellidoMaterno'],
-//       "tipo_persona_juridica" => '',
-//       "tipo_funcion" => '',
-//       "razon_social" => '',
-//     ];
-
-//     $personaRepository->guardarPersona($datosPersonaNatural);
-
-//     array_push($datosTitulares, [
-//       "id_ficha" => $datosFicha['id_ficha'],
-//       "id_persona" => $datosPersonaNatural['id_persona'],
-//       "form_adquisicion" => $personaNatural['caracteristicas']['formaAdquisicion'],
-//       "fecha_adquisicion" => validarValor($personaNatural['caracteristicas']['fechaAdquisicion']),
-//       "porc_cotitular" => '0.0',
-//       "esta_civil" => $personaNatural['estadoCivil'],
-//       "fax" => '',
-//       "telf" => $personaNatural['domicilio']['telefono'],
-//       "anexo" => $personaNatural['domicilio']['anexo'],
-//       "email" => $personaNatural['domicilio']['correo'],
-//       "nume_titular" => '',
-//       "codi_contribuyente" => '',
-//       "cond_titular" => $personaNatural['caracteristicas']['condicionTitular']
-//     ]);
-
-//     array_push($datosDomicilioTitulares, [
-//       "id_ficha" => $datosFicha['id_ficha'],
-//       "id_persona" => $datosPersonaNatural['id_persona'],
-//       "codi_via" => trim($personaNatural['domicilio']['codigoVia']),
-//       "tipo_via" => $personaNatural['domicilio']['tipoVia'],
-//       "nomb_via" => $personaNatural['domicilio']['nombreVia'],
-//       "nume_muni" => $personaNatural['domicilio']['numeroMunicipal'],
-//       "nomb_edificacion" => '',
-//       "nume_interior" => $personaNatural['domicilio']['numeroInterior'],
-//       "codi_hab_urba" => $personaNatural['domicilio']['codigoHU'],
-//       "nomb_hab_urba" => $personaNatural['domicilio']['nombreHU'],
-//       "sector" => $personaNatural['domicilio']['zonaSectorEtapa'],
-//       "mzna" => $personaNatural['domicilio']['manzana'],
-//       "lote" => $personaNatural['domicilio']['lote'],
-//       "sublote" => $personaNatural['domicilio']['subLote'],
-//       "codi_dep" => $personaNatural['domicilio']['codigoDepartamento'],
-//       "codi_pro" => $personaNatural['domicilio']['codigoProvincia'],
-//       "codi_dis" => $personaNatural['domicilio']['codigoDistrito'],
-//     ]);
-//   }
-// }
-
-// if (count($dataPost['identificacionTitularCatastral']['personasJuridicas']) > 0) {
-//   foreach ($dataPost['identificacionTitularCatastral']['personasJuridicas'] as $personaJuridica) {
-
-//     $datosPersonaJuridica = [
-//       "id_persona" => trim($personaJuridica['tipo'] . $personaJuridica['tipoPersonaJuridica'] . $personaJuridica['ruc']),
-//       "nume_doc" => $personaJuridica['ruc'],
-//       "tipo_doc" => '',
-//       "tipo_persona" => $personaJuridica['tipo'],
-//       "nombres" => '',
-//       "ape_paterno" => '',
-//       "ape_materno" => '',
-//       "tipo_persona_juridica" => $personaJuridica['tipoPersonaJuridica'],
-//       "tipo_funcion" => '',
-//       "razon_social" => $personaJuridica['razonSocial'],
-//     ];
-
-//     $personaRepository->guardarPersona($datosPersonaJuridica);
-
-//     array_push($datosTitulares, [
-//       "id_ficha" => $datosFicha['id_ficha'],
-//       "id_persona" => $datosPersonaJuridica['id_persona'],
-//       "form_adquisicion" => $personaJuridica['caracteristicas']['formaAdquisicion'],
-//       "fecha_adquisicion" => validarValor($personaJuridica['caracteristicas']['fechaAdquisicion']),
-//       "porc_cotitular" => '0.0',
-//       "esta_civil" => '00',
-//       "fax" => '',
-//       "telf" => $personaJuridica['domicilio']['telefono'],
-//       "anexo" => $personaJuridica['domicilio']['anexo'],
-//       "email" => $personaJuridica['domicilio']['correo'],
-//       "nume_titular" => '',
-//       "codi_contribuyente" => '',
-//       "cond_titular" => $personaJuridica['caracteristicas']['condicionTitular']
-//     ]);
-
-//     array_push($datosDomicilioTitulares, [
-//       "id_ficha" => $datosFicha['id_ficha'],
-//       "id_persona" => $datosPersonaJuridica['id_persona'],
-//       "codi_via" => trim($personaJuridica['domicilio']['codigoVia']),
-//       "tipo_via" => $personaJuridica['domicilio']['tipoVia'],
-//       "nomb_via" => $personaJuridica['domicilio']['nombreVia'],
-//       "nume_muni" => $personaJuridica['domicilio']['numeroMunicipal'],
-//       "nomb_edificacion" => '',
-//       "nume_interior" => $personaJuridica['domicilio']['numeroInterior'],
-//       "codi_hab_urba" => $personaJuridica['domicilio']['codigoHU'],
-//       "nomb_hab_urba" => $personaJuridica['domicilio']['nombreHU'],
-//       "sector" => $personaJuridica['domicilio']['zonaSectorEtapa'],
-//       "mzna" => $personaJuridica['domicilio']['manzana'],
-//       "lote" => $personaJuridica['domicilio']['lote'],
-//       "sublote" => $personaJuridica['domicilio']['subLote'],
-//       "codi_dep" => $personaJuridica['domicilio']['codigoDepartamento'],
-//       "codi_pro" => $personaJuridica['domicilio']['codigoProvincia'],
-//       "codi_dis" => $personaJuridica['domicilio']['codigoDistrito'],
-//     ]);
-//   }
-// }
-
-// if (count($datosTitulares) > 0) {
-//   $titularesRepository->guardarTitularesMultiple($datosTitulares);
-// }
-
-// if (count($datosDomicilioTitulares) > 0) {
-//   $domicilioTitularesRepository->guardarDomicilioTitularesMultiple($datosDomicilioTitulares);
-// }

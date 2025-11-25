@@ -120,11 +120,6 @@ class DBPostgres
       if (!$result) {
         $mensaje = pg_last_error($this->connection);
 
-        // if (strpos($errorMessage, 'llave duplicada') !== false) {
-        //   createResponse(false, [], $this->obtenerMensajePorTabla($tabla));
-        // }
-        // $mensaje = $e->getMessage();
-
         preg_match('/tabla «([^»]+)»/', $mensaje, $tablaMatch);
         preg_match('/llave \(([^\)]+)\)=\(([^\)]+)\)/', $mensaje, $detalleMatch);
 
@@ -133,15 +128,15 @@ class DBPostgres
         $valor = $detalleMatch[2] ?? null;
 
         $errorDetail = [
+          "mensaje" => $mensaje,
           "success" => false,
-          "error" => $mensaje,
+          "errorMensaje" => $this->obtenerMensajePorTabla($mensaje),
           "tabla" => $tabla,
           "campo" => $campo,
           "valor" => $valor
         ];
 
         createResponse(false, [], $errorDetail);
-
 
         throw new Exception("❌ Error al insertar en $tabla: " . $errorMessage);
       }
@@ -157,24 +152,7 @@ class DBPostgres
 
       return $row ?: null;
     } catch (Exception $e) {
-      $mensaje = $e->getMessage();
-
-      preg_match('/tabla «([^»]+)»/', $mensaje, $tablaMatch);
-      preg_match('/llave \(([^\)]+)\)=\(([^\)]+)\)/', $mensaje, $detalleMatch);
-
-      $tabla = $tablaMatch[1] ?? null;
-      $campo = $detalleMatch[1] ?? null;
-      $valor = $detalleMatch[2] ?? null;
-
-      $errorDetail = [
-        "success" => false,
-        "error" => $mensaje,
-        "tabla" => $tabla,
-        "campo" => $campo,
-        "valor" => $valor
-      ];
-
-      createResponse(false, [], $errorDetail);
+      createResponse(false, [], $e->getMessage());
     }
   }
 
@@ -201,20 +179,20 @@ class DBPostgres
     $this->desconectar();
   }
 
-  public function Consultas($Consulta)
-  {
-    global $Resultado;
+  // public function Consultas($Consulta)
+  // {
+  //   global $Resultado;
 
-    $Valor = $this->Conectar();
-    if (!$Valor) {
-      return 0;
-    } //Si no se pudo conectar
-    else {
-      //Valor es resultado de base de dato y Consulta es la Consulta a realizar
-      $Resultado = pg_query($Valor, $Consulta);
-      return $Resultado;// retorna si fue afectada una fila
-    }
-  }
+  //   $Valor = $this->Conectar();
+  //   if (!$Valor) {
+  //     return 0;
+  //   } //Si no se pudo conectar
+  //   else {
+  //     //Valor es resultado de base de dato y Consulta es la Consulta a realizar
+  //     $Resultado = pg_query($Valor, $Consulta);
+  //     return $Resultado;// retorna si fue afectada una fila
+  //   }
+  // }
 
   public function obtenerMensajePorTabla(string $nombreTabla): string
   {

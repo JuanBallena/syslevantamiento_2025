@@ -47,7 +47,7 @@ class ObrasComplementarias {
 
     const newRow = this.tbody.lastElementChild;
 
-    const selectCodigoInst = newRow.querySelector('select[name="codigo_instalacion"]');
+    const selectCodigoInst = newRow.querySelector('select[name="codi_instalacion"]');
     const selectMEP = newRow.querySelector('select[name="mep"]');
     const selectECS = newRow.querySelector('select[name="ecs"]');
     const selectECC = newRow.querySelector('select[name="ecc"]');

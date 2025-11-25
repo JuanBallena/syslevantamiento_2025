@@ -81,7 +81,23 @@ class InformacionComplementaria {
       input.id = `fila${this.rowLitigantes}_col${index + 1}`;
     });
 
-    this.tbodyLitigantes.appendChild(clone);
+    this.tbody.appendChild(clone);
+
+    // Obtener la fila recién agregada
+    const newRow = this.tbody.lastElementChild;
+
+    const selectTipoDocumento = newRow.querySelector('[name="tipo_docu"]');
+
+    new SelectDinamico({
+      select: selectTipoDocumento,
+      data: FormularioPersonaNatural.tipoDocumentos,
+      label: (item) => item.text,
+      value: 'value',
+      defaultText: 'Seleccione',
+      onSelect: (item) => {
+        //
+      },
+    });
   }
 
   getData() {
