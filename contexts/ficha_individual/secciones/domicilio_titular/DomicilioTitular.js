@@ -16,6 +16,16 @@ class DomicilioTitular {
     this.inputIdHabUrba = domicilioTitular.querySelector('[name="id_hab_urba"]');
     this.inputCodiHabUrba = domicilioTitular.querySelector('[name="codi_hab_urba"]');
 
+    this.inputNumeInterior = domicilioTitular.querySelector('[name="nume_interior"]');
+    this.inputSector = domicilioTitular.querySelector('[name="sector"]');
+    this.inputMzna = domicilioTitular.querySelector('[name="mzna"]');
+    this.inputLote = domicilioTitular.querySelector('[name="lote"]');
+    this.inputSublote = domicilioTitular.querySelector('[name="sublote"]');
+    this.inputCodiVia = domicilioTitular.querySelector('[name="codi_via"]');
+    this.inputTipoVia = domicilioTitular.querySelector('[name="tipo_via"]');
+    this.inputNombVia = domicilioTitular.querySelector('[name="nomb_via"]');
+    this.inputNumeMuni = domicilioTitular.querySelector('[name="nume_muni"]');
+
     this.departamentos = [];
     this.provincias = [];
     this.distritos = [];
@@ -58,6 +68,35 @@ class DomicilioTitular {
       value: 'value',
       defaultText: 'Seleccione',
     });
+
+    this.selectTipoUbicacion.addEventListener('change', () => this.manejarTipoUbicacion());
+  }
+
+  manejarTipoUbicacion() {
+    const ubicacionPredioData = window.ubicacionPredio.getData();
+
+    this.inputCodiHabUrba.value = ubicacionPredioData.codi_hab_urba || '';
+    this.inputIdHabUrba.value = ubicacionPredioData.id_hab_urba || '';
+    this.inputNombHabUrba.value = ubicacionPredioData.nomb_hab_urba || '';
+    this.inputNumeInterior.value = ubicacionPredioData.nume_interior || '';
+    this.inputNumeInterior.value = ubicacionPredioData.nume_interior || '';
+    this.inputSector.value = ubicacionPredioData.sector || '';
+    this.inputMzna.value = ubicacionPredioData.mzna_dist || '';
+    this.inputLote.value = ubicacionPredioData.lote_dist || '';
+    this.inputSublote.value = ubicacionPredioData.sub_lote_dist || '';
+
+    if (ubicacionPredioData.vias.length > 0) {
+      const via = ubicacionPredioData.vias[0];
+
+      this.inputCodiVia.value = via.codi_via || '';
+      this.inputTipoVia.value = via.tipo_via || '';
+      this.inputNombVia.value = via.nomb_via || '';
+
+      if (via.puertas.length > 0) {
+        const puerta = via.puertas[0];
+        this.inputNumeMuni.value = puerta.nume_muni || '';
+      }
+    }
   }
 
   async initSelectCodiDep() {
