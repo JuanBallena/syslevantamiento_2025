@@ -1,0 +1,70 @@
+<div class="m-form-section" id="informacion-complementaria">
+  <div class="m-form-section__title">Información Complementaria</div>
+
+  <div class="grid grid-cols-5 gap-1">
+    <div>
+      <label><span class="box-label-blue">88</span>Condición del declarante</label>
+      <select class="a-input-text" name="cond_declarante"></select>
+    </div>
+    <div>
+      <label><span class="box-label-red">90</span>Estado llenado de la Ficha</label>
+      <select class="a-input-text" name="esta_llenado"></select>
+    </div>
+
+    <div>
+      <label><span class="box-label-blue">91</span>Nro. Habitantes</label>
+      <input class="a-input-text" type="text" placeholder="Escriba" name="nume_habitantes" />
+    </div>
+    <div>
+      <label><span class="box-label-blue">92</span>Nro. Familias</label>
+      <input class="a-input-text" type="number" placeholder="Escriba" name="nume_familias" />
+    </div>
+    <div>
+      <label><span class="box-label-blue">93</span>Mantenimiento</label>
+      <select class="a-input-text" name="mantenimiento"></select>
+    </div>
+  </div>
+
+  <p class="text-5 text-600 mt-8 mb-4">
+    <span class="box-label-blue">89</span>Identificación de los litigantes
+  </p>
+
+  <button class="a-btn btn-primary mb-6" type="button" id="boton-agregar-litigante">Añadir</button>
+
+  <table class="table-default table-uniform text-3" id="tabla-litigantes" border="1">
+    <thead>
+      <tr>
+        <th class="w-20-per">Tipo documento</th>
+        <th class="w-20-per">N° documento</th>
+        <th class="w-40-per">Apellidos y nombres</th>
+        <th class="w-20-per">Código del contribuyente</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <template id="filaTablaLitigantes">
+    <tr>
+      <td>
+        <select name="tipo_doc" class="a-input-text"></select>
+      </td>
+      <td>
+        <input class="w-11-12 a-input-text" name="nume_doc" type="text" placeholder="Escriba" />
+      </td>
+      <td>
+        <input class="w-11-12 a-input-text" name="nume_doc" type="text" placeholder="Escriba" />
+      </td>
+      <td>
+        <input class="w-11-12 a-input-text" name="nombres_ape" type="text" placeholder="Escriba" />
+      </td>
+      <td>
+        <input
+          class="w-11-12 a-input-text"
+          name="codi_contribuye"
+          type="text"
+          placeholder="Escriba"
+        />
+      </td>
+    </tr>
+  </template>
+</div>

@@ -1,0 +1,159 @@
+<!-- DATOS DEL DECLARANTE -->
+<div class="m-form-section" id="datos-declarante">
+  <div class="m-form-section__title">
+    <span class="box-label-blue">94</span>Datos del Declarante
+  </div>
+
+  <div class="grid grid-cols-5 gap-1">
+    <div>
+      <label>DNI</label>
+      <div>
+        <input
+          class="a-input-text"
+          placeholder="Escriba"
+          type="text"
+          name="dni"
+          data-validate="numeric"
+        />
+        <input type="checkbox" class="none" name="existe_declarante" />
+      </div>
+    </div>
+    <div>
+      <label>Nombres</label>
+      <input class="a-input-text" type="text" name="nombres" placeholder="Escriba" />
+    </div>
+    <div>
+      <label>Apellido Paterno</label>
+      <input class="a-input-text" type="text" name="ape_paterno" placeholder="Escriba" />
+    </div>
+    <div>
+      <label>Apellido Materno</label>
+      <input class="a-input-text" type="text" name="ape_materno" placeholder="Escriba" />
+    </div>
+    <div>
+      <label>Fecha Levantamiento</label>
+      <input class="a-input-text" type="date" name="fecha_declarante" />
+    </div>
+  </div>
+</div>
+<br />
+<!-- DATOS DEL SUPERVISOR -->
+<div class="m-form-section" id="datos-supervisor">
+  <div class="m-form-section__title">
+    <span class="box-label-blue">95</span>Datos del Supervisor
+  </div>
+
+  <div class="grid grid-cols-5 gap-1">
+    <div>
+      <label>Buscar por Nomb/Ape</label>
+
+      <div>
+        <input
+          class="a-input-text dni-persona"
+          data-section="datos-supervisor"
+          name="dni"
+          type="text"
+          placeholder="Escriba"
+        />
+        <input type="hidden" name="dni" />
+      </div>
+    </div>
+    <div>
+      <label>Nombres</label>
+      <input class="a-input-text" type="text" name="nombres" disabled />
+    </div>
+    <div>
+      <label>Apellido Paterno</label>
+      <input class="a-input-text" type="text" name="ape_paterno" disabled />
+    </div>
+    <div>
+      <label>Apellido Materno</label>
+      <input class="a-input-text" type="text" name="ape_materno" disabled />
+    </div>
+    <div>
+      <label>Fecha Levantamiento</label>
+      <input class="a-input-text" type="date" name="fecha" />
+    </div>
+  </div>
+</div>
+<br />
+<!-- DATOS DEL TÉCNICO  -->
+<div class="m-form-section" id="datos-tecnico">
+  <div class="m-form-section__title">
+    <span class="box-label-red">96</span>Datos del Técnico Catastral
+  </div>
+
+  <div class="grid grid-cols-5 gap-1">
+    <div>
+      <label>Buscar por Nomb/Ape</label>
+      <div>
+        <input
+          class="a-input-text dni-persona"
+          data-section="datos-tecnico"
+          type="text"
+          placeholder="Escriba"
+        />
+        <input type="hidden" name="dni" />
+      </div>
+    </div>
+    <div>
+      <label>Nombres</label>
+      <input class="a-input-text" type="text" name="nombres" disabled />
+    </div>
+    <div>
+      <label>Apellido Paterno</label>
+      <input class="a-input-text" type="text" name="ape_paterno" disabled />
+    </div>
+    <div>
+      <label>Apellido Materno</label>
+      <input class="a-input-text" type="text" name="ape_materno" disabled />
+    </div>
+    <div>
+      <label>Fecha Levantamiento</label>
+      <input class="a-input-text" type="date" name="fecha" />
+    </div>
+  </div>
+</div>
+
+<br />
+<!-- DATOS DEL VERIFICADOR CATASTRAL -->
+<div class="m-form-section" id="datos-verificador">
+  <div class="m-form-section__title">
+    <span class="box-label-blue">97</span>Datos del Verificador Catastral
+  </div>
+
+  <div class="grid grid-cols-5 gap-1">
+    <div>
+      <label>Buscar por Nomb/Ape</label>
+      <div>
+        <input
+          class="a-input-text dni-persona"
+          data-section="datos-verificador"
+          type="text"
+          placeholder="Escriba"
+        />
+        <input type="hidden" name="dni" />
+      </div>
+    </div>
+    <div>
+      <label>Nombres</label>
+      <input class="a-input-text" type="text" name="nombres" disabled />
+    </div>
+    <div>
+      <label>Apellido Paterno</label>
+      <input class="a-input-text" type="text" name="ape_paterno" disabled />
+    </div>
+    <div>
+      <label>Apellido Materno</label>
+      <input class="a-input-text" type="text" name="ape_materno" disabled />
+    </div>
+    <div>
+      <label>Fecha Levantamiento</label>
+      <input class="a-input-text" type="date" name="fecha" />
+    </div>
+    <div>
+      <label>Nro. Registro</label>
+      <input class="a-input-text" type="text" name="nume_registro" placeholder="Escriba" />
+    </div>
+  </div>
+</div>

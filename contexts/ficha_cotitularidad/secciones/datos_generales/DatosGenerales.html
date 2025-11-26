@@ -1,0 +1,166 @@
+<div class="m-form-section" id="datos-generales">
+  <div class="m-form-section__title">Datos Generales</div>
+
+  <div class="flex justify-space-between mb-8">
+    <div class="w-4-12">
+      <label><span class="box-label-blue">01</span>Código Único Catastral CUC</label>
+      <div class="grid grid-cols-2 gap-x-1">
+        <div>
+          <input
+            class="a-input-text"
+            type="text"
+            placeholder="Escriba"
+            name="cuc_1"
+            data-validate="numeric|max:8|min:8"
+          />
+        </div>
+        <div>
+          <input
+            class="a-input-text"
+            type="text"
+            value=""
+            placeholder="Escriba"
+            name="cuc_2"
+            data-validate="numeric|max:4|min:4"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!--<div>
+      <label><span class="box-label-blue">2</span>Código Hoja Catastral</label>
+      <div>
+        <input
+          class="a-input-text"
+          type="text"
+          value=""
+          placeholder="Escriba"
+          name="codi_hoja_catastral"
+        />
+      </div>
+    </div>-->
+  </div>
+
+  <label class="mb-2"> <span class="box-label-red">02</span>Código de Referencia Catastral </label>
+
+  <div class="grid grid-cols-11 gap-1 mb-8">
+    <div>
+      <label>Departamento</label>
+      <input
+        class="a-input-text autocompletar-2digitos"
+        type="text"
+        value="13"
+        name="codi_dep"
+        disabled
+      />
+    </div>
+    <div>
+      <label>Provincia</label>
+      <input
+        class="a-input-text autocompletar-2digitos"
+        type="text"
+        value="01"
+        name="codi_pro"
+        disabled
+      />
+    </div>
+    <div>
+      <label>Distrito</label>
+      <input
+        class="a-input-text autocompletar-2digitos"
+        type="text"
+        value="01"
+        name="codi_dis"
+        disabled
+      />
+    </div>
+    <div>
+      <label>Sector</label>
+      <div>
+        <input type="text" name="nomb_sector" class="a-input-text" placeholder="Escriba" />
+        <input type="hidden" name="id_sector" />
+      </div>
+    </div>
+    <div>
+      <label>Manzana</label>
+      <div>
+        <input type="text" name="nume_mzna" class="a-input-text" placeholder="Escriba" />
+        <input type="hidden" name="id_mzna" />
+      </div>
+    </div>
+    <div>
+      <label>Lote</label>
+      <input
+        class="a-input-text autocompletar-3digitos"
+        type="text"
+        placeholder="Escriba"
+        name="codi_lote"
+        data-validate="required|numeric|max:3|pad:3"
+      />
+    </div>
+    <div>
+      <label>Edifica</label>
+      <input
+        class="a-input-text autocompletar-2digitos"
+        type="text"
+        placeholder="Escriba"
+        name="codi_edificacion"
+        data-validate="required|numeric|max:2|pad:2"
+      />
+    </div>
+    <div>
+      <label>Entrada</label>
+      <input
+        class="a-input-text autocompletar-2digitos"
+        type="text"
+        placeholder="Escriba"
+        name="codi_entrada"
+        data-validate="required|numeric|max:2|pad:2"
+      />
+    </div>
+    <div>
+      <label>Piso</label>
+      <input
+        class="a-input-text autocompletar-2digitos"
+        type="text"
+        placeholder="Escriba"
+        name="codi_piso"
+        data-validate="required|numeric|max:2|pad:2"
+      />
+    </div>
+    <div>
+      <label>Unidad</label>
+      <input
+        class="a-input-text autocompletar-3digitos"
+        type="text"
+        placeholder="Escriba"
+        name="codi_unidad"
+        data-validate="required|numeric|max:3|pad:3"
+      />
+    </div>
+    <div>
+      <label>DC</label>
+      <input
+        class="a-input-text autocompletar-3digitos"
+        type="text"
+        placeholder="Escriba"
+        name="dc"
+      />
+    </div>
+  </div>
+
+  <div class="flex justify-space-between mb-6">
+    <div>
+      <label><span class="box-label-blue">03</span>Código Contribuyente de Rentas</label>
+      <div>
+        <input class="a-input-text" type="text" placeholder="Escriba" name="codi_cont_rentas" />
+      </div>
+    </div>
+    <div>
+      <label><span class="box-label-blue">04</span>Código Predial de Rentas</label>
+      <div>
+        <input class="a-input-text" type="text" placeholder="Escriba" name="codi_pred_rentas" />
+      </div>
+    </div>
+  </div>
+</div>
