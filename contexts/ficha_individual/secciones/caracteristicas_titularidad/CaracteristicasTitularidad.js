@@ -35,11 +35,11 @@ class CaracteristicasTitularidad {
   constructor() {
     this.selectCondicionTitular = document.querySelector('[name="cond_titular"]');
     this.selectFormaAdquisicion = document.querySelector('[name="form_adquisicion"]');
-    this.selectCondEspPredio = document.querySelector('[name="cond_esp_predio"]');
+    // this.selectCondEspPredio = document.querySelector('[name="cond_esp_predio"]');
 
     this.initSelectCondicionTitular();
     this.initSelectFormaAdquisicion();
-    this.initSelectCondEspPredio();
+    // this.initSelectCondEspPredio();
   }
 
   initSelectCondicionTitular() {
@@ -68,18 +68,18 @@ class CaracteristicasTitularidad {
     });
   }
 
-  initSelectCondEspPredio() {
-    new SelectDinamico({
-      select: this.selectCondEspPredio,
-      data: CaracteristicasTitularidad.condEspPredioOpciones,
-      label: (item) => `${item.value} - ${item.text}`,
-      value: 'value',
-      defaultText: 'Seleccione',
-      onSelect: (item) => {
-        //
-      },
-    });
-  }
+  // initSelectCondEspPredio() {
+  //   new SelectDinamico({
+  //     select: this.selectCondEspPredio,
+  //     data: CaracteristicasTitularidad.condEspPredioOpciones,
+  //     label: (item) => `${item.value} - ${item.text}`,
+  //     value: 'value',
+  //     defaultText: 'Seleccione',
+  //     onSelect: (item) => {
+  //       //
+  //     },
+  //   });
+  // }
 
   getData() {
     const formDataExtractor = new FormDataExtractor();

@@ -8,7 +8,7 @@
     </div>
     <div>
       <label><span class="box-label-red">31</span>Departamento</label>
-      <select class="a-input-text hidden-codi-dep" name="codi_dep"></select>
+      <select class="a-input-text" name="codi_dep"></select>
       <!-- <input type="text" class="a-input-text" name="codi_dep" placeholder="Escriba" /> -->
     </div>
     <div>
@@ -23,13 +23,15 @@
     </div>
     <div>
       <label><span class="box-label-blue">05</span>Código de Vía</label>
-      <input type="text" class="a-input-text" name="codi_via" placeholder="Escriba" />
+      <div>
+        <input type="text" class="a-input-text" name="codi_via" placeholder="Escriba" />
+        <input type="hidden" name="id_via" />
+      </div>
     </div>
     <div>
       <label><span class="box-label-blue">06</span>Tipo de Vía</label>
       <div>
         <input type="text" name="tipo_via" class="a-input-text" placeholder="Escriba" disabled />
-        <!-- <input type="hidden" name="id_via" /> -->
       </div>
     </div>
     <div>

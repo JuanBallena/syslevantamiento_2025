@@ -1,7 +1,7 @@
 class Documentos {
   constructor() {
     // Datos cargados desde servicios
-    this.selectNotaria = document.querySelector('select[name="notaria"]');
+    // this.selectNotaria = document.querySelector('select[name="notaria"]');
     this.tipoDocumentos = [];
     this.notarias = [];
 
@@ -16,34 +16,34 @@ class Documentos {
 
   async init() {
     await this.cargarTipoDocumentos();
-    await this.initSelectNotaria();
+    // await this.initSelectNotaria();
 
     document
       .querySelector('#agregar-fila-documento')
       .addEventListener('click', this.addRow.bind(this));
   }
 
-  async initSelectNotaria() {
-    try {
-      const res = await ServicioNotarias.obtenerNotarias();
+  // async initSelectNotaria() {
+  //   try {
+  //     const res = await ServicioNotarias.obtenerNotarias();
 
-      if (res && res.success && Array.isArray(res.data)) {
-        this.notarias = res.data;
-      } else {
-        console.warn('ServicioTipoDocumentos: respuesta inválida', res);
-      }
-    } catch (err) {
-      console.error('Error al obtener tipo documentos:', err);
-    }
+  //     if (res && res.success && Array.isArray(res.data)) {
+  //       this.notarias = res.data;
+  //     } else {
+  //       console.warn('ServicioTipoDocumentos: respuesta inválida', res);
+  //     }
+  //   } catch (err) {
+  //     console.error('Error al obtener tipo documentos:', err);
+  //   }
 
-    new SelectDinamico({
-      select: this.selectNotaria,
-      data: this.notarias,
-      label: (item) => item.nomb_notaria,
-      value: 'id_notaria',
-      defaultText: 'Seleccione',
-    });
-  }
+  //   new SelectDinamico({
+  //     select: this.selectNotaria,
+  //     data: this.notarias,
+  //     label: (item) => item.nomb_notaria,
+  //     value: 'id_notaria',
+  //     defaultText: 'Seleccione',
+  //   });
+  // }
 
   async cargarTipoDocumentos() {
     try {
