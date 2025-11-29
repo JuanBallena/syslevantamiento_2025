@@ -105,8 +105,9 @@ class DomicilioTitular {
 
   initEventosLocales() {
     this.selectTipoUbicacion.addEventListener('change', (e) => this.manejarTipoUbicacion(e));
-    this.selectCodiDis.addEventListener('change', (e) => this.manejarCodiDis(e));
-    this.selectCodiPro.addEventListener('change', (e) => this.manejarCodiDis(e));
+    this.selectCodiDis.addEventListener('change', () => this.actualizarVia());
+    this.selectCodiPro.addEventListener('change', () => this.actualizarVia());
+    this.selectCodiDep.addEventListener('change', () => this.actualizarVia());
   }
 
   async manejarTipoUbicacion(e) {
@@ -160,39 +161,54 @@ class DomicilioTitular {
       this.selectCodiPro.value = '01';
       await this.initSelectCodiDisSegunCodiPro('01');
       this.selectCodiDis.value = '01';
-
-      const codiDis = this.selectCodiDis.value;
-
-      if (codiDis === '01') {
-        this.inputCodiVia.value = '999999';
-        this.inputCodiVia.disabled = 'true';
-        this.inputIdVia.value = '';
-        this.inputTipoVia.value = 'Calle';
-        this.inputNombVia.value = '';
-      }
     }
+
+    this.actualizarVia();
   }
 
-  async manejarCodiDis(e) {
-    const codiDis = this.selectCodiDis.value;
+  actualizarVia() {
+    this.inputCodiVia.disabled = false;
+
     const tipoUbicacion = this.selectTipoUbicacion.value;
+    const codiDis = this.selectCodiDis.value;
+    const codiPro = this.selectCodiPro.value;
+    const codiDep = this.selectCodiDep.value;
 
     if (tipoUbicacion === '02') {
-      if (codiDis === '01') {
-        this.inputCodiVia.value = '999999';
-        this.inputCodiVia.disabled = true;
-        this.inputIdVia.value = '';
-        this.inputTipoVia.value = 'Calle';
-        this.inputNombVia.value = '';
-      } else {
+      if (codiDep === '13' && codiPro === '01' && codiDis === '01') {
         this.inputCodiVia.value = '';
         this.inputCodiVia.disabled = false;
         this.inputIdVia.value = '';
         this.inputTipoVia.value = '';
         this.inputNombVia.value = '';
+      } else {
+        this.inputCodiVia.value = '999999';
+        this.inputCodiVia.disabled = true;
+        this.inputIdVia.value = '';
+        this.inputTipoVia.value = 'Calle';
+        this.inputNombVia.value = '';
       }
     }
   }
+
+  // actualizarVia() {
+  //   const codiDis = this.selectCodiDis.value;
+  //   const codiPro = this.selectCodiPro.value;
+
+  //   if (codiDis != '01') {
+  //     this.inputCodiVia.value = '999999';
+  //     this.inputCodiVia.disabled = true;
+  //     this.inputIdVia.value = '';
+  //     this.inputTipoVia.value = 'Calle';
+  //     this.inputNombVia.value = '';
+  //   } else {
+  //     this.inputCodiVia.value = '';
+  //     this.inputCodiVia.disabled = false;
+  //     this.inputIdVia.value = '';
+  //     this.inputTipoVia.value = '';
+  //     this.inputNombVia.value = '';
+  //   }
+  // }
 
   async initSelectCodiDep() {
     try {

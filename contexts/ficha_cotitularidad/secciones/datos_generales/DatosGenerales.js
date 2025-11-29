@@ -1,46 +1,65 @@
 class DatosGenerales {
   constructor() {
+    this.sectores = [];
+    this.manzanas = [];
     this.autocompleteManzana = null;
 
-    this.inputSector = document.querySelector('[name="nomb_sector"]');
-    this.hiddenSector = document.querySelector('[name="id_sector"]');
-    this.inputNumeMzna = document.querySelector('input[name="nume_mzna"]');
-    this.hiddenNumeMzna = document.querySelector('input[name="id_mzna"]');
+    const contenedor = document.getElementById('datos-generales');
+    this.inputNombSector = contenedor.querySelector('[name="nomb_sector"]');
+    this.inputIdSector = contenedor.querySelector('[name="id_sector"]');
+    this.inputNumeMzna = contenedor.querySelector('input[name="nume_mzna"]');
+    this.inputIdMzna = contenedor.querySelector('input[name="id_mzna"]');
+  }
 
+  async init() {
+    await this.cargarSectores();
     this.initAutocompleteSector();
     this.initAutocompleteManzana();
   }
 
-  async initAutocompleteSector() {
-    let sectores = [];
-
+  async cargarSectores() {
     try {
       const res = await ServicioSectores.obtenerSectores();
 
       if (res && res.success && Array.isArray(res.data)) {
-        sectores = res.data;
+        this.sectores = res.data;
       } else {
         console.warn('ServicioSectores: respuesta inválida', res);
       }
     } catch (err) {
       console.error('Error al obtener sectores:', err);
     }
+  }
 
+  async cargarManzanasSegunIdSector(idSector) {
+    try {
+      const res = await ServicioManzanas.obtenerManzanas(idSector);
+
+      if (res && res.success && Array.isArray(res.data)) {
+        this.manzanas = res.data;
+      } else {
+        console.warn('ServicioManzanas: respuesta inválida', res);
+      }
+    } catch (err) {
+      console.error('Error al obtener manzanas:', err);
+    }
+  }
+
+  async initAutocompleteSector() {
     new Autocomplete({
-      input: this.inputSector,
-      inputHidden: this.hiddenSector,
-      data: sectores,
+      input: this.inputNombSector,
+      inputHidden: this.inputIdSector,
+      data: this.sectores,
       label: (item) => `${item.codi_sector}, ${item.nomb_sector}`,
       value: 'id_sector',
       onSelect: async (item) => {
-        await this.actualizarAutocompleteManzanas(item.id_sector);
-
-        // this.inputNumeMzna.disabled = false;
+        this.autocompleteManzana.updateData([]);
+        await this.cargarManzanasSegunIdSector(item.id_sector);
+        this.autocompleteManzana.updateData(this.manzanas);
       },
       onInput: () => {
         this.inputNumeMzna.value = '';
-        this.hiddenNumeMzna.value = '';
-        // this.inputNumeMzna.disabled = true;
+        this.inputIdMzna.value = '';
       },
     });
   }
@@ -48,7 +67,7 @@ class DatosGenerales {
   async initAutocompleteManzana() {
     this.autocompleteManzana = new Autocomplete({
       input: this.inputNumeMzna,
-      inputHidden: this.hiddenNumeMzna,
+      inputHidden: this.inputIdMzna,
       data: [],
       label: (item) => `${item.codi_mzna}`,
       value: 'id_mzna',
@@ -58,22 +77,6 @@ class DatosGenerales {
     });
   }
 
-  async actualizarAutocompleteManzanas(idSector) {
-    this.autocompleteManzana.updateData([]);
-
-    try {
-      const res = await ServicioManzanas.obtenerManzanas(idSector);
-
-      if (res && res.success && Array.isArray(res.data)) {
-        this.autocompleteManzana.updateData(res.data);
-      } else {
-        console.warn('ServicioManzanas: respuesta inválida', res);
-      }
-    } catch (err) {
-      console.error('Error al obtener manzanas:', err);
-    }
-  }
-
   getData() {
     const formDataExtractor = new FormDataExtractor();
 
@@ -81,6 +84,15 @@ class DatosGenerales {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  window.datosGenerales = new DatosGenerales();
+document.addEventListener('DOMContentLoaded', async () => {
+  const datosGenerales = new DatosGenerales();
+
+  await datosGenerales.init();
+
+  const buscarFicha = new BuscarFicha({
+    datosGeneralesData: datosGenerales,
+  });
+
+  window.datosGenerales = datosGenerales;
+  window.buscarFicha = buscarFicha;
 });

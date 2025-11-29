@@ -7,9 +7,8 @@
 
     <title>Ficha Catastral Urbana Individual</title>
 
-    <link rel="stylesheet" href="styles.css" />
-
-    <link href="../../assets/index.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../../assets/styles.css" />
+    <link rel="stylesheet" href="../../assets/index.css"/>
   </head>
   <body>
     <div class="o-main max-h-screen px-20 bg-whit" style="overflow: auto">

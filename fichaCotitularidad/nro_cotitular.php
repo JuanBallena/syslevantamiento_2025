@@ -2,13 +2,15 @@
 include '../configuracion/eventos.php';
 include '../funciones/verifica_ubigeo.php'; //sesiones de UBIGEO
 
-$Dep=$_SESSION['dep'];
-$Pro=$_SESSION['pro'];
-$Dis=$_SESSION['dis'];
+$Dep = $_SESSION['dep'];
+$Pro = $_SESSION['pro'];
+$Dis = $_SESSION['dis'];
 
-if(isset($_GET['sw']))
-	$sw='1';
-else $sw='0';
+if (isset($_GET['sw'])) {
+  $sw = '1';
+} else {
+  $sw = '0';
+}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -83,10 +85,9 @@ function redireccionar(sw){
          <tr><td>&nbsp;</td></tr>
         <tr>
             <td colspan="3" align="center">
-             	<?php if(!isset($_GET['sw']))
-					{	
-						echo 
-						"<table width='680' border='0' cellpadding='0' cellspacing='0' class='tabla'>
+             	<?php if (!isset($_GET['sw'])) {
+             	  echo
+             	  "<table width='680' border='0' cellpadding='0' cellspacing='0' class='tabla'>
 						<tr>
 							<td height='12' colspan='2'>&nbsp;</td>
                                         <td width='6%' valign='bottom'><div align='center' class='Estilo10'><span class='Estilo11'>DPTO.</span></div></td>
@@ -150,8 +151,8 @@ function redireccionar(sw){
 						  </tr>
 						  
 					</table>";
-					}
-						?>
+             	}
+?>
               <div align="center"></div>
              </label>
              <div align="center"></div>

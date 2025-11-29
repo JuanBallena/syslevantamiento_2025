@@ -46,7 +46,9 @@ class Autocomplete {
   }
 
   getLabel(item) {
-    return typeof this.label === 'function' ? this.label(item) || '' : item?.[this.label] || '';
+    return typeof this.label === 'function'
+      ? this.label(item).trim() || ''
+      : item?.[this.label].trim() || '';
   }
 
   createLi(texto, item) {
@@ -97,7 +99,8 @@ class Autocomplete {
     if (!msgEl || !msgEl.classList.contains('error-msg')) {
       msgEl = document.createElement('div');
       msgEl.classList.add('error-msg');
-      msgEl.style.color = 'tomato';
+      msgEl.style.color = 'red';
+      msgEl.style.fontWeight = 'bold';
       msgEl.style.fontSize = '14px';
       msgEl.style.marginTop = '4px';
 

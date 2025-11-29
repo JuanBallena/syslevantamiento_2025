@@ -78,7 +78,7 @@ window.status = "Copyright 2011 - Secretaria Tecnica del SNCP";
                     <ul>
                         <li><a href="javascript:cambiar('contexts/ficha_individual/FichaIndividual')" target="_self">Ficha Individual</a></li>
                          <!-- <li>-----------------------------------</li> -->
-                        <li><a href="javascript:cambiar('fichaCotitularidad/nro_cotitular')" target="_self">Ficha Cotitularidad</a></li>	
+                        <li><a href="javascript:cambiar('contexts/ficha_cotitularidad/FichaCotitularidad')" target="_self">Ficha Cotitularidad</a></li>	
                         <li><a href="javascript:cambiar('fichaActividadEconomica/nro_economica')" target="_self" align="right">Ficha Actividad Economica</a></li>
                         <li><a href="javascript:cambiar('fichaBienComun/nro_biencomun')" target="_self">Ficha Bien Comun</a></li>                            
                     </ul>

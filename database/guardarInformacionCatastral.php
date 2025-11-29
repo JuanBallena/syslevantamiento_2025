@@ -217,128 +217,131 @@ try {
     "fecha_fabrica" => validarValor($inscripcionPredio['fecha_fabrica']),
   ]);
 
-  $personaNatural = $identificacionTitular['personaNatural'];
+  if ($caracteristicasTitularidad['cond_titular'] !== '05') { // SI NO ES COTITULARIDAD
 
-  if (!empty((array) $personaNatural)) {
-    $datosPersonaNatural = [
-      "id_persona" => trim($identificacionTitular['tipo_persona'] . $personaNatural['tipo_doc'] . $personaNatural['nume_doc']),
-      "nume_doc" => $personaNatural['nume_doc'],
-      "tipo_doc" => $personaNatural['tipo_doc'],
-      "tipo_persona" => $identificacionTitular['tipo_persona'],
-      "nombres" => $personaNatural['nombres'],
-      "ape_paterno" => $personaNatural['ape_paterno'],
-      "ape_materno" => $personaNatural['ape_materno'],
-      "tipo_persona_juridica" => '',
-      "tipo_funcion" => '',
-      "razon_social" => '',
-    ];
+    $personaNatural = $identificacionTitular['personaNatural'];
 
-    $personaRepository->guardarPersona($datosPersonaNatural);
+    if (!empty((array) $personaNatural)) {
+      $datosPersonaNatural = [
+        "id_persona" => trim($identificacionTitular['tipo_persona'] . $personaNatural['tipo_doc'] . $personaNatural['nume_doc']),
+        "nume_doc" => $personaNatural['nume_doc'],
+        "tipo_doc" => $personaNatural['tipo_doc'],
+        "tipo_persona" => $identificacionTitular['tipo_persona'],
+        "nombres" => $personaNatural['nombres'],
+        "ape_paterno" => $personaNatural['ape_paterno'],
+        "ape_materno" => $personaNatural['ape_materno'],
+        "tipo_persona_juridica" => '',
+        "tipo_funcion" => '',
+        "razon_social" => '',
+      ];
 
-    $datosTitularNatural = [
-      "id_ficha" => $datosFicha['id_ficha'],
-      "id_persona" => $datosPersonaNatural['id_persona'],
-      "form_adquisicion" => $caracteristicasTitularidad['form_adquisicion'],
-      "fecha_adquisicion" => validarValor($caracteristicasTitularidad['fecha_adquisicion']),
-      "porc_cotitular" => '0.0',
-      "esta_civil" => $personaNatural['esta_civil'],
-      "fax" => $domicilioTitular['fax'],
-      "telf" => $domicilioTitular['telefono'],
-      "anexo" => $domicilioTitular['anexo'],
-      "email" => $domicilioTitular['correo'],
-      "nume_titular" => '',
-      "codi_contribuyente" => '',
-      "cond_titular" => $caracteristicasTitularidad['cond_titular']
-    ];
+      $personaRepository->guardarPersona($datosPersonaNatural);
 
-    $titularesRepository->guardarTitularesMultiple([$datosTitularNatural]);
+      $datosTitularNatural = [
+        "id_ficha" => $datosFicha['id_ficha'],
+        "id_persona" => $datosPersonaNatural['id_persona'],
+        "form_adquisicion" => $caracteristicasTitularidad['form_adquisicion'],
+        "fecha_adquisicion" => validarValor($caracteristicasTitularidad['fecha_adquisicion']),
+        "porc_cotitular" => '0.0',
+        "esta_civil" => $personaNatural['esta_civil'],
+        "fax" => $domicilioTitular['fax'],
+        "telf" => $domicilioTitular['telefono'],
+        "anexo" => $domicilioTitular['anexo'],
+        "email" => $domicilioTitular['correo'],
+        "nume_titular" => '',
+        "codi_contribuyente" => '',
+        "cond_titular" => $caracteristicasTitularidad['cond_titular']
+      ];
 
-    $datosDomicilioTitularNatural = [
-      "id_ficha" => $datosFicha['id_ficha'],
-      "id_persona" => $datosPersonaNatural['id_persona'],
-      "codi_via" => trim($domicilioTitular['codi_via']),
-      "tipo_via" => $domicilioTitular['tipo_via'],
-      "nomb_via" => $domicilioTitular['nomb_via'],
-      "nume_muni" => $domicilioTitular['nume_muni'],
-      "nomb_edificacion" => $domicilioTitular['nomb_edificacion'],
-      "nume_interior" => $domicilioTitular['nume_interior'],
-      "codi_hab_urba" => $domicilioTitular['codi_hab_urba'],
-      "nomb_hab_urba" => $domicilioTitular['nomb_hab_urba'],
-      "sector" => $domicilioTitular['sector'],
-      "mzna" => $domicilioTitular['mzna'],
-      "lote" => $domicilioTitular['lote'],
-      "sublote" => $domicilioTitular['subLote'],
-      "codi_dep" => $domicilioTitular['codi_dep'],
-      "codi_pro" => $domicilioTitular['codi_pro'],
-      "codi_dis" => $domicilioTitular['codi_dis'],
-    ];
+      $titularesRepository->guardarTitularesMultiple([$datosTitularNatural]);
 
-    $domicilioTitularesRepository->guardarDomicilioTitularesMultiple([$datosDomicilioTitularNatural]);
-  }
+      $datosDomicilioTitularNatural = [
+        "id_ficha" => $datosFicha['id_ficha'],
+        "id_persona" => $datosPersonaNatural['id_persona'],
+        "codi_via" => trim($domicilioTitular['codi_via']),
+        "tipo_via" => $domicilioTitular['tipo_via'],
+        "nomb_via" => $domicilioTitular['nomb_via'],
+        "nume_muni" => $domicilioTitular['nume_muni'],
+        "nomb_edificacion" => $domicilioTitular['nomb_edificacion'],
+        "nume_interior" => $domicilioTitular['nume_interior'],
+        "codi_hab_urba" => $domicilioTitular['codi_hab_urba'],
+        "nomb_hab_urba" => $domicilioTitular['nomb_hab_urba'],
+        "sector" => $domicilioTitular['sector'],
+        "mzna" => $domicilioTitular['mzna'],
+        "lote" => $domicilioTitular['lote'],
+        "sublote" => $domicilioTitular['subLote'],
+        "codi_dep" => $domicilioTitular['codi_dep'],
+        "codi_pro" => $domicilioTitular['codi_pro'],
+        "codi_dis" => $domicilioTitular['codi_dis'],
+      ];
 
-  $conyugue = $identificacionTitular['conyugue'];
+      $domicilioTitularesRepository->guardarDomicilioTitularesMultiple([$datosDomicilioTitularNatural]);
+    }
 
-  if (!empty((array) $identificacionTitular['conyugue'])) {
-    //
-  }
+    $conyugue = $identificacionTitular['conyugue'];
 
-  $personaJuridica = $identificacionTitular['personaJuridica'];
+    if (!empty((array) $identificacionTitular['conyugue'])) {
+      //
+    }
 
-  if (!empty((array) $identificacionTitular['personaJuridica'])) {
-    $datosPersonaJuridica = [
-      "id_persona" => trim($identificacionTitular['tipo_persona'] . $personaJuridica['tipo_persona_juridica'] . $personaJuridica['ruc']),
-      "nume_doc" => $personaJuridica['ruc'],
-      "tipo_doc" => '',
-      "tipo_persona" => $personaJuridica['tipo_persona'],
-      "nombres" => '',
-      "ape_paterno" => '',
-      "ape_materno" => '',
-      "tipo_persona_juridica" => $personaJuridica['tipo_persona_juridica'],
-      "tipo_funcion" => '',
-      "razon_social" => $personaJuridica['razon_social'],
-    ];
+    $personaJuridica = $identificacionTitular['personaJuridica'];
 
-    $personaRepository->guardarPersona($datosPersonaJuridica);
+    if (!empty((array) $identificacionTitular['personaJuridica'])) {
+      $datosPersonaJuridica = [
+        "id_persona" => trim($identificacionTitular['tipo_persona'] . $personaJuridica['tipo_persona_juridica'] . $personaJuridica['ruc']),
+        "nume_doc" => $personaJuridica['ruc'],
+        "tipo_doc" => '',
+        "tipo_persona" => $personaJuridica['tipo_persona'],
+        "nombres" => '',
+        "ape_paterno" => '',
+        "ape_materno" => '',
+        "tipo_persona_juridica" => $personaJuridica['tipo_persona_juridica'],
+        "tipo_funcion" => '',
+        "razon_social" => $personaJuridica['razon_social'],
+      ];
 
-    $datosTitularJuridico = [
-      "id_ficha" => $datosFicha['id_ficha'],
-      "id_persona" => $datosPersonaJuridica['id_persona'],
-      "form_adquisicion" => $caracteristicasTitularidad['form_adquisicion'],
-      "fecha_adquisicion" => validarValor($caracteristicasTitularidad['fecha_adquisicion']),
-      "porc_cotitular" => '0.0',
-      "esta_civil" => '',
-      "fax" => $domicilioTitular['fax'],
-      "telf" => $domicilioTitular['telefono'],
-      "anexo" => $domicilioTitular['anexo'],
-      "email" => $domicilioTitular['correo'],
-      "nume_titular" => '',
-      "codi_contribuyente" => '',
-      "cond_titular" => $caracteristicasTitularidad['cond_titular']
-    ];
+      $personaRepository->guardarPersona($datosPersonaJuridica);
 
-    $titularesRepository->guardarTitularesMultiple([$datosTitularJuridico]);
+      $datosTitularJuridico = [
+        "id_ficha" => $datosFicha['id_ficha'],
+        "id_persona" => $datosPersonaJuridica['id_persona'],
+        "form_adquisicion" => $caracteristicasTitularidad['form_adquisicion'],
+        "fecha_adquisicion" => validarValor($caracteristicasTitularidad['fecha_adquisicion']),
+        "porc_cotitular" => '0.0',
+        "esta_civil" => '',
+        "fax" => $domicilioTitular['fax'],
+        "telf" => $domicilioTitular['telefono'],
+        "anexo" => $domicilioTitular['anexo'],
+        "email" => $domicilioTitular['correo'],
+        "nume_titular" => '',
+        "codi_contribuyente" => '',
+        "cond_titular" => $caracteristicasTitularidad['cond_titular']
+      ];
 
-    $datosDomicilioTitularJuridico = [
-      "id_ficha" => $datosFicha['id_ficha'],
-      "id_persona" => $datosPersonaJuridica['id_persona'],
-      "codi_via" => trim($domicilioTitular['codi_via']),
-      "tipo_via" => $domicilioTitular['tipo_via'],
-      "nomb_via" => $domicilioTitular['nomb_via'],
-      "nume_muni" => $domicilioTitular['nume_muni'],
-      "nomb_edificacion" => $domicilioTitular['nomb_edificacion'],
-      "nume_interior" => $domicilioTitular['nume_interior'],
-      "codi_hab_urba" => $domicilioTitular['codi_hab_urba'],
-      "nomb_hab_urba" => $domicilioTitular['nomb_hab_urba'],
-      "sector" => $domicilioTitular['sector'],
-      "mzna" => $domicilioTitular['mzna'],
-      "lote" => $domicilioTitular['lote'],
-      "sublote" => $domicilioTitular['subLote'],
-      "codi_dep" => $domicilioTitular['codi_dep'],
-      "codi_pro" => $domicilioTitular['codi_pro'],
-      "codi_dis" => $domicilioTitular['codi_dis'],
-    ];
+      $titularesRepository->guardarTitularesMultiple([$datosTitularJuridico]);
 
-    $domicilioTitularesRepository->guardarDomicilioTitularesMultiple([$datosDomicilioTitularJuridico]);
+      $datosDomicilioTitularJuridico = [
+        "id_ficha" => $datosFicha['id_ficha'],
+        "id_persona" => $datosPersonaJuridica['id_persona'],
+        "codi_via" => trim($domicilioTitular['codi_via']),
+        "tipo_via" => $domicilioTitular['tipo_via'],
+        "nomb_via" => $domicilioTitular['nomb_via'],
+        "nume_muni" => $domicilioTitular['nume_muni'],
+        "nomb_edificacion" => $domicilioTitular['nomb_edificacion'],
+        "nume_interior" => $domicilioTitular['nume_interior'],
+        "codi_hab_urba" => $domicilioTitular['codi_hab_urba'],
+        "nomb_hab_urba" => $domicilioTitular['nomb_hab_urba'],
+        "sector" => $domicilioTitular['sector'],
+        "mzna" => $domicilioTitular['mzna'],
+        "lote" => $domicilioTitular['lote'],
+        "sublote" => $domicilioTitular['subLote'],
+        "codi_dep" => $domicilioTitular['codi_dep'],
+        "codi_pro" => $domicilioTitular['codi_pro'],
+        "codi_dis" => $domicilioTitular['codi_dis'],
+      ];
+
+      $domicilioTitularesRepository->guardarDomicilioTitularesMultiple([$datosDomicilioTitularJuridico]);
+    }
   }
 
   $datosLitigantes = [];

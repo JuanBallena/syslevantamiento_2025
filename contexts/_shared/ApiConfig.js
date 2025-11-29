@@ -3,7 +3,8 @@ window.API_BASE = '../../database/';
 
 // Opcional: rutas específicas
 window.ENDPOINTS = {
-  fichaPorNumero: 'obtenerFichaPorNumero.php',
+  obtenerFichaPorNumero: 'obtenerFichaPorNumero.php',
+  obtenerFichaPorNumeroYPorId: 'obtenerFichaPorNumeroYPorId.php',
   obtenerSectores: 'obtenerSectores.php',
   obtenerManzanas: 'obtenerManzanas.php',
   obtenerTipoEdificaciones: 'obtenerTipoEdificaciones.php',

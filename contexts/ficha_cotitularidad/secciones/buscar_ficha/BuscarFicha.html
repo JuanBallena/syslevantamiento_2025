@@ -1,0 +1,154 @@
+<div class="m-form-section" id="buscar-ficha">
+  <!-- <div class="m-form-section__title">Buscar ficha</div> -->
+  <div class="error-buscar-ficha mb-8 none">Este es un mensaje de errror</div>
+
+  <div class="flex justify-space-between mb-10">
+    <div>
+      <div class="flex items-center">
+        <div>
+          <p class="text-7 text-600 mr-4">Ingrese N° de titulares</p>
+        </div>
+        <div>
+          <input
+            class="a-input-text"
+            type="text"
+            placeholder="Escriba"
+            name="nume_titu"
+            data-validate="required|numeric"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-12 xl:grid-cols-8 lg:grid-cols-6 md:grid-cols-2 gap-1">
+    <div class="flex items-center">
+      <div>
+        <span class="box-label-red">01</span>
+      </div>
+      <div class="px-2">
+        <label class="text-3">Código de Referencia Catastral</label>
+      </div>
+    </div>
+    <div>
+      <label>Departamento</label>
+      <input class="a-input-text" type="text" value="13" name="codi_dep" disabled />
+    </div>
+    <div>
+      <label>Provincia</label>
+      <input class="a-input-text" type="text" value="01" name="codi_pro" disabled />
+    </div>
+    <div>
+      <label>Distrito</label>
+      <input class="a-input-text" type="text" value="01" name="codi_dis" disabled />
+    </div>
+    <div>
+      <label>Sector</label>
+      <div>
+        <input type="text" name="nomb_sector" class="a-input-text" placeholder="Escriba" />
+        <input type="hidden" name="id_sector" />
+      </div>
+    </div>
+    <div>
+      <label>Manzana</label>
+      <div>
+        <input type="text" name="nume_mzna" class="a-input-text" placeholder="Escriba" />
+        <input type="hidden" name="id_mzna" />
+      </div>
+    </div>
+    <div>
+      <label>Lote</label>
+      <input
+        class="a-input-text"
+        type="text"
+        placeholder="Escriba"
+        name="codi_lote"
+        value="7"
+        data-validate="required|numeric|max:3|pad:3"
+      />
+    </div>
+    <div>
+      <label>Edifica</label>
+      <input
+        class="a-input-text"
+        type="text"
+        placeholder="Escriba"
+        name="codi_edificacion"
+        value="7"
+        data-validate="required|numeric|max:2|pad:2"
+      />
+    </div>
+    <div>
+      <label>Entrada</label>
+      <input
+        class="a-input-text"
+        type="text"
+        placeholder="Escriba"
+        name="codi_entrada"
+        value="7"
+        data-validate="required|numeric|max:2|pad:2"
+      />
+    </div>
+    <div>
+      <label>Piso</label>
+      <input
+        class="a-input-text"
+        type="text"
+        placeholder="Escriba"
+        name="codi_piso"
+        value="7"
+        data-validate="required|numeric|max:2|pad:2"
+      />
+    </div>
+    <div>
+      <label>Unidad</label>
+      <input
+        class="a-input-text"
+        type="text"
+        placeholder="Escriba"
+        name="codi_unidad"
+        value="7"
+        data-validate="required|numeric|max:3|pad:3"
+      />
+    </div>
+    <div>
+      <label>DC</label>
+      <input
+        class="a-input-text"
+        type="text"
+        placeholder="Escriba"
+        name="dc"
+        value="7"
+        data-validate="required"
+      />
+    </div>
+  </div>
+
+  <br />
+
+  <div class="grid grid-cols-12 xl:grid-cols-8 lg:grid-cols-6 md:grid-cols-2 gap-1">
+    <div class="flex items-center">
+      <div>
+        <label class="text-3 text-center">Número de ficha</label>
+      </div>
+    </div>
+    <div class="col-span-2">
+      <input
+        class="a-input-text"
+        type="text"
+        name="nume_ficha"
+        data-validate="required|max:7|min:7"
+        value="9584510"
+      />
+    </div>
+  </div>
+
+  <div class="w-3-12">
+    <div class="grid grid-cols-2 gap-x-1 mt-12">
+      <button type="button" class="btn btn-md btn-success rounded-2 btn-continuar" disabled>
+        Continuar
+      </button>
+      <button type="button" class="btn btn-md btn-accent rounded-2">Cancelar</button>
+    </div>
+  </div>
+</div>

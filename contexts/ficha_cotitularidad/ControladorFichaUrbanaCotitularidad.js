@@ -113,5 +113,5 @@ class ControladorFichaUrbanaIndividual {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  new ControladorFichaUrbanaIndividual('#formulario-ficha-urbana-individual');
+  new ControladorFichaUrbanaIndividual('#formulario-ficha-cotitularidad');
 });
