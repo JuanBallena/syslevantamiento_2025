@@ -193,6 +193,8 @@ class DomicilioTitular {
 
       if (tipoUbicacion === '02') {
         this.inputNumeMuni.disabled = true;
+      } else {
+        this.inputNumeMuni.disabled = false;
       }
     }
   }
