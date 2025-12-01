@@ -22,7 +22,7 @@ class DomicilioTitular {
     this.inputCodiVia = domicilioTitular.querySelector('[name="codi_via"]');
 
     this.inputNumeInterior = domicilioTitular.querySelector('[name="nume_interior"]');
-    this.inputSector = domicilioTitular.querySelector('[name="sector"]');
+    this.inputZonaSectorEtapa = domicilioTitular.querySelector('[name="zona_sector_etapa"]');
     this.inputMzna = domicilioTitular.querySelector('[name="mzna"]');
     this.inputLote = domicilioTitular.querySelector('[name="lote"]');
     this.inputSublote = domicilioTitular.querySelector('[name="sublote"]');
@@ -114,13 +114,15 @@ class DomicilioTitular {
     const tipoUbicacion = e.target.value;
     const ubicacionPredioData = window.ubicacionPredio.getData();
 
+    console.log(ubicacionPredioData);
+
     if (tipoUbicacion === '01') {
       this.inputCodiHabUrba.value = ubicacionPredioData.codi_hab_urba || '';
       this.inputIdHabUrba.value = ubicacionPredioData.id_hab_urba || '';
       this.inputNombHabUrba.value = ubicacionPredioData.nomb_hab_urba || '';
       this.inputNumeInterior.value = ubicacionPredioData.nume_interior || '';
       this.inputNumeInterior.value = ubicacionPredioData.nume_interior || '';
-      this.inputSector.value = ubicacionPredioData.sector || '';
+      this.inputZonaSectorEtapa.value = ubicacionPredioData.zona_sector_etapa || '';
       this.inputMzna.value = ubicacionPredioData.mzna_dist || '';
       this.inputLote.value = ubicacionPredioData.lote_dist || '';
       this.inputSublote.value = ubicacionPredioData.sub_lote_dist || '';
@@ -151,7 +153,7 @@ class DomicilioTitular {
       this.inputNombHabUrba.value = '';
       this.inputNumeInterior.value = '';
       this.inputNumeInterior.value = '';
-      this.inputSector.value = '';
+      this.inputZonaSectorEtapa.value = '';
       this.inputMzna.value = '';
       this.inputLote.value = '';
       this.inputSublote.value = '';
@@ -188,27 +190,12 @@ class DomicilioTitular {
         this.inputTipoVia.value = 'Calle';
         this.inputNombVia.value = '';
       }
+
+      if (tipoUbicacion === '02') {
+        this.inputNumeMuni.disabled = true;
+      }
     }
   }
-
-  // actualizarVia() {
-  //   const codiDis = this.selectCodiDis.value;
-  //   const codiPro = this.selectCodiPro.value;
-
-  //   if (codiDis != '01') {
-  //     this.inputCodiVia.value = '999999';
-  //     this.inputCodiVia.disabled = true;
-  //     this.inputIdVia.value = '';
-  //     this.inputTipoVia.value = 'Calle';
-  //     this.inputNombVia.value = '';
-  //   } else {
-  //     this.inputCodiVia.value = '';
-  //     this.inputCodiVia.disabled = false;
-  //     this.inputIdVia.value = '';
-  //     this.inputTipoVia.value = '';
-  //     this.inputNombVia.value = '';
-  //   }
-  // }
 
   async initSelectCodiDep() {
     try {
@@ -305,6 +292,7 @@ class DomicilioTitular {
     return formDataExtractor.obtenerDatosDesdeContenedor('domicilio-titular');
   }
 }
+
 document.addEventListener('DOMContentLoaded', async () => {
   window.domicilioTitular = new DomicilioTitular();
 });
