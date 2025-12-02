@@ -127,6 +127,10 @@ class DomicilioTitular {
       this.inputLote.value = ubicacionPredioData.lote_dist || '';
       this.inputSublote.value = ubicacionPredioData.sub_lote_dist || '';
 
+      this.selectCodiDep.disabled = true;
+      this.selectCodiPro.disabled = true;
+      this.selectCodiDis.disabled = true;
+
       this.selectCodiDep.value = '13';
       await this.initSelectCodiProSegunCodiDep('13');
       this.selectCodiPro.value = '01';
@@ -157,6 +161,10 @@ class DomicilioTitular {
       this.inputMzna.value = '';
       this.inputLote.value = '';
       this.inputSublote.value = '';
+
+      this.selectCodiDep.disabled = false;
+      this.selectCodiPro.disabled = false;
+      this.selectCodiDis.disabled = false;
 
       this.selectCodiDep.value = '13';
       await this.initSelectCodiProSegunCodiDep('13');

@@ -48,6 +48,7 @@ class ObrasComplementarias {
     const newRow = this.tbody.lastElementChild;
 
     const selectCodigoInst = newRow.querySelector('select[name="codi_instalacion"]');
+    const descCodigoInst = newRow.querySelector('input[name="desc"]');
     const selectMEP = newRow.querySelector('select[name="mep"]');
     const selectECS = newRow.querySelector('select[name="ecs"]');
     const selectECC = newRow.querySelector('select[name="ecc"]');
@@ -59,6 +60,9 @@ class ObrasComplementarias {
       label: (item) => `${item.codi_instalacion} - ${item.desc_instalacion}`,
       value: 'codi_instalacion',
       defaultText: 'Seleccione',
+      onSelect: (item) => {
+        descCodigoInst.value = `${item.desc_instalacion}`;
+      },
     });
 
     new SelectDinamico({

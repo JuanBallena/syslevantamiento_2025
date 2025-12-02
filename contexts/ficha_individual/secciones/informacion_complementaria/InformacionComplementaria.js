@@ -81,12 +81,12 @@ class InformacionComplementaria {
       input.id = `fila${this.rowLitigantes}_col${index + 1}`;
     });
 
-    this.tbody.appendChild(clone);
+    this.tbodyLitigantes.appendChild(clone);
 
     // Obtener la fila recién agregada
-    const newRow = this.tbody.lastElementChild;
+    const newRow = this.tbodyLitigantes.lastElementChild;
 
-    const selectTipoDocumento = newRow.querySelector('[name="tipo_docu"]');
+    const selectTipoDocumento = newRow.querySelector('[name="tipo_doc"]');
 
     new SelectDinamico({
       select: selectTipoDocumento,
