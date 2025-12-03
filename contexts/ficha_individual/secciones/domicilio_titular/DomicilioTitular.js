@@ -13,8 +13,10 @@ class DomicilioTitular {
     this.selectCodiDis = domicilioTitular.querySelector('select[name="codi_dis"]');
 
     this.inputNombHabUrba = domicilioTitular.querySelector('[name="nomb_hab_urba"]');
-    this.inputIdHabUrba = domicilioTitular.querySelector('[name="id_hab_urba"]');
-    this.inputCodiHabUrba = domicilioTitular.querySelector('[name="codi_hab_urba"]');
+    this.inputIdHabUrba = domicilioTitular.querySelector('[name="codi_hab_urba"]');
+    this.inputCodiHabUrbaNombHabUrba = domicilioTitular.querySelector(
+      '[name="codi_hab_urba_nomb_hab_urba"]'
+    );
 
     this.inputNombVia = domicilioTitular.querySelector('[name="nomb_via"]');
     this.inputIdVia = domicilioTitular.querySelector('[name="id_via"]');
@@ -114,10 +116,8 @@ class DomicilioTitular {
     const tipoUbicacion = e.target.value;
     const ubicacionPredioData = window.ubicacionPredio.getData();
 
-    console.log(ubicacionPredioData);
-
     if (tipoUbicacion === '01') {
-      this.inputCodiHabUrba.value = ubicacionPredioData.codi_hab_urba || '';
+      this.inputCodiHabUrbaNombHabUrba.value = ubicacionPredioData.codi_hab_urba || '';
       this.inputIdHabUrba.value = ubicacionPredioData.id_hab_urba || '';
       this.inputNombHabUrba.value = ubicacionPredioData.nomb_hab_urba || '';
       this.inputNumeInterior.value = ubicacionPredioData.nume_interior || '';
@@ -152,7 +152,7 @@ class DomicilioTitular {
     }
 
     if (tipoUbicacion === '02') {
-      this.inputCodiHabUrba.value = '';
+      this.inputCodiHabUrbaNombHabUrba.value = '';
       this.inputIdHabUrba.value = '';
       this.inputNombHabUrba.value = '';
       this.inputNumeInterior.value = '';
@@ -282,11 +282,11 @@ class DomicilioTitular {
     }
 
     new Autocomplete({
-      input: this.inputCodiHabUrba,
+      input: this.inputCodiHabUrbaNombHabUrba,
       inputHidden: this.inputIdHabUrba,
       data: habilitacionesUrbanas,
       label: (item) => `${item.codi_hab_urba} - ${item.nomb_hab_urba}`,
-      value: 'id_hab_urba',
+      value: 'codi_hab_urba',
       onSelect: (item) => {
         this.inputNombHabUrba.value = item.nomb_hab_urba;
       },

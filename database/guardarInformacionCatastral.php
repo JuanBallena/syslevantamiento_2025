@@ -1,14 +1,14 @@
 <?php
 
 // Desactivar errores en salida
-ini_set('display_errors', 0);
-ini_set('display_startup_errors', 0);
-error_reporting(0);
+// ini_set('display_errors', 0);
+// ini_set('display_startup_errors', 0);
+// error_reporting(0);
 
 // Limpiar buffer SOLO si existe
-if (ob_get_length()) {
-  ob_clean();
-}
+// if (ob_get_length()) {
+//   ob_clean();
+// }
 
 header('Content-Type: application/json; charset=utf-8');
 
@@ -67,7 +67,6 @@ try {
   $ubicacionPredio = $dataPost['ubicacionPredio'];
 
   $anioActual = date("Y");
-  $tipoFichaIndividual = "01";
   $codiUbigeo = $datosGenerales['codi_dep'] . $datosGenerales['codi_pro'] . $datosGenerales['codi_dis'];
 
   $db = new DBPostgres();
@@ -114,10 +113,10 @@ try {
 
   $datosEdificacion = [
     "id_edificacion" => trim($datosLote['id_lote'] . $datosGenerales['codi_edificacion']),
-    "id_lote" => $datosLote['id_lote'],
+    "id_lote" => trim($datosLote['id_lote']),
     "codi_edificacion" => $datosGenerales['codi_edificacion'],
     "tipo_edificacion" => $ubicacionPredio['tipo_edificacion'],
-    "nomb_edificacion" => $ubicacionPredio['nomb_edificacion'],
+    "nomb_edificacion" => '',
     "clasificacion" => '',
   ];
 
@@ -131,73 +130,73 @@ try {
     "codi_piso" => $datosGenerales['codi_piso'],
     "codi_unidad" => $datosGenerales['codi_unidad'],
     "tipo_interior" => $ubicacionPredio['tipo_interior'],
-    "cuc" => "",
+    "cuc" => $datosGenerales['cuc_1'] . $datosGenerales['cuc_2'],
     "cuc_antecedente" => "",
     "codi_hoja_catastral" => "",
-    "codi_pred_rentas" => "",
+    "codi_pred_rentas" => $datosGenerales['codi_pred_rentas'],
     "nume_interior" => $ubicacionPredio['nume_interior'],
     "unid_acum_rentas" => "",
-    "codi_cont_rentas" => "",
+    "codi_cont_rentas" => $datosGenerales['codi_cont_rentas'],
   ];
 
   $uniCatRepository->guardarUniCat($datosUniCat);
 
   $datosFicha = [
-    "id_ficha" => trim($anioActual . $codiUbigeo . $tipoFichaIndividual . $cabecera['nume_ficha']),
-    "tipo_ficha" => $tipoFichaIndividual,
+    "id_ficha" => trim($anioActual . $codiUbigeo . $cabecera['tipo_ficha'] . $cabecera['nume_ficha']),
+    "tipo_ficha" => $cabecera['tipo_ficha'],
     "nume_ficha" => $cabecera['nume_ficha'],
     "id_lote" => $datosLote['id_lote'],
-    "dc" => "",
-    "nume_ficha_lote" => "",
+    "dc" => $datosGenerales['dc'],
+    "nume_ficha_lote" => $cabecera['nume_ficha_lote_1'] . $cabecera['nume_ficha_lote_2'],
     "declarante" => $firmas['declarante']['dni'],
-    "fecha_declarante" => validarValor($firmas['declarante']['fecha_declarante']),
+    "fecha_declarante" => validarFecha($firmas['declarante']['fecha_declarante']),
     "supervisor" => $firmas['supervisor']['dni'],
-    "fecha_supervision" => validarValor($firmas['supervisor']['fecha']),
+    "fecha_supervision" => validarFecha($firmas['supervisor']['fecha']),
     "tecnico" => $firmas['tecnico']['dni'],
-    "fecha_levantamiento" => validarValor($firmas['tecnico']['fecha']),
+    "fecha_levantamiento" => validarFecha($firmas['tecnico']['fecha']),
     "verificador" => $firmas['verificador']['dni'],
-    "fecha_verificacion" => validarValor($firmas['verificador']['fecha']),
+    "fecha_verificacion" => validarFecha($firmas['verificador']['fecha']),
     "nume_registro" => $firmas['verificador']['nume_registro'],
     "id_uni_cat" => $datosUniCat['id_uni_cat'],
-    'id_usuario' => '0218011', // POR REVISAR
+    'id_usuario' => $cabecera['id_usuario'],
     'fecha_grabado' => date("Y-m-d"),
     "activo" => "1"
   ];
 
   $fichaRepository->guardarFicha($datosFicha);
 
-  if (!$firmas['declarante']['existe_declarante']) {
-    $declaranteRepository->guardarDeclarante([
-      "dni" => $firmas['declarante']['dni'],
-      "nombres" => $firmas['declarante']['nombres'],
-      "ape_paterno" => $firmas['declarante']['ape_paterno'],
-      "ape_materno" => $firmas['declarante']['ape_materno'],
-      "fecha" => $firmas['declarante']['fecha_declarante'],
-      "id_ficha" => $datosFicha['id_ficha'],
-    ]);
-  }
+  // if (!$firmas['declarante']['existe_declarante']) {
+  $declaranteRepository->guardarDeclarante([
+    "dni" => $firmas['declarante']['dni'],
+    "nombres" => $firmas['declarante']['nombres'],
+    "ape_paterno" => $firmas['declarante']['ape_paterno'],
+    "ape_materno" => $firmas['declarante']['ape_materno'],
+    "fecha" => $firmas['declarante']['fecha_declarante'],
+    "id_ficha" => trim($datosFicha['id_ficha']),
+  ]);
+  // }
 
   $datosFichaIndividual = [
     "id_ficha" => $datosFicha['id_ficha'],
     "codi_uso" => $descripcionPredio['codi_uso'],
     "cont_en" => '',
     "clasificacion" => $descripcionPredio['clasificacion'],
-    "area_titulo" => $descripcionPredio['area_titulo'] ?? 0,
+    "area_titulo" => validarNumero($descripcionPredio['area_titulo']),
     "area_declarada" => 0,
-    "area_verificada" => $descripcionPredio['area_verificada'] ?? 0,
+    "area_verificada" => validarNumero($descripcionPredio['area_verificada']),
     "porc_bc_terr_legal" => 0,
     "porc_bc_terr_fisc" => 0,
     "porc_bc_const_legal" => 0,
     "porc_bc_const_fisc" => 0,
     "evaluacion" => '',
-    "en_colindante" => $evaluacionPredio['en_colindante'] ?? 0,
-    "en_jardin_aislamiento" => $evaluacionPredio['en_jardin_aislamiento'] ?? 0,
-    "en_area_publica" => $evaluacionPredio['en_area_publica'] ?? 0,
-    "en_area_intangible" => $evaluacionPredio['en_area_intangible'] ?? 0,
+    "en_colindante" => validarNumero($evaluacionPredio['en_colindante']),
+    "en_jardin_aislamiento" => validarNumero($evaluacionPredio['en_jardin_aislamiento']),
+    "en_area_publica" => validarNumero($evaluacionPredio['en_area_publica']),
+    "en_area_intangible" => validarNumero($evaluacionPredio['en_area_intangible']),
     "cond_declarante" => $informacionComplementaria['cond_declarante'] ?? '',
     "esta_llenado" => $informacionComplementaria['esta_llenado'] ?? '',
-    "nume_habitantes" => $informacionComplementaria['nume_habitantes'] ?? 0,
-    "nume_familias" => $informacionComplementaria['nume_familias'] ?? 0,
+    "nume_habitantes" => validarNumero($informacionComplementaria['nume_habitantes']),
+    "nume_familias" => validarNumero($informacionComplementaria['nume_familias']),
     "mantenimiento" => $informacionComplementaria['mantenimiento'] ?? '',
     "observaciones" => $observaciones['observaciones'] ?? '',
     "nume_ficha" => $cabecera['nume_ficha']
@@ -211,17 +210,19 @@ try {
     "nume_partida" => $inscripcionPredio['nume_partida'] ?? '',
     "fojas" => $inscripcionPredio['fojas'] ?? '',
     "asiento" => $inscripcionPredio['asiento'] ?? '',
-    "fecha_inscripcion" => validarValor($inscripcionPredio['fecha_inscripcion']),
+    "fecha_inscripcion" => validarFecha($inscripcionPredio['fecha_inscripcion']),
     "codi_decla_fabrica" => $inscripcionPredio['codi_decla_fabrica'] ?? '',
     "asie_fabrica" => $inscripcionPredio['asie_fabrica'] ?? '',
-    "fecha_fabrica" => validarValor($inscripcionPredio['fecha_fabrica']),
+    "fecha_fabrica" => validarFecha($inscripcionPredio['fecha_fabrica']),
   ]);
 
   if ($caracteristicasTitularidad['cond_titular'] !== '05') { // SI NO ES COTITULARIDAD
 
-    $personaNatural = $identificacionTitular['personaNatural'];
+    //PERSONA NATURAL
+    if (count($identificacionTitular['personaNatural']) > 0) {
 
-    if (!empty((array) $personaNatural)) {
+      $personaNatural = $identificacionTitular['personaNatural'][0];
+
       $datosPersonaNatural = [
         "id_persona" => trim($identificacionTitular['tipo_persona'] . $personaNatural['tipo_doc'] . $personaNatural['nume_doc']),
         "nume_doc" => $personaNatural['nume_doc'],
@@ -241,10 +242,10 @@ try {
         "id_ficha" => $datosFicha['id_ficha'],
         "id_persona" => $datosPersonaNatural['id_persona'],
         "form_adquisicion" => $caracteristicasTitularidad['form_adquisicion'],
-        "fecha_adquisicion" => validarValor($caracteristicasTitularidad['fecha_adquisicion']),
+        "fecha_adquisicion" => validarFecha($caracteristicasTitularidad['fecha_adquisicion']),
         "porc_cotitular" => '0.0',
         "esta_civil" => $personaNatural['esta_civil'],
-        "fax" => $domicilioTitular['fax'],
+        "fax" => '',
         "telf" => $domicilioTitular['telefono'],
         "anexo" => $domicilioTitular['anexo'],
         "email" => $domicilioTitular['correo'],
@@ -262,14 +263,14 @@ try {
         "tipo_via" => $domicilioTitular['tipo_via'],
         "nomb_via" => $domicilioTitular['nomb_via'],
         "nume_muni" => $domicilioTitular['nume_muni'],
-        "nomb_edificacion" => $domicilioTitular['nomb_edificacion'],
+        "nomb_edificacion" => '',
         "nume_interior" => $domicilioTitular['nume_interior'],
         "codi_hab_urba" => $domicilioTitular['codi_hab_urba'],
         "nomb_hab_urba" => $domicilioTitular['nomb_hab_urba'],
         "sector" => $domicilioTitular['zona_sector_etapa'],
         "mzna" => $domicilioTitular['mzna'],
         "lote" => $domicilioTitular['lote'],
-        "sublote" => $domicilioTitular['subLote'],
+        "sublote" => $domicilioTitular['sublote'],
         "codi_dep" => $domicilioTitular['codi_dep'],
         "codi_pro" => $domicilioTitular['codi_pro'],
         "codi_dis" => $domicilioTitular['codi_dis'],
@@ -278,20 +279,23 @@ try {
       $domicilioTitularesRepository->guardarDomicilioTitularesMultiple([$datosDomicilioTitularNatural]);
     }
 
+    // CONYUGE
     $conyugue = $identificacionTitular['conyugue'];
 
-    if (!empty((array) $identificacionTitular['conyugue'])) {
+    if (count($identificacionTitular['conyugue']) > 0) {
       //
     }
 
-    $personaJuridica = $identificacionTitular['personaJuridica'];
+    // PERSONA JURIDICA
+    if (count($identificacionTitular['personaJuridica']) > 0) {
 
-    if (!empty((array) $identificacionTitular['personaJuridica'])) {
+      $personaJuridica = $identificacionTitular['personaJuridica'][0];
+
       $datosPersonaJuridica = [
         "id_persona" => trim($identificacionTitular['tipo_persona'] . $personaJuridica['tipo_persona_juridica'] . $personaJuridica['ruc']),
         "nume_doc" => $personaJuridica['ruc'],
         "tipo_doc" => '',
-        "tipo_persona" => $personaJuridica['tipo_persona'],
+        "tipo_persona" => $identificacionTitular['tipo_persona'],
         "nombres" => '',
         "ape_paterno" => '',
         "ape_materno" => '',
@@ -306,10 +310,10 @@ try {
         "id_ficha" => $datosFicha['id_ficha'],
         "id_persona" => $datosPersonaJuridica['id_persona'],
         "form_adquisicion" => $caracteristicasTitularidad['form_adquisicion'],
-        "fecha_adquisicion" => validarValor($caracteristicasTitularidad['fecha_adquisicion']),
+        "fecha_adquisicion" => validarFecha($caracteristicasTitularidad['fecha_adquisicion']),
         "porc_cotitular" => '0.0',
         "esta_civil" => '',
-        "fax" => $domicilioTitular['fax'],
+        "fax" => '',
         "telf" => $domicilioTitular['telefono'],
         "anexo" => $domicilioTitular['anexo'],
         "email" => $domicilioTitular['correo'],
@@ -327,14 +331,14 @@ try {
         "tipo_via" => $domicilioTitular['tipo_via'],
         "nomb_via" => $domicilioTitular['nomb_via'],
         "nume_muni" => $domicilioTitular['nume_muni'],
-        "nomb_edificacion" => $domicilioTitular['nomb_edificacion'],
+        "nomb_edificacion" => '',
         "nume_interior" => $domicilioTitular['nume_interior'],
         "codi_hab_urba" => $domicilioTitular['codi_hab_urba'],
         "nomb_hab_urba" => $domicilioTitular['nomb_hab_urba'],
         "sector" => $domicilioTitular['zona_sector_etapa'],
         "mzna" => $domicilioTitular['mzna'],
         "lote" => $domicilioTitular['lote'],
-        "sublote" => $domicilioTitular['subLote'],
+        "sublote" => $domicilioTitular['sublote'],
         "codi_dep" => $domicilioTitular['codi_dep'],
         "codi_pro" => $domicilioTitular['codi_pro'],
         "codi_dis" => $domicilioTitular['codi_dis'],
@@ -407,7 +411,7 @@ try {
           'nume_muni' => $puerta['nume_muni'],
           'cond_nume' => $puerta['cond_nume'],
           'id_via' => trim($idVia),
-          'nume_certificacion' => $puerta['nume_certificacion'],
+          'nume_certificacion' => '',
         ];
 
         array_push($datosPuertas, $datosPuerta);
@@ -438,9 +442,9 @@ try {
     'agua' => $serviciosBasicos['agua'],
     'telefono' => $serviciosBasicos['telefono'],
     'desague' => $serviciosBasicos['desague'],
-    'nume_sum_luz' => $serviciosBasicos['nume_sum_luz'],
-    'nume_telefono' => $serviciosBasicos['nume_telefono'],
-    'nume_contrato_agua' => $serviciosBasicos['nume_contrato_agua'],
+    'nume_sum_luz' => '',
+    'nume_telefono' => '',
+    'nume_contrato_agua' => '',
     'tv_cable' => $serviciosBasicos['cable'],
     'gas_natural' => $serviciosBasicos['gas'],
     'internet' => $serviciosBasicos['internet'],
@@ -491,9 +495,9 @@ try {
         'mep' => $obraComplementaria['mep'],
         'ecs' => $obraComplementaria['ecs'],
         'ecc' => $obraComplementaria['ecc'],
-        'dime_largo' => '',//$obraComplementaria['dime_largo'],
-        'dime_ancho' => '',//$obraComplementaria['dime_ancho'],
-        'dime_alto' => '',//$obraComplementaria['dime_alto'],
+        'dime_largo' => 0.0,//$obraComplementaria['dime_largo'],
+        'dime_ancho' => 0.0,//$obraComplementaria['dime_ancho'],
+        'dime_alto' => 0.0,//$obraComplementaria['dime_alto'],
         'prod_total' => $obraComplementaria['prod_total'],
         'uni_med' => $obraComplementaria['uni_med'],
         'uca' => $obraComplementaria['uca'],
@@ -537,32 +541,19 @@ try {
 } catch (Exception $e) {
   $db->rollback();
 
-  $mensaje = $e->getMessage();
-
-  preg_match('/tabla «([^»]+)»/', $mensaje, $tablaMatch);
-  preg_match('/llave \(([^\)]+)\)=\(([^\)]+)\)/', $mensaje, $detalleMatch);
-
-  $tabla = $tablaMatch[1] ?? null;
-  $campo = $detalleMatch[1] ?? null;
-  $valor = $detalleMatch[2] ?? null;
-
-  $errorDetail = [
-    "success" => false,
-    "error" => $mensaje,
-    "tabla" => $tabla,
-    "campo" => $campo,
-    "valor" => $valor
-  ];
-
-  createResponse(false, [], $errorDetail);
+  createResponse(false, [], $e);
 } finally {
   if (isset($db)) {
     $db->desconectar();
   }
 }
 
-
-function validarValor($valor)
+function validarFecha($valor)
 {
   return !empty($valor) ? $valor : null;
+}
+
+function validarNumero($valor)
+{
+  return !empty($valor) ? $valor : 0;
 }

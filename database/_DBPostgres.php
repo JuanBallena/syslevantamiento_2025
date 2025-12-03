@@ -111,50 +111,103 @@ class DBPostgres
   public function insert(string $sql, array $params): ?array
   {
     try {
+      // Detectar tabla de forma preventiva por el SQL
       preg_match('/INSERT\s+INTO\s+([a-zA-Z0-9_]+)/i', $sql, $matches);
       $tabla = $matches[1] ?? null;
 
       $result = pg_query_params($this->connection, $sql, $params);
-      // $result = @pg_query_params($this->connection, $sql, $params);
 
       if (!$result) {
+        // Capturamos el error completo
         $mensaje = pg_last_error($this->connection);
 
+        // Detectar tabla reportada por PostgreSQL
         preg_match('/tabla «([^»]+)»/', $mensaje, $tablaMatch);
+
+        // Detectar campo y valor con llave duplicada
         preg_match('/llave \(([^\)]+)\)=\(([^\)]+)\)/', $mensaje, $detalleMatch);
 
-        $tabla = $tablaMatch[1] ?? null;
+        $tablaPg = $tablaMatch[1] ?? $tabla;
         $campo = $detalleMatch[1] ?? null;
         $valor = $detalleMatch[2] ?? null;
 
         $errorDetail = [
-          "mensaje" => $mensaje,
           "success" => false,
-          "errorMensaje" => $this->obtenerMensajePorTabla($mensaje),
-          "tabla" => $tabla,
-          "campo" => $campo,
-          "valor" => $valor
+          "mensaje_completo" => $mensaje,    // El error tal cual
+          "tabla" => $tablaPg,               // Tabla detectada
+          "campo" => $campo,                 // Campo involucrado
+          "valor" => $valor                  // Valor que causa conflicto
         ];
 
         createResponse(false, [], $errorDetail);
-
-        throw new Exception("❌ Error al insertar en $tabla: " . $errorMessage);
+        return null;
       }
 
       $row = pg_fetch_assoc($result);
 
-      // Convertir todos los valores retornados a string para evitar perder ceros a la izquierda
       if ($row !== false && is_array($row)) {
-        $row = array_map(function ($value) {
-          return is_null($value) ? null : (string) $value;
-        }, $row);
+        $row = array_map(fn ($value) => is_null($value) ? null : (string)$value, $row);
       }
 
       return $row ?: null;
+
     } catch (Exception $e) {
-      createResponse(false, [], $e->getMessage());
+      createResponse(false, [], [
+        "success" => false,
+        "mensaje_exception" => $e->getMessage()
+      ]);
     }
   }
+
+  // public function insert(string $sql, array $params): ?array
+  // {
+  //   try {
+  //     preg_match('/INSERT\s+INTO\s+([a-zA-Z0-9_]+)/i', $sql, $matches);
+  //     $tabla = $matches[1] ?? null;
+
+  //     $result = pg_query_params($this->connection, $sql, $params);
+  //     // $result = @pg_query_params($this->connection, $sql, $params);
+
+  //     if (!$result) {
+  //       // $mensaje = pg_last_error($this->connection);
+
+  //       // preg_match('/tabla «([^»]+)»/', $mensaje, $tablaMatch);
+  //       // preg_match('/llave \(([^\)]+)\)=\(([^\)]+)\)/', $mensaje, $detalleMatch);
+
+  //       // $tabla = $tablaMatch[1] ?? null;
+  //       // $campo = $detalleMatch[1] ?? null;
+  //       // $valor = $detalleMatch[2] ?? null;
+
+  //       // $errorDetail = [
+  //       //   "mensaje" => $mensaje,
+  //       //   "success" => false,
+  //       //   "errorMensaje" => $this->obtenerMensajePorTabla($mensaje),
+  //       //   "tabla" => $tabla,
+  //       //   "campo" => $campo,
+  //       //   "valor" => $valor
+  //       // ];
+
+  //       // createResponse(false, [], $errorDetail);
+  //       createResponse(false, [], $result);
+
+  //       // throw new Exception("❌ Error al insertar en $tabla: " . $errorMessage);
+  //       throw new Exception("❌ Error al insertar en $tabla: ");
+  //     }
+
+  //     $row = pg_fetch_assoc($result);
+
+  //     // Convertir todos los valores retornados a string para evitar perder ceros a la izquierda
+  //     if ($row !== false && is_array($row)) {
+  //       $row = array_map(function ($value) {
+  //         return is_null($value) ? null : (string) $value;
+  //       }, $row);
+  //     }
+
+  //     return $row ?: null;
+  //   } catch (Exception $e) {
+  //     createResponse(false, [], $e->getMessage());
+  //   }
+  // }
 
   public function beginTransaction()
   {

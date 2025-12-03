@@ -87,6 +87,7 @@ class ControladorFichaUrbanaIndividual {
       console.log(JSON.parse(text));
 
       // console.log('📄 Respuesta cruda del servidor:', JSON.parse(text));
+      result = JSON.parse(text);
 
       // let result;
       // try {

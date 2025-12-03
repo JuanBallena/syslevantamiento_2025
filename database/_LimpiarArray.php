@@ -1,8 +1,12 @@
 <?php
 
-function limpiarArray($arr)
+function limpiarArray($data)
 {
-  return array_map(function ($v) {
-    return is_string($v) ? trim($v) : $v;
-  }, $arr);
+  if (!is_array($data)) {
+    return $data;
+  }
+
+  return array_map(function ($item) {
+    return is_array($item) ? limpiarArray($item) : $item;
+  }, $data);
 }

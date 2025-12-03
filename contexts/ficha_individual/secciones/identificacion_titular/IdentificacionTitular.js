@@ -14,7 +14,7 @@ class IdentificacionTitular {
     this.contenedorNaturales.innerHTML = '';
     this.contenedorJuridicas.innerHTML = '';
 
-    if (tipoPersona === '01') {
+    if (tipoPersona === '1') {
       const html = await FormularioPersonaNatural.crear();
       this.contenedorNaturales.insertAdjacentHTML('beforeend', html);
 
@@ -24,7 +24,7 @@ class IdentificacionTitular {
       this.initSelectTipoDocumento(contenedorPersonaNatural);
     }
 
-    if (tipoPersona === '02') {
+    if (tipoPersona === '2') {
       const html = await FormularioPersonaJuridica.crear();
       this.contenedorJuridicas.insertAdjacentHTML('beforeend', html);
 

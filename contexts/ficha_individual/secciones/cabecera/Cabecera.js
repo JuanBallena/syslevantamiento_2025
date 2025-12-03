@@ -1,27 +1,25 @@
 class Cabecera {
   constructor() {
-    this.numeFicha = document.querySelector('[name="nume_ficha"]');
-    this.inicializarEventos();
+    this.inputNumeFicha = document.querySelector('[name="nume_ficha"]');
+    this.eventosLocales();
   }
 
-  inicializarEventos() {
-    this.numeFicha.addEventListener('input', () => {
-      const valor = this.numeFicha.value.trim();
+  eventosLocales() {
+    this.inputNumeFicha.addEventListener('input', () => {
+      const numeFicha = this.inputNumeFicha.value.trim();
 
-      if (valor.length === 7) {
-        this.buscarFicha(valor);
+      if (numeFicha.length === 7) {
+        this.buscarFicha(numeFicha);
       }
     });
   }
 
   async buscarFicha(numeFicha) {
-    const data = await ServicioFicha.buscarPorNumero(numeFicha);
+    const data = await ServicioFicha.obtenerFichaPorNumero(numeFicha);
 
     if (data.success) {
-      alert(data.error);
-
-      this.numeFicha.focus();
-      this.numeFicha.select();
+      this.inputNumeFicha.focus();
+      this.inputNumeFicha.select();
     }
   }
 
