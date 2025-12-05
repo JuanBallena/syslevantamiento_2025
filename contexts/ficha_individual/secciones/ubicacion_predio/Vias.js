@@ -66,7 +66,7 @@ class Vias {
       });
     });
 
-    this.agregarPuerta(viaId);
+    await this.agregarPuerta(viaId);
   }
 
   async crearFormularioVia(viaId) {

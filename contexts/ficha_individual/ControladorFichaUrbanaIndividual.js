@@ -81,23 +81,22 @@ class ControladorFichaUrbanaIndividual {
       });
 
       const text = await response.text();
-      console.log(text);
+      // console.log(text);
 
       let result = JSON.parse(text);
-      // console.log(result);
+      console.log(result.data);
 
       this.obtenerMensajeErrorDuplicado(result.data);
 
       if (result.success) {
-        // console.log('Éxito:');
         alert('La información se ha guardado correctamente.');
       }
 
       if (result.error) {
-        // console.log('Éxito:');
+        console.log('Error en el guardado:', result.error);
       }
     } catch (err) {
-      // console.log('Error de red o fetch:', err);
+      console.log('Error de red o fetch:', err);
     }
   }
 
@@ -128,12 +127,11 @@ class ControladorFichaUrbanaIndividual {
           'Se generó un identificador existente para declarante, ingresar un valor diferente para el dni del declarante.'
         );
         return;
-        return;
       case 'id_ficha':
         alert('Se generó un identificador existente para la ficha');
         return;
       default:
-        break;
+        alert('Se generó un identificador existente al momento de guardar la información.');
     }
   }
 }

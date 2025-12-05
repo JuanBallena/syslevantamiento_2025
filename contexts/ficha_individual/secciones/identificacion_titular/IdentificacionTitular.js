@@ -40,6 +40,8 @@ class IdentificacionTitular {
     }
 
     this.activarEventosLocales();
+
+    window.validadorGenerico.init();
   }
 
   initSelectTipoPersona() {

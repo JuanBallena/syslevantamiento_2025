@@ -549,9 +549,9 @@ try {
         "fecha_doc" => validarFecha($documento['fecha_doc']),
       ]);
     }
-  }
 
-  $documentosRepository->guardarVariosDocumentos($datosDocumentos);
+    $documentosRepository->guardarVariosDocumentos($datosDocumentos);
+  }
 
   $db->commit();
 
@@ -560,7 +560,7 @@ try {
 } catch (Exception $e) {
   $db->rollback();
 
-  createResponse(false, [], $e);
+  createResponse(false, 'Error general', $e->getMessage());
 } finally {
   if (isset($db)) {
     $db->desconectar();

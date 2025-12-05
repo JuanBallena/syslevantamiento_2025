@@ -1,7 +1,5 @@
 class ValidatorGenerico {
   constructor() {
-    this.inputs = document.querySelectorAll('[data-validate]');
-
     this.rules = {
       required: (value) => value !== null && value !== undefined && value.trim().length > 0,
       numeric: (value) => /^[0-9]+$/.test(value),
@@ -29,10 +27,12 @@ class ValidatorGenerico {
 
     this.init();
 
-    // console.log(this.inputs);
+    // console.log('Init validador genérico');
   }
 
   init() {
+    this.inputs = document.querySelectorAll('[data-validate]');
+
     this.inputs.forEach((input) => {
       input.addEventListener('input', (e) => this.validate(input, e.type));
       input.addEventListener('change', (e) => this.validate(input, e.type)); // aqui
@@ -123,6 +123,7 @@ class ValidatorGenerico {
         // Registrar eventos
         input.addEventListener('input', (e) => this.validate(input, e.type));
         input.addEventListener('blur', (e) => this.validate(input, e.type));
+        input.addEventListener('change', (e) => this.validate(input, e.type));
       }
     });
   }
