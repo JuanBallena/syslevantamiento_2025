@@ -131,15 +131,15 @@ class DBPostgres
         $campo = $detalleMatch[1] ?? null;
         $valor = $detalleMatch[2] ?? null;
 
-        $errorDetail = [
+        $errorData = [
+          "mensaje" => $mensaje,
           "success" => false,
-          "mensaje_completo" => $mensaje,    // El error tal cual
-          "tabla" => $tablaPg,               // Tabla detectada
-          "campo" => $campo,                 // Campo involucrado
-          "valor" => $valor                  // Valor que causa conflicto
+          "tabla" => $tablaPg,
+          "campo" => $campo,
+          "valor" => $valor
         ];
 
-        createResponse(false, [], $errorDetail);
+        createResponse(false, $errorData, "Error en el sistema al insertar en la base de datos.");
         return null;
       }
 

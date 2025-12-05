@@ -75,24 +75,24 @@ class Documentos {
     const newRow = this.tbody.lastElementChild;
 
     // Obtener selects por name
-    const selectTipoDocumento = newRow.querySelector('select[name="tipo_documento"]');
+    const selectTipoDocumento = newRow.querySelector('select[name="tipo_doc"]');
 
     new SelectDinamico({
       select: selectTipoDocumento,
       data: this.tipoDocumentos,
       label: (item) => item.c_des_tip_documento,
       value: 'i_cod_tip_documento',
-      defaultText: 'Seleccione',
     });
   }
 
   getData() {
     const formDataExtractor = new FormDataExtractor();
 
-    return {
-      registroNotarial: formDataExtractor.obtenerDatosDesdeContenedor('documentos'),
-      lista: formDataExtractor.obtenerDatosDesdeTabla('tabla-documentos'),
-    };
+    // return {
+    //   registroNotarial: formDataExtractor.obtenerDatosDesdeContenedor('documentos'),
+    //   lista: formDataExtractor.obtenerDatosDesdeTabla('tabla-documentos'),
+    // };
+    return formDataExtractor.obtenerDatosDesdeTabla('tabla-documentos');
   }
 }
 

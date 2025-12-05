@@ -64,7 +64,7 @@ class ControladorFichaUrbanaIndividual {
       firmas: window.firmas.getData(),
     };
 
-    console.log(dataPost);
+    // console.log(dataPost);
 
     const formData = new FormData();
     formData.append('dataPost', JSON.stringify(dataPost));
@@ -80,35 +80,51 @@ class ControladorFichaUrbanaIndividual {
         body: formData,
       });
 
-      // ✅ Leer la respuesta como texto primero
       const text = await response.text();
-      console.log(text);
+      // console.log(text);
 
-      console.log(JSON.parse(text));
+      let result = JSON.parse(text);
+      // console.log(result);
 
-      // console.log('📄 Respuesta cruda del servidor:', JSON.parse(text));
-      result = JSON.parse(text);
-
-      // let result;
-      // try {
-      //   result = JSON.parse(text);
-      // } catch (e) {
-      //   // console.error(
-      //   //   '⚠️ La respuesta no es JSON válido. Revisa el texto anterior (probablemente un error de PHP).'
-      //   // );
-      //   return;
-      // }
+      this.obtenerMensajeErrorDuplicado(result.data);
 
       if (result.success) {
-        console.log('Éxito:');
-        console.log(result);
-      } else {
-        // mostrarErrores(text);
-        console.log('Error del servidor:');
-        console.log(result.error);
+        // console.log('Éxito:');
+      }
+
+      if (result.error) {
+        // console.log('Éxito:');
       }
     } catch (err) {
-      console.log('Error de red o fetch:', err);
+      // console.log('Error de red o fetch:', err);
+    }
+  }
+
+  obtenerMensajeErrorDuplicado(errorData) {
+    if (!errorData || typeof errorData !== 'object') return null;
+
+    const errorMsg = errorData.mensaje || '';
+
+    const esDuplicado = errorMsg.includes('llave duplicada') || errorMsg.includes('duplicate key');
+
+    if (!esDuplicado) return null;
+
+    const campo = errorData.campo || 'campo desconocido';
+    // const valor = errorData.valor || '';
+
+    switch (campo) {
+      case 'id_lote':
+        alert(
+          'Se generó un identificador existente para lote, ingresar un valor diferente para lote en la sección de datos generales.'
+        );
+        return;
+      case 'id_uni_cat':
+        alert(
+          'Se generó un identificador existente para edifica, ingresar un valor diferente para edifica en la sección de datos generales.'
+        );
+        return;
+      default:
+        break;
     }
   }
 }

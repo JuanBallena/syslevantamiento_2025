@@ -12,11 +12,12 @@ class DomicilioTitular {
     this.selectCodiPro = domicilioTitular.querySelector('select[name="codi_pro"]');
     this.selectCodiDis = domicilioTitular.querySelector('select[name="codi_dis"]');
 
-    this.inputNombHabUrba = domicilioTitular.querySelector('[name="nomb_hab_urba"]');
-    this.inputIdHabUrba = domicilioTitular.querySelector('[name="codi_hab_urba"]');
     this.inputCodiHabUrbaNombHabUrba = domicilioTitular.querySelector(
       '[name="codi_hab_urba_nomb_hab_urba"]'
     );
+    this.inputCodiHabUrba = domicilioTitular.querySelector('[name="codi_hab_urba"]');
+    this.inputIdHabUrba = domicilioTitular.querySelector('[name="id_hab_urba"]');
+    this.inputNombHabUrba = domicilioTitular.querySelector('[name="nomb_hab_urba"]');
 
     this.inputNombVia = domicilioTitular.querySelector('[name="nomb_via"]');
     this.inputIdVia = domicilioTitular.querySelector('[name="id_via"]');
@@ -117,7 +118,9 @@ class DomicilioTitular {
     const ubicacionPredioData = window.ubicacionPredio.getData();
 
     if (tipoUbicacion === '01') {
-      this.inputCodiHabUrbaNombHabUrba.value = ubicacionPredioData.codi_hab_urba || '';
+      this.inputCodiHabUrbaNombHabUrba.value =
+        ubicacionPredioData.codi_hab_urba_nomb_hab_urba || '';
+      this.inputCodiHabUrba.value = ubicacionPredioData.codi_hab_urba || '';
       this.inputIdHabUrba.value = ubicacionPredioData.id_hab_urba || '';
       this.inputNombHabUrba.value = ubicacionPredioData.nomb_hab_urba || '';
       this.inputNumeInterior.value = ubicacionPredioData.nume_interior || '';
@@ -153,6 +156,7 @@ class DomicilioTitular {
 
     if (tipoUbicacion === '02') {
       this.inputCodiHabUrbaNombHabUrba.value = '';
+      this.inputCodiHabUrba.value = '';
       this.inputIdHabUrba.value = '';
       this.inputNombHabUrba.value = '';
       this.inputNumeInterior.value = '';
@@ -200,6 +204,7 @@ class DomicilioTitular {
       }
 
       if (tipoUbicacion === '02') {
+        this.inputNumeMuni.value = '';
         this.inputNumeMuni.disabled = true;
       } else {
         this.inputNumeMuni.disabled = false;
@@ -283,15 +288,17 @@ class DomicilioTitular {
 
     new Autocomplete({
       input: this.inputCodiHabUrbaNombHabUrba,
-      inputHidden: this.inputIdHabUrba,
+      inputHidden: this.inputCodiHabUrba,
       data: habilitacionesUrbanas,
       label: (item) => `${item.codi_hab_urba} - ${item.nomb_hab_urba}`,
       value: 'codi_hab_urba',
       onSelect: (item) => {
         this.inputNombHabUrba.value = item.nomb_hab_urba;
+        this.inputIdHabUrba.value = item.id_hab_urba;
       },
       onInput: () => {
         this.inputNombHabUrba.value = '';
+        this.inputIdHabUrba.value = '';
       },
     });
   }

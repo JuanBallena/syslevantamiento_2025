@@ -1,9 +1,9 @@
 <?php
 
 // Desactivar errores en salida
-// ini_set('display_errors', 0);
-// ini_set('display_startup_errors', 0);
-// error_reporting(0);
+ini_set('display_errors', 0);
+ini_set('display_startup_errors', 0);
+error_reporting(0);
 
 // Limpiar buffer SOLO si existe
 // if (ob_get_length()) {
@@ -26,6 +26,7 @@ require_once "./DeclaranteRepository.php";
 require_once "./SunarpRepository.php";
 require_once "./PersonaRepository.php";
 require_once "./TitularesRepository.php";
+require_once "./DocumentosRepository.php";
 require_once "./DomicilioTitularesRepository.php";
 require_once "./LitigantesRepository.php";
 require_once "./FichaCodigosAntiguosRepository.php";
@@ -82,6 +83,7 @@ try {
   $declaranteRepository = new DeclaranteRepository($db);
   $sunarpRepository = new SunarpRepository($db);
   $personaRepository = new PersonaRepository($db);
+  $documentosRepository = new DocumentosRepository($db);
   $titularesRepository = new TitularesRepository($db);
   $domicilioTitularesRepository = new DomicilioTitularesRepository($db);
   $litigantesRepository = new LitigantesRepository($db);
@@ -158,23 +160,24 @@ try {
     "fecha_verificacion" => validarFecha($firmas['verificador']['fecha']),
     "nume_registro" => $firmas['verificador']['nume_registro'],
     "id_uni_cat" => $datosUniCat['id_uni_cat'],
-    'id_usuario' => $cabecera['id_usuario'],
+    'id_usuario' => trim($cabecera['id_usuario']),
     'fecha_grabado' => date("Y-m-d"),
     "activo" => "1"
   ];
 
   $fichaRepository->guardarFicha($datosFicha);
 
-  // if (!$firmas['declarante']['existe_declarante']) {
-  $declaranteRepository->guardarDeclarante([
-    "dni" => $firmas['declarante']['dni'],
-    "nombres" => $firmas['declarante']['nombres'],
-    "ape_paterno" => $firmas['declarante']['ape_paterno'],
-    "ape_materno" => $firmas['declarante']['ape_materno'],
-    "fecha" => $firmas['declarante']['fecha_declarante'],
-    "id_ficha" => trim($datosFicha['id_ficha']),
-  ]);
-  // }
+  if ($firmas['declarante']['dni'] !== '') {
+    $declaranteRepository->guardarDeclarante([
+      "dni" => $firmas['declarante']['dni'],
+      "nombres" => $firmas['declarante']['nombres'],
+      "ape_paterno" => $firmas['declarante']['ape_paterno'],
+      "ape_materno" => $firmas['declarante']['ape_materno'],
+      "fecha" => validarFecha($firmas['declarante']['fecha_declarante']),
+      "id_ficha" => trim($datosFicha['id_ficha']),
+    ]);
+  }
+
 
   $datosFichaIndividual = [
     "id_ficha" => $datosFicha['id_ficha'],
@@ -352,15 +355,15 @@ try {
 
   if (count($informacionComplementaria['litigantes']) > 0) {
     foreach ($informacionComplementaria['litigantes'] as $litigante) {
-      $tipoPersonaPorDefecto = '1'; // Persona natural
-      $tipoDocumentoPorDefecto = '02'; //DNI
+      $TIPO_PERSONA_NATURAL = '1';
+      $TIPO_DOCUMENTO_DNI = '02';
 
       $datosPersonaLitigante = [
-        "id_persona" => trim($tipoPersonaPorDefecto . $tipoDocumentoPorDefecto . $litigante['nume_doc']),
+        "id_persona" => trim($TIPO_PERSONA_NATURAL . $TIPO_DOCUMENTO_DNI . $litigante['nume_doc']),
         "nume_doc" => $litigante['nume_doc'],
         "tipo_doc" => '',
         "tipo_persona" => '',
-        "nombres" => $litigante['nombres_ape'], // SE GUARDA EL NOMBRE DE LITIGANTE COMPLETO
+        "nombres" => $litigante['nombres_ape'],
         "ape_paterno" => '',
         "ape_materno" => '',
         "tipo_persona_juridica" => '',
@@ -495,9 +498,9 @@ try {
         'mep' => $obraComplementaria['mep'],
         'ecs' => $obraComplementaria['ecs'],
         'ecc' => $obraComplementaria['ecc'],
-        'dime_largo' => 0.0,//$obraComplementaria['dime_largo'],
-        'dime_ancho' => 0.0,//$obraComplementaria['dime_ancho'],
-        'dime_alto' => 0.0,//$obraComplementaria['dime_alto'],
+        'dime_largo' => 0.0,
+        'dime_ancho' => 0.0,
+        'dime_alto' => 0.0,
         'prod_total' => $obraComplementaria['prod_total'],
         'uni_med' => $obraComplementaria['uni_med'],
         'uca' => $obraComplementaria['uca'],
@@ -529,10 +532,26 @@ try {
 
   $linderosRepository->guardarLinderos($datosLindero);
 
-  // if (isset($_FILES['archivos'])) {
-  //   $archivos = $_FILES['archivos'];
-  //   $archivosRepository->guardarArchivos($datosFicha['id_ficha'], $archivos);
-  // }
+  $datosDocumentos = [];
+
+  if (count($documentos) > 0) {
+    foreach ($documentos as $documento) {
+
+      $codigo = str_pad($documento['codigo'], 2, '0', STR_PAD_LEFT);
+
+      array_push($datosDocumentos, [
+        'id_doc' => trim($datosFicha['id_ficha'] . $codigo),
+        'id_ficha' => $datosFicha['id_ficha'],
+        'codi_doc' => $codigo,
+        'tipo_doc' => $documento['tipo_doc'],
+        'nume_doc' => $documento['nume_doc'],
+        'area_autorizada' => $documento['area_autorizada'],
+        "fecha_doc" => validarFecha($documento['fecha_doc']),
+      ]);
+    }
+  }
+
+  $documentosRepository->guardarVariosDocumentos($datosDocumentos);
 
   $db->commit();
 
@@ -557,3 +576,8 @@ function validarNumero($valor)
 {
   return !empty($valor) ? $valor : 0;
 }
+
+// if (isset($_FILES['archivos'])) {
+//   $archivos = $_FILES['archivos'];
+//   $archivosRepository->guardarArchivos($datosFicha['id_ficha'], $archivos);
+// }

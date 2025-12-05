@@ -1,9 +1,15 @@
 class IdentificacionTitular {
+  static tipoPersonas = [
+    { value: '1', text: 'Natural' },
+    { value: '2', text: 'Juridica' },
+  ];
+
   constructor() {
     this.contenedorNaturales = document.getElementById('contenedor-personas-naturales');
     this.contenedorJuridicas = document.getElementById('contenedor-personas-juridicas');
 
     this.initEventosGlobales();
+    this.initSelectTipoPersona();
   }
 
   async cargarFormularioTitular() {
@@ -36,6 +42,19 @@ class IdentificacionTitular {
     this.activarEventosLocales();
   }
 
+  initSelectTipoPersona() {
+    const selectTipoPersona = document.querySelector("[name='tipo_persona']");
+    new SelectDinamico({
+      select: selectTipoPersona,
+      data: IdentificacionTitular.tipoPersonas,
+      label: (item) => item.text,
+      value: 'value',
+      onSelect: (item) => {
+        //
+      },
+    });
+  }
+
   initSelectEstadoCivil(contenedor) {
     const selectEstadoCivil = contenedor.querySelector('[name="esta_civil"]');
 
@@ -44,7 +63,6 @@ class IdentificacionTitular {
       data: FormularioPersonaNatural.estadosCiviles,
       label: (item) => item.text,
       value: 'value',
-      defaultText: 'Seleccione',
       onSelect: (item) => {
         //
       },

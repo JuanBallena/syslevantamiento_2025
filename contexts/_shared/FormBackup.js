@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'backup_ficha_urbana_individual'
   );
 
-  console.log('Guardando...');
+  // console.log('Guardando...');
 });
 
 // class FormBackup {

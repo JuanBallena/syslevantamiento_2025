@@ -58,8 +58,12 @@ class Usuario
       $_SESSION["id_usuario"] = $id;
       $_SESSION["tipo_usuario"] = $tipo_isu;
 
-       echo "<script>document.location.href='../menu.php';</script>\n";
-     // echo "<script>document.location.href='../contexts/ficha_individual/FichaIndividual.php';</script>\n";
+      echo "<script>
+        localStorage.setItem('numeral', '" .$id. "');
+      </script>\n";
+
+      echo "<script>document.location.href='../menu.php';</script>\n";
+      // echo "<script>document.location.href='../contexts/ficha_individual/FichaIndividual.php';</script>\n";
 
 
     } else {

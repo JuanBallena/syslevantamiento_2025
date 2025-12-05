@@ -28,18 +28,23 @@ class ValidatorGenerico {
     };
 
     this.init();
+
+    // console.log(this.inputs);
   }
 
   init() {
     this.inputs.forEach((input) => {
       input.addEventListener('input', (e) => this.validate(input, e.type));
+      input.addEventListener('change', (e) => this.validate(input, e.type)); // aqui
       input.addEventListener('blur', (e) => this.validate(input, e.type));
     });
   }
 
   validate(input, eventType = 'input') {
     let raw = input.value;
-    let value = raw === null || raw === undefined ? '' : String(raw).trim();
+
+    // Si es select NO usar trim (los valores pueden ser numericos, texto corto, etc.)
+    let value = input.tagName === 'SELECT' ? String(raw ?? '') : String(raw ?? '').trim();
     const rules = input.dataset.validate ? input.dataset.validate.split('|') : [];
 
     // Primero required
