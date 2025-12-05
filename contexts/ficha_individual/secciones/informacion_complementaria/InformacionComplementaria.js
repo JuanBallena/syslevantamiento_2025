@@ -49,7 +49,6 @@ class InformacionComplementaria {
         data: this.estadosFicha,
         label: (i) => i.c_desc_estado_ficha,
         value: 'c_cod_estado_ficha',
-        defaultText: 'Seleccione',
       });
     } catch (err) {
       console.error('Error cargando estados de fichas:', err);
@@ -66,7 +65,6 @@ class InformacionComplementaria {
         data: this.mantenimientos,
         label: (i) => i.c_desc_mantenimiento,
         value: 'c_cod_mantenimiento',
-        defaultText: 'Seleccione',
       });
     } catch (err) {
       console.error('Error cargando mantenimientos:', err);

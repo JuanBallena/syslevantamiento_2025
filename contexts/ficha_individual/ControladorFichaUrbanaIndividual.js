@@ -64,7 +64,7 @@ class ControladorFichaUrbanaIndividual {
       firmas: window.firmas.getData(),
     };
 
-    // console.log(dataPost);
+    console.log(dataPost);
 
     const formData = new FormData();
     formData.append('dataPost', JSON.stringify(dataPost));
@@ -81,7 +81,7 @@ class ControladorFichaUrbanaIndividual {
       });
 
       const text = await response.text();
-      // console.log(text);
+      console.log(text);
 
       let result = JSON.parse(text);
       // console.log(result);
@@ -90,6 +90,7 @@ class ControladorFichaUrbanaIndividual {
 
       if (result.success) {
         // console.log('Éxito:');
+        alert('La información se ha guardado correctamente.');
       }
 
       if (result.error) {
@@ -122,6 +123,14 @@ class ControladorFichaUrbanaIndividual {
         alert(
           'Se generó un identificador existente para edifica, ingresar un valor diferente para edifica en la sección de datos generales.'
         );
+      case 'dni':
+        alert(
+          'Se generó un identificador existente para declarante, ingresar un valor diferente para el dni del declarante.'
+        );
+        return;
+        return;
+      case 'id_ficha':
+        alert('Se generó un identificador existente para la ficha');
         return;
       default:
         break;
