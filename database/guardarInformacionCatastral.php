@@ -178,7 +178,6 @@ try {
     ]);
   }
 
-
   $datosFichaIndividual = [
     "id_ficha" => $datosFicha['id_ficha'],
     "codi_uso" => $descripcionPredio['codi_uso'],
@@ -412,10 +411,14 @@ try {
       $datosPuertas = [];
       $idVia = $via['id_via'];
 
-      array_push($datosViasHUS, [
-        'id_hab_urba' => trim($ubicacionPredio['id_hab_urba']),
-        'id_via' => trim($idVia)
-      ]);
+      $registroBuscado = $viasHUSRepository->obtenerRegistro(trim($ubicacionPredio['id_hab_urba']), trim($idVia));
+
+      if (count($registroBuscado) === 0) {
+        $viasHUSReparray_push($datosViasHUS, [
+          'id_hab_urba' => trim($ubicacionPredio['id_hab_urba']),
+          'id_via' => trim($idVia)
+        ]);
+      }
 
       foreach ($via['puertas'] as $puerta) {
         $datosPuerta = [

@@ -32,6 +32,24 @@ class ViasHUSRepository
 
     return 1;
   }
+
+  public function obtenerRegistro($id_hab_urba, $id_via): array
+  {
+    $sql = "SELECT *
+            FROM tf_vias_hab_urba
+            WHERE id_hab_urba = $1 AND id_via = $2";
+
+    $params = [$id_hab_urba, $id_via];
+
+    $result = $this->db->queryParams($sql, $params);
+
+    if (pg_num_rows($result) > 0) {
+      return pg_fetch_assoc($result);
+    } else {
+      return [];
+    }
+  }
+
 }
 
 // require_once "./_DBPostgres.php";
