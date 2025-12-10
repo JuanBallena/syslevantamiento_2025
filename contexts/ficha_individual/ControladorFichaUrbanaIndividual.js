@@ -12,10 +12,9 @@ class ControladorFichaUrbanaIndividual {
     const valid = window.validadorGenerico.validateAll();
 
     if (!valid) {
-      //e.preventDefault();
       this.showGlobalError();
       this.scrollToFirstError();
-      // return;
+      return;
     }
 
     this.enviarFormulario();
@@ -69,19 +68,18 @@ class ControladorFichaUrbanaIndividual {
     const formData = new FormData();
     formData.append('dataPost', JSON.stringify(dataPost));
 
+    const response = await fetch('../../database/guardarInformacionCatastral.php', {
+      method: 'POST',
+      body: formData,
+    });
+
+    const text = await response.text();
+    console.log('Respuesta cruda del servidor:');
+    console.log(text);
+
     try {
-      const response = await fetch('../../database/guardarInformacionCatastral.php', {
-        method: 'POST',
-        body: formData,
-      });
-
-      const text = await response.text();
-      console.log(text);
-
       let result = JSON.parse(text);
-      console.log(result.data);
-
-      // this.obtenerMensajeErrorDuplicado(result.data);
+      console.log(result);
 
       if (result.success) {
         alert('La información se ha guardado correctamente.');

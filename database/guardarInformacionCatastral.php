@@ -1,9 +1,9 @@
 <?php
 
 // Desactivar errores en salida
-ini_set('display_errors', 0);
-ini_set('display_startup_errors', 0);
-error_reporting(0);
+// ini_set('display_errors', 0);
+// ini_set('display_startup_errors', 0);
+// error_reporting(0);
 
 // Limpiar buffer SOLO si existe
 // if (ob_get_length()) {
@@ -125,7 +125,7 @@ try {
   $edificacionRepository->guardarEdificacion($datosEdificacion);
 
   $datosUniCat = [
-    "id_uni_cat" => trim($datosGenerales['codi_edificacion'] . $datosGenerales['codi_entrada'] . $datosGenerales['codi_piso'] . $datosGenerales['codi_unidad']),
+    "id_uni_cat" => trim($datosEdificacion['id_edificacion'] . $datosGenerales['codi_entrada'] . $datosGenerales['codi_piso'] . $datosGenerales['codi_unidad']),
     "id_lote" => $datosLote['id_lote'],
     "id_edificacion" => $datosEdificacion['id_edificacion'],
     "codi_entrada" => $datosGenerales['codi_entrada'],
@@ -241,7 +241,7 @@ try {
 
       $personaBuscada = $personaRepository->obtenerPersonaPorNumeDoc($personaNatural['nume_doc']);
 
-      if (!$personaBuscada) {
+      if (count($personaBuscada) === 0) {
         $personaRepository->guardarPersona($datosPersonaNatural);
       }
 
@@ -313,7 +313,7 @@ try {
 
       $personaJuridicaBuscada = $personaRepository->obtenerPersonaPorNumeDoc($personaJuridica['ruc']);
 
-      if (!$personaJuridicaBuscada) {
+      if (count($personaJuridicaBuscada) === 0) {
         $personaRepository->guardarPersona($datosPersonaJuridica);
       }
 
@@ -381,11 +381,9 @@ try {
 
       $litiganteBuscado = $personaRepository->obtenerPersonaPorNumeDoc($litigante['nume_doc']);
 
-      if (!$litiganteBuscado) {
+      if (count($litiganteBuscado) === 0) {
         $personaRepository->guardarPersona($datosPersonaLitigante);
       }
-
-
 
       $datosLitigantes[] = [
         "id_ficha" => $datosFicha['id_ficha'],
@@ -590,8 +588,3 @@ function validarNumero($valor)
 {
   return !empty($valor) ? $valor : 0;
 }
-
-// if (isset($_FILES['archivos'])) {
-//   $archivos = $_FILES['archivos'];
-//   $archivosRepository->guardarArchivos($datosFicha['id_ficha'], $archivos);
-// }

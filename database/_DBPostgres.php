@@ -139,7 +139,7 @@ class DBPostgres
         //   "valor" => $valor
         // ];
 
-        createResponse(false, $mensaje, "Error en el sistema al insertar en la base de datos.");
+        createResponse(false, ['msg' => $mensaje], "Error en el sistema al insertar en la base de datos.");
         return null;
       }
 

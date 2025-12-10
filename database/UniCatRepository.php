@@ -9,7 +9,7 @@ class UniCatRepository
     $this->db = $dbInstance;
   }
 
-  public function guardarUniCat(array $data): int
+  public function guardarUniCat(array $data): string
   {
     $sql = "INSERT INTO tf_uni_cat (
       id_uni_cat,
