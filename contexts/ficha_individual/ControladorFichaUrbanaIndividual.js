@@ -12,7 +12,7 @@ class ControladorFichaUrbanaIndividual {
     const valid = window.validadorGenerico.validateAll();
 
     if (!valid) {
-      e.preventDefault();
+      //e.preventDefault();
       this.showGlobalError();
       this.scrollToFirstError();
       // return;

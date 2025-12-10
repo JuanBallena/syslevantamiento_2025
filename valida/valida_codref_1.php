@@ -9,14 +9,11 @@ include '../configuracion/constantes.php';
 $BaseDato=new BaseDeDato(SERVIDOR,PUERTO,BD,USUARIO,CLAVE);
 $BaseDato->conectar();
 
-$Consulta="SELECT id_ficha FROM tf_fichas 
-INNER JOIN colocar la tabla donde este  condicion de titular
-INNER Join colocar la tabla donde este estado civil 
-WHERE id_uni_cat='$v' AND tipo_ficha = '01' AND dc='$dc' AND  condicion de titular = '05' AND estado civil = '05'"; 
+$Consulta="SELECT id_ficha FROM tf_fichas WHERE id_uni_cat='$v' AND tipo_ficha = '01' AND dc='$dc'"; 
 //$Consulta="SELECT id_ficha FROM tf_fichas WHERE id_uni_cat='$v'"; 
 $Busqueda = $BaseDato->Consultas($Consulta);
 $registros=pg_num_rows($Busqueda);
-if($registros>0)//Si hay mï¿½s de un regstro
+if($registros>0)//Si hay más de un regstro
   {
   	if($registros==1)
 		$cantidad='1';
