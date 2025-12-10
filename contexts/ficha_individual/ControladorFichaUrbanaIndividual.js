@@ -15,7 +15,7 @@ class ControladorFichaUrbanaIndividual {
       e.preventDefault();
       this.showGlobalError();
       this.scrollToFirstError();
-      return;
+      // return;
     }
 
     this.enviarFormulario();
@@ -81,7 +81,7 @@ class ControladorFichaUrbanaIndividual {
       });
 
       const text = await response.text();
-      // console.log(text);
+      console.log(text);
 
       let result = JSON.parse(text);
       console.log(result.data);
