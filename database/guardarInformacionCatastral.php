@@ -125,7 +125,7 @@ try {
   $edificacionRepository->guardarEdificacion($datosEdificacion);
 
   $datosUniCat = [
-    "id_uni_cat" => trim($datosGenerales['codi_edificacion'] . $datosGenerales['codi_entrada'] . $datosGenerales['codi_piso'] . $datosGenerales['codi_unidad']),
+    "id_uni_cat" => trim($datosEdificacion['id_edificacion'] . $datosGenerales['codi_entrada'] . $datosGenerales['codi_piso'] . $datosGenerales['codi_unidad']),
     "id_lote" => $datosLote['id_lote'],
     "id_edificacion" => $datosEdificacion['id_edificacion'],
     "codi_entrada" => $datosGenerales['codi_entrada'],
