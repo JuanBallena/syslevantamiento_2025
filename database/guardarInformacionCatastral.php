@@ -239,7 +239,11 @@ try {
         "razon_social" => '',
       ];
 
-      $personaRepository->guardarPersona($datosPersonaNatural);
+      $personaBuscada = $personaRepository->obtenerPersonaPorNumeDoc($personaNatural['nume_doc']);
+
+      if (!$personaBuscada) {
+        $personaRepository->guardarPersona($datosPersonaNatural);
+      }
 
       $datosTitularNatural = [
         "id_ficha" => $datosFicha['id_ficha'],
@@ -307,7 +311,11 @@ try {
         "razon_social" => $personaJuridica['razon_social'],
       ];
 
-      $personaRepository->guardarPersona($datosPersonaJuridica);
+      $personaJuridicaBuscada = $personaRepository->obtenerPersonaPorNumeDoc($personaJuridica['ruc']);
+
+      if (!$personaJuridicaBuscada) {
+        $personaRepository->guardarPersona($datosPersonaJuridica);
+      }
 
       $datosTitularJuridico = [
         "id_ficha" => $datosFicha['id_ficha'],
@@ -371,7 +379,13 @@ try {
         "razon_social" => '',
       ];
 
-      $personaRepository->guardarPersona($datosPersonaLitigante);
+      $litiganteBuscado = $personaRepository->obtenerPersonaPorNumeDoc($litigante['nume_doc']);
+
+      if (!$litiganteBuscado) {
+        $personaRepository->guardarPersona($datosPersonaLitigante);
+      }
+
+
 
       $datosLitigantes[] = [
         "id_ficha" => $datosFicha['id_ficha'],

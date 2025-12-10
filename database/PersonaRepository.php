@@ -34,6 +34,18 @@ class PersonaRepository
 
     return $result['id_persona'];
   }
+
+  public function obtenerPersonaPorNumeDoc(string $nume_doc): ?array
+  {
+    $sql = "SELECT * FROM tf_personas WHERE nume_doc = $1";
+    $result = $this->db->queryParams($sql, [$nume_doc]);
+
+    if (pg_num_rows($result) > 0) {
+      return pg_fetch_assoc($result);
+    } else {
+      return null;
+    }
+  }
 }
 
 // require_once "./_DBPostgres.php";

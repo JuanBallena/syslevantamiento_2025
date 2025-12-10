@@ -69,11 +69,6 @@ class ControladorFichaUrbanaIndividual {
     const formData = new FormData();
     formData.append('dataPost', JSON.stringify(dataPost));
 
-    // const files = obtenerImagenesAdjuntas();
-    // for (const file of files) {
-    //   formData.append('archivos[]', file);
-    // }
-
     try {
       const response = await fetch('../../database/guardarInformacionCatastral.php', {
         method: 'POST',
@@ -86,7 +81,7 @@ class ControladorFichaUrbanaIndividual {
       let result = JSON.parse(text);
       console.log(result.data);
 
-      this.obtenerMensajeErrorDuplicado(result.data);
+      // this.obtenerMensajeErrorDuplicado(result.data);
 
       if (result.success) {
         alert('La información se ha guardado correctamente.');
@@ -124,7 +119,7 @@ class ControladorFichaUrbanaIndividual {
         );
       case 'dni':
         alert(
-          'Se generó un identificador existente para declarante, ingresar un valor diferente para el dni del declarante.'
+          'Se generó un identificador existente para declarante o persona, ingresar un valor diferente para el dni del declarante.'
         );
         return;
       case 'id_ficha':
