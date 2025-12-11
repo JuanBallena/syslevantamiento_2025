@@ -10,6 +10,13 @@ class InformacionComplementaria {
     this.templateLitigantes = document.querySelector('#filaTablaLitigantes');
 
     this.init();
+
+    document.addEventListener('click', function (e) {
+      if (e.target.classList.contains('eliminar-fila-info')) {
+        const fila = e.target.closest('tr');
+        if (fila) fila.remove();
+      }
+    });
   }
 
   async init() {

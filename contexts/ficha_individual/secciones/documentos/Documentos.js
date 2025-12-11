@@ -12,6 +12,13 @@ class Documentos {
 
     // Iniciar todo
     this.init();
+
+    document.addEventListener('click', function (e) {
+      if (e.target.classList.contains('eliminar-fila-documento')) {
+        const fila = e.target.closest('tr');
+        if (fila) fila.remove();
+      }
+    });
   }
 
   async init() {

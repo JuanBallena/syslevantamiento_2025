@@ -12,6 +12,13 @@ class ObrasComplementarias {
     this.tipoUcas = construccionesData.tipoUcas;
 
     this.init();
+
+    document.addEventListener('click', function (e) {
+      if (e.target.classList.contains('eliminar-fila-obra')) {
+        const fila = e.target.closest('tr');
+        if (fila) fila.remove();
+      }
+    });
   }
 
   async init() {

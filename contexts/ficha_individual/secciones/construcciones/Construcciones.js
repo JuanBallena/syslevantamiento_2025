@@ -21,6 +21,13 @@ class Construcciones {
     await this.cargarTipoUcas();
 
     document.querySelector('#btn-add-row').addEventListener('click', this.addRow.bind(this));
+
+    document.addEventListener('click', function (e) {
+      if (e.target.classList.contains('eliminar-fila-construccion')) {
+        const fila = e.target.closest('tr');
+        if (fila) fila.remove();
+      }
+    });
   }
 
   getTipoCategorias() {
