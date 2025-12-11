@@ -73,6 +73,8 @@
 
     <!-- SERVICES -->
     <script type="text/javascript" src="./../_services/BaseServicio.js"></script>
+    <script type="text/javascript" src="./../_services/ServicioLotes.js"></script>
+    <script type="text/javascript" src="./../_services/ServicioEdificaciones.js"></script>
     <script type="text/javascript" src="./../_services/ServicioFicha.js"></script>
     <script type="text/javascript" src="./../_services/ServicioSectores.js"></script>
     <script type="text/javascript" src="./../_services/ServicioManzanas.js"></script>

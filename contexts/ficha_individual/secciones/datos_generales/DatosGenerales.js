@@ -6,9 +6,12 @@ class DatosGenerales {
     this.hiddenSector = document.querySelector('[name="id_sector"]');
     this.inputNumeMzna = document.querySelector('input[name="nume_mzna"]');
     this.hiddenNumeMzna = document.querySelector('input[name="id_mzna"]');
+    this.inputLote = document.querySelector('input[name="codi_lote"]');
+    this.inputEdifica = document.querySelector('input[name="codi_edificacion"]');
 
     this.initAutocompleteSector();
     this.initAutocompleteManzana();
+    this.eventosLocales();
   }
 
   async initAutocompleteSector() {
@@ -35,12 +38,13 @@ class DatosGenerales {
       onSelect: async (item) => {
         await this.actualizarAutocompleteManzanas(item.id_sector);
 
-        // this.inputNumeMzna.disabled = false;
+        // this.validarCombinacion();
       },
       onInput: () => {
         this.inputNumeMzna.value = '';
         this.hiddenNumeMzna.value = '';
-        // this.inputNumeMzna.disabled = true;
+
+        // this.validarCombinacion();
       },
     });
   }
@@ -53,7 +57,10 @@ class DatosGenerales {
       label: (item) => `${item.codi_mzna}`,
       value: 'id_mzna',
       onSelect: (item) => {
-        //
+        // this.validarCombinacion();
+      },
+      onInput: () => {
+        // this.validarCombinacion();
       },
     });
   }
@@ -71,6 +78,53 @@ class DatosGenerales {
       }
     } catch (err) {
       console.error('Error al obtener manzanas:', err);
+    }
+  }
+
+  eventosLocales() {
+    this.inputLote.addEventListener('input', async () => {
+      await this.validarLote();
+    });
+
+    this.inputEdifica.addEventListener('input', async () => {
+      await this.validarEdifica();
+    });
+  }
+
+  async validarLote() {
+    const idMzna = this.hiddenNumeMzna.value.trim();
+    const lote = this.inputLote.value.trim();
+
+    if (idMzna && lote) {
+      try {
+        const res = await ServicioLotes.obtenerLotePorId(`${idMzna}${lote}`);
+
+        if (res && res.success) {
+          alert('Se encontró un lote existente, cambiar lote.');
+        }
+      } catch (err) {
+        console.error('Error al obtener lote:', err);
+      }
+    }
+  }
+
+  async validarEdifica() {
+    const idMzna = this.hiddenNumeMzna.value.trim();
+    const lote = this.inputLote.value.trim();
+    const edifica = this.inputEdifica.value.trim();
+
+    if (idMzna && lote && edifica) {
+      try {
+        const res = await ServicioEdificaciones.obtenerEdificacionPorId(
+          `${idMzna}${lote}${edifica}`
+        );
+
+        if (res && res.success) {
+          alert('Se encontró una edificación existente, cambiar edifica.');
+        }
+      } catch (err) {
+        console.error('Error al obtener edificacion:', err);
+      }
     }
   }
 

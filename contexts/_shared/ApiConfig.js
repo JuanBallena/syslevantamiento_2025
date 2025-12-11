@@ -31,4 +31,6 @@ window.ENDPOINTS = {
   obtenerDepartamentos: 'obtenerDepartamentos.php',
   obtenerProvinciasSegunCodiDep: 'obtenerProvinciasSegunCodiDep.php',
   obtenerDistritosSegunCodiPro: 'obtenerDistritosSegunCodiPro.php',
+  obtenerLotePorId: 'obtenerLotePorId.php',
+  obtenerEdificacionPorId: 'obtenerEdificacionPorId.php',
 };

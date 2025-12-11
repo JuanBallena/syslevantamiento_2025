@@ -38,6 +38,7 @@ require_once "./LinderosRepository.php";
 require_once "./InstalacionesRepository.php";
 require_once "./ConstruccionesRepository.php";
 require_once "./ArchivosRepository.php";
+require_once "./UbicacionRepository.php";
 
 try {
   if (!isset($_POST['dataPost'])) {
@@ -96,6 +97,7 @@ try {
   $instalacionesRepository = new InstalacionesRepository($db);
   $construccionesRepository = new ConstruccionesRepository($db);
   $archivosRepository = new ArchivosRepository($db);
+  $ubicacionRepository = new UbicacionRepository($db);
 
   $datosLote = [
     "id_lote" => trim($datosGenerales["id_mzna"] . $datosGenerales["codi_lote"]),
@@ -283,13 +285,38 @@ try {
       ];
 
       $domicilioTitularesRepository->guardarDomicilioTitularesMultiple([$datosDomicilioTitularNatural]);
+
+      $ubicacionRepository->guardarUbicacion([
+        "id_ficha" => $datosFicha['id_ficha'],
+        "ubicacion" => $domicilioTitular['tipo_ubicacion'],
+      ]);
     }
 
     // CONYUGE
     $conyugue = $identificacionTitular['conyugue'];
 
     if (count($identificacionTitular['conyugue']) > 0) {
-      //
+      $conyuge = $identificacionTitular['conyugue'][0];
+      $tipoPersonaNaturalPorDefecto = '1';
+
+      $datosConyugue = [
+        "id_persona" => trim($tipoPersonaNaturalPorDefecto . $conyuge['tipo_doc'] . $conyuge['nume_doc']),
+        "nume_doc" => $conyuge['nume_doc'],
+        "tipo_doc" => $conyuge['tipo_doc'],
+        "tipo_persona" => $tipoPersonaNaturalPorDefecto,
+        "nombres" => $conyuge['nombres'],
+        "ape_paterno" => $conyuge['ape_paterno'],
+        "ape_materno" => $conyuge['ape_materno'],
+        "tipo_persona_juridica" => '',
+        "tipo_funcion" => '',
+        "razon_social" => '',
+      ];
+
+      $conyugeBuscada = $personaRepository->obtenerPersonaPorNumeDoc($conyuge['nume_doc']);
+
+      if (count($conyugeBuscada) === 0) {
+        $personaRepository->guardarPersona($datosConyugue);
+      }
     }
 
     // PERSONA JURIDICA
@@ -355,6 +382,11 @@ try {
       ];
 
       $domicilioTitularesRepository->guardarDomicilioTitularesMultiple([$datosDomicilioTitularJuridico]);
+
+      $ubicacionRepository->guardarUbicacion([
+        "id_ficha" => $datosFicha['id_ficha'],
+        "ubicacion" => $datosFicha['tipo_ubicacion'],
+      ]);
     }
   }
 

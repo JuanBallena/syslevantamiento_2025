@@ -1,7 +1,6 @@
 class ControladorFichaUrbanaIndividual {
   constructor(formSelector) {
     this.form = document.querySelector(formSelector);
-    // this.validator = new ValidatorGenerico();
 
     this.form.addEventListener('submit', (e) => this.onSubmit(e));
   }
@@ -12,7 +11,7 @@ class ControladorFichaUrbanaIndividual {
     const valid = window.validadorGenerico.validateAll();
 
     if (!valid) {
-      this.showGlobalError();
+      // this.showGlobalError();
       this.scrollToFirstError();
       return;
     }
@@ -79,54 +78,54 @@ class ControladorFichaUrbanaIndividual {
 
     try {
       let result = JSON.parse(text);
-      console.log(result);
+      // console.log(result);
 
       if (result.success) {
         alert('La información se ha guardado correctamente.');
       }
 
       if (result.error) {
-        console.log('Error en el guardado:', result.error);
+        alert('Error en el guardado.');
       }
     } catch (err) {
-      console.log('Error de red o fetch:', err);
+      alert('Error general al momento de guardar.');
     }
   }
 
-  obtenerMensajeErrorDuplicado(errorData) {
-    if (!errorData || typeof errorData !== 'object') return null;
+  // obtenerMensajeErrorDuplicado(errorData) {
+  //   if (!errorData || typeof errorData !== 'object') return null;
 
-    const errorMsg = errorData.mensaje || '';
+  //   const errorMsg = errorData.mensaje || '';
 
-    const esDuplicado = errorMsg.includes('llave duplicada') || errorMsg.includes('duplicate key');
+  //   const esDuplicado = errorMsg.includes('llave duplicada') || errorMsg.includes('duplicate key');
 
-    if (!esDuplicado) return null;
+  //   if (!esDuplicado) return null;
 
-    const campo = errorData.campo || 'campo desconocido';
-    // const valor = errorData.valor || '';
+  //   const campo = errorData.campo || 'campo desconocido';
+  //   // const valor = errorData.valor || '';
 
-    switch (campo) {
-      case 'id_lote':
-        alert(
-          'Se generó un identificador existente para lote, ingresar un valor diferente para lote en la sección de datos generales.'
-        );
-        return;
-      case 'id_uni_cat':
-        alert(
-          'Se generó un identificador existente para edifica, ingresar un valor diferente para edifica en la sección de datos generales.'
-        );
-      case 'dni':
-        alert(
-          'Se generó un identificador existente para declarante o persona, ingresar un valor diferente para el dni del declarante.'
-        );
-        return;
-      case 'id_ficha':
-        alert('Se generó un identificador existente para la ficha');
-        return;
-      default:
-        alert('Se generó un identificador existente al momento de guardar la información.');
-    }
-  }
+  //   switch (campo) {
+  //     case 'id_lote':
+  //       alert(
+  //         'Se generó un identificador existente para lote, ingresar un valor diferente para lote en la sección de datos generales.'
+  //       );
+  //       return;
+  //     case 'id_uni_cat':
+  //       alert(
+  //         'Se generó un identificador existente para edifica, ingresar un valor diferente para edifica en la sección de datos generales.'
+  //       );
+  //     case 'dni':
+  //       alert(
+  //         'Se generó un identificador existente para declarante o persona, ingresar un valor diferente para el dni del declarante.'
+  //       );
+  //       return;
+  //     case 'id_ficha':
+  //       alert('Se generó un identificador existente para la ficha, c');
+  //       return;
+  //     default:
+  //       alert('Se generó un identificador existente al momento de guardar la información.');
+  //   }
+  // }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
