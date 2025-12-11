@@ -113,7 +113,11 @@ try {
     "zona_dist" => "",
   ];
 
-  $loteRepository->guardarLote($datosLote);
+  $lotesBuscados = $loteRepository->obtenerLotePorId($datosLote['id_lote']);
+
+  if (count($lotesBuscados) === 0) {
+    $loteRepository->guardarLote($datosLote);
+  }
 
   $datosEdificacion = [
     "id_edificacion" => trim($datosLote['id_lote'] . $datosGenerales['codi_edificacion']),
@@ -124,7 +128,11 @@ try {
     "clasificacion" => '',
   ];
 
-  $edificacionRepository->guardarEdificacion($datosEdificacion);
+  $edificacionesBuscadas = $edificacionRepository->obtenerEdificacionPorId($datosEdificacion['id_edificacion']);
+
+  if (count($edificacionesBuscadas) === 0) {
+    $edificacionRepository->guardarEdificacion($datosEdificacion);
+  }
 
   $datosUniCat = [
     "id_uni_cat" => trim($datosEdificacion['id_edificacion'] . $datosGenerales['codi_entrada'] . $datosGenerales['codi_piso'] . $datosGenerales['codi_unidad']),
@@ -143,7 +151,11 @@ try {
     "codi_cont_rentas" => $datosGenerales['codi_cont_rentas'],
   ];
 
-  $uniCatRepository->guardarUniCat($datosUniCat);
+  $uniCatBuscados = $uniCatRepository->obtenerUniCatPorId($datosUniCat['id_uni_cat']);
+
+  if (count($uniCatBuscados) === 0) {
+    $uniCatRepository->guardarUniCat($datosUniCat);
+  }
 
   $datosFicha = [
     "id_ficha" => trim($anioActual . $codiUbigeo . $cabecera['tipo_ficha'] . $cabecera['nume_ficha']),
@@ -188,10 +200,10 @@ try {
     "area_titulo" => validarNumero($descripcionPredio['area_titulo']),
     "area_declarada" => 0,
     "area_verificada" => validarNumero($descripcionPredio['area_verificada']),
-    "porc_bc_terr_legal" => 0,
-    "porc_bc_terr_fisc" => 0,
-    "porc_bc_const_legal" => 0,
-    "porc_bc_const_fisc" => 0,
+    "porc_bc_terr_legal" => 0.0,
+    "porc_bc_terr_fisc" => 0.0,
+    "porc_bc_const_legal" => 0.0,
+    "porc_bc_const_fisc" => 0.0,
     "evaluacion" => '',
     "en_colindante" => validarNumero($evaluacionPredio['en_colindante']),
     "en_jardin_aislamiento" => validarNumero($evaluacionPredio['en_jardin_aislamiento']),
@@ -251,7 +263,7 @@ try {
         "id_persona" => $datosPersonaNatural['id_persona'],
         "form_adquisicion" => $caracteristicasTitularidad['form_adquisicion'],
         "fecha_adquisicion" => validarFecha($caracteristicasTitularidad['fecha_adquisicion']),
-        "porc_cotitular" => '0.0',
+        "porc_cotitular" => 0.0,
         "esta_civil" => $personaNatural['esta_civil'],
         "fax" => '',
         "telf" => $domicilioTitular['telefono'],
@@ -348,7 +360,7 @@ try {
         "id_persona" => $datosPersonaJuridica['id_persona'],
         "form_adquisicion" => $caracteristicasTitularidad['form_adquisicion'],
         "fecha_adquisicion" => validarFecha($caracteristicasTitularidad['fecha_adquisicion']),
-        "porc_cotitular" => '0.0',
+        "porc_cotitular" => 0.0,
         "esta_civil" => '',
         "fax" => '',
         "telf" => $domicilioTitular['telefono'],
@@ -385,7 +397,7 @@ try {
 
       $ubicacionRepository->guardarUbicacion([
         "id_ficha" => $datosFicha['id_ficha'],
-        "ubicacion" => $datosFicha['tipo_ubicacion'],
+        "ubicacion" => $domicilioTitular['tipo_ubicacion'],
       ]);
     }
   }
@@ -446,7 +458,7 @@ try {
       $registroBuscado = $viasHUSRepository->obtenerRegistro(trim($ubicacionPredio['id_hab_urba']), trim($idVia));
 
       if (count($registroBuscado) === 0) {
-        $viasHUSReparray_push($datosViasHUS, [
+        array_push($datosViasHUS, [
           'id_hab_urba' => trim($ubicacionPredio['id_hab_urba']),
           'id_via' => trim($idVia)
         ]);

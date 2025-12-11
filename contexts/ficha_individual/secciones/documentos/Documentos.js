@@ -81,6 +81,8 @@ class Documentos {
     // Obtener la fila recién agregada
     const newRow = this.tbody.lastElementChild;
 
+    window.validadorGenerico.registerInputs(newRow);
+
     // Obtener selects por name
     const selectTipoDocumento = newRow.querySelector('select[name="tipo_doc"]');
 

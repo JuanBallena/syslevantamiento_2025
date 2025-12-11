@@ -28,6 +28,18 @@ class LoteRepository
       return false;
     }
   }
+
+  public function obtenerLotePorId(string $idLote): array
+  {
+    $sql = "SELECT * FROM tf_lotes WHERE id_lote = $1";
+    $result = $this->db->queryParams($sql, [$idLote]);
+
+    if (pg_num_rows($result) > 0) {
+      return pg_fetch_assoc($result);
+    } else {
+      return [];
+    }
+  }
 }
 /**
  * Obtener un lote por su ID.

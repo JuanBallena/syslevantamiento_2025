@@ -39,24 +39,47 @@
   <div class="grid grid-cols-5 gap-1">
     <div>
       <label>En lote colindante</label>
-      <input class="a-input-text" type="number" name="en_colindante" placeholder="Escriba" />
+      <input
+        class="a-input-text"
+        type="number"
+        step="0.01"
+        name="en_colindante"
+        placeholder="Escriba"
+        data-validate="decimals:2"
+      />
     </div>
     <div>
       <label>En área pública</label>
-      <input class="a-input-text" type="number" name="en_area_publica" placeholder="Escriba" />
+      <input
+        class="a-input-text"
+        type="number"
+        step="0.01"
+        name="en_area_publica"
+        placeholder="Escriba"
+        data-validate="decimals:2"
+      />
     </div>
     <div>
       <label>En jardín de aislamiento</label>
       <input
         class="a-input-text"
         type="number"
+        step="0.01"
         name="en_jardin_aislamiento"
         placeholder="Escriba"
+        data-validate="decimals:2"
       />
     </div>
     <div>
       <label>En área intangible</label>
-      <input class="a-input-text" type="number" name="en_area_intangible" placeholder="Escriba" />
+      <input
+        class="a-input-text"
+        type="number"
+        step="0.01"
+        name="en_area_intangible"
+        placeholder="Escriba"
+        data-validate="decimals:2"
+      />
     </div>
   </div>
 </div>

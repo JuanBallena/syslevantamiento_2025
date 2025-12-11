@@ -40,6 +40,18 @@ class UniCatRepository
 
     return $result['id_uni_cat'];
   }
+
+  public function obtenerUniCatPorId(string $idUniCat): array
+  {
+    $sql = "SELECT * FROM tf_uni_cat WHERE id_uni_cat = $1";
+    $result = $this->db->queryParams($sql, [$idUniCat]);
+
+    if (pg_num_rows($result) > 0) {
+      return pg_fetch_assoc($result);
+    } else {
+      return [];
+    }
+  }
 }
 
 // require_once "./_DBPostgres.php";

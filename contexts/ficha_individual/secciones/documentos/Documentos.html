@@ -28,7 +28,14 @@
         <input class="a-input-text" name="fecha_doc" type="date" />
       </td>
       <td>
-        <input class="a-input-text" type="number" name="area_autorizada" placeholder="Escriba" />
+        <input
+          class="a-input-text"
+          type="number"
+          step="0.01"
+          name="area_autorizada"
+          data-validate="decimals:2"
+          placeholder="Escriba"
+        />
       </td>
       <td>
         <button class="a-btn btn-danger btn-sm eliminar-fila-documento" type="button">X</button>

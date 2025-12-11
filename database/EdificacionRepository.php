@@ -29,6 +29,18 @@ class EdificacionRepository
 
     return $result['id_edificacion'];
   }
+
+  public function obtenerEdificacionPorId(string $idEdificacion): array
+  {
+    $sql = "SELECT * FROM tf_edificaciones WHERE id_edificacion = $1";
+    $result = $this->db->queryParams($sql, [$idEdificacion]);
+
+    if (pg_num_rows($result) > 0) {
+      return pg_fetch_assoc($result);
+    } else {
+      return [];
+    }
+  }
 }
 
 // require_once "./_DBPostgres.php";

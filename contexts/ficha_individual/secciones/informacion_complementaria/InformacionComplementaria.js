@@ -91,6 +91,8 @@ class InformacionComplementaria {
     // Obtener la fila recién agregada
     const newRow = this.tbodyLitigantes.lastElementChild;
 
+    window.validadorGenerico.registerInputs(newRow);
+
     const selectTipoDocumento = newRow.querySelector('[name="tipo_doc"]');
 
     new SelectDinamico({

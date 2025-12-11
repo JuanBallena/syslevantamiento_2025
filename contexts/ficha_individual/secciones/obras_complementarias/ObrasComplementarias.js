@@ -54,6 +54,8 @@ class ObrasComplementarias {
 
     const newRow = this.tbody.lastElementChild;
 
+    window.validadorGenerico.registerInputs(newRow);
+
     const selectCodigoInst = newRow.querySelector('select[name="codi_instalacion"]');
     const descCodigoInst = newRow.querySelector('input[name="desc"]');
     const selectMEP = newRow.querySelector('select[name="mep"]');

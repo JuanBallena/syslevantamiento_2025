@@ -63,6 +63,10 @@
   }
 }
 
+/* .a-input-text::placeholder {
+  text-transform: none;
+} */
+
 .a-input-text {
   border: 1px solid #ccc;
   font-style: normal;
@@ -71,6 +75,7 @@
   padding: 0.8em 1em;
   width: 100%;
   font-weight: 500;
+  text-transform: uppercase;
 }
 .a-input-text::placeholder {
   font-weight: 500;

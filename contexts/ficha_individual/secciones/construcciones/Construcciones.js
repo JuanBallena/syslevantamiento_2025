@@ -119,6 +119,8 @@ class Construcciones {
     // Obtener la fila recién agregada
     const newRow = this.tbody.lastElementChild;
 
+    window.validadorGenerico.registerInputs(newRow);
+
     // Obtener selects por name
     const selectMEP = newRow.querySelector('select[name="mep"]');
     const selectECS = newRow.querySelector('select[name="ecs"]');

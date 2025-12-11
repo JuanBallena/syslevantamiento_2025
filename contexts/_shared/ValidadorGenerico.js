@@ -14,6 +14,13 @@ class ValidatorGenerico {
         }
         return true; // siempre retorna true, no es un error
       },
+      decimals: (value, n) => {
+        if (value === '') return true;
+
+        // Parte entera obligatoria, decimales de 1 a n (n=2)
+        const regex = new RegExp(`^\\d+(\\.\\d{1,${n}})?$`);
+        return regex.test(value);
+      },
     };
 
     this.messages = {
@@ -23,6 +30,7 @@ class ValidatorGenerico {
       min: (n) => `Debe tener al menos ${n} caracteres`,
       max: (n) => `Debe tener máximo ${n} caracteres`,
       pad: () => '',
+      decimals: (n) => `Debe tener 1 o 2 decimales como máximo`,
     };
 
     this.init();
