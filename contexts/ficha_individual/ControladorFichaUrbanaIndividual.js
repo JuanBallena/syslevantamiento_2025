@@ -82,6 +82,8 @@ class ControladorFichaUrbanaIndividual {
 
       if (result.success) {
         alert('La información se ha guardado correctamente.');
+
+        localStorage.clear();
       }
 
       if (result.error) {
